@@ -7,7 +7,7 @@ public class Start {
         // TODO Auto-generated method stub
         System.out.println("hello world");
         int x = 3;
-        
+        int a = 5;
     }
 
 }
