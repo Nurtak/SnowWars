@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Renderer extends JPanel implements ActionListener {
-
+    
+    private static final long serialVersionUID = -2451769054525194135L;
+    
     private Timer timer = new Timer(1, this);
     private int counter = 0;
 
