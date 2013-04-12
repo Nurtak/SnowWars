@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.view;
+package ch.hsr.se2p.snowwars.view.game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
