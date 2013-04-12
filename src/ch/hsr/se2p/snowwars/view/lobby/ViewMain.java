@@ -12,19 +12,22 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.CardLayout;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
 
 public class ViewMain extends JFrame{
 	private final static Logger logger = Logger.getLogger(ViewMain.class.getPackage().getName());
 
 	private static final long serialVersionUID = 7390513127049817797L;
 
-	private final RunSnowWarsClient swc;
+	//private final RunSnowWarsClient swc;
 
 	private JPanel contentPanel;
 	private CardLayout cardLayout;
 	
 	public ViewMain(RunSnowWarsClient swc){
-		this.swc = swc;
+		//this.swc = swc;
 	
 		createFrame();
 		createLogoPanel();
@@ -40,6 +43,7 @@ public class ViewMain extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		logger.info("Displaying ViewMain...");
 		setTitle("Snow Wars");
+		createKeyBindings();
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{124, 0};
@@ -53,6 +57,7 @@ public class ViewMain extends JFrame{
 		ImageIcon snowWarsLogo = new ImageIcon("img/logo.png");
 		
 		JPanel logoPanel = new JPanel();
+		logoPanel.setBorder(null);
 		GridBagConstraints gbc_logoPanel = new GridBagConstraints();
 		gbc_logoPanel.anchor = GridBagConstraints.NORTH;
 		gbc_logoPanel.fill = GridBagConstraints.HORIZONTAL;
@@ -77,18 +82,43 @@ public class ViewMain extends JFrame{
 		cardLayout = new CardLayout();
 		contentPanel.setLayout(cardLayout);
 		
-		JPanel mainPanel = new MainPanel(this);
-		JPanel userPanel = new UserPanel(this);
+		JPanel mainPanel = new PanelMain(this);
+		JPanel userPanel = new PanelUser(this);
+		JPanel  lobbyPanel = new PanelLobby(this);
 		
       contentPanel.add(mainPanel, "mainPanel");
       contentPanel.add(userPanel, "userPanel");
+      contentPanel.add(lobbyPanel, "lobbyPanel");
+	}
+	
+	private void createKeyBindings(){
+		KeyboardFocusManager kfm = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+		kfm.addKeyEventDispatcher(new KeyEventDispatcher() {
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent e) {
+				switch (e.getID()) {
+				case KeyEvent.KEY_PRESSED:
+					if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+						nextCard();
+					} else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+						previousCard();
+					}
+					break;
+				}
+				return false;
+			}
+		});
 	}
 	
 	public void nextCard(){
 		cardLayout.next(contentPanel);
 	}
 	
+	public void previousCard(){
+		cardLayout.previous(contentPanel);
+	}
+	
 	public void exit(){
-		this.exit();
+		System.exit(0);
 	}
 }
