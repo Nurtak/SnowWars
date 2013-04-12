@@ -8,6 +8,6 @@ public class RunSnowWarsServer {
 	public RunSnowWarsServer() {}
 	
 	public void startProgram(){
-		logger.info("Starting SnowWarsServer");
+		logger.info("Starting SnowWars-Server");
 	}
 }
