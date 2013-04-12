@@ -9,17 +9,17 @@ import javax.swing.JPanel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-public class MainPanel extends JPanel{
+public class UserPanel extends JPanel{
 	private static final long serialVersionUID = -4628393851839832247L;
 
 	private final ViewMain vm;
 	
-	public MainPanel(final ViewMain vm){
+	public UserPanel(final ViewMain vm){
 		this.vm = vm;
-		createMainPanel();
+		createUserPanel();
 	}
 	
-	private void createMainPanel(){
+	private void createUserPanel(){
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
