@@ -20,12 +20,14 @@ public class SnowWarsClient {
 		logger.info("Starting SnowWars-Client");
 		
 		try {
-			new RunRMIClient(this).connect();
+			RunRMIClient rmiClient = new RunRMIClient(this);
+			rmiClient.connect();
+			rmiClient.joinSnowWar();
 		} catch (SnowWarsRMIException e) {
 			e.printStackTrace();
 		}
 		
-		new ViewMain(this);
+		//new ViewMain(this);
 	}
 	
 	public SnowWarsConfig getClientConfig(){
