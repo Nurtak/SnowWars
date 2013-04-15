@@ -1,5 +1,7 @@
 package ch.hsr.se2p.snowwars.network.server;
 
-public interface RMIServerInterface {
+import java.rmi.RemoteException;
 
+public interface RMIServerInterface {
+	public boolean joinGame() throws RemoteException;
 }

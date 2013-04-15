@@ -5,7 +5,10 @@ public class ConfigLoader {
 	
 	public ClientConfig loadClientConfig(){
 		ClientConfig clientConfig = new ClientConfig();
-		clientConfig.setServerHostname("asdf");
+		clientConfig.setServerHostname("sinv-56080.edu.hsr.ch");
+		clientConfig.setServerRMILookupName("SnowWarsServer");
+		clientConfig.setRmiRegistryPort(1099);
+		clientConfig.setRmiRemotePort(1098);
 		return clientConfig;
 	}
 	
