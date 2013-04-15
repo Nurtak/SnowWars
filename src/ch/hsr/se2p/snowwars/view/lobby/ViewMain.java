@@ -28,7 +28,8 @@ public class ViewMain extends JFrame{
 	
 	public ViewMain(SnowWarsClient swc){
 		//this.swc = swc;
-	
+		logger.info("Starting GUI...");
+		
 		createFrame();
 		createLogoPanel();
 		createContentPanel();

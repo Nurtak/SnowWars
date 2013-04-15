@@ -1,6 +1,6 @@
 package ch.hsr.se2p.snowwars.config;
 
-public class ClientConfig {
+public class SnowWarsConfig {
 
 	private String serverHostname;
 	private String serverRMILookupName;
