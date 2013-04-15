@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClient;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
+import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.server.RMIServerInterface;
 
@@ -46,6 +47,26 @@ public class RunRMIClient {
 			if(server.registerClient(clientStub)){
 				logger.info("Successfully registered Client on Server");
 			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void leaveSnowWar(){
+		logger.info("Leaving SnowWar Distributor-Channel...");
+		try{
+			if(server.deregisterClient(clientStub)){
+				logger.info("Successfully deregistered Client on Server");
+			}
+		} catch (RemoteException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void throwShot(Shot shot){
+		logger.info("Throwing Shot to Server: " + shot.toString());
+		try {
+			server.shotThrowed(shot);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

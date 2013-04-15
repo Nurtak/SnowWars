@@ -15,15 +15,16 @@ public class RMIServer implements RMIServerInterface{
 	
 	@Override
 	public boolean registerClient(RMIClientInterface client) throws RemoteException {
-		logger.info("Registering client...");
+		int activeClientCount = clientList.size()+1;
+		logger.info("New Client registered! Active Client-count: " + activeClientCount);
 		clientList.add(client);
 		return true;
 	}
 
 	@Override
 	public boolean deregisterClient(RMIClientInterface client) throws RemoteException {
-		logger.info("Deregistering client...");
 		clientList.remove(client);
+		logger.info("Client deregistered.");
 		return true;
 	}
 

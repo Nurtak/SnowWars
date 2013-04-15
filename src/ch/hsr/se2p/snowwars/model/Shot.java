@@ -1,6 +1,10 @@
 package ch.hsr.se2p.snowwars.model;
 
-public class Shot {
+import java.io.Serializable;
+
+public class Shot implements Serializable{
+	private static final long serialVersionUID = 1528366581031974029L;
+	
 	private final int angle;
 	private final int strength;
 	private final int weight;
