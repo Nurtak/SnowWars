@@ -15,9 +15,9 @@ public class Run {
 	public static void main(String[] args) {
 		installLogger();
 		if (args.length != 0 && "-server".equalsIgnoreCase(args[0])) {
-			new RunSnowWarsServer().startProgram();
+			new SnowWarsServer().startProgram();
 		} else {
-			new RunSnowWarsClient().startProgram();
+			new SnowWarsClient().startProgram();
 		}
 	}
 

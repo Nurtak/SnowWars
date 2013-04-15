@@ -6,13 +6,13 @@ import ch.hsr.se2p.snowwars.config.ClientConfig;
 import ch.hsr.se2p.snowwars.config.ConfigLoader;
 import ch.hsr.se2p.snowwars.view.lobby.ViewMain;
 
-public class RunSnowWarsClient {
+public class SnowWarsClient {
 
-	private final static Logger logger = Logger.getLogger(RunSnowWarsClient.class.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(SnowWarsClient.class.getPackage().getName());
 
 	private ClientConfig clientConfig;
 	
-	public RunSnowWarsClient() {}
+	public SnowWarsClient() {}
 	
 	public void startProgram(){
 		logger.info("Starting SnowWars-Client");

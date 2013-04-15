@@ -5,12 +5,12 @@ import org.apache.log4j.Logger;
 import ch.hsr.se2p.snowwars.config.ConfigLoader;
 import ch.hsr.se2p.snowwars.config.ServerConfig;
 
-public class RunSnowWarsServer {
-	private final static Logger logger = Logger.getLogger(RunSnowWarsServer.class.getPackage().getName());
+public class SnowWarsServer {
+	private final static Logger logger = Logger.getLogger(SnowWarsServer.class.getPackage().getName());
 
 	private ServerConfig serverConfig;
 	
-	public RunSnowWarsServer() {}
+	public SnowWarsServer() {}
 	
 	public void startProgram(){
 		logger.info("Starting SnowWars-Server");

@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.application.RunSnowWarsClient;
+import ch.hsr.se2p.snowwars.application.SnowWarsClient;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -26,7 +26,7 @@ public class ViewMain extends JFrame{
 	private JPanel contentPanel;
 	private CardLayout cardLayout;
 	
-	public ViewMain(RunSnowWarsClient swc){
+	public ViewMain(SnowWarsClient swc){
 		//this.swc = swc;
 	
 		createFrame();

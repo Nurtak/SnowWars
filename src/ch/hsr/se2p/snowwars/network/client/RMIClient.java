@@ -3,7 +3,7 @@ package ch.hsr.se2p.snowwars.network.client;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import ch.hsr.se2p.snowwars.application.RunSnowWarsClient;
+import ch.hsr.se2p.snowwars.application.SnowWarsClient;
 import ch.hsr.se2p.snowwars.config.ClientConfig;
 import ch.hsr.se2p.snowwars.network.server.RMIServerInterface;
 
@@ -11,7 +11,7 @@ public class RMIClient {
 
 	private final ClientConfig clientConfig;
 
-	public RMIClient(RunSnowWarsClient snowWarsClient) {
+	public RMIClient(SnowWarsClient snowWarsClient) {
 		this.clientConfig = snowWarsClient.getClientConfig();
 	}
 
