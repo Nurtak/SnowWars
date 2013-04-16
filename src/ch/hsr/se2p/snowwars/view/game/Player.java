@@ -1,36 +1,34 @@
 package ch.hsr.se2p.snowwars.view.game;
 
 import java.awt.Image;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
 public class Player {
 
-	private String player = "/img/viking.png";
+	private final static String PLAYER_ICON_PATH = "img/viking.png";
 
-	private int dx;
-	private int dy;
+	protected final static int PLAYER_LEFT_POSITION_X = 40;
+	protected final static int PLAYER_LEFT_POSITION_Y = 300;
+	
 	private int x;
 	private int y;
-	private Image image;
+	
+	private Image playerImage;
 
 	private ArrayList<Snowball> snowballs;
 
 	public Player() {
-		ImageIcon ii = new ImageIcon(player);
-		image = ii.getImage();
+		ImageIcon playerIcon = new ImageIcon(PLAYER_ICON_PATH);
+		playerImage = playerIcon.getImage();
 		snowballs = new ArrayList<Snowball>();
-
-		x = 40;
-		y = 300;
+		
+		this.x = PLAYER_LEFT_POSITION_X;
+		this.y = PLAYER_LEFT_POSITION_Y;
 	}
 
-	public void move() {
-		x += dx;
-		y += dy;
-	}
+	public void move() {}
 
 	public int getX() {
 		return x;
@@ -41,22 +39,14 @@ public class Player {
 	}
 
 	public Image getImage() {
-		return image;
+		return playerImage;
 	}
 
 	public ArrayList<Snowball> getSnowballs() {
 		return snowballs;
 	}
 
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-
-		if (key == KeyEvent.VK_SPACE) {
-		}
+	public void fire(Snowball snowBall) {
+		snowballs.add(snowBall);
 	}
-
-	public void fire(Snowball sn) {
-		snowballs.add(sn);
-	}
-
 }

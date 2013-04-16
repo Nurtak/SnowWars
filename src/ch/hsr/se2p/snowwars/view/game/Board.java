@@ -5,11 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -19,81 +18,71 @@ import javax.swing.Timer;
 
 public class Board extends JPanel implements ActionListener, MouseListener {
 	private static final long serialVersionUID = -487520520612533276L;
+
+	private final static int TIMER_REDRAW_INTERVAL = 10;
+	private final static String BACKGROUND_IMAGE_PATH = "img/background.jpg";
+	
+	protected final static int GROUND_LEVEL_Y = 400;
+	
+	protected final static int FORCE_REDUCE_FACTOR = 25;
+	private final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
+	protected final static double GRAVITATION = 9.81/70;
+	
+	private BufferedImage backgroundImage;
+
 	private Timer timer;
+
 	private Player player;
 
 	private boolean mousePre;
 	private int mousePreX;
 	private int mousePreY;
-	private BufferedImage background;
 
 	public Board() {
-		addKeyListener(new TAdapter());
 		addMouseListener(this);
 		setFocusable(true);
-		// setBackground(new ImageIcon("background.jpg"));
 		setDoubleBuffered(true);
 
 		player = new Player();
 
-		timer = new Timer(10, this);
+		timer = new Timer(TIMER_REDRAW_INTERVAL, this);
 		timer.start();
-
 	}
 
-	public void paint(Graphics g) {
-		super.paint(g);
+	public void paint(Graphics graphics) {
+		super.paint(graphics);
 
-		Graphics2D g2d = (Graphics2D) g;
+		Graphics2D graphics2d = (Graphics2D) graphics;
 		try {
-			background = ImageIO.read(this.getClass().getResource("img/background.jpg"));
-			g2d.drawImage(background, 0, 0, null);
+			backgroundImage = ImageIO.read(new File(BACKGROUND_IMAGE_PATH));
+			graphics2d.drawImage(backgroundImage, 0, 0, null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
+		graphics2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 
 		ArrayList<Snowball> snowballs = player.getSnowballs();
-
-		for (int i = 0; i < snowballs.size(); i++) {
-			Snowball s = (Snowball) snowballs.get(i);
-			g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
+		for (Snowball s : snowballs) {
+			graphics2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
 		}
 
 		Toolkit.getDefaultToolkit().sync();
-		g.dispose();
+		graphics.dispose();
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		ArrayList<Snowball> snowballs = player.getSnowballs();
 
-		for (int i = 0; i < snowballs.size(); i++) {
-			Snowball s = (Snowball) snowballs.get(i);
-			if (s.isVisible())
+		for (Snowball s : snowballs) {
+			if (s.isVisible()) {
 				s.move();
+			}
+
 			repaint();
 		}
 
 		player.move();
 		repaint();
-	}
-
-	private class TAdapter extends KeyAdapter {
-		public void keyPressed(KeyEvent e) {
-			player.keyPressed(e);
-		}
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
 	}
 
 	@Override
@@ -109,17 +98,25 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 			int x = (int) (this.mousePreX - arg0.getPoint().getX());
 			int y = (int) (arg0.getPoint().getY() - this.mousePreY);
 
-			// double relation = y / x;
 			int angle = (int) Math.toDegrees(Math.atan2(y, x));
 			int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-			strength = strength / 3;
+			strength = strength / FORCE_REDUCE_FACTOR_STRENGTH;
 
-			System.out.println("angle: " + angle + ", strength: " + strength);
-
-			System.out.println("x: " + x + ", y: " + y);
 			mousePre = false;
-			Snowball sn = new Snowball(110, 350, angle, strength);
+			Snowball sn = new Snowball(angle, strength);
 			player.fire(sn);
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
 	}
 }

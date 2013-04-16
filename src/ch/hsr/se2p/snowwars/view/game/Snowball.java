@@ -1,4 +1,5 @@
 package ch.hsr.se2p.snowwars.view.game;
+
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -6,32 +7,31 @@ import javax.swing.ImageIcon;
 public class Snowball {
 
 	private int x, y;
-	private Image image;
+	private double dy, dx;
+	private Image snowballImage;
 	boolean visible;
-	private final int BOARD_WIDTH = 1000;
-	private double vy, vx;
 
-	public Snowball(int x, int y, int angle, int strength) {
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("img/snowflake.png"));
-		image = ii.getImage();
+
+	public Snowball(int angle, int strength) {
+		ImageIcon ii = new ImageIcon("img/snowflake.png");
+		snowballImage = ii.getImage();
 		visible = true;
-		this.x = x;
-		this.y = y;
+		
+		this.x = Player.PLAYER_LEFT_POSITION_X+50;
+		this.y = Player.PLAYER_LEFT_POSITION_Y+50;
 
 		double vySin = Math.sin(Math.toRadians(angle));
 		double vxCos = Math.cos(Math.toRadians(angle));
 
-		this.vy = (int) (vySin * strength) * -1;
-		this.vx = (int) (vxCos * strength);
+		this.dy = (int) (vySin * strength) * -1;
+		this.dx = (int) (vxCos * strength);
 
-		this.vy = this.vy / 20;
-		this.vx = this.vx / 20;
-
-		System.out.println("vx: " + this.vx + ", vy: " + this.vy);
+		this.dy = this.dy / Board.FORCE_REDUCE_FACTOR;
+		this.dx = this.dx / Board.FORCE_REDUCE_FACTOR;
 	}
 
 	public Image getImage() {
-		return image;
+		return snowballImage;
 	}
 
 	public int getX() {
@@ -47,19 +47,13 @@ public class Snowball {
 	}
 
 	public void move() {
-		this.vy += (9.81 / 70);
+		this.dy += Board.GRAVITATION;
 
-		System.out.println("previous x: " + this.x + ", previous y: " + this.y);
+		this.x = (int) ((int) this.x + this.dx);
+		this.y = (int) ((int) this.y + this.dy);
 
-		this.x = (int) ((int) this.x + this.vx);
-		this.y = (int) ((int) this.y + this.vy);
-
-		System.out.println("now x: " + this.x + ", now y: " + this.y);
-		System.out.println("----------------------------------------");
-
-		if (x > BOARD_WIDTH || y > 400) {
+		if (x > ViewGame.GAME_WIDTH || y > Board.GROUND_LEVEL_Y) {
 			visible = false;
 		}
-
 	}
 }
