@@ -28,7 +28,7 @@ public class RunRMIClient {
 
 	public void connect() throws SnowWarsRMIException {
 		try {
-			Registry serverRegistry = LocateRegistry.getRegistry(snowWarsConfig.getServerHostname(), snowWarsConfig.getRmiRegistryPort());
+			Registry serverRegistry = LocateRegistry.getRegistry(snowWarsConfig.getHostname(), snowWarsConfig.getRmiRegistryPort());
 
 			RMIClientInterface client = new RMIClient();
 			clientStub = (RMIClientInterface)UnicastRemoteObject.exportObject(client, 0);

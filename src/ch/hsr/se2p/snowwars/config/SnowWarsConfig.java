@@ -2,17 +2,17 @@ package ch.hsr.se2p.snowwars.config;
 
 public class SnowWarsConfig {
 
-	private String serverHostname;
-	private String serverRMILookupName;
+	private String hostname;
+	private String rmiLookupName;
 	private int rmiRegistryPort;
 	private int rmiRemotePort;
 
-	public String getServerHostname() {
-		return serverHostname;
+	public String getHostname() {
+		return hostname;
 	}
 
 	public void setServerHostname(String serverHostname) {
-		this.serverHostname = serverHostname;
+		this.hostname = serverHostname;
 	}
 
 	public int getRmiRegistryPort() {
@@ -32,10 +32,10 @@ public class SnowWarsConfig {
 	}
 
 	public String getServerRMILookupName() {
-		return serverRMILookupName;
+		return rmiLookupName;
 	}
 
 	public void setServerRMILookupName(String serverRMILookupName) {
-		this.serverRMILookupName = serverRMILookupName;
+		this.rmiLookupName = serverRMILookupName;
 	}
 }

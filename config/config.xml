@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<snowwars>
+  <port>
+    <rmi_remote>1098</rmi_remote>
+    <rmi_registry>1099</rmi_registry>
+  </port>
+  <hostname>localhost</hostname>
+  <lookupname>snowwars</lookupname>
+</snowwars>
