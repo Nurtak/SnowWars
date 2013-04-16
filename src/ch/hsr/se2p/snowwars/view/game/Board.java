@@ -46,7 +46,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
 		Graphics2D g2d = (Graphics2D) g;
 		try {
-			background = ImageIO.read(this.getClass().getResource("background.jpg"));
+			background = ImageIO.read(this.getClass().getResource("img/background.jpg"));
 			g2d.drawImage(background, 0, 0, null);
 		} catch (IOException e) {
 			e.printStackTrace();

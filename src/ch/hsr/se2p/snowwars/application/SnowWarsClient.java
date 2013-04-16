@@ -6,6 +6,7 @@ import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
 import ch.hsr.se2p.snowwars.config.ConfigLoader;
 import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
+import ch.hsr.se2p.snowwars.view.game.Game;
 
 public class SnowWarsClient {
 
@@ -17,22 +18,23 @@ public class SnowWarsClient {
 	
 	public void startProgram(){
 		logger.info("Starting SnowWars-Client");
+		new Game();
 		
-		try {
-			RunRMIClient rmiClient = new RunRMIClient(this);
-			rmiClient.connect();
-			rmiClient.joinSnowWar();
+//		try {
+//			RunRMIClient rmiClient = new RunRMIClient(this);
+//			rmiClient.connect();
+//			rmiClient.joinSnowWar();
 			
-			//starting throwthread (thread who asks user to throw a shot)
-			ThrowThread throwThread = new ThrowThread(rmiClient);
-			throwThread.start();
-			throwThread.join();
-			rmiClient.leaveSnowWar();
-		} catch (SnowWarsRMIException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//			//starting throwthread (thread who asks user to throw a shot)
+//			ThrowThread throwThread = new ThrowThread(rmiClient);
+//			throwThread.start();
+//			throwThread.join();
+//			rmiClient.leaveSnowWar();
+//		} catch (SnowWarsRMIException e) {
+//			e.printStackTrace();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		
 		//new ViewMain(this);
 	}

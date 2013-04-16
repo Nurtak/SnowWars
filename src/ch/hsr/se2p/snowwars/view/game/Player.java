@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 
 public class Player {
 
-	private String player = "Viking.png";
+	private String player = "/img/viking.png";
 
 	private int dx;
 	private int dy;
@@ -18,10 +18,8 @@ public class Player {
 
 	private ArrayList<Snowball> snowballs;
 
-	//private final int PLAYER_SIZE = 70;
-
 	public Player() {
-		ImageIcon ii = new ImageIcon(this.getClass().getResource(player));
+		ImageIcon ii = new ImageIcon(player);
 		image = ii.getImage();
 		snowballs = new ArrayList<Snowball>();
 

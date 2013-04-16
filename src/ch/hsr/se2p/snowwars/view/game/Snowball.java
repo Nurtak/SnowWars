@@ -12,7 +12,7 @@ public class Snowball {
 	private double vy, vx;
 
 	public Snowball(int x, int y, int angle, int strength) {
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("snowflake.png"));
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("img/snowflake.png"));
 		image = ii.getImage();
 		visible = true;
 		this.x = x;
