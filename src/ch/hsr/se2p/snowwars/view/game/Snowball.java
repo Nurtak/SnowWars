@@ -8,12 +8,15 @@ public class Snowball {
 
 	private int x, y;
 	private double dy, dx;
-	private Image snowballImage;
+	private Image snowballImage, snowballCrashedImage;
 	boolean visible;
 
 	public Snowball(int angle, int strength) {
-		ImageIcon ii = new ImageIcon("img/snowflake.png");
-		snowballImage = ii.getImage();
+		ImageIcon snowFlakeII = new ImageIcon("img/snowflake.png");
+		ImageIcon snowFlakeCrashedII = new ImageIcon("img/snowflake_crashed.png");
+
+		snowballImage = snowFlakeII.getImage();
+		snowballCrashedImage = snowFlakeCrashedII.getImage();
 		visible = true;
 
 		this.x = Player.PLAYER_LEFT_POSITION_X + 50;
@@ -30,7 +33,11 @@ public class Snowball {
 	}
 
 	public Image getImage() {
-		return snowballImage;
+		if (visible) {
+			return snowballImage;
+		} else {
+			return snowballCrashedImage;
+		}
 	}
 
 	public int getX() {
