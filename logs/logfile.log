@@ -331,3 +331,39 @@
 |ConfigLoader.java               |INFO  | XML config: OK
 |SnowWarsClient.java             |ERROR | Connection refused to host: localhost; nested exception is: 
 	java.net.ConnectException: Connection refused
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |ERROR | Connection refused to host: localhost; nested exception is: 
+	java.net.ConnectException: Connection refused
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |ERROR | Connection refused to host: localhost; nested exception is: 
+	java.net.ConnectException: Connection refused
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |ERROR | Connection refused to host: localhost; nested exception is: 
+	java.net.ConnectException: Connection refused
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |ERROR | Connection refused to host: localhost; nested exception is: 
+	java.net.ConnectException: Connection refused

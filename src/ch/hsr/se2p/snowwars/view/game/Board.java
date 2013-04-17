@@ -22,7 +22,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 	private final static int TIMER_REDRAW_INTERVAL = 10;
 	private final static String BACKGROUND_IMAGE_PATH = "img/background.jpg";
 	
-	protected final static int GROUND_LEVEL_Y = 400;
+	protected final static int GROUND_LEVEL_Y = 420;
 	
 	protected final static int FORCE_REDUCE_FACTOR = 25;
 	private final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
