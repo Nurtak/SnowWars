@@ -27,12 +27,9 @@ public class ViewGame extends JFrame implements Observer{
 		setLocationRelativeTo(null);
 		setTitle(GAME_TITLE);
 		setResizable(false);
+		setVisible(true);
 		
 		add(new Board());
-	}
-	
-	public void showGui(){
-		setVisible(true);
 	}
 
 	@Override

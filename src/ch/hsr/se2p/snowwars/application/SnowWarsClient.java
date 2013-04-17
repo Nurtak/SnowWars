@@ -40,7 +40,7 @@ public class SnowWarsClient {
 	
 	private void initializeGui() {
 		viewGameController = new ViewGameController();
-		new ViewGame(viewGameController).showGui();
+		new ViewGame(viewGameController);
 	}
 	
 	public SnowWarsConfig getClientConfig() {

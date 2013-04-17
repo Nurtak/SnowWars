@@ -17,17 +17,18 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Board extends JPanel implements ActionListener, MouseListener {
-	private static final long serialVersionUID = -487520520612533276L;
-
+	private static final long serialVersionUID = -2949809536472598850L;
 	private final static int TIMER_REDRAW_INTERVAL = 10;
 	private final static String BACKGROUND_IMAGE_PATH = "img/background.jpg";
-	
+
 	protected final static int GROUND_LEVEL_Y = 420;
-	
+
 	protected final static int FORCE_REDUCE_FACTOR = 25;
 	private final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
-	protected final static double GRAVITATION = 9.81/70;
-	
+	protected final static double GRAVITATION = 9.81 / 70;
+
+	private ArrayList<Snowball> snowballs;
+
 	private BufferedImage backgroundImage;
 
 	private Timer timer;
@@ -42,6 +43,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 		addMouseListener(this);
 		setFocusable(true);
 		setDoubleBuffered(true);
+		snowballs = new ArrayList<Snowball>();
 
 		player = new Player();
 
@@ -52,18 +54,18 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 	public void paint(Graphics graphics) {
 		super.paint(graphics);
 
-		Graphics2D graphics2d = (Graphics2D) graphics;
+		Graphics2D g2d = (Graphics2D) graphics;
 		try {
 			backgroundImage = ImageIO.read(new File(BACKGROUND_IMAGE_PATH));
-			graphics2d.drawImage(backgroundImage, 0, 0, null);
+			g2d.drawImage(backgroundImage, 0, 0, null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		graphics2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
+		
+		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 
-		ArrayList<Snowball> snowballs = player.getSnowballs();
 		for (Snowball s : snowballs) {
-			graphics2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
+			g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
 		}
 
 		Toolkit.getDefaultToolkit().sync();
@@ -71,8 +73,6 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		ArrayList<Snowball> snowballs = player.getSnowballs();
-
 		for (Snowball s : snowballs) {
 			if (s.isVisible()) {
 				s.move();
@@ -104,19 +104,24 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
 			mousePre = false;
 			Snowball sn = new Snowball(angle, strength);
-			player.fire(sn);
+			fire(sn);
 		}
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-	}
+	public void mouseClicked(MouseEvent arg0) {}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-	}
+	public void mouseEntered(MouseEvent arg0) {}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
+	public void mouseExited(MouseEvent arg0) {}
+
+	public void startNewShot(Snowball snowBall) {
+
+	}
+
+	public void fire(Snowball snowBall) {
+		snowballs.add(snowBall);
 	}
 }
