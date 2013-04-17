@@ -34,7 +34,7 @@ public class SnowWarsClient {
 			runRMIClient.joinSnowWar();
 
 		} catch (SnowWarsRMIException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 	}
 	

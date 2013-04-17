@@ -51,3 +51,148 @@
 |RunRMIServer.java               |INFO  | Initializing SnowWars RMI Server...
 |RunRMIServer.java               |INFO  | Creating Registry...
 |RunRMIServer.java               |INFO  | SnowWars Server is working...
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsServer.java             |INFO  | Starting SnowWars-Server
+|SnowWarsServer.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|RunRMIServer.java               |INFO  | Initializing SnowWars RMI Server...
+|RunRMIServer.java               |INFO  | Creating Registry...
+|RunRMIServer.java               |INFO  | SnowWars Server is working...
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|RunRMIClient.java               |INFO  | Successfully Connected to SnowWars-Server
+|RunRMIClient.java               |INFO  | Joining SnowWar Distributor-Channel...
+|RMIServer.java                  |INFO  | New Client registered! Active Client-count: 1
+|RunRMIClient.java               |INFO  | Successfully registered Client on Server
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|RunRMIClient.java               |INFO  | Successfully Connected to SnowWars-Server
+|RunRMIClient.java               |INFO  | Joining SnowWar Distributor-Channel...
+|RMIServer.java                  |INFO  | New Client registered! Active Client-count: 2
+|RunRMIClient.java               |INFO  | Successfully registered Client on Server
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|RunRMIClient.java               |INFO  | Successfully Connected to SnowWars-Server
+|RunRMIClient.java               |INFO  | Joining SnowWar Distributor-Channel...
+|RMIServer.java                  |INFO  | New Client registered! Active Client-count: 3
+|RunRMIClient.java               |INFO  | Successfully registered Client on Server
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|RunRMIClient.java               |INFO  | Successfully Connected to SnowWars-Server
+|RunRMIClient.java               |INFO  | Joining SnowWar Distributor-Channel...
+|RMIServer.java                  |INFO  | New Client registered! Active Client-count: 4
+|RunRMIClient.java               |INFO  | Successfully registered Client on Server
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|RunRMIClient.java               |INFO  | Successfully Connected to SnowWars-Server
+|RunRMIClient.java               |INFO  | Joining SnowWar Distributor-Channel...
+|RMIServer.java                  |INFO  | New Client registered! Active Client-count: 5
+|RunRMIClient.java               |INFO  | Successfully registered Client on Server
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |ERROR | Connection refused to host: localhost; nested exception is: 
+	java.net.ConnectException: Connection refused
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |ERROR | Connection refused to host: localhost; nested exception is: 
+	java.net.ConnectException: Connection refused
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |ERROR | Connection refused to host: localhost; nested exception is: 
+	java.net.ConnectException: Connection refused
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config/config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |ERROR | Connection refused to host: localhost; nested exception is: 
+	java.net.ConnectException: Connection refused
