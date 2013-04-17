@@ -27,17 +27,22 @@ public class SnowWarsClient {
 
 		initializeRMIClient();
 		initializeGui();
+		connectToServer();
 	}
 
 	private void initializeRMIClient() {
+		runRMIClient = new RunRMIClient(this);
+	}
+	
+	public void connectToServer(){
 		try {
-			runRMIClient = new RunRMIClient(this);
 			runRMIClient.connectToServer();
 			runRMIClient.joinSnowWar();
-
 		} catch (SnowWarsRMIException e) {
 			logger.error(e.getMessage());
+			viewGameController.showNoConnectionError();
 		}
+
 	}
 
 	private void initializeGui() {
@@ -53,11 +58,16 @@ public class SnowWarsClient {
 		return clientConfig;
 	}
 
-	public void sendShotRequestToServer(Shot shot) throws SnowWarsRMIException {
-		runRMIClient.sendShot(shot);
+	public void sendShotRequestToServer(Shot shot){
+		try {
+			runRMIClient.sendShot(shot);
+		} catch (SnowWarsRMIException e) {
+			logger.error(e.getMessage());
+			viewGameController.showNoConnectionError();
+		}
 	}
-	
-	public void receivedShotRequest(Shot shot){
+
+	public void receivedShotRequest(Shot shot) {
 		viewGameController.receivedShot(shot);
 	}
 }

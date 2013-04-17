@@ -1,16 +1,15 @@
 package ch.hsr.se2p.snowwars.view.game;
 
+import java.util.EmptyStackException;
 import java.util.Observable;
 import java.util.Stack;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClient;
 import ch.hsr.se2p.snowwars.model.Shot;
-import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
-
 public class ViewGameController extends Observable {
 
 	private SnowWarsClient snowWarsClient;
-	private String errorMessage = "";
+	private boolean noConnectionError;
 	private Stack<Shot> shotStack = new Stack<Shot>();
 
 	public ViewGameController(SnowWarsClient snc) {
@@ -18,11 +17,7 @@ public class ViewGameController extends Observable {
 	}
 
 	public void sendShotRequest(Shot shot) {
-		try {
-			snowWarsClient.sendShotRequestToServer(shot);
-		} catch (SnowWarsRMIException e) {
-			showErrorMessage("Not connected to server!");
-		}
+		snowWarsClient.sendShotRequestToServer(shot);
 	}
 
 	public void receivedShot(Shot shot) {
@@ -31,18 +26,27 @@ public class ViewGameController extends Observable {
 	}
 
 	public Shot getNextShot() {
-		return shotStack.pop();
+		Shot activeShot = null;
+		try{
+			activeShot = shotStack.pop();
+		} catch(EmptyStackException e){}
+		
+		return activeShot;
 	}
 
-	public void showErrorMessage(String error) {
-		this.errorMessage = error;
+	public void showNoConnectionError() {
+		this.noConnectionError = true;
 		updateObserver();
 	}
 
-	public String getErrorMessage() {
-		String returnMessage = errorMessage;
-		errorMessage = "";
-		return returnMessage;
+	public boolean getShowNoConnectionError() {
+		boolean error = noConnectionError;
+		noConnectionError = false;
+		return error;
+	}
+	
+	public void retryConnectToServer(){
+		snowWarsClient.connectToServer();
 	}
 
 	private void updateObserver() {

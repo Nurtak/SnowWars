@@ -5,7 +5,6 @@ import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import ch.hsr.se2p.snowwars.model.Shot;
 
@@ -45,13 +44,17 @@ public class ViewGame extends JFrame implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		String errorMessage = viewGameController.getErrorMessage();
-		if (!errorMessage.equals("")) {
-			JOptionPane.showMessageDialog(new JPanel(), errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+		if (viewGameController.getShowNoConnectionError()) {
+			Object[] options = { "Cancel", "Retry" };
+			int returnValue = JOptionPane.showOptionDialog(null, "No connection to server!", "No connection", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE, null,
+					options, null);
+			if(returnValue == 1){
+				viewGameController.retryConnectToServer();
+			}
 		}
 
 		Shot newShot = viewGameController.getNextShot();
-		if(newShot != null){
+		if (newShot != null) {
 			Snowball sn = new Snowball(newShot.getAngle(), newShot.getStength());
 			board.fire(sn);
 		}

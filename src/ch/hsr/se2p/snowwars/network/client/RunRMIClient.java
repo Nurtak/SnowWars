@@ -74,7 +74,7 @@ public class RunRMIClient {
 				e.printStackTrace();
 			}
 		} else {
-			throw new SnowWarsRMIException("Can't throw shot, because not connected to Server!");
+			throw new SnowWarsRMIException("No connection to server!");
 		}
 	}
 	
