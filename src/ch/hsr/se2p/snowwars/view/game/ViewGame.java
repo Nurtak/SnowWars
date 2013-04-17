@@ -12,10 +12,10 @@ public class ViewGame extends JFrame implements Observer{
 	protected final static int GAME_HEIGHT = 600;
 	private final static String GAME_TITLE = "Snow Wars";
 	
-	private final ViewGameController viewGameController;
+	//private final ViewGameController viewGameController;
 	
 	public ViewGame(ViewGameController vgc) {
-		this.viewGameController = vgc;
+		//this.viewGameController = vgc;
 		vgc.addObserver(this);
 		
 		initializeGui();
