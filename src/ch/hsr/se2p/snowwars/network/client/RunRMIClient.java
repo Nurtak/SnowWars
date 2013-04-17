@@ -26,7 +26,7 @@ public class RunRMIClient {
 		this.snowWarsConfig = snowWarsClient.getClientConfig();
 	}
 
-	public void connect() throws SnowWarsRMIException {
+	public void connectToServer() throws SnowWarsRMIException {
 		try {
 			Registry serverRegistry = LocateRegistry.getRegistry(snowWarsConfig.getHostname(), snowWarsConfig.getRmiRegistryPort());
 

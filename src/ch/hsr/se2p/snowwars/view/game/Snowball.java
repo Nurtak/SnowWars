@@ -11,14 +11,13 @@ public class Snowball {
 	private Image snowballImage;
 	boolean visible;
 
-
 	public Snowball(int angle, int strength) {
 		ImageIcon ii = new ImageIcon("img/snowflake.png");
 		snowballImage = ii.getImage();
 		visible = true;
-		
-		this.x = Player.PLAYER_LEFT_POSITION_X+50;
-		this.y = Player.PLAYER_LEFT_POSITION_Y+50;
+
+		this.x = Player.PLAYER_LEFT_POSITION_X + 50;
+		this.y = Player.PLAYER_LEFT_POSITION_Y + 50;
 
 		double vySin = Math.sin(Math.toRadians(angle));
 		double vxCos = Math.cos(Math.toRadians(angle));
