@@ -12,8 +12,6 @@ public class Run {
      *            "-server" for starting the server
      */
     public static void main(String[] args) {
-    	//testcommitt
-    	
         installLogger();
         if (args.length != 0 && "-server".equalsIgnoreCase(args[0])) {
             new SnowWarsServer().startProgram();
