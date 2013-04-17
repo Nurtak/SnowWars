@@ -1,5 +1,6 @@
 package ch.hsr.se2p.snowwars.network.client;
 
+import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -70,8 +71,10 @@ public class RunRMIClient {
 			logger.info("Throwing Shot to Server: " + shot.toString());
 			try {
 				server.shotThrowed(shot);
+			} catch (ConnectException e1){
+				throw new SnowWarsRMIException(e1.getMessage());
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				throw new SnowWarsRMIException(e.getMessage());
 			}
 		} else {
 			throw new SnowWarsRMIException("No connection to server!");

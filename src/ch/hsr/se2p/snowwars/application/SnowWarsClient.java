@@ -33,8 +33,8 @@ public class SnowWarsClient {
 	private void initializeRMIClient() {
 		runRMIClient = new RunRMIClient(this);
 	}
-	
-	public void connectToServer(){
+
+	public void connectToServer() {
 		try {
 			runRMIClient.connectToServer();
 			runRMIClient.joinSnowWar();
@@ -58,7 +58,7 @@ public class SnowWarsClient {
 		return clientConfig;
 	}
 
-	public void sendShotRequestToServer(Shot shot){
+	public void sendShotRequestToServer(Shot shot) {
 		try {
 			runRMIClient.sendShot(shot);
 		} catch (SnowWarsRMIException e) {
