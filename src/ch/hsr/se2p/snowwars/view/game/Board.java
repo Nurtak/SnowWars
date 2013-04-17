@@ -16,6 +16,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import ch.hsr.se2p.snowwars.model.Shot;
+
 public class Board extends JPanel implements ActionListener, MouseListener {
 	private static final long serialVersionUID = -2949809536472598850L;
 	private final static int TIMER_REDRAW_INTERVAL = 10;
@@ -26,6 +28,8 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 	protected final static int FORCE_REDUCE_FACTOR = 25;
 	private final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
 	protected final static double GRAVITATION = 9.81 / 70;
+
+	private final ViewGame viewGame;
 
 	private ArrayList<Snowball> snowballs;
 
@@ -39,7 +43,9 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 	private int mousePreX;
 	private int mousePreY;
 
-	public Board() {
+	public Board(ViewGame vg) {
+		this.viewGame = vg;
+
 		addMouseListener(this);
 		setFocusable(true);
 		setDoubleBuffered(true);
@@ -61,7 +67,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 
 		for (Snowball s : snowballs) {
@@ -103,22 +109,26 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 			strength = strength / FORCE_REDUCE_FACTOR_STRENGTH;
 
 			mousePre = false;
-			Snowball sn = new Snowball(angle, strength);
-			fire(sn);
+			// Snowball sn = new Snowball(angle, strength);
+			Shot shot = new Shot(angle, strength, 10);
+			startNewShotRequest(shot);
 		}
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {}
+	public void mouseClicked(MouseEvent arg0) {
+	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {}
+	public void mouseEntered(MouseEvent arg0) {
+	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {}
+	public void mouseExited(MouseEvent arg0) {
+	}
 
-	public void startNewShot(Snowball snowBall) {
-
+	public void startNewShotRequest(Shot shot) {
+		viewGame.newShotRequest(shot);
 	}
 
 	public void fire(Snowball snowBall) {
