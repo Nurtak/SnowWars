@@ -7,8 +7,10 @@ import org.junit.Test;
 public class ConfigLoaderTest {
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testreadConfigFile() {
+		SnowWarsConfig swc = new ConfigLoader().readConfigFile();
+        assertEquals(1099, swc.getRmiRegistryPort());
+        assertEquals("snowwars", swc.getServerRMILookupName());
 	}
 
 }

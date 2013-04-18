@@ -1,9 +1,13 @@
 package ch.hsr.se2p.snowwars.model;
 
-public interface ThrowingObject {
+import java.io.Serializable;
 
-    public int getDamageValue();
-    
-    public int getWeight();
+public abstract class ThrowingObject implements Serializable{
+
+    private static final long serialVersionUID = -4934533719382550831L;
+
+    public abstract int getWeight();
+
+    public abstract int getDamage();
     
 }
