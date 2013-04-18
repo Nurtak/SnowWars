@@ -27,7 +27,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
 	protected final static int FORCE_REDUCE_FACTOR = 15;
 	private final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
-	protected final static double GRAVITATION = 9.81 / 60;
+	protected final static double GRAVITATION = 9.81 / 50;
 
 	private final ViewGame viewGame;
 
@@ -49,6 +49,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 		addMouseListener(this);
 		setFocusable(true);
 		setDoubleBuffered(true);
+
 		snowballs = new ArrayList<Snowball>();
 
 		player = new Player();
@@ -70,15 +71,17 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 
-		for (Snowball s : snowballs) {
-			g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
+		synchronized (this) {
+			for (Snowball s : snowballs) {
+				g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
+			}
 		}
 
 		Toolkit.getDefaultToolkit().sync();
 		graphics.dispose();
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	public synchronized void actionPerformed(ActionEvent e) {
 		for (Snowball s : snowballs) {
 			if (s.isVisible()) {
 				s.move();
@@ -131,7 +134,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 		viewGame.newShotRequest(shot);
 	}
 
-	public void fire(Snowball snowBall) {
+	public synchronized void fire(Snowball snowBall) {
 		snowballs.add(snowBall);
 	}
 }

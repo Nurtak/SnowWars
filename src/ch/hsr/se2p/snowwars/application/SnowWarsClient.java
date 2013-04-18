@@ -29,6 +29,16 @@ public class SnowWarsClient {
 		initializeGui();
 		connectToServer();
 	}
+	
+	public void closeProgram(){
+		logger.info("Closing SnowWars-Client");
+		try {
+			runRMIClient.leaveSnowWar();
+		} catch (SnowWarsRMIException e) {
+			logger.error(e.getMessage());
+		}
+		System.exit(0);
+	}
 
 	private void initializeRMIClient() {
 		runRMIClient = new RunRMIClient(this);

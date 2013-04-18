@@ -20,7 +20,7 @@ public class RunRMIClient {
 
 	private final SnowWarsConfig snowWarsConfig;
 	private final SnowWarsClient snowWarsClient;
-	
+
 	RMIServerInterface server;
 	RMIClientInterface clientStub;
 
@@ -44,34 +44,34 @@ public class RunRMIClient {
 		}
 	}
 
-	public void joinSnowWar() {
+	public void joinSnowWar() throws SnowWarsRMIException {
 		logger.info("Joining SnowWar Distributor-Channel...");
 		try {
 			if (server.registerClient(clientStub)) {
 				logger.info("Successfully registered Client on Server");
 			}
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			throw new SnowWarsRMIException(e.getMessage());
 		}
 	}
 
-	public void leaveSnowWar() {
+	public void leaveSnowWar() throws SnowWarsRMIException {
 		logger.info("Leaving SnowWar Distributor-Channel...");
 		try {
 			if (server.deregisterClient(clientStub)) {
 				logger.info("Successfully deregistered Client on Server");
 			}
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			throw new SnowWarsRMIException(e.getMessage());
 		}
 	}
 
-	public void sendShot(Shot shot) throws SnowWarsRMIException{
+	public void sendShot(Shot shot) throws SnowWarsRMIException {
 		if (server != null) {
 			logger.info("Throwing Shot to Server: " + shot.toString());
 			try {
 				server.shotThrowed(shot);
-			} catch (ConnectException e1){
+			} catch (ConnectException e1) {
 				throw new SnowWarsRMIException(e1.getMessage());
 			} catch (RemoteException e) {
 				throw new SnowWarsRMIException(e.getMessage());
@@ -80,8 +80,8 @@ public class RunRMIClient {
 			throw new SnowWarsRMIException("No connection to server!");
 		}
 	}
-	
-	public void receivedShot(Shot shot){
+
+	public void receivedShot(Shot shot) {
 		snowWarsClient.receivedShotRequest(shot);
 	}
 }

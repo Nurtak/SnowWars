@@ -1,5 +1,7 @@
 package ch.hsr.se2p.snowwars.view.game;
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -8,7 +10,7 @@ import javax.swing.JOptionPane;
 
 import ch.hsr.se2p.snowwars.model.Shot;
 
-public class ViewGame extends JFrame implements Observer {
+public class ViewGame extends JFrame implements Observer, WindowListener {
 	private static final long serialVersionUID = -7803629994015778818L;
 
 	protected final static int GAME_WIDTH = 1000;
@@ -27,7 +29,8 @@ public class ViewGame extends JFrame implements Observer {
 	}
 
 	private void initializeGui() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(this);
 		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setLocationRelativeTo(null);
 		setTitle(GAME_TITLE);
@@ -46,9 +49,9 @@ public class ViewGame extends JFrame implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		if (viewGameController.getShowNoConnectionError()) {
 			Object[] options = { "Cancel", "Retry" };
-			int returnValue = JOptionPane.showOptionDialog(null, "No connection to server!", "No connection", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE, null,
-					options, null);
-			if(returnValue == 1){
+			int returnValue = JOptionPane.showOptionDialog(null, "No connection to server!", "No connection", JOptionPane.OK_OPTION,
+					JOptionPane.ERROR_MESSAGE, null, options, null);
+			if (returnValue == 1) {
 				viewGameController.retryConnectToServer();
 			}
 		}
@@ -58,5 +61,34 @@ public class ViewGame extends JFrame implements Observer {
 			Snowball sn = new Snowball(newShot.getAngle(), newShot.getStength());
 			board.fire(sn);
 		}
+	}
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		viewGameController.closeProgram();
+	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
 	}
 }
