@@ -74,11 +74,11 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 
-//		synchronized (this) {
+		synchronized (this) {
 			for (GraphicalSnowball s : snowballs) {
 				g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
 			}
-//		}
+		}
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();

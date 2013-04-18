@@ -21,6 +21,9 @@ public class RunRMIClient {
 	private final SnowWarsConfig snowWarsConfig;
 	private final SnowWarsClient snowWarsClient;
 
+	private boolean connectedToServer = false;
+	private boolean connectedToSnowWars = false;
+
 	RMIServerInterface server;
 	RMIClientInterface clientStub;
 
@@ -39,35 +42,42 @@ public class RunRMIClient {
 			// Remote Objekt (Stub)
 			server = (RMIServerInterface) serverRegistry.lookup(snowWarsConfig.getServerRMILookupName());
 			logger.info("Successfully Connected to SnowWars-Server");
+			connectedToServer = true;
 		} catch (Exception e1) {
 			throw new SnowWarsRMIException(e1.getMessage());
 		}
 	}
 
 	public void joinSnowWar() throws SnowWarsRMIException {
-		logger.info("Joining SnowWar Distributor-Channel...");
-		try {
-			if (server.registerClient(clientStub)) {
-				logger.info("Successfully registered Client on Server");
+		if (connectedToServer && !connectedToSnowWars) {
+			logger.info("Joining SnowWar Distributor-Channel...");
+			try {
+				if (server.registerClient(clientStub)) {
+					logger.info("Successfully registered Client on Server");
+					connectedToSnowWars = true;
+				}
+			} catch (RemoteException e) {
+				throw new SnowWarsRMIException(e.getMessage());
 			}
-		} catch (RemoteException e) {
-			throw new SnowWarsRMIException(e.getMessage());
 		}
 	}
 
 	public void leaveSnowWar() throws SnowWarsRMIException {
-		logger.info("Leaving SnowWar Distributor-Channel...");
-		try {
-			if (server.deregisterClient(clientStub)) {
-				logger.info("Successfully deregistered Client on Server");
+		if (connectedToServer && connectedToSnowWars) {
+			logger.info("Leaving SnowWar Distributor-Channel...");
+			try {
+				if (server.deregisterClient(clientStub)) {
+					logger.info("Successfully deregistered Client on Server");
+					connectedToSnowWars = false;
+				}
+			} catch (RemoteException e) {
+				throw new SnowWarsRMIException(e.getMessage());
 			}
-		} catch (RemoteException e) {
-			throw new SnowWarsRMIException(e.getMessage());
 		}
 	}
 
 	public void sendShot(Throw shot) throws SnowWarsRMIException {
-		if (server != null) {
+		if (connectedToServer && connectedToSnowWars) {
 			logger.info("Throwing Shot to Server: " + shot.toString());
 			try {
 				server.shotThrowed(shot);
