@@ -25,9 +25,9 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
 	protected final static int GROUND_LEVEL_Y = 420;
 
-	protected final static int FORCE_REDUCE_FACTOR = 25;
+	protected final static int FORCE_REDUCE_FACTOR = 15;
 	private final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
-	protected final static double GRAVITATION = 9.81 / 70;
+	protected final static double GRAVITATION = 9.81 / 60;
 
 	private final ViewGame viewGame;
 
