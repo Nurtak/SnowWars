@@ -9,9 +9,12 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
+
 import ch.hsr.se2p.snowwars.model.Throw;
 
 public class ViewGame extends JFrame implements Observer, WindowListener {
+	private final static Logger logger = Logger.getLogger(ViewGame.class.getPackage().getName());
 	private static final long serialVersionUID = -7803629994015778818L;
 
 	protected final static int GAME_WIDTH = 1000;
@@ -38,7 +41,12 @@ public class ViewGame extends JFrame implements Observer, WindowListener {
 		setResizable(false);
 		setVisible(true);
 
-		board = new Board(this);
+		try {
+			board = new Board(this);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			setVisible(false);
+		}
 		add(board);
 		this.pack();
 	}
@@ -51,8 +59,7 @@ public class ViewGame extends JFrame implements Observer, WindowListener {
 	public void update(Observable arg0, Object arg1) {
 		if (viewGameController.getShowNoConnectionError()) {
 			Object[] options = { "Cancel", "Retry" };
-			int returnValue = JOptionPane.showOptionDialog(null, "No connection to server!", "No connection", JOptionPane.OK_OPTION,
-					JOptionPane.ERROR_MESSAGE, null, options, null);
+			int returnValue = JOptionPane.showOptionDialog(null, "No connection to server!", "No connection", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE, null, options, null);
 			if (returnValue == 1) {
 				viewGameController.retryConnectToServer();
 			}

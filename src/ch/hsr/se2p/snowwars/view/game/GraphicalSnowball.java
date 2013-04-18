@@ -19,8 +19,8 @@ public class GraphicalSnowball {
 		snowballCrashedImage = snowFlakeCrashedII.getImage();
 		visible = true;
 
-		this.x = Player.PLAYER_LEFT_POSITION_X + 50;
-		this.y = Player.PLAYER_LEFT_POSITION_Y + 50;
+		this.x = GraphicalPlayer.PLAYER_LEFT_POSITION_X + 50;
+		this.y = GraphicalPlayer.PLAYER_LEFT_POSITION_Y + 50;
 
 		double vySin = Math.sin(Math.toRadians(angle));
 		double vxCos = Math.cos(Math.toRadians(angle));

@@ -39,13 +39,13 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
     private Timer timer;
 
-    private Player player;
-
+    private GraphicalPlayer player;
+    private boolean isfired =false;
     private boolean mousePre;
     private int mousePreX;
     private int mousePreY;
 
-    public Board(ViewGame vg) {
+    public Board(ViewGame vg) throws IOException {
         this.viewGame = vg;
 
         addMouseListener(this);
@@ -54,7 +54,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
         snowballs = new ArrayList<GraphicalSnowball>();
 
-        player = new Player();
+        player = new GraphicalPlayer();
 
         timer = new Timer(TIMER_REDRAW_INTERVAL, this);
         timer.start();
@@ -71,7 +71,14 @@ public class Board extends JPanel implements ActionListener, MouseListener {
             e.printStackTrace();
         }
 
-        g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
+		if (isfired) {
+			player.throwingSprites.update(System.currentTimeMillis());
+			g2d.drawImage(player.throwingSprites.sprite, player.getX(), player.getY(), this);
+			isfired = false;
+		} else {
+			player.standing.update(System.currentTimeMillis());
+			g2d.drawImage(player.standing.sprite, player.getX(), player.getY(), this);
+		}
 
         synchronized (this) {
             for (GraphicalSnowball s : snowballs) {
@@ -88,11 +95,9 @@ public class Board extends JPanel implements ActionListener, MouseListener {
             if (s.isVisible()) {
                 s.move();
             }
-
             repaint();
         }
 
-        player.move();
         repaint();
     }
 
@@ -138,5 +143,6 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
     public synchronized void fire(GraphicalSnowball snowBall) {
         snowballs.add(snowBall);
+        isfired = true;
     }
 }
