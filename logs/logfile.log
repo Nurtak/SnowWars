@@ -376,3 +376,68 @@
 |ConfigLoader.java               |INFO  | XML config: OK
 |SnowWarsClient.java             |ERROR | Connection refused to host: localhost; nested exception is: 
 	java.net.ConnectException: Connection refused
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config\config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|SnowWarsClient.java             |ERROR | Connection refused to host: localhost; nested exception is: 
+	java.net.ConnectException: Connection refused: connect
+|SnowWarsServer.java             |INFO  | Starting SnowWars-Server
+|SnowWarsServer.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config\config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|RunRMIServer.java               |INFO  | Initializing SnowWars RMI Server...
+|RunRMIServer.java               |INFO  | Creating Registry...
+|RunRMIServer.java               |INFO  | SnowWars Server is working...
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config\config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|RunRMIClient.java               |INFO  | Successfully Connected to SnowWars-Server
+|RunRMIClient.java               |INFO  | Joining SnowWar Distributor-Channel...
+|RMIServer.java                  |INFO  | New Client registered! Active Client-count: 1
+|RunRMIClient.java               |INFO  | Successfully registered Client on Server
+|SnowWarsClient.java             |INFO  | Starting SnowWars-Client
+|SnowWarsClient.java             |INFO  | Reading configfile...
+|ConfigLoader.java               |INFO  | Load XML config...
+|ConfigurationUtils.java         |DEBUG | ConfigurationUtils.locate(): base is null, name is config/config.xml
+|DefaultFileSystem.java          |DEBUG | Could not locate file config/config.xml at null: no protocol: config/config.xml
+|ConfigurationUtils.java         |DEBUG | Loading configuration from the path config\config.xml
+|ConfigLoader.java               |INFO  | XML config: OK
+|RunRMIClient.java               |INFO  | Successfully Connected to SnowWars-Server
+|RunRMIClient.java               |INFO  | Joining SnowWar Distributor-Channel...
+|RMIServer.java                  |INFO  | New Client registered! Active Client-count: 2
+|RunRMIClient.java               |INFO  | Successfully registered Client on Server
+|RunRMIClient.java               |INFO  | Throwing Shot to Server: Angle(0) Strength(0) Weight(10)
+|RMIServer.java                  |INFO  | Received Shot: Angle(0) Strength(0) Weight(10)
+|RMIClient.java                  |INFO  | Received Shot: Angle(0) Strength(0) Weight(10)
+|RMIClient.java                  |INFO  | Received Shot: Angle(0) Strength(0) Weight(10)
+|RunRMIClient.java               |INFO  | Throwing Shot to Server: Angle(31) Strength(230) Weight(10)
+|RMIServer.java                  |INFO  | Received Shot: Angle(31) Strength(230) Weight(10)
+|RMIClient.java                  |INFO  | Received Shot: Angle(31) Strength(230) Weight(10)
+|RMIClient.java                  |INFO  | Received Shot: Angle(31) Strength(230) Weight(10)
+|RunRMIClient.java               |INFO  | Throwing Shot to Server: Angle(38) Strength(215) Weight(10)
+|RMIServer.java                  |INFO  | Received Shot: Angle(38) Strength(215) Weight(10)
+|RMIClient.java                  |INFO  | Received Shot: Angle(38) Strength(215) Weight(10)
+|RMIClient.java                  |INFO  | Received Shot: Angle(38) Strength(215) Weight(10)
+|RunRMIClient.java               |INFO  | Throwing Shot to Server: Angle(103) Strength(183) Weight(10)
+|RMIServer.java                  |INFO  | Received Shot: Angle(103) Strength(183) Weight(10)
+|RMIClient.java                  |INFO  | Received Shot: Angle(103) Strength(183) Weight(10)
+|RMIClient.java                  |INFO  | Received Shot: Angle(103) Strength(183) Weight(10)
+|RunRMIClient.java               |INFO  | Throwing Shot to Server: Angle(28) Strength(444) Weight(10)
+|RMIServer.java                  |INFO  | Received Shot: Angle(28) Strength(444) Weight(10)
+|RMIClient.java                  |INFO  | Received Shot: Angle(28) Strength(444) Weight(10)
+|RMIClient.java                  |INFO  | Received Shot: Angle(28) Strength(444) Weight(10)
+|RunRMIClient.java               |INFO  | Throwing Shot to Server: Angle(84) Strength(309) Weight(10)
+|RMIServer.java                  |INFO  | Received Shot: Angle(84) Strength(309) Weight(10)
+|RMIClient.java                  |INFO  | Received Shot: Angle(84) Strength(309) Weight(10)
+|RMIClient.java                  |INFO  | Received Shot: Angle(84) Strength(309) Weight(10)
