@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClient;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
-import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.model.Throw;
 import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.server.RMIServerInterface;
 
@@ -66,7 +66,7 @@ public class RunRMIClient {
 		}
 	}
 
-	public void sendShot(Shot shot) throws SnowWarsRMIException {
+	public void sendShot(Throw shot) throws SnowWarsRMIException {
 		if (server != null) {
 			logger.info("Throwing Shot to Server: " + shot.toString());
 			try {
@@ -81,7 +81,7 @@ public class RunRMIClient {
 		}
 	}
 
-	public void receivedShot(Shot shot) {
+	public void receivedShot(Throw shot) {
 		snowWarsClient.receivedShotRequest(shot);
 	}
 }

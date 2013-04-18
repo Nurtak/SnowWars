@@ -4,14 +4,14 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Snowball {
+public class GraphicalSnowball {
 
 	private int x, y;
 	private double dy, dx;
 	private Image snowballImage, snowballCrashedImage;
 	boolean visible;
 
-	public Snowball(int angle, int strength) {
+	public GraphicalSnowball(int angle, int strength) {
 		ImageIcon snowFlakeII = new ImageIcon("img/snowflake.png");
 		ImageIcon snowFlakeCrashedII = new ImageIcon("img/snowflake_crashed.png");
 

@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.config.ConfigLoader;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
-import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.model.Throw;
 import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
 import ch.hsr.se2p.snowwars.view.game.ViewGame;
@@ -68,7 +68,7 @@ public class SnowWarsClient {
 		return clientConfig;
 	}
 
-	public void sendShotRequestToServer(Shot shot) {
+	public void sendShotRequestToServer(Throw shot) {
 		try {
 			runRMIClient.sendShot(shot);
 		} catch (SnowWarsRMIException e) {
@@ -77,7 +77,7 @@ public class SnowWarsClient {
 		}
 	}
 
-	public void receivedShotRequest(Shot shot) {
+	public void receivedShotRequest(Throw shot) {
 		viewGameController.receivedShot(shot);
 	}
 }

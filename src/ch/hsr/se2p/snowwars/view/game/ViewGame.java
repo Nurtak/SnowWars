@@ -8,7 +8,7 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.model.Throw;
 
 public class ViewGame extends JFrame implements Observer, WindowListener {
 	private static final long serialVersionUID = -7803629994015778818L;
@@ -41,7 +41,7 @@ public class ViewGame extends JFrame implements Observer, WindowListener {
 		add(board);
 	}
 
-	public void newShotRequest(Shot shot) {
+	public void newShotRequest(Throw shot) {
 		viewGameController.sendShotRequest(shot);
 	}
 
@@ -56,9 +56,9 @@ public class ViewGame extends JFrame implements Observer, WindowListener {
 			}
 		}
 
-		Shot newShot = viewGameController.getNextShot();
+		Throw newShot = viewGameController.getNextShot();
 		if (newShot != null) {
-			Snowball sn = new Snowball(newShot.getAngle(), newShot.getStength());
+			GraphicalSnowball sn = new GraphicalSnowball(newShot.getAngle(), newShot.getStength());
 			board.fire(sn);
 		}
 	}

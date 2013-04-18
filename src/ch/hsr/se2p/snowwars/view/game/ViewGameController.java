@@ -5,29 +5,29 @@ import java.util.Observable;
 import java.util.Stack;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClient;
-import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.model.Throw;
 
 public class ViewGameController extends Observable {
 
 	private SnowWarsClient snowWarsClient;
 	private boolean noConnectionError;
-	private Stack<Shot> shotStack = new Stack<Shot>();
+	private Stack<Throw> shotStack = new Stack<Throw>();
 
 	public ViewGameController(SnowWarsClient snc) {
 		this.snowWarsClient = snc;
 	}
 
-	public void sendShotRequest(Shot shot) {
+	public void sendShotRequest(Throw shot) {
 		snowWarsClient.sendShotRequestToServer(shot);
 	}
 
-	public void receivedShot(Shot shot) {
+	public void receivedShot(Throw shot) {
 		shotStack.add(shot);
 		updateObserver();
 	}
 
-	public Shot getNextShot() {
-		Shot activeShot = null;
+	public Throw getNextShot() {
+		Throw activeShot = null;
 		try {
 			activeShot = shotStack.pop();
 		} catch (EmptyStackException e) {

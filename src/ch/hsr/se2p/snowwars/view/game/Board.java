@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.model.Throw;
 
 public class Board extends JPanel implements ActionListener, MouseListener {
 	private static final long serialVersionUID = -2949809536472598850L;
@@ -31,7 +31,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
 	private final ViewGame viewGame;
 
-	private ArrayList<Snowball> snowballs;
+	private ArrayList<GraphicalSnowball> snowballs;
 
 	private BufferedImage backgroundImage;
 
@@ -50,7 +50,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 		setFocusable(true);
 		setDoubleBuffered(true);
 
-		snowballs = new ArrayList<Snowball>();
+		snowballs = new ArrayList<GraphicalSnowball>();
 
 		player = new Player();
 
@@ -72,7 +72,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 
 		synchronized (this) {
-			for (Snowball s : snowballs) {
+			for (GraphicalSnowball s : snowballs) {
 				g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
 			}
 		}
@@ -82,7 +82,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 	}
 
 	public synchronized void actionPerformed(ActionEvent e) {
-		for (Snowball s : snowballs) {
+		for (GraphicalSnowball s : snowballs) {
 			if (s.isVisible()) {
 				s.move();
 			}
@@ -113,7 +113,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
 			mousePre = false;
 			// Snowball sn = new Snowball(angle, strength);
-			Shot shot = new Shot(angle, strength, 10);
+			Throw shot = new Throw(angle, strength, 10);
 			startNewShotRequest(shot);
 		}
 	}
@@ -130,11 +130,11 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 	public void mouseExited(MouseEvent arg0) {
 	}
 
-	public void startNewShotRequest(Shot shot) {
+	public void startNewShotRequest(Throw shot) {
 		viewGame.newShotRequest(shot);
 	}
 
-	public synchronized void fire(Snowball snowBall) {
+	public synchronized void fire(GraphicalSnowball snowBall) {
 		snowballs.add(snowBall);
 	}
 }

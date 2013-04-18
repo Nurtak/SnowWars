@@ -8,7 +8,7 @@ public class ShotTest {
 
     @Test
     public void testShot() {
-        Shot shot = new Shot(0, 0, 0);
+        Throw shot = new Throw(0, 0, 0);
         assertEquals(0, shot.getAngle());
     }
 
