@@ -1,6 +1,5 @@
 package ch.hsr.se2p.snowwars.view.game;
 
-import java.awt.FlowLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Observable;
