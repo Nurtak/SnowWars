@@ -17,8 +17,13 @@ public class ViewGameController extends Observable {
 		this.snowWarsClient = snc;
 	}
 
-	public void sendShotRequest(Throw shot) {
-		snowWarsClient.sendShotRequestToServer(shot);
+	public void sendShotRequest(final Throw shot) {
+		new Thread(new Runnable(){
+			@Override
+			public void run() {
+				snowWarsClient.sendShotRequestToServer(shot);
+			}
+		}).start();
 	}
 
 	public void receivedShot(Throw shot) {
@@ -48,11 +53,21 @@ public class ViewGameController extends Observable {
 	}
 
 	public void retryConnectToServer() {
-		snowWarsClient.connectToServer();
+		new Thread(new Runnable(){
+			@Override
+			public void run() {
+				snowWarsClient.connectToServer();
+			}
+		}).start();
 	}
 
 	public void closeProgram() {
-		snowWarsClient.closeProgram();
+		new Thread(new Runnable(){
+			@Override
+			public void run() {
+				snowWarsClient.closeProgram();
+			}
+		}).start();
 	}
 
 	private void updateObserver() {

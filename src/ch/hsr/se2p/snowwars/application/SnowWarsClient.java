@@ -19,7 +19,7 @@ public class SnowWarsClient {
 	private ViewGameController viewGameController;
 	// private ViewLobbyController viewLobbyController;
 
-	private RunRMIClient runRMIClient;
+	RunRMIClient runRMIClient;
 
 	public SnowWarsClient() {
 	}
@@ -75,7 +75,7 @@ public class SnowWarsClient {
 
 	public void sendShotRequestToServer(Throw shot) {
 		try {
-			runRMIClient.sendShot(shot);
+			runRMIClient.sendThrow(shot);
 		} catch (SnowWarsRMIException e) {
 			logger.error(e.getMessage());
 			viewGameController.showNoConnectionError();

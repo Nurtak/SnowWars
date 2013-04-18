@@ -31,6 +31,7 @@ public class RMIServer implements RMIServerInterface{
 	@Override
 	public boolean shotThrowed(Throw shot) throws RemoteException {
 		logger.info("Received Shot: " + shot.toString());
+		
 		for(RMIClientInterface activeClient : clientList){
 			activeClient.shotThrowed(shot);
 		}

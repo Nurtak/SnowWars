@@ -14,7 +14,7 @@ import ch.hsr.se2p.snowwars.model.Throw;
 import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.server.RMIServerInterface;
 
-public class RunRMIClient {
+public class RunRMIClient{
 
 	private final static Logger logger = Logger.getLogger(RunRMIClient.class.getPackage().getName());
 
@@ -76,7 +76,7 @@ public class RunRMIClient {
 		}
 	}
 
-	public void sendShot(Throw shot) throws SnowWarsRMIException {
+	public void sendThrow(Throw shot) throws SnowWarsRMIException {
 		if (connectedToServer && connectedToSnowWars) {
 			logger.info("Throwing Shot to Server: " + shot.toString());
 			try {

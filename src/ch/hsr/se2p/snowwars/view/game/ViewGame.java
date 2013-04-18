@@ -59,7 +59,8 @@ public class ViewGame extends JFrame implements Observer, WindowListener {
 	public void update(Observable arg0, Object arg1) {
 		if (viewGameController.getShowNoConnectionError()) {
 			Object[] options = { "Cancel", "Retry" };
-			int returnValue = JOptionPane.showOptionDialog(null, "No connection to server!", "No connection", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE, null, options, null);
+			int returnValue = JOptionPane.showOptionDialog(null, "No connection to server!", "No connection", JOptionPane.OK_OPTION,
+					JOptionPane.ERROR_MESSAGE, null, options, null);
 			if (returnValue == 1) {
 				viewGameController.retryConnectToServer();
 			}

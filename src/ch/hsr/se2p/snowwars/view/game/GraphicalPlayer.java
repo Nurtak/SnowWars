@@ -44,7 +44,7 @@ public class GraphicalPlayer {
 		ArrayList<BufferedImage> spritesForStand = new ArrayList<BufferedImage>();
 		spritesForStand.add(spriteSheet.getSubimage(0, 0, width, height));
 		standing = new Animation(spritesForStand);
-		standing.setSpeed(100);
+		standing.setSpeed(-1);
 	}
 
 	public int getX() {
