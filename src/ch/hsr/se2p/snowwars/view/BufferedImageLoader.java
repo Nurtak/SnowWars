@@ -1,21 +1,22 @@
 package ch.hsr.se2p.snowwars.view;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 
 public class BufferedImageLoader {
 
-	private final static String FILENAME_SNOWBALL = new String("/img/snowflake.png");
-	private final static String FILENAME_SNOWBALL_CRASHED = new String("/img/snowflake_crashed.png");
-	private final static String FILENAME_BACKGROUND = new String("/img/background.jpg");
-	private final static String FILENAME_LOGO = new String("/img/logo.png");
-	private final static String FILENAME_SPRITESHEET = new String("/img/spriteSheet.png");
+	private final static String FILENAME_SNOWBALL = new String("img/snowflake.png");
+	private final static String FILENAME_SNOWBALL_CRASHED = new String("img/snowflake_crashed.png");
+	private final static String FILENAME_BACKGROUND = new String("img/background.jpg");
+	private final static String FILENAME_LOGO = new String("img/logo.png");
+	private final static String FILENAME_SPRITESHEET = new String("img/spriteSheet.png");
 	private static BufferedImageLoader bil;
 
-	private BufferedImageLoader() {}
+	private BufferedImageLoader() {
+	}
 
 	public static BufferedImageLoader getInstance() {
 		if (bil == null) {
@@ -25,9 +26,11 @@ public class BufferedImageLoader {
 	}
 
 	private BufferedImage loadImage(String pathRelativeToThis) throws IOException {
-		URL url = this.getClass().getResource(pathRelativeToThis);
-		BufferedImage img = ImageIO.read(url);
-		return img;
+		File imageFile = new File(pathRelativeToThis);
+		if (!imageFile.exists()) {
+			throw new IOException("Image not found: " + pathRelativeToThis);
+		}
+		return ImageIO.read(imageFile);
 	}
 
 	public BufferedImage getSnowballImage() throws IOException {

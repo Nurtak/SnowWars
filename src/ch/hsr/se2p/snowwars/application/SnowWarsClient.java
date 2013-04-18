@@ -17,6 +17,8 @@ public class SnowWarsClient {
 	private SnowWarsConfig clientConfig;
 
 	private ViewGameController viewGameController;
+	// private ViewLobbyController viewLobbyController;
+
 	private RunRMIClient runRMIClient;
 
 	public SnowWarsClient() {
@@ -29,8 +31,8 @@ public class SnowWarsClient {
 		initializeGui();
 		connectToServer();
 	}
-	
-	public void closeProgram(){
+
+	public void closeProgram() {
 		logger.info("Closing SnowWars-Client");
 		try {
 			runRMIClient.leaveSnowWar();
@@ -57,6 +59,9 @@ public class SnowWarsClient {
 
 	private void initializeGui() {
 		viewGameController = new ViewGameController(this);
+		// viewLobbyController = new ViewLobbyController();
+
+		// new ViewMain(viewLobbyController);
 		new ViewGame(viewGameController);
 	}
 
