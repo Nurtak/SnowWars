@@ -1,5 +1,6 @@
 package ch.hsr.se2p.snowwars.view.game;
 
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -43,6 +44,8 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 	private int mousePreX;
 	private int mousePreY;
 
+	
+
 	public Board(ViewGame vg) {
 		this.viewGame = vg;
 
@@ -61,7 +64,6 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-
 		Graphics2D g2d = (Graphics2D) g;
 		try {
 			backgroundImage = ImageIO.read(new File(BACKGROUND_IMAGE_PATH));
@@ -72,11 +74,11 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 
-		synchronized (this) {
+//		synchronized (this) {
 			for (GraphicalSnowball s : snowballs) {
 				g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
 			}
-		}
+//		}
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();

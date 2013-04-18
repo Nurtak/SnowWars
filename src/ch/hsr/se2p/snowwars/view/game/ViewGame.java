@@ -1,5 +1,6 @@
 package ch.hsr.se2p.snowwars.view.game;
 
+import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Observable;
@@ -31,7 +32,7 @@ public class ViewGame extends JFrame implements Observer, WindowListener {
 	private void initializeGui() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(this);
-		setSize(GAME_WIDTH, GAME_HEIGHT);
+		setMinimumSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
 		setLocationRelativeTo(null);
 		setTitle(GAME_TITLE);
 		setResizable(false);
@@ -39,6 +40,7 @@ public class ViewGame extends JFrame implements Observer, WindowListener {
 
 		board = new Board(this);
 		add(board);
+		this.pack();
 	}
 
 	public void newShotRequest(Throw shot) {
