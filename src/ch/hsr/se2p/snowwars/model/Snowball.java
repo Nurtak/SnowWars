@@ -17,7 +17,7 @@ public class Snowball extends ThrowingObject{
     }
 
     @Override
-    public int getDamageValue() {
+    public int getDamage() {
         return (int) Math.round(weight * damageMultiplier);
     }
     

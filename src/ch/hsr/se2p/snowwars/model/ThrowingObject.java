@@ -8,6 +8,6 @@ public abstract class ThrowingObject implements Serializable{
 
     public abstract int getWeight();
 
-    public abstract int getDamageValue();
+    public abstract int getDamage();
     
 }
