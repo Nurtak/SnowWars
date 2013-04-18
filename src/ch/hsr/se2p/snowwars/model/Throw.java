@@ -7,12 +7,12 @@ public class Throw implements Serializable{
 	
 	private final int angle;
 	private final int strength;
-	private final int weight;
+	private ThrowingObject throwingObject;
 	
-	public Throw(int angle, int strength, int weight){
+	public Throw(int angle, int strength, ThrowingObject throwingObject){
 		this.angle = angle;
 		this.strength = strength;
-		this.weight = weight;
+		this.throwingObject = throwingObject;
 	}
 	
 	public int getAngle() {
@@ -24,11 +24,11 @@ public class Throw implements Serializable{
 	}
 
 	public int getWeight() {
-		return weight;
+		return throwingObject.getWeight();
 	}
 	
 	@Override
 	public String toString(){
-		return "Angle(" + angle + ") Strength(" + strength + ") Weight(" + weight + ")";
+		return "Angle(" + angle + ") Strength(" + strength + ") Weight(" + throwingObject.getWeight() + ")";
 	}
 }

@@ -4,5 +4,6 @@ public interface ThrowingObject {
 
     public int getDamageValue();
     
-
+    public int getWeight();
+    
 }
