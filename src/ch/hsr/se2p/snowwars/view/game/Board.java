@@ -8,22 +8,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import ch.hsr.se2p.snowwars.model.Snowball;
 import ch.hsr.se2p.snowwars.model.Throw;
+import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 
 public class Board extends JPanel implements ActionListener, MouseListener {
 	private static final long serialVersionUID = -2949809536472598850L;
 
 	private final static int TIMER_REDRAW_INTERVAL = 10;
-	private final static String BACKGROUND_IMAGE_PATH = "img/background.jpg";
 
 	protected final static int GROUND_LEVEL_Y = 420;
 
@@ -65,7 +63,8 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
 		try {
-			backgroundImage = ImageIO.read(new File(BACKGROUND_IMAGE_PATH));
+			BufferedImageLoader bil = BufferedImageLoader.getInstance();
+			backgroundImage = bil.getBackgroundImage();
 			g2d.drawImage(backgroundImage, 0, 0, null);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -81,7 +80,8 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 		} else {
 			try {
 				player.standing.update(System.currentTimeMillis());
-			} catch (Exception e) {}
+			} catch (Exception e) {
+			}
 			g2d.drawImage(player.standing.sprite, player.getX(), player.getY(), this);
 		}
 
@@ -116,7 +116,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 	public void mouseReleased(MouseEvent arg0) {
 		if (mousePre) {
 			animationWorking = true;
-			
+
 			int x = (int) (this.mousePreX - arg0.getPoint().getX());
 			int y = (int) (arg0.getPoint().getY() - this.mousePreY);
 
@@ -150,6 +150,6 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 
 	public synchronized void fire(GraphicalSnowball snowBall) {
 		snowballs.add(snowBall);
-		//animationWorking = false;
+		// animationWorking = false;
 	}
 }

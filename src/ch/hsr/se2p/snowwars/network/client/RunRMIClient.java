@@ -23,7 +23,7 @@ public class RunRMIClient{
 
 	private boolean connectedToServer = false;
 	private boolean connectedToSnowWars = false;
-
+	
 	RMIServerInterface server;
 	RMIClientInterface clientStub;
 

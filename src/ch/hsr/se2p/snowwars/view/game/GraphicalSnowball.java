@@ -1,10 +1,17 @@
 package ch.hsr.se2p.snowwars.view.game;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
+import org.apache.log4j.Logger;
+
+import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
+
 public class GraphicalSnowball {
+	private final static Logger logger = Logger.getLogger(GraphicalSnowball.class.getPackage().getName());
 
 	private int x, y;
 	private double dy, dx;
@@ -12,24 +19,31 @@ public class GraphicalSnowball {
 	boolean visible;
 
 	public GraphicalSnowball(int angle, int strength) {
-		ImageIcon snowFlakeII = new ImageIcon("img/snowflake.png");
-		ImageIcon snowFlakeCrashedII = new ImageIcon("img/snowflake_crashed.png");
+		BufferedImageLoader bil = BufferedImageLoader.getInstance();
+		BufferedImage snowFlakeII;
+		try {
+			snowFlakeII = bil.getSnowballImage();
+			BufferedImage snowFlakeIICrashed = bil.getSnowballCrashedImage();
 
-		snowballImage = snowFlakeII.getImage();
-		snowballCrashedImage = snowFlakeCrashedII.getImage();
-		visible = true;
+			snowballImage = new ImageIcon(snowFlakeII).getImage();
+			snowballCrashedImage = new ImageIcon(snowFlakeIICrashed).getImage();
 
-		this.x = GraphicalPlayer.PLAYER_LEFT_POSITION_X + 50;
-		this.y = GraphicalPlayer.PLAYER_LEFT_POSITION_Y + 50;
+			visible = true;
 
-		double vySin = Math.sin(Math.toRadians(angle));
-		double vxCos = Math.cos(Math.toRadians(angle));
+			this.x = GraphicalPlayer.PLAYER_LEFT_POSITION_X + 50;
+			this.y = GraphicalPlayer.PLAYER_LEFT_POSITION_Y + 50;
 
-		this.dy = (int) (vySin * strength) * -1;
-		this.dx = (int) (vxCos * strength);
+			double vySin = Math.sin(Math.toRadians(angle));
+			double vxCos = Math.cos(Math.toRadians(angle));
 
-		this.dy = this.dy / Board.FORCE_REDUCE_FACTOR;
-		this.dx = this.dx / Board.FORCE_REDUCE_FACTOR;
+			this.dy = (int) (vySin * strength) * -1;
+			this.dx = (int) (vxCos * strength);
+
+			this.dy = this.dy / Board.FORCE_REDUCE_FACTOR;
+			this.dx = this.dx / Board.FORCE_REDUCE_FACTOR;
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
 	}
 
 	public Image getImage() {
