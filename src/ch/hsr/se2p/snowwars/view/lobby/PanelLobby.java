@@ -46,10 +46,10 @@ public class PanelLobby extends JPanel{
 		gbc_lblUsername.gridy = 0;
 		add(lblUsername, gbc_lblUsername);
 		
-		JList lstUsers = new JList();
+		JList<String> lstUsers = new JList<String>();
 		lstUsers.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
-		DefaultListModel testModel = new DefaultListModel();
+		DefaultListModel<String> testModel = new DefaultListModel<String>();
 		testModel.addElement("Sepp");
 		testModel.addElement("Hans");
 		testModel.addElement("Nurtak");
