@@ -7,23 +7,24 @@ import org.apache.log4j.Logger;
 public class ConfigFactory {
 
     private final static Logger logger = Logger.getLogger(ConfigFactory.class.getPackage().getName());
-    
+
     public static SnowWarsConfig getSnowWarsConfig() {
-        SnowWarsConfig snowWarsConfig = new SnowWarsConfig();
+        SnowWarsConfig snowWarsConfig;
         try {
             logger.info("Load XML config...");
             XMLConfiguration xmlConfig = new XMLConfiguration("config/config.xml");
-            
-            snowWarsConfig.setRmiRegistryPort(xmlConfig.getInt("port.rmi_registry"));
-            snowWarsConfig.setRmiRemotePort(xmlConfig.getInt("port.rmi_remote"));
-            snowWarsConfig.setServerHostname(xmlConfig.getString("hostname"));
-            snowWarsConfig.setServerRMILookupName(xmlConfig.getString("lookupname"));
-            
+
+            snowWarsConfig = new SnowWarsConfig(xmlConfig.getString("hostname"), 
+                    xmlConfig.getString("lookupname"), 
+                    xmlConfig.getInt("port.rmi_registry"),
+                    xmlConfig.getInt("port.rmi_remote"));
+            logger.info("XML config: OK");
+            return snowWarsConfig;
+
         } catch (ConfigurationException cex) {
-            // something went wrong, e.g. the file was not found
+            cex.printStackTrace();
+            return null;
         }
-        logger.info("XML config: OK");
-        return snowWarsConfig;
     }
 
 }

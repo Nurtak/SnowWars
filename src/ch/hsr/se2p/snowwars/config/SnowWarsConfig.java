@@ -7,35 +7,27 @@ public class SnowWarsConfig {
     private int rmiRegistryPort;
     private int rmiRemotePort;
 
-    public String getHostname() {
-        return hostname;
+    protected SnowWarsConfig(String hostname, String rmiLookupName, int rmiRegistryPort, int rmiRemotePort) {
+        this.hostname = hostname;
+        this.rmiLookupName = rmiLookupName;
+        this.rmiRegistryPort = rmiRegistryPort;
+        this.rmiRemotePort = rmiRemotePort;
     }
 
-    public void setServerHostname(String serverHostname) {
-        this.hostname = serverHostname;
+    public String getHostname() {
+        return hostname;
     }
 
     public int getRmiRegistryPort() {
         return rmiRegistryPort;
     }
 
-    public void setRmiRegistryPort(int rmiRegistryPort) {
-        this.rmiRegistryPort = rmiRegistryPort;
-    }
-
     public int getRmiRemotePort() {
         return rmiRemotePort;
-    }
-
-    public void setRmiRemotePort(int rmiRemotePort) {
-        this.rmiRemotePort = rmiRemotePort;
     }
 
     public String getServerRMILookupName() {
         return rmiLookupName;
     }
 
-    public void setServerRMILookupName(String serverRMILookupName) {
-        this.rmiLookupName = serverRMILookupName;
-    }
 }

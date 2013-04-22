@@ -4,14 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class ConfigLoaderTest {
+public class ConfigFactoryTest {
 
 	@Test
-	public void testReadConfigFile() {
+	public void testGetSnowWarsConfig() {
 		SnowWarsConfig snowWarsConfig = ConfigFactory.getSnowWarsConfig();
         assertEquals(1099, snowWarsConfig.getRmiRegistryPort());
         assertEquals("snowwars", snowWarsConfig.getServerRMILookupName());
-        assertEquals(1099, snowWarsConfig.getRmiRegistryPort());
 	}
 
 }
