@@ -7,10 +7,11 @@ import org.junit.Test;
 public class ConfigLoaderTest {
 
 	@Test
-	public void testreadConfigFile() {
-		SnowWarsConfig swc = new ConfigLoader().readConfigFile();
-        assertEquals(1099, swc.getRmiRegistryPort());
-        assertEquals("snowwars", swc.getServerRMILookupName());
+	public void testReadConfigFile() {
+		SnowWarsConfig snowWarsConfig = new ConfigLoader().readConfigFile();
+        assertEquals(1099, snowWarsConfig.getRmiRegistryPort());
+        assertEquals("snowwars", snowWarsConfig.getServerRMILookupName());
+        assertEquals(1099, snowWarsConfig.getRmiRegistryPort());
 	}
 
 }
