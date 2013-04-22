@@ -2,7 +2,7 @@ package ch.hsr.se2p.snowwars.application;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.config.ConfigLoader;
+import ch.hsr.se2p.snowwars.config.ConfigFactory;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
 import ch.hsr.se2p.snowwars.model.Throw;
 import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
@@ -68,7 +68,7 @@ public class SnowWarsClient {
 	public SnowWarsConfig getClientConfig() {
 		if (clientConfig == null) {
 			logger.info("Reading configfile...");
-			clientConfig = new ConfigLoader().readConfigFile();
+			clientConfig = ConfigFactory.getSnowWarsConfig();
 		}
 		return clientConfig;
 	}

@@ -1,26 +1,14 @@
 package ch.hsr.se2p.snowwars.network;
 
-import static org.junit.Assert.fail;
-
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ch.hsr.se2p.snowwars.application.SnowWarsClient;
 import ch.hsr.se2p.snowwars.application.SnowWarsServer;
-import ch.hsr.se2p.snowwars.config.ConfigLoader;
+import ch.hsr.se2p.snowwars.config.ConfigFactory;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
-import ch.hsr.se2p.snowwars.network.client.RMIClient;
-import ch.hsr.se2p.snowwars.network.client.RMIClientInterface;
-import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
-import ch.hsr.se2p.snowwars.network.server.RMIServerInterface;
 import ch.hsr.se2p.snowwars.network.server.RunRMIServer;
 
 public class RMITest {
@@ -29,8 +17,7 @@ public class RMITest {
 
     @BeforeClass
     public static void setUpConfig() {
-        ConfigLoader configLoader = new ConfigLoader();
-        snowWarsConfig = configLoader.readConfigFile();
+        snowWarsConfig = ConfigFactory.getSnowWarsConfig();
     }
 
     @Test(expected = IOException.class)

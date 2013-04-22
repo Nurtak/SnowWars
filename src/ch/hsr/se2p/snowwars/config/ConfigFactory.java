@@ -4,11 +4,11 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.log4j.Logger;
 
-public class ConfigLoader {
+public class ConfigFactory {
 
-    private final static Logger logger = Logger.getLogger(ConfigLoader.class.getPackage().getName());
+    private final static Logger logger = Logger.getLogger(ConfigFactory.class.getPackage().getName());
     
-    public SnowWarsConfig readConfigFile() {
+    public static SnowWarsConfig getSnowWarsConfig() {
         SnowWarsConfig snowWarsConfig = new SnowWarsConfig();
         try {
             logger.info("Load XML config...");

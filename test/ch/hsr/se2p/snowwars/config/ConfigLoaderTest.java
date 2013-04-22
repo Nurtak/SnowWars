@@ -8,7 +8,7 @@ public class ConfigLoaderTest {
 
 	@Test
 	public void testReadConfigFile() {
-		SnowWarsConfig snowWarsConfig = new ConfigLoader().readConfigFile();
+		SnowWarsConfig snowWarsConfig = ConfigFactory.getSnowWarsConfig();
         assertEquals(1099, snowWarsConfig.getRmiRegistryPort());
         assertEquals("snowwars", snowWarsConfig.getServerRMILookupName());
         assertEquals(1099, snowWarsConfig.getRmiRegistryPort());
