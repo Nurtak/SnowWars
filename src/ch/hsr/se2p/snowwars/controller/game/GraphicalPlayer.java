@@ -13,9 +13,9 @@ public class GraphicalPlayer extends GraphicalObject {
 	private final int WIDTH = 158;
 	private final int HEIGHT = 149;
 
-	public Animation throwingSprites;
-	public Animation standing;
-	public Animation activeAnimation;
+	public AnimationController throwingSprites;
+	public AnimationController standing;
+	public AnimationController activeAnimation;
 
 	private BufferedImage spriteSheet;
 	public BufferedImageLoader loader;
@@ -38,14 +38,14 @@ public class GraphicalPlayer extends GraphicalObject {
 		spritesForThrow.add(spriteSheet.getSubimage(WIDTH, HEIGHT, WIDTH, HEIGHT));
 		spritesForThrow.add(spriteSheet.getSubimage(2 * WIDTH, HEIGHT, WIDTH, HEIGHT));
 
-		throwingSprites = new Animation(spritesForThrow);
+		throwingSprites = new AnimationController(spritesForThrow);
 		throwingSprites.setSpeed(100);
 	}
 
 	private void loadStandingAnimation() {
 		ArrayList<BufferedImage> spritesForStand = new ArrayList<BufferedImage>();
 		spritesForStand.add(spriteSheet.getSubimage(0, 0, WIDTH, HEIGHT));
-		standing = new Animation(spritesForStand);
+		standing = new AnimationController(spritesForStand);
 		standing.setSpeed(-1);
 	}
 

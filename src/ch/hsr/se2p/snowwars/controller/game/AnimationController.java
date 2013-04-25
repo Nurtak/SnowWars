@@ -3,7 +3,7 @@ package ch.hsr.se2p.snowwars.controller.game;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Animation {
+public class AnimationController {
 
 	private ArrayList<BufferedImage> frames;
 	private BufferedImage sprite;
@@ -11,7 +11,7 @@ public class Animation {
 	private long previousTime, speed;
 	private int currentFrame;
 
-	public Animation(ArrayList<BufferedImage> frames) {
+	public AnimationController(ArrayList<BufferedImage> frames) {
 		this.frames = frames;
 	}
 
