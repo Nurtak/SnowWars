@@ -27,6 +27,7 @@ public class RunRMIServer {
 	private void initializeRMIService() throws SnowWarsRMIException{
 		try {
 			logger.info("Initializing SnowWars RMI Server...");
+			System.setProperty("java.security.policy", "rmi.policy");
 			try {
 			    System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
 			} catch (UnknownHostException e) {

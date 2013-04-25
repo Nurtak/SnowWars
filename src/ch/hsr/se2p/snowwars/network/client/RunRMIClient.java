@@ -32,6 +32,7 @@ public class RunRMIClient{
 	public RunRMIClient(SnowWarsClient snowWarsClient) {
 		this.snowWarsClient = snowWarsClient;
 		this.snowWarsConfig = snowWarsClient.getClientConfig();
+		System.setProperty("java.security.policy", "rmi.policy");
 		try {
 		    System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
 		} catch (UnknownHostException e) {
