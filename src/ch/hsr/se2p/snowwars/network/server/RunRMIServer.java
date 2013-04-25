@@ -36,7 +36,7 @@ public class RunRMIServer {
 			RMIServer rmiServer = new RMIServer();
 			
 			RMIServerInterface stub;
-			stub = (RMIServerInterface) UnicastRemoteObject.exportObject(rmiServer, snowWarsConfig.getRmiRegistryPort());
+			stub = (RMIServerInterface) UnicastRemoteObject.exportObject(rmiServer, 0);
 			
 			// Registry
 			logger.info("Creating Registry...");
