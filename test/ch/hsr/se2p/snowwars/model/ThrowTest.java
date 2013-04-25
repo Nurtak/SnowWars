@@ -10,7 +10,7 @@ public class ThrowTest {
     public void testGetDamage() {
         Throw swthrow = new Throw(0, 0, new Snowball(10));
         assertEquals(0, swthrow.getAngle());
-        assertEquals(0, swthrow.getStength());
+        assertEquals(0, swthrow.getStrength());
         assertEquals(10, swthrow.getWeight());
         assertEquals(10, swthrow.getDamage());
     }

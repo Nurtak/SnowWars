@@ -1,49 +1,81 @@
 package ch.hsr.se2p.snowwars.controller.game;
 
-import java.util.EmptyStackException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observable;
-import java.util.Stack;
+
+import javax.swing.Timer;
+
+import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClient;
 import ch.hsr.se2p.snowwars.model.Throw;
 
-public class ViewGameController extends Observable {
+public class ViewGameController extends Observable implements ActionListener {
+	private final static Logger logger = Logger.getLogger(ViewGameController.class.getPackage().getName());
+
+	protected final static int GAME_WIDTH = 1000;
+	protected final static int GAME_HEIGHT = 600;
+	protected final static String GAME_TITLE = "Snow Wars";
+
+	private final static int TIMER_REDRAW_INTERVAL = 10;
+	protected final static int GROUND_LEVEL_Y = 420;
+
+	protected final static int FORCE_REDUCE_FACTOR = 15;
+	public final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
+	protected final static double GRAVITATION = 9.81 / 50;
+
+	private ArrayList<GraphicalObject> graphicalObjects = new ArrayList<GraphicalObject>();
+
+	private GraphicalPlayer player;
+
+	private Timer redrawTimer;
 
 	private SnowWarsClient snowWarsClient;
 	private boolean noConnectionError;
-	private Stack<Throw> shotStack = new Stack<Throw>();
 
 	public ViewGameController(SnowWarsClient snc) {
 		this.snowWarsClient = snc;
+
+		try {
+			player = new GraphicalPlayer();
+			graphicalObjects.add(player);
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+
+		redrawTimer = new Timer(TIMER_REDRAW_INTERVAL, this);
+		redrawTimer.start();
 	}
 
-	public void sendThrow(final Throw shot) {
-		new Thread(new Runnable(){
-			@Override
-			public void run() {
-				snowWarsClient.sendShotRequestToServer(shot);
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		synchronized(graphicalObjects){
+			for (GraphicalObject graphicalObject : graphicalObjects) {
+				graphicalObject.updateValues();
 			}
-		}).start();
+		}
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public void receivedThrow(Throw receivedThrow) {
-		shotStack.add(receivedThrow);
-		updateObserver();
-	}
-
-	public Throw getNextShot() {
-		Throw activeShot = null;
-		try {
-			activeShot = shotStack.pop();
-		} catch (EmptyStackException e) {
+		synchronized(graphicalObjects){
+			graphicalObjects.add(new GraphicalSnowball(receivedThrow.getAngle(), receivedThrow.getStrength()));
+			player.startThrowAnimation();
 		}
-
-		return activeShot;
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public void showNoConnectionError() {
 		this.noConnectionError = true;
-		updateObserver();
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public boolean getShowNoConnectionError() {
@@ -52,8 +84,17 @@ public class ViewGameController extends Observable {
 		return error;
 	}
 
+	public void sendThrow(final Throw sendThrow) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				snowWarsClient.sendShotRequestToServer(sendThrow);
+			}
+		}).start();
+	}
+	
 	public void retryConnectToServer() {
-		new Thread(new Runnable(){
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				snowWarsClient.connectToServer();
@@ -62,7 +103,7 @@ public class ViewGameController extends Observable {
 	}
 
 	public void closeProgram() {
-		new Thread(new Runnable(){
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				snowWarsClient.closeProgram();
@@ -70,8 +111,21 @@ public class ViewGameController extends Observable {
 		}).start();
 	}
 
-	private void updateObserver() {
-		this.setChanged();
-		this.notifyObservers();
+	public ArrayList<GraphicalObject> getGraphicalObjects() {
+		synchronized(graphicalObjects){
+			return this.graphicalObjects;
+		}
+	}
+
+	public int getGameWidth() {
+		return GAME_WIDTH;
+	}
+
+	public int getGameHeight() {
+		return GAME_HEIGHT;
+	}
+
+	public String getGameTitle() {
+		return GAME_TITLE;
 	}
 }

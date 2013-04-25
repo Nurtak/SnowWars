@@ -3,8 +3,6 @@ package ch.hsr.se2p.snowwars.view.game;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -12,97 +10,50 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
+import ch.hsr.se2p.snowwars.controller.game.GraphicalObject;
+import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.model.Snowball;
 import ch.hsr.se2p.snowwars.model.Throw;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 
-public class Board extends JPanel implements ActionListener, MouseListener {
+public class Board extends JPanel implements MouseListener {
 	private static final long serialVersionUID = -2949809536472598850L;
 
-	private final static int TIMER_REDRAW_INTERVAL = 10;
-
-	protected final static int GROUND_LEVEL_Y = 420;
-
-	protected final static int FORCE_REDUCE_FACTOR = 15;
-	private final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
-	protected final static double GRAVITATION = 9.81 / 50;
-
-	private final ViewGame viewGame;
-
-	private ArrayList<GraphicalSnowball> snowballs;
+	private final GameFrame viewGame;
 
 	private BufferedImage backgroundImage;
 
-	private Timer timer;
-
-	private GraphicalPlayer player;
-	private boolean animationWorking = false;
 	private boolean mousePre;
 	private int mousePreX;
 	private int mousePreY;
 
-	public Board(ViewGame vg) throws IOException {
+	public Board(GameFrame vg) throws IOException {
 		this.viewGame = vg;
+
+		BufferedImageLoader bil = BufferedImageLoader.getInstance();
+		backgroundImage = bil.getBackgroundImage();
 
 		addMouseListener(this);
 		setFocusable(true);
 		setDoubleBuffered(true);
-
-		snowballs = new ArrayList<GraphicalSnowball>();
-
-		player = new GraphicalPlayer();
-
-		timer = new Timer(TIMER_REDRAW_INTERVAL, this);
-		timer.start();
 	}
 
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
-		try {
-			BufferedImageLoader bil = BufferedImageLoader.getInstance();
-			backgroundImage = bil.getBackgroundImage();
-			g2d.drawImage(backgroundImage, 0, 0, null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		g2d.drawImage(backgroundImage, 0, 0, null);
 
-		if (animationWorking) {
-			try {
-				player.throwingSprites.update(System.currentTimeMillis());
-			} catch (Exception e) {
-				animationWorking = false;
-			}
-			g2d.drawImage(player.throwingSprites.sprite, player.getX(), player.getY(), this);
-		} else {
-			try {
-				player.standing.update(System.currentTimeMillis());
-			} catch (Exception e) {
-			}
-			g2d.drawImage(player.standing.sprite, player.getX(), player.getY(), this);
-		}
-
-		synchronized (this) {
-			for (GraphicalSnowball s : snowballs) {
-				g2d.drawImage(s.getImage(), s.getX(), s.getY(), this);
+		ArrayList<GraphicalObject> graphicalObjectsList = viewGame.getGraphicalObjects();
+		synchronized(graphicalObjectsList){
+			for (GraphicalObject go : graphicalObjectsList) {
+				g2d.drawImage(go.getImage(), go.getX(), go.getY(), this);
 			}
 		}
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
-	}
-
-	public synchronized void actionPerformed(ActionEvent e) {
-		for (GraphicalSnowball s : snowballs) {
-			if (s.isVisible()) {
-				s.move();
-			}
-			repaint();
-		}
-		repaint();
 	}
 
 	@Override
@@ -115,20 +66,18 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		if (mousePre) {
-			animationWorking = true;
-
 			int x = (int) (this.mousePreX - arg0.getPoint().getX());
 			int y = (int) (arg0.getPoint().getY() - this.mousePreY);
 
 			int angle = (int) Math.toDegrees(Math.atan2(y, x));
 			int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-			strength = strength / FORCE_REDUCE_FACTOR_STRENGTH;
+			strength = strength / ViewGameController.FORCE_REDUCE_FACTOR_STRENGTH;
 
 			mousePre = false;
 			Snowball sb = new Snowball(10);
 			Throw swthrow = new Throw(angle, strength, sb);
 
-			startNewShotRequest(swthrow);
+			startNewThrowRequest(swthrow);
 		}
 	}
 
@@ -144,12 +93,7 @@ public class Board extends JPanel implements ActionListener, MouseListener {
 	public void mouseExited(MouseEvent arg0) {
 	}
 
-	public void startNewShotRequest(Throw shot) {
-		viewGame.newShotRequest(shot);
-	}
-
-	public synchronized void fire(GraphicalSnowball snowBall) {
-		snowballs.add(snowBall);
-		// animationWorking = false;
+	public void startNewThrowRequest(Throw throwRequest) {
+		viewGame.newShotRequest(throwRequest);
 	}
 }

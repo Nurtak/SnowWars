@@ -3,6 +3,7 @@ package ch.hsr.se2p.snowwars.view.game;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -11,34 +12,30 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
+import ch.hsr.se2p.snowwars.controller.game.GraphicalObject;
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.model.Throw;
 
-public class ViewGame extends JFrame implements Observer, WindowListener {
-	private final static Logger logger = Logger.getLogger(ViewGame.class.getPackage().getName());
+public class GameFrame extends JFrame implements Observer, WindowListener {
+	private final static Logger logger = Logger.getLogger(GameFrame.class.getPackage().getName());
 	private static final long serialVersionUID = -7803629994015778818L;
-
-	protected final static int GAME_WIDTH = 1000;
-	protected final static int GAME_HEIGHT = 600;
-	private final static String GAME_TITLE = "Snow Wars";
 
 	private Board board;
 
 	private final ViewGameController viewGameController;
 
-	public ViewGame(ViewGameController vgc) {
+	public GameFrame(ViewGameController vgc) {
 		this.viewGameController = vgc;
-		vgc.addObserver(this);
-
 		initializeGui();
+		vgc.addObserver(this);
 	}
 
 	private void initializeGui() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(this);
-		setMinimumSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
+		setMinimumSize(new Dimension(viewGameController.getGameWidth(), viewGameController.getGameHeight()));
 		setLocationRelativeTo(null);
-		setTitle(GAME_TITLE);
+		setTitle(viewGameController.getGameTitle());
 		setResizable(false);
 		setVisible(true);
 
@@ -67,11 +64,7 @@ public class ViewGame extends JFrame implements Observer, WindowListener {
 			}
 		}
 
-		Throw newShot = viewGameController.getNextShot();
-		if (newShot != null) {
-			GraphicalSnowball sn = new GraphicalSnowball(newShot.getAngle(), newShot.getStength());
-			board.fire(sn);
-		}
+		board.repaint();
 	}
 
 	@Override
@@ -101,5 +94,9 @@ public class ViewGame extends JFrame implements Observer, WindowListener {
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
+	}
+
+	protected ArrayList<GraphicalObject> getGraphicalObjects() {
+		return viewGameController.getGraphicalObjects();
 	}
 }

@@ -8,7 +8,7 @@ import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.model.Throw;
 import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
-import ch.hsr.se2p.snowwars.view.game.ViewGame;
+import ch.hsr.se2p.snowwars.view.game.GameFrame;
 
 public class SnowWarsClient {
 
@@ -21,8 +21,7 @@ public class SnowWarsClient {
 
 	RunRMIClient runRMIClient;
 
-	public SnowWarsClient() {
-	}
+	public SnowWarsClient() {}
 
 	public void startProgram() {
 		logger.info("Starting SnowWars-Client");
@@ -62,7 +61,7 @@ public class SnowWarsClient {
 		// viewLobbyController = new ViewLobbyController();
 
 		// new ViewMain(viewLobbyController);
-		new ViewGame(viewGameController);
+		new GameFrame(viewGameController);
 	}
 
 	public SnowWarsConfig getClientConfig() {

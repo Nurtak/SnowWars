@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.view.game;
+package ch.hsr.se2p.snowwars.controller.game;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -10,10 +10,10 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 
-public class GraphicalSnowball {
+public class GraphicalSnowball extends GraphicalObject {
 	private final static Logger logger = Logger.getLogger(GraphicalSnowball.class.getPackage().getName());
 
-	private int x, y;
+	private int x,y;
 	private double dy, dx;
 	private Image snowballImage, snowballCrashedImage;
 	boolean visible;
@@ -39,8 +39,8 @@ public class GraphicalSnowball {
 			this.dy = (int) (vySin * strength) * -1;
 			this.dx = (int) (vxCos * strength);
 
-			this.dy = this.dy / Board.FORCE_REDUCE_FACTOR;
-			this.dx = this.dx / Board.FORCE_REDUCE_FACTOR;
+			this.dy = this.dy / ViewGameController.FORCE_REDUCE_FACTOR;
+			this.dx = this.dx / ViewGameController.FORCE_REDUCE_FACTOR;
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
@@ -54,26 +54,28 @@ public class GraphicalSnowball {
 		}
 	}
 
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
 	public boolean isVisible() {
 		return visible;
 	}
 
-	public void move() {
-		this.dy += Board.GRAVITATION;
+	public void updateValues() {
+		this.dy += ViewGameController.GRAVITATION;
 
 		this.x = (int) ((int) this.x + this.dx);
 		this.y = (int) ((int) this.y + this.dy);
 
-		if (x > ViewGame.GAME_WIDTH || y > Board.GROUND_LEVEL_Y) {
+		if (x > ViewGameController.GAME_WIDTH || y > ViewGameController.GROUND_LEVEL_Y) {
 			visible = false;
 		}
+	}
+
+	@Override
+	public int getX() {
+		return this.x;
+	}
+
+	@Override
+	public int getY() {
+		return this.y;
 	}
 }

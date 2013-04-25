@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.view.game;
+package ch.hsr.se2p.snowwars.controller.game;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public class Animation {
 
 	private ArrayList<BufferedImage> frames;
-	public BufferedImage sprite;
+	private BufferedImage sprite;
 
 	private long previousTime, speed;
-	private int frameAtPause, currentFrame;
+	private int currentFrame;
 
 	public Animation(ArrayList<BufferedImage> frames) {
 		this.frames = frames;
@@ -36,12 +36,8 @@ public class Animation {
 			}
 		}
 	}
-
-	public void pause() {
-
-	}
-
-	public void resume() {
-		currentFrame = frameAtPause;
+	
+	public BufferedImage getSprite(){
+		return sprite;
 	}
 }

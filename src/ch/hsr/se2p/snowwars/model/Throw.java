@@ -19,7 +19,7 @@ public class Throw implements Serializable {
         return angle;
     }
 
-    public int getStength() {
+    public int getStrength() {
         return strength;
     }
 
