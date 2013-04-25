@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
+import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 
 public class ViewMain extends JFrame {

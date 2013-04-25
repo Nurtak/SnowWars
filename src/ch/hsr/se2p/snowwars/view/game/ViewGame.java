@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
+import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.model.Throw;
 
 public class ViewGame extends JFrame implements Observer, WindowListener {
@@ -52,7 +53,7 @@ public class ViewGame extends JFrame implements Observer, WindowListener {
 	}
 
 	public void newShotRequest(Throw shot) {
-		viewGameController.sendShotRequest(shot);
+		viewGameController.sendThrow(shot);
 	}
 
 	@Override

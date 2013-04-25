@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.view.game;
+package ch.hsr.se2p.snowwars.controller.game;
 
 import java.util.EmptyStackException;
 import java.util.Observable;
@@ -17,7 +17,7 @@ public class ViewGameController extends Observable {
 		this.snowWarsClient = snc;
 	}
 
-	public void sendShotRequest(final Throw shot) {
+	public void sendThrow(final Throw shot) {
 		new Thread(new Runnable(){
 			@Override
 			public void run() {
@@ -26,8 +26,8 @@ public class ViewGameController extends Observable {
 		}).start();
 	}
 
-	public void receivedShot(Throw shot) {
-		shotStack.add(shot);
+	public void receivedThrow(Throw receivedThrow) {
+		shotStack.add(receivedThrow);
 		updateObserver();
 	}
 

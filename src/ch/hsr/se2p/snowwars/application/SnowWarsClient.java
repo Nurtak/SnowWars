@@ -4,11 +4,11 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.config.ConfigFactory;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
+import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.model.Throw;
 import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
 import ch.hsr.se2p.snowwars.view.game.ViewGame;
-import ch.hsr.se2p.snowwars.view.game.ViewGameController;
 
 public class SnowWarsClient {
 
@@ -83,6 +83,6 @@ public class SnowWarsClient {
 	}
 
 	public void receivedShotRequest(Throw shot) {
-		viewGameController.receivedShot(shot);
+		viewGameController.receivedThrow(shot);
 	}
 }
