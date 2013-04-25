@@ -1,5 +1,7 @@
 package ch.hsr.se2p.snowwars.network.server;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -18,13 +20,18 @@ public class RunRMIServer {
 	private final SnowWarsConfig snowWarsConfig;
 	
 	public RunRMIServer(SnowWarsServer snowWarsServer) throws SnowWarsRMIException{
-		snowWarsConfig = snowWarsServer.getSnowWarsConfig();
+	    snowWarsConfig = snowWarsServer.getSnowWarsConfig();
 		initializeRMIService();
 	}
 	
 	private void initializeRMIService() throws SnowWarsRMIException{
 		try {
 			logger.info("Initializing SnowWars RMI Server...");
+			try {
+			    System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
+			} catch (UnknownHostException e) {
+			    e.printStackTrace();
+			}
 			RMIServer rmiServer = new RMIServer();
 			
 			RMIServerInterface stub;

@@ -1,5 +1,7 @@
 package ch.hsr.se2p.snowwars.network.client;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -30,14 +32,21 @@ public class RunRMIClient{
 	public RunRMIClient(SnowWarsClient snowWarsClient) {
 		this.snowWarsClient = snowWarsClient;
 		this.snowWarsConfig = snowWarsClient.getClientConfig();
+		try {
+		    System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
+		} catch (UnknownHostException e) {
+		    e.printStackTrace();
+		}
+
 	}
 
 	public void connectToServer() throws SnowWarsRMIException {
 		try {
+		    System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
 			Registry serverRegistry = LocateRegistry.getRegistry(snowWarsConfig.getHostname(), snowWarsConfig.getRmiRegistryPort());
 
 			RMIClientInterface client = new RMIClient(this);
-			clientStub = (RMIClientInterface) UnicastRemoteObject.exportObject(client, 0);
+			clientStub = (RMIClientInterface) UnicastRemoteObject.exportObject(client, snowWarsConfig.getRmiRemotePort());
 
 			// Remote Objekt (Stub)
 			server = (RMIServerInterface) serverRegistry.lookup(snowWarsConfig.getServerRMILookupName());
