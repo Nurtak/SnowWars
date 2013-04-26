@@ -2,6 +2,7 @@ package ch.hsr.se2p.snowwars.network.server;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -33,6 +34,10 @@ public class RunRMIServer {
 			} catch (UnknownHostException e) {
 			    e.printStackTrace();
 			}
+            if (System.getSecurityManager() == null)
+            {
+                System.setSecurityManager(new RMISecurityManager());
+            }
 			RMIServer rmiServer = new RMIServer();
 			
 			RMIServerInterface stub;

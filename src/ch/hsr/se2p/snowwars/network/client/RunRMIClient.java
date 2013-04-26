@@ -3,6 +3,7 @@ package ch.hsr.se2p.snowwars.network.client;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.ConnectException;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -38,6 +39,10 @@ public class RunRMIClient{
 		} catch (UnknownHostException e) {
 		    e.printStackTrace();
 		}
+        if (System.getSecurityManager() == null)
+        {
+            System.setSecurityManager(new RMISecurityManager());
+        }
 
 	}
 
