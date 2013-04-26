@@ -36,6 +36,7 @@ public class Board extends JPanel implements MouseListener {
 		BufferedImageLoader bil = BufferedImageLoader.getInstance();
 		backgroundImage = bil.getBackgroundImage();
 
+		SoundPlayer.getInstance().playWindSound();
 		addMouseListener(this);
 		setFocusable(true);
 		setDoubleBuffered(true);
