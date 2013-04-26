@@ -1,13 +1,13 @@
 package ch.hsr.se2p.snowwars.view.lobby;
 
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 public class PanelMain extends JPanel{
 	private static final long serialVersionUID = -4628393851839832247L;

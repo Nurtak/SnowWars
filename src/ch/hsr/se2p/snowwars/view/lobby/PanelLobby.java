@@ -1,5 +1,6 @@
 package ch.hsr.se2p.snowwars.view.lobby;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -8,14 +9,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import org.apache.log4j.Logger;
-
-import java.awt.Color;
 
 public class PanelLobby extends JPanel{
 	private static final long serialVersionUID = -4628393851839832247L;
