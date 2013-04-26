@@ -1,6 +1,7 @@
 package ch.hsr.se2p.snowwars.controller.game;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,6 +60,10 @@ public class GraphicalPlayer extends GraphicalObject {
 		return PLAYER_LEFT_POSITION_Y;
 	}
 
+	public Rectangle getBounds() {
+		return new Rectangle(40, 350, 80, 80);
+	}
+
 	@Override
 	public void updateValues() {
 		try {
@@ -76,4 +81,10 @@ public class GraphicalPlayer extends GraphicalObject {
 	public Image getImage() {
 		return activeAnimation.getSprite();
 	}
+
+	@Override
+	public boolean isVisible() {
+		return true;
+	}
+
 }

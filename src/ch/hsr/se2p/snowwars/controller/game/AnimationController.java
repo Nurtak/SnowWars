@@ -36,8 +36,8 @@ public class AnimationController {
 			}
 		}
 	}
-	
-	public BufferedImage getSprite(){
+
+	public BufferedImage getSprite() {
 		return sprite;
 	}
 }

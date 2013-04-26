@@ -1,5 +1,6 @@
 package ch.hsr.se2p.snowwars.controller.game;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -21,13 +22,14 @@ public class ViewGameController extends Observable implements ActionListener {
 	protected final static String GAME_TITLE = "Snow Wars";
 
 	private final static int TIMER_REDRAW_INTERVAL = 10;
-	protected final static int GROUND_LEVEL_Y = 420;
+	protected final static int GROUND_LEVEL_Y = 400;
 
 	protected final static int FORCE_REDUCE_FACTOR = 15;
 	public final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
 	protected final static double GRAVITATION = 9.81 / 50;
 
 	private ArrayList<GraphicalObject> graphicalObjects = new ArrayList<GraphicalObject>();
+	private ArrayList<GraphicalSnowball> graphicalSnowballs = new ArrayList<GraphicalSnowball>();
 
 	private GraphicalPlayer player;
 
@@ -52,9 +54,10 @@ public class ViewGameController extends Observable implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		synchronized(graphicalObjects){
+		synchronized (graphicalObjects) {
 			for (GraphicalObject graphicalObject : graphicalObjects) {
 				graphicalObject.updateValues();
+				checkCollision();
 			}
 		}
 
@@ -62,12 +65,44 @@ public class ViewGameController extends Observable implements ActionListener {
 		this.notifyObservers();
 	}
 
+	public void checkCollision() {
+		Rectangle r1 = player.getBounds();
+		for (GraphicalSnowball graphicalSnowball : graphicalSnowballs) {
+			if (!graphicalSnowball.isVisible()) {
+				continue;
+			}
+
+			Rectangle r2 = graphicalSnowball.getBounds();
+
+			if (r2.intersects(r1)) {
+				graphicalSnowball.stopSnowball();
+				graphicalSnowball.startSplashingAnimation();
+			}
+			for (GraphicalSnowball graphicalSnowball2 : graphicalSnowballs) {
+				if (!graphicalSnowball2.isVisible()) {
+					continue;
+				}
+				if (graphicalSnowball2 != graphicalSnowball) {
+					Rectangle r3 = graphicalSnowball2.getBounds();
+					if (r2.intersects(r3)) {
+						graphicalSnowball.stopSnowball();
+						graphicalSnowball.startSplashingAnimation();
+					}
+				}
+
+			}
+		}
+
+	}
+
 	public void receivedThrow(Throw receivedThrow) {
-		synchronized(graphicalObjects){
-			graphicalObjects.add(new GraphicalSnowball(receivedThrow.getAngle(), receivedThrow.getStrength()));
+		synchronized (graphicalObjects) {
+			GraphicalSnowball gs = new GraphicalSnowball(receivedThrow.getAngle(), receivedThrow.getStrength());
+			graphicalObjects.add(gs);
+			graphicalSnowballs.add(gs);
 			player.startThrowAnimation();
 		}
-		
+
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -92,7 +127,7 @@ public class ViewGameController extends Observable implements ActionListener {
 			}
 		}).start();
 	}
-	
+
 	public void retryConnectToServer() {
 		new Thread(new Runnable() {
 			@Override
@@ -112,7 +147,7 @@ public class ViewGameController extends Observable implements ActionListener {
 	}
 
 	public ArrayList<GraphicalObject> getGraphicalObjects() {
-		synchronized(graphicalObjects){
+		synchronized (graphicalObjects) {
 			return this.graphicalObjects;
 		}
 	}
