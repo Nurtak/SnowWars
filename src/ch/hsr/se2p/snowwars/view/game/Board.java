@@ -50,12 +50,17 @@ public class Board extends JPanel implements MouseListener {
 		ArrayList<GraphicalObject> graphicalObjectsList = gameFrame.getGraphicalObjects();
 		synchronized (graphicalObjectsList) {
 			for (GraphicalObject go : graphicalObjectsList) {
-				g2d.drawImage(go.getImage(), go.getX(), go.getY(), this);
+				if(go.isVisible()){
+					g2d.drawImage(go.getImage(), go.getX(), go.getY(), this);
+				}
 			}
 		}
 
 		if (playerAiming) {
-			drawArrow(g2d, (int) this.getMousePosition().getX(), (int) this.getMousePosition().getY(), aimingStartX, aimingStartY);
+			try {
+				drawArrow(g2d, (int) this.getMousePosition().getX(), (int) this.getMousePosition().getY(), aimingStartX, aimingStartY);
+			} catch (Exception e) {
+			}
 		}
 
 		Toolkit.getDefaultToolkit().sync();
@@ -126,17 +131,20 @@ public class Board extends JPanel implements MouseListener {
 		if (playerAiming) {
 			playerAiming = false;
 
-			int x = (int) (this.aimingStartX - (int) this.getMousePosition().getX());
-			int y = (int) ((int) this.getMousePosition().getY() - this.aimingStartY);
+			try {
+				int x = (int) (this.aimingStartX - (int) this.getMousePosition().getX());
+				int y = (int) ((int) this.getMousePosition().getY() - this.aimingStartY);
 
-			int angle = (int) Math.toDegrees(Math.atan2(y, x));
-			int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-			strength = strength / ViewGameController.FORCE_REDUCE_FACTOR_STRENGTH;
+				int angle = (int) Math.toDegrees(Math.atan2(y, x));
+				int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+				strength = strength / ViewGameController.FORCE_REDUCE_FACTOR_STRENGTH;
 
-			Snowball sb = new Snowball(10);
-			Throw swthrow = new Throw(angle, strength, sb);
+				Snowball sb = new Snowball(10);
+				Throw swthrow = new Throw(angle, strength, sb);
 
-			startNewThrowRequest(swthrow);
+				startNewThrowRequest(swthrow);
+			} catch (Exception e) {
+			}
 		}
 	}
 
@@ -149,5 +157,6 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {}
+	public void mouseExited(MouseEvent arg0) {
+	}
 }
