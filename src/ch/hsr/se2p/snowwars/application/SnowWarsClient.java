@@ -5,10 +5,12 @@ import org.apache.log4j.Logger;
 import ch.hsr.se2p.snowwars.config.ConfigFactory;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
+import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
 import ch.hsr.se2p.snowwars.model.Throw;
 import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
 import ch.hsr.se2p.snowwars.view.game.GameFrame;
+import ch.hsr.se2p.snowwars.view.lobby.ViewMain;
 
 public class SnowWarsClient {
 
@@ -17,18 +19,17 @@ public class SnowWarsClient {
 	private SnowWarsConfig clientConfig;
 
 	private ViewGameController viewGameController;
-	// private ViewLobbyController viewLobbyController;
+	private ViewLobbyController viewLobbyController;
 
 	RunRMIClient runRMIClient;
 
-	public SnowWarsClient() {
-	}
+	public SnowWarsClient() {}
 
-	public void startProgram() {
+	public void startProgram(String arg) {
 		logger.info("Starting SnowWars-Client");
 
 		initializeRMIClient();
-		initializeGui();
+		initializeGui(arg);
 		connectToServer();
 	}
 
@@ -56,12 +57,16 @@ public class SnowWarsClient {
 		}
 	}
 
-	private void initializeGui() {
-		viewGameController = new ViewGameController(this);
-		// viewLobbyController = new ViewLobbyController();
-		//
-		// new ViewMain(viewLobbyController);
-		new GameFrame(viewGameController);
+	private void initializeGui(String arg) {
+		if (arg.equals("-g")) {
+			logger.info("Starting in Game-Mode...");
+			viewGameController = new ViewGameController(this);
+			new GameFrame(viewGameController);
+		} else if(arg.equals("-l")) {
+			logger.info("Starting in Lobby-Mode...");
+			viewLobbyController = new ViewLobbyController(this);
+			new ViewMain(viewLobbyController);
+		}
 	}
 
 	public SnowWarsConfig getClientConfig() {
