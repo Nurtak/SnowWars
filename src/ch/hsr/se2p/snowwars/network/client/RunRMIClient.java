@@ -46,7 +46,6 @@ public class RunRMIClient {
 
 	public void connectToServer() throws SnowWarsRMIException {
 		try {
-			System.setProperty("java.rmi.system.hostname", InetAddress.getLocalHost().getHostAddress());
 			Registry serverRegistry = LocateRegistry.getRegistry(snowWarsConfig.getHostname(), snowWarsConfig.getRmiRegistryPort());
 
 			RMIClientInterface client = new RMIClient(this);

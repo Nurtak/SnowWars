@@ -12,10 +12,17 @@ public class SnowWarsMain {
 	 */
 	public static void main(String[] args) {
 		installLogger();
-		if (args.length != 0 && "-server".equalsIgnoreCase(args[0])) {
-			new SnowWarsServer().startProgram();
+		
+		if(args.length != 0){
+			if("-server".equalsIgnoreCase(args[0])){
+				new SnowWarsServer().startProgram();
+			} else if("-g".equalsIgnoreCase(args[0])){
+				new SnowWarsClient().startProgram(args[0]);
+			} else if("-l".equalsIgnoreCase(args[0])){
+				new SnowWarsClient().startProgram(args[0]);
+			}
 		} else {
-			new SnowWarsClient().startProgram();
+			Logger.getLogger(SnowWarsClient.class.getPackage().getName()).error("No Program argument provided! '-server' or '-g' or '-l'");
 		}
 	}
 
