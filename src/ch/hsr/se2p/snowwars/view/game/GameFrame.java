@@ -41,11 +41,12 @@ public class GameFrame extends JFrame implements Observer, WindowListener {
 
 		try {
 			board = new Board(this);
+			add(board);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			setVisible(false);
 		}
-		add(board);
+
 		this.pack();
 	}
 
