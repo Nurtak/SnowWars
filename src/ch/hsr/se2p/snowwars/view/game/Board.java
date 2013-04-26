@@ -20,7 +20,7 @@ import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 public class Board extends JPanel implements MouseListener {
 	private static final long serialVersionUID = -2949809536472598850L;
 
-	private final GameFrame viewGame;
+	private final GameFrame gameFrame;
 
 	private BufferedImage backgroundImage;
 
@@ -29,7 +29,7 @@ public class Board extends JPanel implements MouseListener {
 	private int mousePreY;
 
 	public Board(GameFrame vg) throws IOException {
-		this.viewGame = vg;
+		this.gameFrame = vg;
 
 		BufferedImageLoader bil = BufferedImageLoader.getInstance();
 		backgroundImage = bil.getBackgroundImage();
@@ -45,8 +45,8 @@ public class Board extends JPanel implements MouseListener {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawImage(backgroundImage, 0, 0, null);
 
-		ArrayList<GraphicalObject> graphicalObjectsList = viewGame.getGraphicalObjects();
-		synchronized(graphicalObjectsList){
+		ArrayList<GraphicalObject> graphicalObjectsList = gameFrame.getGraphicalObjects();
+		synchronized (graphicalObjectsList) {
 			for (GraphicalObject go : graphicalObjectsList) {
 				g2d.drawImage(go.getImage(), go.getX(), go.getY(), this);
 			}
@@ -94,6 +94,6 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	public void startNewThrowRequest(Throw throwRequest) {
-		viewGame.newShotRequest(throwRequest);
+		gameFrame.newShotRequest(throwRequest);
 	}
 }

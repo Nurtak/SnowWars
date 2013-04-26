@@ -17,7 +17,7 @@ import ch.hsr.se2p.snowwars.model.Throw;
 import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.server.RMIServerInterface;
 
-public class RunRMIClient{
+public class RunRMIClient {
 
 	private final static Logger logger = Logger.getLogger(RunRMIClient.class.getPackage().getName());
 
@@ -26,7 +26,7 @@ public class RunRMIClient{
 
 	private boolean connectedToServer = false;
 	private boolean connectedToSnowWars = false;
-	
+
 	RMIServerInterface server;
 	RMIClientInterface clientStub;
 
@@ -35,20 +35,18 @@ public class RunRMIClient{
 		this.snowWarsConfig = snowWarsClient.getClientConfig();
 		System.setProperty("java.security.policy", "rmi.policy");
 		try {
-		    System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
+			System.setProperty("java.rmi.system.hostname", InetAddress.getLocalHost().getHostAddress());
 		} catch (UnknownHostException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
-        if (System.getSecurityManager() == null)
-        {
-            System.setSecurityManager(new RMISecurityManager());
-        }
-
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new RMISecurityManager());
+		}
 	}
 
 	public void connectToServer() throws SnowWarsRMIException {
 		try {
-		    System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
+			System.setProperty("java.rmi.system.hostname", InetAddress.getLocalHost().getHostAddress());
 			Registry serverRegistry = LocateRegistry.getRegistry(snowWarsConfig.getHostname(), snowWarsConfig.getRmiRegistryPort());
 
 			RMIClientInterface client = new RMIClient(this);

@@ -21,7 +21,8 @@ public class SnowWarsClient {
 
 	RunRMIClient runRMIClient;
 
-	public SnowWarsClient() {}
+	public SnowWarsClient() {
+	}
 
 	public void startProgram() {
 		logger.info("Starting SnowWars-Client");
@@ -53,13 +54,12 @@ public class SnowWarsClient {
 			logger.error(e.getMessage());
 			viewGameController.showNoConnectionError();
 		}
-
 	}
 
 	private void initializeGui() {
 		viewGameController = new ViewGameController(this);
 		// viewLobbyController = new ViewLobbyController();
-
+		
 		// new ViewMain(viewLobbyController);
 		new GameFrame(viewGameController);
 	}
