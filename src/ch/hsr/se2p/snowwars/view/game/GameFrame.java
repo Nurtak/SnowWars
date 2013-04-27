@@ -14,7 +14,6 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.controller.game.GraphicalObject;
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
-import ch.hsr.se2p.snowwars.model.Throw;
 
 public class GameFrame extends JFrame implements Observer, WindowListener {
 	private final static Logger logger = Logger.getLogger(GameFrame.class.getPackage().getName());
@@ -33,9 +32,9 @@ public class GameFrame extends JFrame implements Observer, WindowListener {
 	private void initializeGui() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(this);
-		setMinimumSize(new Dimension(viewGameController.getGameWidth(), viewGameController.getGameHeight()));
+		setMinimumSize(new Dimension(getViewGameController().getGameWidth(), getViewGameController().getGameHeight()));
 		setLocationRelativeTo(null);
-		setTitle(viewGameController.getGameTitle());
+		setTitle(getViewGameController().getGameTitle());
 		setResizable(false);
 		setVisible(true);
 
@@ -50,18 +49,14 @@ public class GameFrame extends JFrame implements Observer, WindowListener {
 		this.pack();
 	}
 
-	public void newShotRequest(Throw shot) {
-		viewGameController.sendThrow(shot);
-	}
-
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		if (viewGameController.getShowNoConnectionError()) {
+		if (getViewGameController().getShowNoConnectionError()) {
 			Object[] options = { "Cancel", "Retry" };
 			int returnValue = JOptionPane.showOptionDialog(null, "No connection to server!", "No connection", JOptionPane.OK_OPTION,
 					JOptionPane.ERROR_MESSAGE, null, options, null);
 			if (returnValue == 1) {
-				viewGameController.retryConnectToServer();
+				getViewGameController().retryConnectToServer();
 			}
 		}
 
@@ -70,7 +65,7 @@ public class GameFrame extends JFrame implements Observer, WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		viewGameController.closeProgram();
+		getViewGameController().closeProgram();
 	}
 
 	@Override
@@ -98,6 +93,10 @@ public class GameFrame extends JFrame implements Observer, WindowListener {
 	}
 
 	protected ArrayList<GraphicalObject> getGraphicalObjects() {
-		return viewGameController.getGraphicalObjects();
+		return getViewGameController().getGraphicalObjects();
+	}
+
+	protected ViewGameController getViewGameController() {
+		return viewGameController;
 	}
 }

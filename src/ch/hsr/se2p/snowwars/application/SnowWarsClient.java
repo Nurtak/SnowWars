@@ -6,7 +6,9 @@ import ch.hsr.se2p.snowwars.config.ConfigFactory;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
+import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Throw;
+import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
 import ch.hsr.se2p.snowwars.view.game.GameFrame;
@@ -21,9 +23,13 @@ public class SnowWarsClient {
 	private ViewGameController viewGameController;
 	private ViewLobbyController viewLobbyController;
 
+	private Player playerLeft;
+	private Player playerRight;
+
 	RunRMIClient runRMIClient;
 
-	public SnowWarsClient() {}
+	public SnowWarsClient() {
+	}
 
 	public void startProgram(String arg) {
 		logger.info("Starting SnowWars-Client");
@@ -62,7 +68,7 @@ public class SnowWarsClient {
 			logger.info("Starting in Game-Mode...");
 			viewGameController = new ViewGameController(this);
 			new GameFrame(viewGameController);
-		} else if(arg.equals("-l")) {
+		} else if (arg.equals("-l")) {
 			logger.info("Starting in Lobby-Mode...");
 			viewLobbyController = new ViewLobbyController(this);
 			new ViewMain(viewLobbyController);
@@ -88,5 +94,21 @@ public class SnowWarsClient {
 
 	public void receivedShotRequest(Throw shot) {
 		viewGameController.receivedThrow(shot);
+	}
+
+	public Player getPlayerLeft() {
+		if (this.playerLeft == null) {
+			this.playerLeft = new Player(new User("AbraXus"));
+			this.playerLeft.setHitPoints(100);
+		}
+		return this.playerLeft;
+	}
+
+	public Player getPlayerRight() {
+		if (this.playerRight == null) {
+			this.playerRight = new Player(new User("Laktose"));
+			this.playerRight.setHitPoints(50);
+		}
+		return this.playerRight;
 	}
 }

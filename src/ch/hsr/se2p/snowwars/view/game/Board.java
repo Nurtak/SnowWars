@@ -15,9 +15,11 @@ import javax.swing.JPanel;
 
 import ch.hsr.se2p.snowwars.controller.game.GraphicalObject;
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
+import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Snowball;
 import ch.hsr.se2p.snowwars.model.Throw;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
+import ch.hsr.se2p.snowwars.view.game.PlayerInfoPanel.PlayerInfoPanelPosition;
 
 public class Board extends JPanel implements MouseListener {
 	private static final long serialVersionUID = -2949809536472598850L;
@@ -46,26 +48,47 @@ public class Board extends JPanel implements MouseListener {
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawImage(backgroundImage, 0, 0, null);
 
+		paintBackground(g2d);
+		paintGraphicalObjects(g2d);
+		paintPlayerInfoPanel(g2d);
+		paintAimingArrow(g2d);
+
+		Toolkit.getDefaultToolkit().sync();
+		g.dispose();
+	}
+
+	private void paintBackground(Graphics2D g2d) {
+		g2d.drawImage(backgroundImage, 0, 0, null);
+	}
+
+	private void paintGraphicalObjects(Graphics2D g2d) {
 		ArrayList<GraphicalObject> graphicalObjectsList = gameFrame.getGraphicalObjects();
 		synchronized (graphicalObjectsList) {
 			for (GraphicalObject go : graphicalObjectsList) {
-				if(go.isVisible()){
+				if (go.isVisible()) {
 					g2d.drawImage(go.getImage(), go.getX(), go.getY(), this);
 				}
 			}
 		}
+	}
 
+	private void paintPlayerInfoPanel(Graphics2D g2d) {
+		Player playerLeft = gameFrame.getViewGameController().getPlayerLeft();
+		Player playerRight = gameFrame.getViewGameController().getPlayerRight();
+
+		int gameWidth = gameFrame.getViewGameController().getGameWidth();
+		new PlayerInfoPanel(playerLeft, PlayerInfoPanelPosition.LEFT, gameWidth).paint(g2d);
+		new PlayerInfoPanel(playerRight, PlayerInfoPanelPosition.RIGHT, gameWidth).paint(g2d);
+	}
+
+	private void paintAimingArrow(Graphics2D g2d) {
 		if (playerAiming) {
 			try {
 				drawArrow(g2d, (int) this.getMousePosition().getX(), (int) this.getMousePosition().getY(), aimingStartX, aimingStartY);
 			} catch (Exception e) {
 			}
 		}
-
-		Toolkit.getDefaultToolkit().sync();
-		g.dispose();
 	}
 
 	private void drawArrow(Graphics2D g, int x, int y, int xx, int yy) {
@@ -117,7 +140,7 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	public void startNewThrowRequest(Throw throwRequest) {
-		gameFrame.newShotRequest(throwRequest);
+		gameFrame.getViewGameController().sendThrow(throwRequest);
 	}
 
 	@Override

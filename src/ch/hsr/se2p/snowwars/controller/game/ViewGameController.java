@@ -12,6 +12,7 @@ import javax.swing.Timer;
 import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClient;
+import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Throw;
 
 public class ViewGameController extends Observable implements ActionListener {
@@ -30,7 +31,7 @@ public class ViewGameController extends Observable implements ActionListener {
 
 	private ArrayList<GraphicalObject> graphicalObjects = new ArrayList<GraphicalObject>();
 	private ArrayList<GraphicalSnowball> graphicalSnowballs = new ArrayList<GraphicalSnowball>();
-
+	
 	private GraphicalPlayer playerLeft;
 	private GraphicalPlayer playerRight;
 
@@ -51,7 +52,7 @@ public class ViewGameController extends Observable implements ActionListener {
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
-
+		
 		redrawTimer = new Timer(TIMER_REDRAW_INTERVAL, this);
 		redrawTimer.start();
 	}
@@ -183,5 +184,13 @@ public class ViewGameController extends Observable implements ActionListener {
 
 	public String getGameTitle() {
 		return GAME_TITLE;
+	}
+	
+	public Player getPlayerLeft(){
+		return this.snowWarsClient.getPlayerLeft();
+	}
+
+	public Player getPlayerRight(){
+		return this.snowWarsClient.getPlayerRight();
 	}
 }
