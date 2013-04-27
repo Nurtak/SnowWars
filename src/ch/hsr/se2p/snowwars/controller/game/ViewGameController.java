@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClient;
 import ch.hsr.se2p.snowwars.model.Player;
-import ch.hsr.se2p.snowwars.model.Throw;
+import ch.hsr.se2p.snowwars.model.Shot;
 
 public class ViewGameController extends Observable implements ActionListener {
 	private final static Logger logger = Logger.getLogger(ViewGameController.class.getPackage().getName());
@@ -117,7 +117,7 @@ public class ViewGameController extends Observable implements ActionListener {
 		}
 	}
 
-	public void receivedThrow(Throw receivedThrow) {
+	public void receivedThrow(Shot receivedThrow) {
 		synchronized (graphicalObjects) {
 			GraphicalSnowball gs = new GraphicalSnowball(receivedThrow.getAngle(), receivedThrow.getStrength());
 			graphicalObjects.add(gs);
@@ -141,7 +141,7 @@ public class ViewGameController extends Observable implements ActionListener {
 		return error;
 	}
 
-	public void sendThrow(final Throw sendThrow) {
+	public void sendThrow(final Shot sendThrow) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {

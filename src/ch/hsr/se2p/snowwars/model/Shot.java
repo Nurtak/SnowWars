@@ -2,14 +2,14 @@ package ch.hsr.se2p.snowwars.model;
 
 import java.io.Serializable;
 
-public class Throw implements Serializable {
+public class Shot implements Serializable {
     private static final long serialVersionUID = 1528366581031974029L;
 
     private final int angle;
     private final int strength;
     private ThrowingObject throwingObject;
 
-    public Throw(int angle, int strength, ThrowingObject throwingObject) {
+    public Shot(int angle, int strength, ThrowingObject throwingObject) {
         this.angle = angle;
         this.strength = strength;
         this.throwingObject = throwingObject;

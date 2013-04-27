@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.model.Throw;
+import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.network.client.RMIClientInterface;
 
 public class RMIServer implements RMIServerInterface{
@@ -29,7 +29,7 @@ public class RMIServer implements RMIServerInterface{
 	}
 
 	@Override
-	public boolean shotThrowed(Throw shot) throws RemoteException {
+	public boolean shotThrowed(Shot shot) throws RemoteException {
 		logger.info("Received Shot: " + shot.toString());
 		
 		for(RMIClientInterface activeClient : clientList){			

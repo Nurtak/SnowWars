@@ -2,7 +2,7 @@ package ch.hsr.se2p.snowwars.network.client;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.model.Throw;
+import ch.hsr.se2p.snowwars.model.Shot;
 
 public class RMIClient implements RMIClientInterface{
 
@@ -15,7 +15,7 @@ public class RMIClient implements RMIClientInterface{
 	}
 	
 	@Override
-	public void shotThrowed(Throw shot) {
+	public void shotThrowed(Shot shot) {
 		logger.info("Received Shot: " + shot.toString());
 		runRMIClient.receivedShot(shot);
 	}

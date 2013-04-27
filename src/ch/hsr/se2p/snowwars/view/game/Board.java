@@ -16,8 +16,8 @@ import javax.swing.JPanel;
 import ch.hsr.se2p.snowwars.controller.game.GraphicalObject;
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.model.Player;
+import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.Snowball;
-import ch.hsr.se2p.snowwars.model.Throw;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 import ch.hsr.se2p.snowwars.view.game.PlayerInfoPanel.PlayerInfoPanelPosition;
 
@@ -139,7 +139,7 @@ public class Board extends JPanel implements MouseListener {
 		g.fillPolygon(xPoints, yPoints, 3);
 	}
 
-	public void startNewThrowRequest(Throw throwRequest) {
+	public void startNewThrowRequest(Shot throwRequest) {
 		gameFrame.getViewGameController().sendThrow(throwRequest);
 	}
 
@@ -164,9 +164,9 @@ public class Board extends JPanel implements MouseListener {
 				strength = strength / ViewGameController.FORCE_REDUCE_FACTOR_STRENGTH;
 
 				Snowball sb = new Snowball(10);
-				Throw swthrow = new Throw(angle, strength, sb);
+				Shot shot = new Shot(angle, strength, sb);
 
-				startNewThrowRequest(swthrow);
+				startNewThrowRequest(shot);
 			} catch (Exception e) {
 			}
 		}
