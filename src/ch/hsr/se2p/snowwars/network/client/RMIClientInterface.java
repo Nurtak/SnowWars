@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 
 import ch.hsr.se2p.snowwars.model.Throw;
 
-public interface RMIClientInterface extends Remote{
-	public void shotThrowed(Throw shot) throws RemoteException;
+public interface RMIClientInterface extends Remote {
+    public void shotThrowed(Throw shot) throws RemoteException;
+
+    // public boolean receiveInvitation() throws RemoteException;
 }
