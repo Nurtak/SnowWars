@@ -31,7 +31,8 @@ public class ViewGameController extends Observable implements ActionListener {
 	private ArrayList<GraphicalObject> graphicalObjects = new ArrayList<GraphicalObject>();
 	private ArrayList<GraphicalSnowball> graphicalSnowballs = new ArrayList<GraphicalSnowball>();
 
-	private GraphicalPlayer player;
+	private GraphicalPlayer playerLeft;
+	private GraphicalPlayer playerRight;
 
 	private Timer redrawTimer;
 
@@ -42,8 +43,11 @@ public class ViewGameController extends Observable implements ActionListener {
 		this.snowWarsClient = snc;
 
 		try {
-			player = new GraphicalPlayer();
-			graphicalObjects.add(player);
+			playerLeft = new GraphicalPlayer(GraphicalPlayer.PlayerPosition.LEFT);
+			playerRight = new GraphicalPlayer(GraphicalPlayer.PlayerPosition.RIGHT);
+
+			graphicalObjects.add(playerLeft);
+			graphicalObjects.add(playerRight);
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
@@ -65,34 +69,51 @@ public class ViewGameController extends Observable implements ActionListener {
 		this.notifyObservers();
 	}
 
-	public void checkCollision() {
-		Rectangle r1 = player.getBounds();
+	private void checkCollision() {
 		for (GraphicalSnowball graphicalSnowball : graphicalSnowballs) {
 			if (!graphicalSnowball.isVisible()) {
 				continue;
 			}
 
-			Rectangle r2 = graphicalSnowball.getBounds();
+			checkCollisionWithPlayer(graphicalSnowball);
+			checkCollisionWithOtherSnowball(graphicalSnowball);
+		}
+	}
 
-			if (r2.intersects(r1)) {
-				graphicalSnowball.stopSnowball();
-				graphicalSnowball.startSplashingAnimation();
-			}
-			for (GraphicalSnowball graphicalSnowball2 : graphicalSnowballs) {
-				if (!graphicalSnowball2.isVisible()) {
-					continue;
-				}
-				if (graphicalSnowball2 != graphicalSnowball) {
-					Rectangle r3 = graphicalSnowball2.getBounds();
-					if (r2.intersects(r3)) {
-						graphicalSnowball.stopSnowball();
-						graphicalSnowball.startSplashingAnimation();
-					}
-				}
+	private void checkCollisionWithPlayer(GraphicalSnowball activeSnowball) {
+		Rectangle snowballRectangle = activeSnowball.getBounds();
+		Rectangle playerLeftRectangle = playerLeft.getBounds();
+		Rectangle playerRightRectangle = playerRight.getBounds();
 
-			}
+		if (snowballRectangle.intersects(playerRightRectangle)) {
+			logger.info("Snowball hit right player");
+			activeSnowball.stopSnowball();
+			activeSnowball.startSplashingAnimation();
 		}
 
+		if (snowballRectangle.intersects(playerLeftRectangle)) {
+			logger.info("Snowball hit left player");
+			activeSnowball.stopSnowball();
+			activeSnowball.startSplashingAnimation();
+		}
+	}
+
+	private void checkCollisionWithOtherSnowball(GraphicalSnowball graphicalSnowball) {
+		Rectangle graphicalSnowballRectangle = graphicalSnowball.getBounds();
+
+		for (GraphicalSnowball activeSnowball : graphicalSnowballs) {
+			if (!activeSnowball.isVisible()) {
+				continue;
+			}
+
+			if (activeSnowball != graphicalSnowball) {
+				Rectangle activeSnowballRectangle = activeSnowball.getBounds();
+				if (activeSnowballRectangle.intersects(graphicalSnowballRectangle)) {
+					activeSnowball.stopSnowball();
+					activeSnowball.startSplashingAnimation();
+				}
+			}
+		}
 	}
 
 	public void receivedThrow(Throw receivedThrow) {
@@ -100,7 +121,7 @@ public class ViewGameController extends Observable implements ActionListener {
 			GraphicalSnowball gs = new GraphicalSnowball(receivedThrow.getAngle(), receivedThrow.getStrength());
 			graphicalObjects.add(gs);
 			graphicalSnowballs.add(gs);
-			player.startThrowAnimation();
+			playerLeft.startThrowAnimation();
 		}
 
 		this.setChanged();
