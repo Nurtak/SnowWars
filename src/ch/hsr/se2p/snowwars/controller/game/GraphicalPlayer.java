@@ -11,6 +11,11 @@ import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 public class GraphicalPlayer extends GraphicalObject {
 	protected final static int PLAYER_LEFT_POSITION_X = 40;
 	protected final static int PLAYER_LEFT_POSITION_Y = 300;
+	protected final static int PLAYER_RIGHT_POSITION_X = 840;
+	protected final static int PLAYER_RIGHT_POSITION_Y = 300;
+	private final static int PLAYER_HEIGHT = 40;
+	private final static int PLAYER_WIDTH = 40;
+	
 	private final int WIDTH = 158;
 	private final int HEIGHT = 149;
 
@@ -21,9 +26,25 @@ public class GraphicalPlayer extends GraphicalObject {
 	private BufferedImage spriteSheet;
 	public BufferedImageLoader loader;
 
-	public GraphicalPlayer() throws IOException {
+	public static enum PlayerPosition{
+		LEFT,
+		RIGHT
+	}
+	private final PlayerPosition playerPosition;
+	
+	public GraphicalPlayer(PlayerPosition pos) throws IOException {	
+		this.playerPosition = pos;
+		
 		loader = BufferedImageLoader.getInstance();
-		spriteSheet = loader.getSpriteSheetImage();
+		switch(pos){
+		case LEFT:
+			spriteSheet = loader.getPlayerLeftSpriteSheet();
+			break;
+		case RIGHT:
+			spriteSheet = loader.getPlayerRightSpriteSheet();
+			break;
+		}
+		
 		loadThrowAnimation();
 		loadStandingAnimation();
 		activeAnimation = standing;
@@ -52,16 +73,31 @@ public class GraphicalPlayer extends GraphicalObject {
 
 	@Override
 	public int getX() {
-		return PLAYER_LEFT_POSITION_X;
+		switch(this.playerPosition){
+		case LEFT:
+			return PLAYER_LEFT_POSITION_X;
+		default:
+			return PLAYER_RIGHT_POSITION_X;
+		}
 	}
 
 	@Override
 	public int getY() {
-		return PLAYER_LEFT_POSITION_Y;
+		switch(this.playerPosition){
+		case LEFT:
+			return PLAYER_LEFT_POSITION_Y;
+		default:
+			return PLAYER_RIGHT_POSITION_Y;
+		}
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(40, 350, 80, 80);
+		switch(playerPosition){
+		case LEFT:
+			return new Rectangle(PLAYER_LEFT_POSITION_X, PLAYER_LEFT_POSITION_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+		default:
+			return new Rectangle(PLAYER_RIGHT_POSITION_X, PLAYER_RIGHT_POSITION_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+		}
 	}
 
 	@Override

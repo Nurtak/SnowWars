@@ -8,16 +8,14 @@ import javax.imageio.ImageIO;
 
 public class BufferedImageLoader {
 
-	private final static String FILENAME_SNOWBALL = new String("img/snowflake.png");
-	private final static String FILENAME_SNOWBALL_CRASHED = new String("img/snowflake_crashed.png");
 	private final static String FILENAME_BACKGROUND = new String("img/background.jpg");
 	private final static String FILENAME_LOGO = new String("img/logo.png");
-	private final static String FILENAME_SPRITESHEET = new String("img/spriteSheet.png");
-	private final static String FILENAME_SPRITESHEET_SNOWBALL = new String ("img/Crash2.png");
+	private final static String FILENAME_PLAYER_LEFT = new String("img/playerLeft.png");
+	private final static String FILENAME_PLAYER_RIGHT = new String("img/playerRight.png");
+	private final static String FILENAME_SPRITESHEET_SNOWBALL = new String ("img/snowball.png");
 	private static BufferedImageLoader bil;
 
-	private BufferedImageLoader() {
-	}
+	private BufferedImageLoader() {}
 
 	public static BufferedImageLoader getInstance() {
 		if (bil == null) {
@@ -37,14 +35,6 @@ public class BufferedImageLoader {
 	public BufferedImage getSnowballSpriteSheet() throws IOException {
 		return loadImage(FILENAME_SPRITESHEET_SNOWBALL);
 	}
-	
-	public BufferedImage getSnowballImage() throws IOException {
-		return loadImage(FILENAME_SNOWBALL);
-	}
-
-	public BufferedImage getSnowballCrashedImage() throws IOException {
-		return loadImage(FILENAME_SNOWBALL_CRASHED);
-	}
 
 	public BufferedImage getBackgroundImage() throws IOException {
 		return loadImage(FILENAME_BACKGROUND);
@@ -54,7 +44,11 @@ public class BufferedImageLoader {
 		return loadImage(FILENAME_LOGO);
 	}
 
-	public BufferedImage getSpriteSheetImage() throws IOException {
-		return loadImage(FILENAME_SPRITESHEET);
+	public BufferedImage getPlayerLeftSpriteSheet() throws IOException {
+		return loadImage(FILENAME_PLAYER_LEFT);
+	}
+	
+	public BufferedImage getPlayerRightSpriteSheet() throws IOException {
+		return loadImage(FILENAME_PLAYER_RIGHT);
 	}
 }
