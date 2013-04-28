@@ -31,7 +31,7 @@ public class ViewGameController extends Observable implements ActionListener {
 
 	private ArrayList<GraphicalObject> graphicalObjects = new ArrayList<GraphicalObject>();
 	private ArrayList<GraphicalSnowball> graphicalSnowballs = new ArrayList<GraphicalSnowball>();
-	
+
 	private GraphicalPlayer playerLeft;
 	private GraphicalPlayer playerRight;
 
@@ -52,7 +52,7 @@ public class ViewGameController extends Observable implements ActionListener {
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
-		
+
 		redrawTimer = new Timer(TIMER_REDRAW_INTERVAL, this);
 		redrawTimer.start();
 	}
@@ -71,13 +71,15 @@ public class ViewGameController extends Observable implements ActionListener {
 	}
 
 	private void checkCollision() {
-		for (GraphicalSnowball graphicalSnowball : graphicalSnowballs) {
-			if (!graphicalSnowball.isVisible()) {
-				continue;
-			}
+		synchronized (graphicalSnowballs) {
+			for (GraphicalSnowball graphicalSnowball : graphicalSnowballs) {
+				if (!graphicalSnowball.isVisible()) {
+					continue;
+				}
 
-			checkCollisionWithPlayer(graphicalSnowball);
-			checkCollisionWithOtherSnowball(graphicalSnowball);
+				checkCollisionWithPlayer(graphicalSnowball);
+				checkCollisionWithOtherSnowball(graphicalSnowball);
+			}
 		}
 	}
 
@@ -188,12 +190,12 @@ public class ViewGameController extends Observable implements ActionListener {
 	public String getGameTitle() {
 		return GAME_TITLE;
 	}
-	
-	public PlayerInterface getPlayerLeft(){
+
+	public PlayerInterface getPlayerLeft() {
 		return this.snowWarsClient.getPlayerLeft();
 	}
 
-	public PlayerInterface getPlayerRight(){
+	public PlayerInterface getPlayerRight() {
 		return this.snowWarsClient.getPlayerRight();
 	}
 }
