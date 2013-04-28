@@ -18,4 +18,10 @@ public class User implements UserInterface {
         this.name = name;
     }
 
+    @Override
+    public boolean receiveInvitation() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

@@ -7,6 +7,8 @@ public interface UserInterface extends Remote {
     /**
      * @return the name
      */
-    public abstract String getName();
+    public String getName();
+    
+    public boolean receiveInvitation();
 
 }
