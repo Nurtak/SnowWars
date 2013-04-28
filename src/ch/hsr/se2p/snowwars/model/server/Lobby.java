@@ -1,37 +1,41 @@
 package ch.hsr.se2p.snowwars.model.server;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import ch.hsr.se2p.snowwars.model.client.Player;
 import ch.hsr.se2p.snowwars.model.remoteinterfaces.LobbyInterface;
 import ch.hsr.se2p.snowwars.model.remoteinterfaces.UserInterface;
 
 public class Lobby implements LobbyInterface{
 
-	@Override
+    private Map<String, Player> playerList = new HashMap<String, Player>();
+
 	public enterReturn enter(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		if (playerList.containsKey(username)) {
+            return enterReturn.USERNAME_ALREADY_IN_USE;
+        }
+		else {
+            return enterReturn.OK;
+        }
 	}
 
-	@Override
 	public boolean leave() {
-		// TODO Auto-generated method stub
-		return false;
+		//playerList
+	    return false;
 	}
 
-	@Override
 	public List<UserInterface> getLoggedInUsers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public inviteUserReturn inviteUser(UserInterface selectedUser) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void startGame(UserInterface selectedUser) {
 		// TODO Auto-generated method stub
 		
