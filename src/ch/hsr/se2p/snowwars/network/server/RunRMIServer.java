@@ -3,7 +3,6 @@ package ch.hsr.se2p.snowwars.network.server;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.RMISecurityManager;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -17,41 +16,42 @@ import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
 public class RunRMIServer {
 
 	private final static Logger logger = Logger.getLogger(RunRMIServer.class.getPackage().getName());
-	
+
 	private final SnowWarsConfig snowWarsConfig;
-	
-	public RunRMIServer(SnowWarsServer snowWarsServer) throws SnowWarsRMIException{
-	    snowWarsConfig = snowWarsServer.getSnowWarsConfig();
+
+	public RunRMIServer(SnowWarsServer snowWarsServer) throws SnowWarsRMIException {
+		snowWarsConfig = snowWarsServer.getSnowWarsConfig();
 		initializeRMIService();
 	}
-	
-	private void initializeRMIService() throws SnowWarsRMIException{
+
+	private void initializeRMIService() throws SnowWarsRMIException {
 		try {
 			logger.info("Initializing SnowWars RMI Server...");
 			System.setProperty("java.security.policy", "rmi.policy");
+
 			try {
-			    System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
+				System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
 			} catch (UnknownHostException e) {
-			    e.printStackTrace();
+				e.printStackTrace();
 			}
-            if (System.getSecurityManager() == null)
-            {
-                System.setSecurityManager(new RMISecurityManager());
-            }
+
+			if (System.getSecurityManager() == null) {
+				System.setSecurityManager(new RMISecurityManager());
+			}
 			RMIServer rmiServer = new RMIServer();
-			
+
 			RMIServerInterface stub;
 			stub = (RMIServerInterface) UnicastRemoteObject.exportObject(rmiServer, 0);
-			
+
 			// Registry
 			logger.info("Creating Registry...");
 			LocateRegistry.createRegistry(snowWarsConfig.getRmiRegistryPort());
 			Registry registry = LocateRegistry.getRegistry();
-			
-			//Bind Stub
+
+			// Bind Stub
 			registry.rebind(snowWarsConfig.getServerRMILookupName(), stub);
 			logger.info("SnowWars Server is working...");
-		} catch (RemoteException e) {
+		} catch (Exception e) {
 			throw new SnowWarsRMIException(e.getMessage());
 		}
 	}

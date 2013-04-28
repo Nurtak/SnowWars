@@ -20,7 +20,7 @@ public class SnowWarsServer {
 		try {
 			new RunRMIServer(this);
 		} catch (SnowWarsRMIException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 	}
 	
