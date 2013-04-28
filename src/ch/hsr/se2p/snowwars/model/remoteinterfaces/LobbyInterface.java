@@ -3,7 +3,7 @@ package ch.hsr.se2p.snowwars.model.remoteinterfaces;
 import java.rmi.Remote;
 import java.util.List;
 
-import ch.hsr.se2p.snowwars.model.User;
+import ch.hsr.se2p.snowwars.model.client.User;
 
 public interface LobbyInterface extends Remote {
 

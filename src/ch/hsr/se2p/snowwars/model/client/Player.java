@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.model;
+package ch.hsr.se2p.snowwars.model.client;
 
 import ch.hsr.se2p.snowwars.model.remoteinterfaces.PlayerInterface;
 import ch.hsr.se2p.snowwars.model.remoteinterfaces.UserInterface;

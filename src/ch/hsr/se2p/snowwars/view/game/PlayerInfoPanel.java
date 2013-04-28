@@ -2,7 +2,7 @@ package ch.hsr.se2p.snowwars.view.game;
 
 import java.awt.Graphics2D;
 
-import ch.hsr.se2p.snowwars.model.Player;
+import ch.hsr.se2p.snowwars.model.client.Player;
 import ch.hsr.se2p.snowwars.model.remoteinterfaces.PlayerInterface;
 
 public class PlayerInfoPanel {

@@ -1,5 +1,6 @@
-package ch.hsr.se2p.snowwars.model;
+package ch.hsr.se2p.snowwars.model.server;
 
+import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.remoteinterfaces.GameInterface;
 import ch.hsr.se2p.snowwars.view.game.Board;
 
