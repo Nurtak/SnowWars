@@ -2,7 +2,6 @@ package ch.hsr.se2p.snowwars.model.server;
 
 import java.util.List;
 
-import ch.hsr.se2p.snowwars.model.client.User;
 import ch.hsr.se2p.snowwars.model.remoteinterfaces.LobbyInterface;
 import ch.hsr.se2p.snowwars.model.remoteinterfaces.UserInterface;
 
@@ -21,7 +20,7 @@ public class Lobby implements LobbyInterface{
 	}
 
 	@Override
-	public List<User> getLoggedInUsers() {
+	public List<UserInterface> getLoggedInUsers() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -3,8 +3,6 @@ package ch.hsr.se2p.snowwars.model.remoteinterfaces;
 import java.rmi.Remote;
 import java.util.List;
 
-import ch.hsr.se2p.snowwars.model.client.User;
-
 public interface LobbyInterface extends Remote {
 
     public enum enterReturn {
@@ -19,7 +17,7 @@ public interface LobbyInterface extends Remote {
 
     public boolean leave();
 
-    public List<User> getLoggedInUsers();
+    public List<UserInterface> getLoggedInUsers();
 
     public inviteUserReturn inviteUser(UserInterface selectedUser);
 
