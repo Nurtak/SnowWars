@@ -1,39 +1,44 @@
 package ch.hsr.se2p.snowwars.model;
 
-public class Player {
+import ch.hsr.se2p.snowwars.model.remoteinterfaces.PlayerInterface;
+import ch.hsr.se2p.snowwars.model.remoteinterfaces.UserInterface;
+
+public class Player implements PlayerInterface {
 	public final static int MAX_HEALTH_POINTS = 100;
 	
-	private User user;
+	private UserInterface user;
 	private int hitPoints;
 	
-	public Player(User user) {
+	public Player(UserInterface user) {
 		this(user, 100);
 	}
 
-	public Player(User user, int lifePoints) {
+	public Player(UserInterface user, int lifePoints) {
 		this.user = user;
 		this.hitPoints = lifePoints;
 	}
 
-	/**
-	 * @return the user
-	 */
-	public User getUser() {
+	/* (non-Javadoc)
+     * @see ch.hsr.se2p.snowwars.model.PlayerInterface#getUser()
+     */
+	@Override
+    public UserInterface getUser() {
 		return user;
 	}
 
-	/**
-	 * @return the hitPoints
-	 */
-	public int getHitPoints() {
+	/* (non-Javadoc)
+     * @see ch.hsr.se2p.snowwars.model.PlayerInterface#getHitPoints()
+     */
+	@Override
+    public int getHitPoints() {
 		return hitPoints;
 	}
 
-	/**
-	 * @param hitPoints
-	 *           the hitPoints to set
-	 */
-	public void setHitPoints(int hitPoints) {
+	/* (non-Javadoc)
+     * @see ch.hsr.se2p.snowwars.model.PlayerInterface#setHitPoints(int)
+     */
+	@Override
+    public void setHitPoints(int hitPoints) {
 		this.hitPoints = hitPoints;
 	}
 }

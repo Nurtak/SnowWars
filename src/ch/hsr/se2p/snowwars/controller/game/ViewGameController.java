@@ -12,8 +12,8 @@ import javax.swing.Timer;
 import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClient;
-import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.model.remoteinterfaces.PlayerInterface;
 
 public class ViewGameController extends Observable implements ActionListener {
 	private final static Logger logger = Logger.getLogger(ViewGameController.class.getPackage().getName());
@@ -189,11 +189,11 @@ public class ViewGameController extends Observable implements ActionListener {
 		return GAME_TITLE;
 	}
 	
-	public Player getPlayerLeft(){
+	public PlayerInterface getPlayerLeft(){
 		return this.snowWarsClient.getPlayerLeft();
 	}
 
-	public Player getPlayerRight(){
+	public PlayerInterface getPlayerRight(){
 		return this.snowWarsClient.getPlayerRight();
 	}
 }

@@ -9,6 +9,7 @@ import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.User;
+import ch.hsr.se2p.snowwars.model.remoteinterfaces.PlayerInterface;
 import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
 import ch.hsr.se2p.snowwars.view.game.GameFrame;
@@ -23,8 +24,8 @@ public class SnowWarsClient {
 	private ViewGameController viewGameController;
 	private ViewLobbyController viewLobbyController;
 
-	private Player playerLeft;
-	private Player playerRight;
+	private PlayerInterface playerLeft;
+	private PlayerInterface playerRight;
 
 	RunRMIClient runRMIClient;
 
@@ -96,7 +97,7 @@ public class SnowWarsClient {
 		viewGameController.receivedShot(shot);
 	}
 
-	public Player getPlayerLeft() {
+	public PlayerInterface getPlayerLeft() {
 		if (this.playerLeft == null) {
 			this.playerLeft = new Player(new User("AbraXus"));
 			this.playerLeft.setHitPoints(100);
@@ -104,7 +105,7 @@ public class SnowWarsClient {
 		return this.playerLeft;
 	}
 
-	public Player getPlayerRight() {
+	public PlayerInterface getPlayerRight() {
 		if (this.playerRight == null) {
 			this.playerRight = new Player(new User("Laktose"));
 			this.playerRight.setHitPoints(50);

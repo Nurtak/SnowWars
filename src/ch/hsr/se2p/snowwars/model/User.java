@@ -1,12 +1,15 @@
 package ch.hsr.se2p.snowwars.model;
 
-public class User {
+import ch.hsr.se2p.snowwars.model.remoteinterfaces.UserInterface;
+
+public class User implements UserInterface {
 
     private String name;
 
-    /**
-     * @return the name
+    /* (non-Javadoc)
+     * @see ch.hsr.se2p.snowwars.model.UserInterface#getName()
      */
+    @Override
     public String getName() {
         return name;
     }

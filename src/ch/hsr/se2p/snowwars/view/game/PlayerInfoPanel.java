@@ -3,6 +3,7 @@ package ch.hsr.se2p.snowwars.view.game;
 import java.awt.Graphics2D;
 
 import ch.hsr.se2p.snowwars.model.Player;
+import ch.hsr.se2p.snowwars.model.remoteinterfaces.PlayerInterface;
 
 public class PlayerInfoPanel {
 
@@ -11,7 +12,7 @@ public class PlayerInfoPanel {
 	private final static int POSITION_Y = 20;
 	private final static int HEALTH_BAR_HEIGHT = 20;
 
-	private final Player player;
+	private final PlayerInterface player;
 	private final PlayerInfoPanelPosition position;
 
 	private final int GAME_WIDTH;
@@ -20,7 +21,7 @@ public class PlayerInfoPanel {
 		LEFT, RIGHT
 	}
 
-	public PlayerInfoPanel(Player player, PlayerInfoPanelPosition pos, int gameWidth) {
+	public PlayerInfoPanel(PlayerInterface player, PlayerInfoPanelPosition pos, int gameWidth) {
 		this.GAME_WIDTH = gameWidth;
 		this.position = pos;
 		this.player = player;

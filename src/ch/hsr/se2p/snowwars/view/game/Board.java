@@ -15,9 +15,9 @@ import javax.swing.JPanel;
 
 import ch.hsr.se2p.snowwars.controller.game.GraphicalObject;
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
-import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.Snowball;
+import ch.hsr.se2p.snowwars.model.remoteinterfaces.PlayerInterface;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 import ch.hsr.se2p.snowwars.view.game.PlayerInfoPanel.PlayerInfoPanelPosition;
 
@@ -74,8 +74,8 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	private void paintPlayerInfoPanel(Graphics2D g2d) {
-		Player playerLeft = gameFrame.getViewGameController().getPlayerLeft();
-		Player playerRight = gameFrame.getViewGameController().getPlayerRight();
+		PlayerInterface playerLeft = gameFrame.getViewGameController().getPlayerLeft();
+		PlayerInterface playerRight = gameFrame.getViewGameController().getPlayerRight();
 
 		int gameWidth = gameFrame.getViewGameController().getGameWidth();
 		new PlayerInfoPanel(playerLeft, PlayerInfoPanelPosition.LEFT, gameWidth).paint(g2d);

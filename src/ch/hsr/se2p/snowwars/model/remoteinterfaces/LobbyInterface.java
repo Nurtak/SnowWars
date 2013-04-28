@@ -21,8 +21,8 @@ public interface LobbyInterface extends Remote {
 
     public List<User> getLoggedInUsers();
 
-    public inviteUserReturn inviteUser(User selectedUser);
+    public inviteUserReturn inviteUser(UserInterface selectedUser);
 
-    public void startGame(User selectedUser);
+    public void startGame(UserInterface selectedUser);
 
 }
