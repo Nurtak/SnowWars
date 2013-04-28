@@ -118,9 +118,8 @@ public class ViewGameController extends Observable implements ActionListener {
 	}
 
 	public void receivedShot(Shot receivedShot) {
-		synchronized (graphicalObjects) {
+		synchronized (graphicalSnowballs) {
 			GraphicalSnowball gs = new GraphicalSnowball(receivedShot.getAngle(), receivedShot.getStrength());
-			graphicalObjects.add(gs);
 			graphicalSnowballs.add(gs);
 			playerLeft.startThrowAnimation();
 		}
@@ -170,6 +169,10 @@ public class ViewGameController extends Observable implements ActionListener {
 
 	public ArrayList<GraphicalObject> getGraphicalObjects() {
 		synchronized (graphicalObjects) {
+			this.graphicalObjects.clear();
+			this.graphicalObjects.add(playerLeft);
+			this.graphicalObjects.add(playerRight);
+			this.graphicalObjects.addAll(graphicalSnowballs);
 			return this.graphicalObjects;
 		}
 	}
