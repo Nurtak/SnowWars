@@ -1,6 +1,6 @@
 package ch.hsr.se2p.snowwars.model;
 
-public class Snowball extends ThrowingObject{
+public class Snowball extends ShotObject{
     
     private static final long serialVersionUID = -7432399665707233393L;
     

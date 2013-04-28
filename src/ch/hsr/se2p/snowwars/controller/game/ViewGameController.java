@@ -117,9 +117,9 @@ public class ViewGameController extends Observable implements ActionListener {
 		}
 	}
 
-	public void receivedThrow(Shot receivedThrow) {
+	public void receivedShot(Shot receivedShot) {
 		synchronized (graphicalObjects) {
-			GraphicalSnowball gs = new GraphicalSnowball(receivedThrow.getAngle(), receivedThrow.getStrength());
+			GraphicalSnowball gs = new GraphicalSnowball(receivedShot.getAngle(), receivedShot.getStrength());
 			graphicalObjects.add(gs);
 			graphicalSnowballs.add(gs);
 			playerLeft.startThrowAnimation();

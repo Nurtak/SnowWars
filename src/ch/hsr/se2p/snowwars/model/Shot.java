@@ -7,9 +7,9 @@ public class Shot implements Serializable {
 
     private final int angle;
     private final int strength;
-    private ThrowingObject throwingObject;
+    private ShotObject throwingObject;
 
-    public Shot(int angle, int strength, ThrowingObject throwingObject) {
+    public Shot(int angle, int strength, ShotObject throwingObject) {
         this.angle = angle;
         this.strength = strength;
         this.throwingObject = throwingObject;

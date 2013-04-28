@@ -93,7 +93,7 @@ public class SnowWarsClient {
 	}
 
 	public void receivedShotRequest(Shot shot) {
-		viewGameController.receivedThrow(shot);
+		viewGameController.receivedShot(shot);
 	}
 
 	public Player getPlayerLeft() {
