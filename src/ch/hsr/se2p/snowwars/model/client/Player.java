@@ -4,7 +4,7 @@ import ch.hsr.se2p.snowwars.model.remoteinterfaces.PlayerInterface;
 import ch.hsr.se2p.snowwars.model.remoteinterfaces.UserInterface;
 
 public class Player implements PlayerInterface {
-	public final static int MAX_HEALTH_POINTS = 100;
+	public final static int MAX_HIT_POINTS = 100;
 	
 	private UserInterface user;
 	private int hitPoints;
