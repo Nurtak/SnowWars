@@ -100,7 +100,7 @@ public class SnowWarsClient {
 	public PlayerInterface getPlayerLeft() {
 		if (this.playerLeft == null) {
 			this.playerLeft = new Player(new User("AbraXus"));
-			this.playerLeft.setHitPoints(100);
+			this.playerLeft.setHitPoints(52);
 		}
 		return this.playerLeft;
 	}
@@ -108,7 +108,7 @@ public class SnowWarsClient {
 	public PlayerInterface getPlayerRight() {
 		if (this.playerRight == null) {
 			this.playerRight = new Player(new User("Laktose"));
-			this.playerRight.setHitPoints(50);
+			this.playerRight.setHitPoints(67);
 		}
 		return this.playerRight;
 	}
