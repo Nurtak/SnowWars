@@ -112,13 +112,16 @@ public class ViewGameController extends Observable implements ActionListener {
 
 			if (activeSnowball != graphicalSnowball) {
 				Rectangle activeSnowballRectangle = activeSnowball.getBounds();
+
 				if (activeSnowballRectangle.intersects(graphicalSnowballRectangle)) {
+
 					if (activeSnowball.snowballState == SnowballState.CRASHEDINGROUND || graphicalSnowball.snowballState == SnowballState.CRASHEDINGROUND) {
 						graphicalSnowball.snowballState = SnowballState.CRASHEDINGROUND;
+						activeSnowball.snowballState = SnowballState.CRASHEDINGROUND;
+					} else {
+						activeSnowball.stopSnowball();
+						activeSnowball.startSplashingAnimation();
 					}
-				} else {
-					activeSnowball.stopSnowball();
-					activeSnowball.startSplashingAnimation();
 				}
 			}
 		}

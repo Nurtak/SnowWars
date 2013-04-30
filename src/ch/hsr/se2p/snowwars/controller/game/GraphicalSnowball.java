@@ -23,7 +23,11 @@ public class GraphicalSnowball extends GraphicalObject {
 	public BufferedImageLoader loader;
 	private int width = 35;
 	private int height = 35;
-	public enum SnowballState {CRASHED, CRASHING, CRASHEDINGROUND, MOVING};
+
+	public enum SnowballState {
+		CRASHED, CRASHING, CRASHEDINGROUND, MOVING
+	};
+
 	public SnowballState snowballState;
 
 	public GraphicalSnowball(int angle, int strength) {
@@ -47,7 +51,7 @@ public class GraphicalSnowball extends GraphicalObject {
 
 		this.dy = (int) (vySin * strength) * -1;
 		this.dx = (int) (vxCos * strength);
-		
+
 		this.dy = this.dy / ViewGameController.FORCE_REDUCE_FACTOR;
 		this.dx = this.dx / ViewGameController.FORCE_REDUCE_FACTOR;
 	}
@@ -79,7 +83,7 @@ public class GraphicalSnowball extends GraphicalObject {
 		try {
 			activeAnimation.update(System.currentTimeMillis());
 		} catch (Exception e) {
-			snowballState = SnowballState.CRASHED; 
+			snowballState = SnowballState.CRASHED;
 			activeAnimation = normalSnowball;
 		}
 	}
@@ -94,16 +98,16 @@ public class GraphicalSnowball extends GraphicalObject {
 		return this.y;
 	}
 
-	public void setX(int x){
-		this.x =x;
+	public void setX(int x) {
+		this.x = x;
 	}
-	
-	public void setY(int y){
+
+	public void setY(int y) {
 		this.y = y;
 	}
-	
+
 	public Rectangle getBounds() {
-		return new Rectangle(getX()+5, getY()+5, 30, 30);
+		return new Rectangle(getX() + 5, getY() + 5, 20, 20);
 	}
 
 	private void loadSplashAnimation() {
