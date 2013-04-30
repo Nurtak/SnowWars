@@ -15,16 +15,16 @@ public class GraphicalSnowball extends GraphicalObject {
 
 	private int x, y;
 	private double dy, dx;
-	boolean visible;
-	boolean moving;
-	boolean isCrashed;
+
 	public AnimationController splashingAnimation;
 	public AnimationController normalSnowball;
 	public AnimationController activeAnimation;
 	private BufferedImage spriteSheetSnowball;
 	public BufferedImageLoader loader;
-	private int width = 46;
-	private int height = 46;
+	private int width = 35;
+	private int height = 35;
+	public enum SnowballState {CRASHED, CRASHING, CRASHEDINGROUND, MOVING};
+	public SnowballState snowballState;
 
 	public GraphicalSnowball(int angle, int strength) {
 		loader = BufferedImageLoader.getInstance();
@@ -37,10 +37,7 @@ public class GraphicalSnowball extends GraphicalObject {
 		loadSplashAnimation();
 		loadNormalSnowballAnimation();
 		activeAnimation = normalSnowball;
-
-		visible = true;
-		moving = true;
-		isCrashed = false;
+		snowballState = SnowballState.MOVING;
 
 		this.x = GraphicalPlayer.PLAYER_LEFT_POSITION_X + 50;
 		this.y = GraphicalPlayer.PLAYER_LEFT_POSITION_Y;
@@ -50,43 +47,39 @@ public class GraphicalSnowball extends GraphicalObject {
 
 		this.dy = (int) (vySin * strength) * -1;
 		this.dx = (int) (vxCos * strength);
-
+		
 		this.dy = this.dy / ViewGameController.FORCE_REDUCE_FACTOR;
 		this.dx = this.dx / ViewGameController.FORCE_REDUCE_FACTOR;
 	}
 
 	public void stopSnowball() {
-		moving = false;
+		snowballState = SnowballState.CRASHING;
 	}
 
 	public Image getImage() {
 		return activeAnimation.getSprite();
-
 	}
 
 	public boolean isVisible() {
-		return visible;
+		return snowballState == SnowballState.MOVING || snowballState == SnowballState.CRASHEDINGROUND || snowballState == SnowballState.CRASHING;
 	}
 
 	public void updateValues() {
-		if (moving) {
+		if (snowballState == SnowballState.MOVING) {
 			this.dy += ViewGameController.GRAVITATION;
 
 			this.x = (int) ((int) this.x + this.dx);
 			this.y = (int) ((int) this.y + this.dy);
 
 			if (x > ViewGameController.GAME_WIDTH || y > ViewGameController.GROUND_LEVEL_Y) {
-				visible = false;
+				snowballState = SnowballState.CRASHEDINGROUND;
 			}
 		}
 
 		try {
 			activeAnimation.update(System.currentTimeMillis());
 		} catch (Exception e) {
-			if (isCrashed) {
-				visible = false;
-			}
-
+			snowballState = SnowballState.CRASHED; 
 			activeAnimation = normalSnowball;
 		}
 	}
@@ -101,8 +94,16 @@ public class GraphicalSnowball extends GraphicalObject {
 		return this.y;
 	}
 
+	public void setX(int x){
+		this.x =x;
+	}
+	
+	public void setY(int y){
+		this.y = y;
+	}
+	
 	public Rectangle getBounds() {
-		return new Rectangle(getX(), getY(), 46, 46);
+		return new Rectangle(getX()+5, getY()+5, 30, 30);
 	}
 
 	private void loadSplashAnimation() {
@@ -134,7 +135,7 @@ public class GraphicalSnowball extends GraphicalObject {
 	}
 
 	public void startSplashingAnimation() {
-		isCrashed = true;
+		snowballState = SnowballState.CRASHING;
 		this.activeAnimation = splashingAnimation;
 	}
 

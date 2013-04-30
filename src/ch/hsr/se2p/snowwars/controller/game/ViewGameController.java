@@ -12,6 +12,7 @@ import javax.swing.Timer;
 import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClient;
+import ch.hsr.se2p.snowwars.controller.game.GraphicalSnowball.SnowballState;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.remoteinterfaces.PlayerInterface;
 
@@ -112,6 +113,10 @@ public class ViewGameController extends Observable implements ActionListener {
 			if (activeSnowball != graphicalSnowball) {
 				Rectangle activeSnowballRectangle = activeSnowball.getBounds();
 				if (activeSnowballRectangle.intersects(graphicalSnowballRectangle)) {
+					if (activeSnowball.snowballState == SnowballState.CRASHEDINGROUND || graphicalSnowball.snowballState == SnowballState.CRASHEDINGROUND) {
+						graphicalSnowball.snowballState = SnowballState.CRASHEDINGROUND;
+					}
+				} else {
 					activeSnowball.stopSnowball();
 					activeSnowball.startSplashingAnimation();
 				}
