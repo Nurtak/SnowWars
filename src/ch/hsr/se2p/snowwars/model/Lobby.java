@@ -1,6 +1,7 @@
 package ch.hsr.se2p.snowwars.model;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 

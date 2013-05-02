@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.util.Set;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -16,15 +18,21 @@ import javax.swing.border.LineBorder;
 
 import org.apache.log4j.Logger;
 
+import ch.hsr.se2p.snowwars.model.User;
+import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
+import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface;
+
 public class PanelLobby extends JPanel{
 	private static final long serialVersionUID = -4628393851839832247L;
-	
+	private User user;
+	private LobbyServerSessionInterface lobbyServerSessionInterface;
 	private final static Logger logger = Logger.getLogger(PanelLobby.class.getPackage().getName());
-
 	private final ViewMain vm;
 	
-	public PanelLobby(final ViewMain vm){
+	public PanelLobby(final ViewMain vm, User user, LobbyServerSessionInterface lobbyServerSessionInterface){
 		this.vm = vm;
+		this.user = user;
+		this.lobbyServerSessionInterface = lobbyServerSessionInterface;
 		createMainPanel();
 	}
 	
@@ -36,7 +44,7 @@ public class PanelLobby extends JPanel{
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JLabel lblUsername = new JLabel("Your Username: füdlibürger");
+		JLabel lblUsername = new JLabel("Your Username: " + user.getName());
 		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
 		gbc_lblUsername.gridwidth = 2;
 		gbc_lblUsername.anchor = GridBagConstraints.WEST;
@@ -45,16 +53,22 @@ public class PanelLobby extends JPanel{
 		gbc_lblUsername.gridy = 0;
 		add(lblUsername, gbc_lblUsername);
 		
-		JList<String> lstUsers = new JList<String>();
+		JList<User> lstUsers = new JList<User>();
 		lstUsers.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
-		DefaultListModel<String> testModel = new DefaultListModel<String>();
-		testModel.addElement("Sepp");
-		testModel.addElement("Hans");
-		testModel.addElement("Nurtak");
-		testModel.addElement("Laktose");
-		testModel.addElement("AbraXus");
-		
+		DefaultListModel<User> testModel = new DefaultListModel<User>();
+	    Set<User> usersToDisplay;
+        try {
+            usersToDisplay = lobbyServerSessionInterface.getUsers();
+            for (User userToDisplay : usersToDisplay) {
+                if (!userToDisplay.equals(user)) {
+                    testModel.addElement(userToDisplay);                
+                }
+            }
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 		lstUsers.setModel(testModel);
 		GridBagConstraints gbc_lstUsers = new GridBagConstraints();
 		gbc_lstUsers.gridwidth = 2;
@@ -67,7 +81,7 @@ public class PanelLobby extends JPanel{
 		JButton backButton = new JButton("Back");
 		backButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {			    
 				vm.previousCard();
 			}
 		});

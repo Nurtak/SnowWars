@@ -1,33 +1,20 @@
 package ch.hsr.se2p.snowwars.model;
 
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable{
 
+    private static final long serialVersionUID = -1797157769899304128L;
     private String name;
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see ch.hsr.se2p.snowwars.model.UserInterface#getName()
-     */
-    public String getName() {
-        return name;
-    }
 
     public User(String name) {
         this.name = name;
     }
 
-    public boolean receiveInvitation() {
-        // TODO Auto-generated method stub
-        return false;
+    public String getName() {
+        return name;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -36,11 +23,6 @@ public class User {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -58,4 +40,8 @@ public class User {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

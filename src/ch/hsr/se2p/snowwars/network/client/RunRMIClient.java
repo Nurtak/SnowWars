@@ -2,6 +2,7 @@ package ch.hsr.se2p.snowwars.network.client;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -10,86 +11,63 @@ import java.rmi.server.UnicastRemoteObject;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.application.SnowWarsClient;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
-import ch.hsr.se2p.snowwars.model.Shot;
-import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
+import ch.hsr.se2p.snowwars.config.SnowWarsConfigFactory;
 import ch.hsr.se2p.snowwars.network.server.RMIServerInterface;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 
 public class RunRMIClient {
 
-    private final static Logger logger = Logger.getLogger(RunRMIClient.class.getPackage().getName());
+    private final static Logger logger = Logger.getLogger(RunRMIClient.class.getPackage().getName());   
+    private SnowWarsConfig snowWarsConfig;
+    private ConnectedServerSessionInterface connectedServerSessionInterface;
+    private RMIClientInterface clientStub;
+    private RMIServerInterface server;
 
-    private final SnowWarsConfig snowWarsConfig;
-    private final SnowWarsClient snowWarsClient;
-    private ConnectedServerSessionInterface session;
-
-    private boolean connectedToServer = false;
-    private boolean connectedToSnowWars = false;
-
-    RMIServerInterface server;
-    RMIClientInterface clientStub;
-
-    public RunRMIClient(SnowWarsClient snowWarsClient) {
-        this.snowWarsClient = snowWarsClient;
-        this.snowWarsConfig = snowWarsClient.getClientConfig();
-        System.setProperty("java.security.policy", "rmi.policy");
-        try {
-            System.setProperty("java.rmi.system.hostname", InetAddress.getLocalHost().getHostAddress());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new RMISecurityManager());
-        }
+    public RunRMIClient() {
+        snowWarsConfig = SnowWarsConfigFactory.getSnowWarsConfig();
+        setRMIPropertyAndSecurity();
+        setServer();
+        setConnectedServerSessionInterface();
     }
 
-    public void connectToServer() throws SnowWarsRMIException {
+    private void setServer() {
         try {
+            
             Registry serverRegistry = LocateRegistry.getRegistry(snowWarsConfig.getHostname(), snowWarsConfig.getRmiRegistryPort());
-
             RMIClientInterface client = new RMIClient(this);
             clientStub = (RMIClientInterface) UnicastRemoteObject.exportObject(client, 0);
-
-            // Remote Objekt (Stub)
             server = (RMIServerInterface) serverRegistry.lookup(snowWarsConfig.getServerRMILookupName());
-            logger.info("Successfully Connected to SnowWars-Server");
-            connectedToServer = true;
-        } catch (Exception e1) {
-            throw new SnowWarsRMIException(e1.getMessage());
+        } catch (RemoteException | NotBoundException e) {
+            logger.error(e.getMessage());
+        }
+    }
+    
+    private void setConnectedServerSessionInterface() {
+        try {
+            connectedServerSessionInterface = server.connect(clientStub);
+            logger.info("Successfully Connected to " + snowWarsConfig.getHostname());
+        } catch (RemoteException e) {
+            logger.error(e.getMessage());
         }
     }
 
-    public void joinSnowWar() throws SnowWarsRMIException {
-        if (connectedToServer && !connectedToSnowWars) {
-            logger.info("Joining SnowWar Distributor-Channel...");
-            try {
-                session = server.connect(clientStub);
-
-                logger.info("Successfully registered Client on Server");
-                connectedToSnowWars = true;
-
-            } catch (RemoteException e) {
-                throw new SnowWarsRMIException(e.getMessage());
+    private void setRMIPropertyAndSecurity() {
+        try {
+            System.setProperty("java.security.policy", "rmi.policy");
+            System.setProperty("java.rmi.system.hostname", InetAddress.getLocalHost().getHostAddress());
+            if (System.getSecurityManager() == null) {
+                System.setSecurityManager(new RMISecurityManager());
             }
-        }
+        } catch (UnknownHostException e) {
+            logger.error(e.getMessage());
+        }       
     }
 
-    public void leaveSnowWar() throws SnowWarsRMIException {
-        if (connectedToServer && connectedToSnowWars) {
-            logger.info("Leaving SnowWar Distributor-Channel...");
-            // if (server.disconnect(session)) {
-            // logger.info("Successfully deregistered Client on Server");
-            // connectedToSnowWars = false;
-            // }
-
-            // disconnect not necessary
-            logger.info("Successfully deregistered Client on Server");
-        }
-    }
-
-    public void receivedShot(Shot shot) {
-        snowWarsClient.receivedShotRequest(shot);
+    /**
+     * @return the connectedServerSessionInterface
+     */
+    public ConnectedServerSessionInterface getConnectedServerSessionInterface() {
+        return connectedServerSessionInterface;
     }
 }

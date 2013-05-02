@@ -15,6 +15,7 @@ import ch.hsr.se2p.snowwars.application.SnowWarsClient;
 import ch.hsr.se2p.snowwars.controller.game.GraphicalSnowball.SnowballState;
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.model.User;
 
 public class ViewGameController extends Observable implements ActionListener {
     private final static Logger logger = Logger.getLogger(ViewGameController.class.getPackage().getName());
@@ -150,23 +151,23 @@ public class ViewGameController extends Observable implements ActionListener {
         return error;
     }
 
-    public void sendThrow(final Shot sendThrow) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                snowWarsClient.sendShotRequestToServer(sendThrow);
-            }
-        }).start();
-    }
-
-    public void retryConnectToServer() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                snowWarsClient.connectToServer();
-            }
-        }).start();
-    }
+//    public void sendThrow(final Shot sendThrow) {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                snowWarsClient.sendShotRequestToServer(sendThrow);
+//            }
+//        }).start();
+//    }
+//
+//    public void retryConnectToServer() {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                snowWarsClient.connectToServer();
+//            }
+//        }).start();
+//    }
 
     public void closeProgram() {
         new Thread(new Runnable() {
@@ -200,10 +201,10 @@ public class ViewGameController extends Observable implements ActionListener {
     }
 
     public Player getPlayerLeft() {
-        return this.snowWarsClient.getPlayerLeft();
+        return new Player(new User("Gustav"));
     }
 
     public Player getPlayerRight() {
-        return this.snowWarsClient.getPlayerRight();
+        return new Player(new User("Donald"));
     }
 }

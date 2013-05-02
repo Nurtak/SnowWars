@@ -2,6 +2,7 @@ package ch.hsr.se2p.snowwars.network.session.server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.HashSet;
 import java.util.Set;
 
 import ch.hsr.se2p.snowwars.model.Lobby;
@@ -40,7 +41,12 @@ public class LobbyServerSession extends UnicastRemoteObject implements LobbyServ
 
     @Override
     public Set<User> getUsers() {
-        return lobby.getUsers();
+        // Copy needed because HashMap$KeySet is not serializable
+        Set<User> result = new HashSet<User>();
+        for (User user : lobby.getUsers()) {
+            result.add(user);
+        }        
+        return result;
     }
 
     @Override

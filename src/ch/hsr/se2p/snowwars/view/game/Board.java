@@ -140,7 +140,7 @@ public class Board extends JPanel implements MouseListener {
     }
 
     public void startNewThrowRequest(Shot throwRequest) {
-        gameFrame.getViewGameController().sendThrow(throwRequest);
+//        gameFrame.getViewGameController().sendThrow(throwRequest);
     }
 
     @Override
