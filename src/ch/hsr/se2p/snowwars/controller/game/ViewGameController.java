@@ -13,197 +13,197 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClient;
 import ch.hsr.se2p.snowwars.controller.game.GraphicalSnowball.SnowballState;
+import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
-import ch.hsr.se2p.snowwars.model.remoteinterfaces.PlayerInterface;
 
 public class ViewGameController extends Observable implements ActionListener {
-	private final static Logger logger = Logger.getLogger(ViewGameController.class.getPackage().getName());
+    private final static Logger logger = Logger.getLogger(ViewGameController.class.getPackage().getName());
 
-	protected final static int GAME_WIDTH = 1000;
-	protected final static int GAME_HEIGHT = 600;
-	protected final static String GAME_TITLE = "Snow Wars";
+    protected final static int GAME_WIDTH = 1000;
+    protected final static int GAME_HEIGHT = 600;
+    protected final static String GAME_TITLE = "Snow Wars";
 
-	private final static int TIMER_REDRAW_INTERVAL = 10;
-	protected final static int GROUND_LEVEL_Y = 400;
+    private final static int TIMER_REDRAW_INTERVAL = 10;
+    protected final static int GROUND_LEVEL_Y = 400;
 
-	protected final static int FORCE_REDUCE_FACTOR = 15;
-	public final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
-	protected final static double GRAVITATION = 9.81 / 50;
+    protected final static int FORCE_REDUCE_FACTOR = 15;
+    public final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
+    protected final static double GRAVITATION = 9.81 / 50;
 
-	private ArrayList<GraphicalObject> graphicalObjects = new ArrayList<GraphicalObject>();
-	private ArrayList<GraphicalSnowball> graphicalSnowballs = new ArrayList<GraphicalSnowball>();
+    private ArrayList<GraphicalObject> graphicalObjects = new ArrayList<GraphicalObject>();
+    private ArrayList<GraphicalSnowball> graphicalSnowballs = new ArrayList<GraphicalSnowball>();
 
-	private GraphicalPlayer playerLeft;
-	private GraphicalPlayer playerRight;
+    private GraphicalPlayer playerLeft;
+    private GraphicalPlayer playerRight;
 
-	private Timer redrawTimer;
+    private Timer redrawTimer;
 
-	private SnowWarsClient snowWarsClient;
-	private boolean noConnectionError;
+    private SnowWarsClient snowWarsClient;
+    private boolean noConnectionError;
 
-	public ViewGameController(SnowWarsClient snc) {
-		this.snowWarsClient = snc;
+    public ViewGameController(SnowWarsClient snc) {
+        this.snowWarsClient = snc;
 
-		try {
-			playerLeft = new GraphicalPlayer(GraphicalPlayer.PlayerPosition.LEFT);
-			playerRight = new GraphicalPlayer(GraphicalPlayer.PlayerPosition.RIGHT);
+        try {
+            playerLeft = new GraphicalPlayer(GraphicalPlayer.PlayerPosition.LEFT);
+            playerRight = new GraphicalPlayer(GraphicalPlayer.PlayerPosition.RIGHT);
 
-			graphicalObjects.add(playerLeft);
-			graphicalObjects.add(playerRight);
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-		}
+            graphicalObjects.add(playerLeft);
+            graphicalObjects.add(playerRight);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
 
-		redrawTimer = new Timer(TIMER_REDRAW_INTERVAL, this);
-		redrawTimer.start();
-	}
+        redrawTimer = new Timer(TIMER_REDRAW_INTERVAL, this);
+        redrawTimer.start();
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		synchronized (graphicalObjects) {
-			for (GraphicalObject graphicalObject : graphicalObjects) {
-				graphicalObject.updateValues();
-				checkCollision();
-			}
-		}
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        synchronized (graphicalObjects) {
+            for (GraphicalObject graphicalObject : graphicalObjects) {
+                graphicalObject.updateValues();
+                checkCollision();
+            }
+        }
 
-		this.setChanged();
-		this.notifyObservers();
-	}
+        this.setChanged();
+        this.notifyObservers();
+    }
 
-	private void checkCollision() {
-		synchronized (graphicalSnowballs) {
-			for (GraphicalSnowball graphicalSnowball : graphicalSnowballs) {
-				if (!graphicalSnowball.isVisible()) {
-					continue;
-				}
+    private void checkCollision() {
+        synchronized (graphicalSnowballs) {
+            for (GraphicalSnowball graphicalSnowball : graphicalSnowballs) {
+                if (!graphicalSnowball.isVisible()) {
+                    continue;
+                }
 
-				checkCollisionWithPlayer(graphicalSnowball);
-				checkCollisionWithOtherSnowball(graphicalSnowball);
-			}
-		}
-	}
+                checkCollisionWithPlayer(graphicalSnowball);
+                checkCollisionWithOtherSnowball(graphicalSnowball);
+            }
+        }
+    }
 
-	private void checkCollisionWithPlayer(GraphicalSnowball activeSnowball) {
-		Rectangle snowballRectangle = activeSnowball.getBounds();
-		Rectangle playerLeftRectangle = playerLeft.getBounds();
-		Rectangle playerRightRectangle = playerRight.getBounds();
+    private void checkCollisionWithPlayer(GraphicalSnowball activeSnowball) {
+        Rectangle snowballRectangle = activeSnowball.getBounds();
+        Rectangle playerLeftRectangle = playerLeft.getBounds();
+        Rectangle playerRightRectangle = playerRight.getBounds();
 
-		if (snowballRectangle.intersects(playerRightRectangle)) {
-			logger.info("Snowball hit right player");
-			activeSnowball.stopSnowball();
-			activeSnowball.startSplashingAnimation();
-		}
+        if (snowballRectangle.intersects(playerRightRectangle)) {
+            logger.info("Snowball hit right player");
+            activeSnowball.stopSnowball();
+            activeSnowball.startSplashingAnimation();
+        }
 
-		if (snowballRectangle.intersects(playerLeftRectangle)) {
-			logger.info("Snowball hit left player");
-			activeSnowball.stopSnowball();
-			activeSnowball.startSplashingAnimation();
-		}
-	}
+        if (snowballRectangle.intersects(playerLeftRectangle)) {
+            logger.info("Snowball hit left player");
+            activeSnowball.stopSnowball();
+            activeSnowball.startSplashingAnimation();
+        }
+    }
 
-	private void checkCollisionWithOtherSnowball(GraphicalSnowball graphicalSnowball) {
-		Rectangle graphicalSnowballRectangle = graphicalSnowball.getBounds();
+    private void checkCollisionWithOtherSnowball(GraphicalSnowball graphicalSnowball) {
+        Rectangle graphicalSnowballRectangle = graphicalSnowball.getBounds();
 
-		for (GraphicalSnowball activeSnowball : graphicalSnowballs) {
-			if (!activeSnowball.isVisible()) {
-				continue;
-			}
+        for (GraphicalSnowball activeSnowball : graphicalSnowballs) {
+            if (!activeSnowball.isVisible()) {
+                continue;
+            }
 
-			if (activeSnowball != graphicalSnowball) {
-				Rectangle activeSnowballRectangle = activeSnowball.getBounds();
+            if (activeSnowball != graphicalSnowball) {
+                Rectangle activeSnowballRectangle = activeSnowball.getBounds();
 
-				if (activeSnowballRectangle.intersects(graphicalSnowballRectangle)) {
+                if (activeSnowballRectangle.intersects(graphicalSnowballRectangle)) {
 
-					if (activeSnowball.snowballState == SnowballState.CRASHEDINGROUND || graphicalSnowball.snowballState == SnowballState.CRASHEDINGROUND) {
-						graphicalSnowball.snowballState = SnowballState.CRASHEDINGROUND;
-						activeSnowball.snowballState = SnowballState.CRASHEDINGROUND;
-					} else {
-						activeSnowball.stopSnowball();
-						activeSnowball.startSplashingAnimation();
-					}
-				}
-			}
-		}
-	}
+                    if (activeSnowball.snowballState == SnowballState.CRASHEDINGROUND || graphicalSnowball.snowballState == SnowballState.CRASHEDINGROUND) {
+                        graphicalSnowball.snowballState = SnowballState.CRASHEDINGROUND;
+                        activeSnowball.snowballState = SnowballState.CRASHEDINGROUND;
+                    } else {
+                        activeSnowball.stopSnowball();
+                        activeSnowball.startSplashingAnimation();
+                    }
+                }
+            }
+        }
+    }
 
-	public void receivedShot(Shot receivedShot) {
-		synchronized (graphicalSnowballs) {
-			GraphicalSnowball gs = new GraphicalSnowball(receivedShot.getAngle(), receivedShot.getStrength());
-			graphicalSnowballs.add(gs);
-			playerLeft.startThrowAnimation();
-		}
+    public void receivedShot(Shot receivedShot) {
+        synchronized (graphicalSnowballs) {
+            GraphicalSnowball gs = new GraphicalSnowball(receivedShot.getAngle(), receivedShot.getStrength());
+            graphicalSnowballs.add(gs);
+            playerLeft.startThrowAnimation();
+        }
 
-		this.setChanged();
-		this.notifyObservers();
-	}
+        this.setChanged();
+        this.notifyObservers();
+    }
 
-	public void showNoConnectionError() {
-		this.noConnectionError = true;
-		this.setChanged();
-		this.notifyObservers();
-	}
+    public void showNoConnectionError() {
+        this.noConnectionError = true;
+        this.setChanged();
+        this.notifyObservers();
+    }
 
-	public boolean getShowNoConnectionError() {
-		boolean error = noConnectionError;
-		noConnectionError = false;
-		return error;
-	}
+    public boolean getShowNoConnectionError() {
+        boolean error = noConnectionError;
+        noConnectionError = false;
+        return error;
+    }
 
-	public void sendThrow(final Shot sendThrow) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				snowWarsClient.sendShotRequestToServer(sendThrow);
-			}
-		}).start();
-	}
+    public void sendThrow(final Shot sendThrow) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                snowWarsClient.sendShotRequestToServer(sendThrow);
+            }
+        }).start();
+    }
 
-	public void retryConnectToServer() {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				snowWarsClient.connectToServer();
-			}
-		}).start();
-	}
+    public void retryConnectToServer() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                snowWarsClient.connectToServer();
+            }
+        }).start();
+    }
 
-	public void closeProgram() {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				snowWarsClient.closeProgram();
-			}
-		}).start();
-	}
+    public void closeProgram() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                snowWarsClient.closeProgram();
+            }
+        }).start();
+    }
 
-	public ArrayList<GraphicalObject> getGraphicalObjects() {
-		synchronized (graphicalObjects) {
-			this.graphicalObjects.clear();
-			this.graphicalObjects.add(playerLeft);
-			this.graphicalObjects.add(playerRight);
-			this.graphicalObjects.addAll(graphicalSnowballs);
-			return this.graphicalObjects;
-		}
-	}
+    public ArrayList<GraphicalObject> getGraphicalObjects() {
+        synchronized (graphicalObjects) {
+            this.graphicalObjects.clear();
+            this.graphicalObjects.add(playerLeft);
+            this.graphicalObjects.add(playerRight);
+            this.graphicalObjects.addAll(graphicalSnowballs);
+            return this.graphicalObjects;
+        }
+    }
 
-	public int getGameWidth() {
-		return GAME_WIDTH;
-	}
+    public int getGameWidth() {
+        return GAME_WIDTH;
+    }
 
-	public int getGameHeight() {
-		return GAME_HEIGHT;
-	}
+    public int getGameHeight() {
+        return GAME_HEIGHT;
+    }
 
-	public String getGameTitle() {
-		return GAME_TITLE;
-	}
+    public String getGameTitle() {
+        return GAME_TITLE;
+    }
 
-	public PlayerInterface getPlayerLeft() {
-		return this.snowWarsClient.getPlayerLeft();
-	}
+    public Player getPlayerLeft() {
+        return this.snowWarsClient.getPlayerLeft();
+    }
 
-	public PlayerInterface getPlayerRight() {
-		return this.snowWarsClient.getPlayerRight();
-	}
+    public Player getPlayerRight() {
+        return this.snowWarsClient.getPlayerRight();
+    }
 }

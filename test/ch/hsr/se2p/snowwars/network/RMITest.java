@@ -7,8 +7,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsServer;
-import ch.hsr.se2p.snowwars.config.ConfigFactory;
+import ch.hsr.se2p.snowwars.config.SnowWarsConfigFactory;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
+import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.server.RunRMIServer;
 
 public class RMITest {
@@ -17,7 +18,7 @@ public class RMITest {
 
 	@BeforeClass
 	public static void setUpConfig() {
-		snowWarsConfig = ConfigFactory.getSnowWarsConfig();
+		snowWarsConfig = SnowWarsConfigFactory.getSnowWarsConfig();
 	}
 
 	@Test

@@ -11,7 +11,8 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsServer;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
-import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
+import ch.hsr.se2p.snowwars.model.Lobby;
+import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 
 public class RunRMIServer {
 
@@ -38,7 +39,8 @@ public class RunRMIServer {
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new RMISecurityManager());
 			}
-			RMIServer rmiServer = new RMIServer();
+			Lobby lobby = new Lobby();
+			RMIServer rmiServer = new RMIServer(lobby);
 
 			RMIServerInterface stub;
 			stub = (RMIServerInterface) UnicastRemoteObject.exportObject(rmiServer, 0);

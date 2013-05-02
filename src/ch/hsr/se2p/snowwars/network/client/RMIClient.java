@@ -13,10 +13,6 @@ public class RMIClient implements RMIClientInterface{
 	public RMIClient(RunRMIClient runRMIClient){
 		this.runRMIClient = runRMIClient;
 	}
+
 	
-	@Override
-	public void shotThrowed(Shot shot) {
-		logger.info("Received Shot: " + shot.toString());
-		runRMIClient.receivedShot(shot);
-	}
 }

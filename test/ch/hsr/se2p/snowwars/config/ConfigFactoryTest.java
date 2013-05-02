@@ -11,7 +11,7 @@ public class ConfigFactoryTest {
 
     @BeforeClass
     public static void setUpConfig() {
-        snowWarsConfig = ConfigFactory.getSnowWarsConfig();
+        snowWarsConfig = SnowWarsConfigFactory.getSnowWarsConfig();
     }
     
 	@Test

@@ -2,9 +2,9 @@ package ch.hsr.se2p.snowwars.application;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.config.ConfigFactory;
+import ch.hsr.se2p.snowwars.config.SnowWarsConfigFactory;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
-import ch.hsr.se2p.snowwars.network.SnowWarsRMIException;
+import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.server.RunRMIServer;
 
 public class SnowWarsServer {
@@ -27,7 +27,7 @@ public class SnowWarsServer {
 	public SnowWarsConfig getSnowWarsConfig(){
 		if(snowWarsConfig == null){
 			logger.info("Reading configfile...");
-			snowWarsConfig = ConfigFactory.getSnowWarsConfig();
+			snowWarsConfig = SnowWarsConfigFactory.getSnowWarsConfig();
 		}
 		return snowWarsConfig;
 	}

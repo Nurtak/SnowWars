@@ -4,9 +4,9 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.log4j.Logger;
 
-public class ConfigFactory {
+public class SnowWarsConfigFactory {
 
-    private final static Logger logger = Logger.getLogger(ConfigFactory.class.getPackage().getName());
+    private final static Logger logger = Logger.getLogger(SnowWarsConfigFactory.class.getPackage().getName());
 
     public static SnowWarsConfig getSnowWarsConfig() {
         SnowWarsConfig snowWarsConfig;

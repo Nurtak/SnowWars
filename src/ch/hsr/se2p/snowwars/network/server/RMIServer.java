@@ -1,40 +1,27 @@
 package ch.hsr.se2p.snowwars.network.server;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.model.Lobby;
 import ch.hsr.se2p.snowwars.network.client.RMIClientInterface;
+import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSession;
+import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 
-public class RMIServer implements RMIServerInterface{
-	
-	private final static Logger logger = Logger.getLogger(RMIServer.class.getPackage().getName());
-	private ArrayList<RMIClientInterface> clientList = new ArrayList<RMIClientInterface>();
-	
-	@Override
-	public boolean registerClient(RMIClientInterface client) throws RemoteException {
-		int activeClientCount = clientList.size()+1;
-		logger.info("New Client registered! Active Client-count: " + activeClientCount);
-		clientList.add(client);
-		return true;
-	}
+public class RMIServer implements RMIServerInterface {
 
-	@Override
-	public boolean deregisterClient(RMIClientInterface client) throws RemoteException {
-		clientList.remove(client);
-		logger.info("Client deregistered.");
-		return true;
-	}
+    private final static Logger logger = Logger.getLogger(RMIServer.class.getPackage().getName());
+    private Lobby lobby;
 
-	@Override
-	public boolean shotThrowed(Shot shot) throws RemoteException {
-		logger.info("Received Shot: " + shot.toString());
-		
-		for(RMIClientInterface activeClient : clientList){			
-			activeClient.shotThrowed(shot);
-		}
-		return true;
-	}
+    public RMIServer(Lobby lobby) {
+        this.lobby = lobby;
+    }
+
+    @Override
+    public ConnectedServerSessionInterface connect(RMIClientInterface client) throws RemoteException {
+        ConnectedServerSession connectedSession = new ConnectedServerSession(client, lobby);
+        return connectedSession;
+    }
+
 }
