@@ -10,13 +10,12 @@ public class SnowWarsClient {
     private final static Logger logger = Logger.getLogger(SnowWarsClient.class.getPackage().getName());
     private RunRMIClient runRMIClient;
     // private ViewLobbyController viewLobbyController;
-    private ViewMain viewMain;
 
     public void startProgram() {
         logger.info("Starting SnowWars-Client");
         runRMIClient = new RunRMIClient();
         // viewLobbyController = new ViewLobbyController(this);
-        viewMain = new ViewMain(this);
+        new ViewMain(this);
     }
     
     public RunRMIClient getRunRMIClient() {
