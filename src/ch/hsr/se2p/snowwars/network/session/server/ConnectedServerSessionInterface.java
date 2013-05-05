@@ -6,11 +6,12 @@ import java.rmi.RemoteException;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.exception.UsernameAlreadyTakenException;
+import ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface;
 
 public interface ConnectedServerSessionInterface extends Remote {
 
     public boolean isNameAvalible(String name) throws RemoteException;
 
-    public LobbyServerSessionInterface registerAtLobby(User user) throws RemoteException, SnowWarsRMIException, UsernameAlreadyTakenException;
+    public LobbyServerSessionInterface registerAtLobby(LobbyClientSessionInterface lobbyClientSessionInterface) throws RemoteException, SnowWarsRMIException, UsernameAlreadyTakenException;
 
 }
