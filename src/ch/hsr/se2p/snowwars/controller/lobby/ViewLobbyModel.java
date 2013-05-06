@@ -1,12 +1,15 @@
 package ch.hsr.se2p.snowwars.controller.lobby;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Set;
 
 import ch.hsr.se2p.snowwars.model.User;
 
-public class ViewLobbyModel extends Observable {
+public class ViewLobbyModel extends Observable implements Serializable{
 
+    private static final long serialVersionUID = -7674483417217484822L;
+    
     private User user;
     private Set<User> users;
 

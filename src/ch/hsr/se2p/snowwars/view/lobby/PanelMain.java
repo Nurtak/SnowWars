@@ -9,13 +9,20 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
+import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyModel;
+
 public class PanelMain extends JPanel {
 
     private static final long serialVersionUID = -4628393851839832247L;
     private final ViewMain vm;
+    private ViewLobbyModel viewLobbyModel;
+    private ViewLobbyController viewLobbyController;
 
-    public PanelMain(ViewMain vm) {
+    public PanelMain(ViewMain vm, ViewLobbyModel viewLobbyModel, ViewLobbyController viewLobbyController) {
         this.vm = vm;
+        this.viewLobbyModel = viewLobbyModel;
+        this.viewLobbyController = viewLobbyController;
         createMainPanel();
     }
 
@@ -30,7 +37,8 @@ public class PanelMain extends JPanel {
         JButton playButton = new JButton("Play");
         playButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {    
+                vm.addPanel(new PanelUser(vm, viewLobbyModel, viewLobbyController), "userPanel");
                 vm.nextCard();
             }
         });

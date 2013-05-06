@@ -6,22 +6,28 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
+import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
+import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyModel;
+import ch.hsr.se2p.snowwars.model.User;
 
 public class PanelUser extends JPanel {
     private static final long serialVersionUID = -4628393851839832247L;
-    private ConnectedServerSessionInterface connectedServerSessionInterface;
     private final ViewMain vm;
+    private ViewLobbyModel viewLobbyModel;
+    private ViewLobbyController viewLobbyController;
     private JTextField txtUsername;
 
-    public PanelUser(ViewMain vm) {
+    public PanelUser(ViewMain vm, ViewLobbyModel viewLobbyModel, ViewLobbyController viewLobbyController) {
         this.vm = vm;
+        this.viewLobbyModel = viewLobbyModel;
+        this.viewLobbyController = viewLobbyController;
         createUserPanel();
     }
 
@@ -80,7 +86,17 @@ public class PanelUser extends JPanel {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                vm.nextCard();
+                try {
+                    if (viewLobbyController.isNameAvailable(txtUsername.getText())) {
+                        User user = new User(txtUsername.getText());
+                        viewLobbyController.registerAtLobby(user);
+                        vm.addPanel(new PanelLobby(vm, viewLobbyModel, viewLobbyController), "lobbyPanel");
+                        vm.nextCard();
+                    }
+                } catch (RemoteException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }              
             }
         });
         GridBagConstraints gbc_playButton = new GridBagConstraints();

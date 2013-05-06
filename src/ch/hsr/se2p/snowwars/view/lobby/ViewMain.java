@@ -100,7 +100,7 @@ public class ViewMain extends JFrame implements Observer{
 		cardLayout = new CardLayout();
 		contentPanel.setLayout(cardLayout);
 
-        JPanel mainPanel = new PanelMain(this);
+        JPanel mainPanel = new PanelMain(this, viewLobbyModel, viewLobbyController);
 //        JPanel userPanel = new PanelUser(this);
 //        JPanel lobbyPanel = new PanelLobby(this);
 
