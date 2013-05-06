@@ -23,8 +23,6 @@ import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface;
 
 public class PanelLobby extends JPanel{
 	private static final long serialVersionUID = -4628393851839832247L;
-	private User user;
-	private LobbyServerSessionInterface lobbyServerSessionInterface;
 	private final static Logger logger = Logger.getLogger(PanelLobby.class.getPackage().getName());
 	private final ViewMain vm;
 	
@@ -41,7 +39,7 @@ public class PanelLobby extends JPanel{
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JLabel lblUsername = new JLabel("Your Username: " + user.getName());
+		JLabel lblUsername = new JLabel("Your Username: ");
 		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
 		gbc_lblUsername.gridwidth = 2;
 		gbc_lblUsername.anchor = GridBagConstraints.WEST;
@@ -54,19 +52,20 @@ public class PanelLobby extends JPanel{
 		lstUsers.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
 		DefaultListModel<User> testModel = new DefaultListModel<User>();
-	    Set<User> usersToDisplay;
-        try {
-            usersToDisplay = lobbyServerSessionInterface.getUsers();
-            for (User userToDisplay : usersToDisplay) {
-                if (!userToDisplay.equals(user)) {
-                    testModel.addElement(userToDisplay);                
-                }
-            }
-        } catch (RemoteException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-		lstUsers.setModel(testModel);
+//	    Set<User> usersToDisplay;
+//        try {
+//            usersToDisplay = vm.get.getUsers();
+//            for (User userToDisplay : usersToDisplay) {
+//                if (!userToDisplay.equals(user)) {
+//                    testModel.addElement(userToDisplay);                
+//                }
+//            }
+//        } catch (RemoteException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//		lstUsers.setModel(testModel);
+		
 		GridBagConstraints gbc_lstUsers = new GridBagConstraints();
 		gbc_lstUsers.gridwidth = 2;
 		gbc_lstUsers.insets = new Insets(0, 40, 0, 40);
