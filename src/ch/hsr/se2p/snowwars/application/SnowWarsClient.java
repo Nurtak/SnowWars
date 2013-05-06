@@ -1,6 +1,7 @@
 package ch.hsr.se2p.snowwars.application;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 
 import org.apache.log4j.Logger;
 
@@ -21,13 +22,17 @@ public class SnowWarsClient implements SnowWarsClientInterface, Serializable{
 
     @Override
     public void enterLobby(ConnectedServerSessionInterface connectedServerSessionInterface) {
-        new ViewLobbyController(this, connectedServerSessionInterface);
+        try {
+            new ViewLobbyController(this, connectedServerSessionInterface);
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void enterGame(SnowWarsClientInterface snowWarsClientInterface, GameServerSessionInterface gameServerSessionInterface) {
         // TODO Auto-generated method stub
-
     }
 
     public void closeProgram() {

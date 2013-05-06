@@ -2,6 +2,7 @@ package ch.hsr.se2p.snowwars.controller.lobby;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import org.apache.log4j.Logger;
 
@@ -17,7 +18,7 @@ import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface;
 import ch.hsr.se2p.snowwars.view.lobby.ViewMain;
 
-public class ViewLobbyController implements LobbyClientSessionInterface, Serializable {
+public class ViewLobbyController extends UnicastRemoteObject implements LobbyClientSessionInterface, Serializable {
 
     private static final long serialVersionUID = -7299346634181477899L;
     private final static Logger logger = Logger.getLogger(ViewLobbyController.class.getPackage().getName());
@@ -27,7 +28,7 @@ public class ViewLobbyController implements LobbyClientSessionInterface, Seriali
     private ViewMain viewMain;
     private LobbyServerSessionInterface lobbyServerSessionInterface;
 
-    public ViewLobbyController(SnowWarsClientInterface snowWarsClientInterface, ConnectedServerSessionInterface connectedServerSessionInterface) {
+    public ViewLobbyController(SnowWarsClientInterface snowWarsClientInterface, ConnectedServerSessionInterface connectedServerSessionInterface) throws RemoteException {
         this.snowWarsClientInterface = snowWarsClientInterface;
         this.connectedServerSessionInterface = connectedServerSessionInterface;
         viewLobbyModel = new ViewLobbyModel();
