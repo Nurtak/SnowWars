@@ -27,13 +27,17 @@ public class ViewMain extends JFrame implements Observer{
 	
     private final static Logger logger = Logger.getLogger(ViewMain.class.getPackage().getName());
 	private static final long serialVersionUID = 7390513127049817797L;
+	private ViewLobbyModel viewLobbyModel;
+	private ViewLobbyController viewLobbyController;
 
 	private JPanel contentPanel;
 	private CardLayout cardLayout;
 
 	public ViewMain(ViewLobbyModel viewLobbyModel, ViewLobbyController viewLobbyController) {
-		logger.info("Starting GUI...");
+		this.viewLobbyModel = viewLobbyModel;
+		this.viewLobbyController = viewLobbyController;
 
+		logger.info("Starting GUI...");		
 		createFrame();
 		createLogoPanel();
 		createContentPanel();
@@ -97,12 +101,12 @@ public class ViewMain extends JFrame implements Observer{
 		contentPanel.setLayout(cardLayout);
 
         JPanel mainPanel = new PanelMain(this);
-        JPanel userPanel = new PanelUser(this);
-        JPanel lobbyPanel = new PanelLobby(this);
+//        JPanel userPanel = new PanelUser(this);
+//        JPanel lobbyPanel = new PanelLobby(this);
 
         contentPanel.add(mainPanel, "mainPanel");
-        contentPanel.add(userPanel, "userPanel");
-        contentPanel.add(lobbyPanel, "lobbyPanel");
+//        contentPanel.add(userPanel, "userPanel");
+//        contentPanel.add(lobbyPanel, "lobbyPanel");
 	}
 
 	private void createKeyBindings() {
@@ -133,13 +137,12 @@ public class ViewMain extends JFrame implements Observer{
 	}
 
 	public void exit() {
-		System.exit(0);
+		
 	}
 
     @Override
     public void update(Observable arg0, Object arg1) {
-        // TODO Auto-generated method stub
-        
+        // TODO Auto-generated method stub        
     }
 
 }

@@ -39,6 +39,7 @@ public class ViewLobbyController implements LobbyClientSessionInterface {
     public void registerAtLobby(User user) {
         try {
             lobbyServerSessionInterface = connectedServerSessionInterface.registerAtLobby(this, user);
+            viewLobbyModel.setUser(user);
             viewLobbyModel.setUsers(lobbyServerSessionInterface.getUsers());
         } catch (RemoteException | SnowWarsRMIException | UsernameAlreadyTakenException e) {
             // TODO Auto-generated catch block
@@ -48,19 +49,19 @@ public class ViewLobbyController implements LobbyClientSessionInterface {
 
     @Override
     public void receiveInvitation(User from) {
-        logger.debug("Invitation received from " + from.getName());
+        logger.info("Invitation received from " + from.getName());
         // TODO display invitation
     }
 
     @Override
     public void receiveInvitationTimeout(User from) {
-        logger.debug("Invitation from " + from.getName() + " timed out");
+        logger.info("Invitation from " + from.getName() + " timed out");
         // TODO display invitation has been canceled
     }
 
     @Override
     public GameClientSessionInterface startGame(GameServerSessionInterface gameServerSessionInterface) {
-        logger.debug("startGame received!");
+        logger.info("startGame received!");
 
         GameClientSession gameClientSession = null;
         try {
