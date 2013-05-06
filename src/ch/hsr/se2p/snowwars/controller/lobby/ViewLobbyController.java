@@ -28,7 +28,8 @@ public class ViewLobbyController extends UnicastRemoteObject implements LobbyCli
     private ViewMain viewMain;
     private LobbyServerSessionInterface lobbyServerSessionInterface;
 
-    public ViewLobbyController(SnowWarsClientInterface snowWarsClientInterface, ConnectedServerSessionInterface connectedServerSessionInterface) throws RemoteException {
+    public ViewLobbyController(SnowWarsClientInterface snowWarsClientInterface, ConnectedServerSessionInterface connectedServerSessionInterface)
+            throws RemoteException {
         this.snowWarsClientInterface = snowWarsClientInterface;
         this.connectedServerSessionInterface = connectedServerSessionInterface;
         viewLobbyModel = new ViewLobbyModel();
