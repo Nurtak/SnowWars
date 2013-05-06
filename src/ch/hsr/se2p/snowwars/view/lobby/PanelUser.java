@@ -6,16 +6,12 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
-import ch.hsr.se2p.snowwars.network.exception.UsernameAlreadyTakenException;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 
 public class PanelUser extends JPanel {
@@ -24,9 +20,8 @@ public class PanelUser extends JPanel {
     private final ViewMain vm;
     private JTextField txtUsername;
 
-    public PanelUser(final ViewMain vm, ConnectedServerSessionInterface connectedServerSessionInterface) {
+    public PanelUser(ViewMain vm) {
         this.vm = vm;
-        this.connectedServerSessionInterface = connectedServerSessionInterface;
         createUserPanel();
     }
 
@@ -85,25 +80,7 @@ public class PanelUser extends JPanel {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                try {
-                    if (connectedServerSessionInterface.isNameAvalible(txtUsername.getText())) {
-                        User user = new User(txtUsername.getText());
-                        System.out.println("Neuer User: " + user.getName());
-                        try {
-                            vm.addPanel(new PanelLobby(vm, user, connectedServerSessionInterface.registerAtLobby(user)), "lobbyPanel");
-                        } catch (SnowWarsRMIException e) {
-                            // TODO
-                        } catch (UsernameAlreadyTakenException e) {
-                            // TODO show error
-                        }
-                        vm.nextCard();
-                    } else {
-                        // TODO show error
-                    }
-                } catch (RemoteException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                vm.nextCard();
             }
         });
         GridBagConstraints gbc_playButton = new GridBagConstraints();

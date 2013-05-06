@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.model.Lobby;
-import ch.hsr.se2p.snowwars.network.client.RMIClientInterface;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSession;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 
@@ -19,8 +18,8 @@ public class RMIServer implements RMIServerInterface {
     }
 
     @Override
-    public ConnectedServerSessionInterface connect(RMIClientInterface client) throws RemoteException {
-        ConnectedServerSession connectedSession = new ConnectedServerSession(client, lobby);
+    public ConnectedServerSessionInterface connect() throws RemoteException {
+        ConnectedServerSession connectedSession = new ConnectedServerSession(lobby);
         return connectedSession;
     }
 

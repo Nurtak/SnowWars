@@ -9,16 +9,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import ch.hsr.se2p.snowwars.application.SnowWarsClient;
-
 public class PanelMain extends JPanel {
 
     private static final long serialVersionUID = -4628393851839832247L;
-    private SnowWarsClient snowWarsClient;
     private final ViewMain vm;
 
-    public PanelMain(SnowWarsClient snowWarsClient, final ViewMain vm) {
-        this.snowWarsClient = snowWarsClient;
+    public PanelMain(ViewMain vm) {
         this.vm = vm;
         createMainPanel();
     }
@@ -35,7 +31,6 @@ public class PanelMain extends JPanel {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vm.addPanel(new PanelUser(vm, snowWarsClient.getRunRMIClient().getConnectedServerSessionInterface()), "userPanel");
                 vm.nextCard();
             }
         });

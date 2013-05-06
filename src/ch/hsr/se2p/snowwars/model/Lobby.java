@@ -1,8 +1,6 @@
 package ch.hsr.se2p.snowwars.model;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import ch.hsr.se2p.snowwars.network.exception.UsernameAlreadyTakenException;
@@ -10,39 +8,35 @@ import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSession;
 
 public class Lobby {
 
-    private Map<User, LobbyServerSession> users = new HashMap<User, LobbyServerSession>();
-    
-    public synchronized boolean isNameAvalible(String name){
-        for (User user : users.keySet()) {
-            if (user.getName().equals(name)) {
+    private Set<LobbyServerSession> users = new HashSet<LobbyServerSession>();
+
+    public synchronized boolean isNameAvailable(String name) {
+        for (LobbyServerSession lobbyServerSession : users) {
+            if (lobbyServerSession.getUser().getName().equals(name)) {                
                 return false;
             }
         }
         return true;
     }
-    
-    public synchronized boolean addNewUser(User user, LobbyServerSession lobbySession) throws UsernameAlreadyTakenException{
-        if (users.containsKey(user)) {
-            throw new UsernameAlreadyTakenException();
-        } else {
-            users.put(user, lobbySession);
+
+    public synchronized boolean addSession(LobbyServerSession lobbyServerSession) throws UsernameAlreadyTakenException {
+        if (users.add(lobbyServerSession)) {
             return true;
+        } else {
+            throw new UsernameAlreadyTakenException();
         }
     }
-    
-    public synchronized Set<User> getUsers(){
-        return users.keySet();
+
+    public synchronized Set<User> getUsers() {
+        Set<User> result = new HashSet<User>(users.size());
+        for (LobbyServerSession lobbyServerSession : users) {
+            result.add(lobbyServerSession.getUser());
+        }
+        return result;
     }
 
-    public synchronized void leave(User user) {
-        users.remove(user);
+    public synchronized void leave(LobbyServerSession lobbyServerSession) {
+        users.remove(lobbyServerSession);
     }
-
-    public synchronized void inviteUser(User user, User selectedUser) {
-        users.get(selectedUser);
-        //TODO
-    }
-    
-    
 
 }

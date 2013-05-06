@@ -19,7 +19,6 @@ import javax.swing.border.LineBorder;
 import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface;
 
 public class PanelLobby extends JPanel{
@@ -29,10 +28,8 @@ public class PanelLobby extends JPanel{
 	private final static Logger logger = Logger.getLogger(PanelLobby.class.getPackage().getName());
 	private final ViewMain vm;
 	
-	public PanelLobby(final ViewMain vm, User user, LobbyServerSessionInterface lobbyServerSessionInterface){
+	public PanelLobby(ViewMain vm){
 		this.vm = vm;
-		this.user = user;
-		this.lobbyServerSessionInterface = lobbyServerSessionInterface;
 		createMainPanel();
 	}
 	

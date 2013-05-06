@@ -2,37 +2,37 @@ package ch.hsr.se2p.snowwars.network.session.server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashSet;
 import java.util.Set;
 
 import ch.hsr.se2p.snowwars.model.Lobby;
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.network.client.RMIClientInterface;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.exception.UserIsNotInLobbyException;
 import ch.hsr.se2p.snowwars.network.exception.UsernameAlreadyTakenException;
+import ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface;
 
 public class LobbyServerSession extends UnicastRemoteObject implements LobbyServerSessionInterface {
 
     private static final long serialVersionUID = -3804423975783216087L;
-    private RMIClientInterface client;
+
     private User user;
     private Lobby lobby;
+    private LobbyClientSessionInterface lobbyClientSessionInterface;
 
-    public LobbyServerSession(RMIClientInterface client, User user, Lobby lobby) throws RemoteException, UsernameAlreadyTakenException {
-        this.client = client;
+    public LobbyServerSession(User user, Lobby lobby, LobbyClientSessionInterface lobbyClientSessionInterface) throws RemoteException,
+            UsernameAlreadyTakenException {
         this.user = user;
         this.lobby = lobby;
-
-        lobby.addNewUser(user, this);
+        this.lobbyClientSessionInterface = lobbyClientSessionInterface;
+        lobby.addSession(this);
     }
 
     @Override
     public ConnectedServerSessionInterface leaveLobby() throws SnowWarsRMIException {
-        lobby.leave(user);
+        lobby.leave(this);
         ConnectedServerSession connectedSession;
         try {
-            connectedSession = new ConnectedServerSession(client, lobby);
+            connectedSession = new ConnectedServerSession(lobby);
         } catch (RemoteException e) {
             throw new SnowWarsRMIException(e.getMessage());
         }
@@ -41,27 +41,26 @@ public class LobbyServerSession extends UnicastRemoteObject implements LobbyServ
 
     @Override
     public Set<User> getUsers() {
-        // Copy needed because HashMap$KeySet is not serializable
-        Set<User> result = new HashSet<User>();
-        for (User user : lobby.getUsers()) {
-            result.add(user);
-        }        
-        return result;
+        return lobby.getUsers();
     }
 
     @Override
     public void inviteUser(User selectedUser) throws UserIsNotInLobbyException {
-        lobby.inviteUser(user, selectedUser);
+//        lobby.inviteUser(this, selectedUser);
     }
 
-    @Override
-    public GameServerSessionInterface getGameSessionInterface() throws SnowWarsRMIException {
-        GameServerSession gameSession;
-        try {
-            gameSession = new GameServerSession(client, user, lobby);
-        } catch (RemoteException e) {
-            throw new SnowWarsRMIException(e.getMessage());
-        }
-        return gameSession;
+    /**
+     * @return the lobbyClientSessionInterface
+     */
+    public LobbyClientSessionInterface getLobbyClientSessionInterface() {
+        return lobbyClientSessionInterface;
     }
+
+    /**
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
 }

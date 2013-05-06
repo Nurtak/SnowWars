@@ -9,6 +9,8 @@ import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -17,27 +19,19 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.application.SnowWarsClient;
 import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
-import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
-import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
+import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyModel;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 
-public class ViewMain extends JFrame {
+public class ViewMain extends JFrame implements Observer{
 	
     private final static Logger logger = Logger.getLogger(ViewMain.class.getPackage().getName());
 	private static final long serialVersionUID = 7390513127049817797L;
 
-	private SnowWarsClient snowWarsClient;
-	// private final ViewLobbyController viewLobbyController
 	private JPanel contentPanel;
 	private CardLayout cardLayout;
 
-	public ViewMain(SnowWarsClient snowWarsClient) {
-	    this.snowWarsClient = snowWarsClient;
-	    
-		// this.viewLobbyController = vlc;
+	public ViewMain(ViewLobbyModel viewLobbyModel, ViewLobbyController viewLobbyController) {
 		logger.info("Starting GUI...");
 
 		createFrame();
@@ -102,8 +96,13 @@ public class ViewMain extends JFrame {
 		cardLayout = new CardLayout();
 		contentPanel.setLayout(cardLayout);
 
-		JPanel mainPanel = new PanelMain(snowWarsClient, this);
-		contentPanel.add(mainPanel, "mainPanel");
+        JPanel mainPanel = new PanelMain(this);
+        JPanel userPanel = new PanelUser(this);
+        JPanel lobbyPanel = new PanelLobby(this);
+
+        contentPanel.add(mainPanel, "mainPanel");
+        contentPanel.add(userPanel, "userPanel");
+        contentPanel.add(lobbyPanel, "lobbyPanel");
 	}
 
 	private void createKeyBindings() {
@@ -136,5 +135,11 @@ public class ViewMain extends JFrame {
 	public void exit() {
 		System.exit(0);
 	}
+
+    @Override
+    public void update(Observable arg0, Object arg1) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }
