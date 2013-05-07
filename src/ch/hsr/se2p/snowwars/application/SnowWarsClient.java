@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
 import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
@@ -23,7 +23,7 @@ public class SnowWarsClient implements SnowWarsClientInterface, Serializable{
     @Override
     public void enterLobby(ConnectedServerSessionInterface connectedServerSessionInterface) {
         try {
-            new ViewLobbyController(this, connectedServerSessionInterface);
+            new ClientLobbyController(this, connectedServerSessionInterface);
         } catch (RemoteException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

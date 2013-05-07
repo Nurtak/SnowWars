@@ -9,18 +9,18 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
-import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyModel;
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 
 public class PanelMain extends JPanel {
 
     private static final long serialVersionUID = -4628393851839832247L;
-    private final ViewMain vm;
-    private ViewLobbyModel viewLobbyModel;
-    private ViewLobbyController viewLobbyController;
+    private final ClientViewMain cvm;
+    private ClientLobbyModel viewLobbyModel;
+    private ClientLobbyController viewLobbyController;
 
-    public PanelMain(ViewMain vm, ViewLobbyModel viewLobbyModel, ViewLobbyController viewLobbyController) {
-        this.vm = vm;
+    public PanelMain(ClientViewMain cvm, ClientLobbyModel viewLobbyModel, ClientLobbyController viewLobbyController) {
+        this.cvm = cvm;
         this.viewLobbyModel = viewLobbyModel;
         this.viewLobbyController = viewLobbyController;
         createMainPanel();
@@ -38,8 +38,8 @@ public class PanelMain extends JPanel {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {    
-                vm.addPanel(new PanelUser(vm, viewLobbyModel, viewLobbyController), "userPanel");
-                vm.nextCard();
+                cvm.addPanel(new PanelUser(cvm, viewLobbyModel, viewLobbyController), "userPanel");
+                cvm.nextCard();
             }
         });
         GridBagConstraints gbc_playButton = new GridBagConstraints();
@@ -53,7 +53,7 @@ public class PanelMain extends JPanel {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vm.exit();
+                cvm.exit();
             }
         });
         GridBagConstraints gbc_exitButton = new GridBagConstraints();

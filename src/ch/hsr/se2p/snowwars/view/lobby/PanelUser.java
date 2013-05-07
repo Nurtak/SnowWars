@@ -13,19 +13,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
-import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyModel;
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 import ch.hsr.se2p.snowwars.model.User;
 
 public class PanelUser extends JPanel {
     private static final long serialVersionUID = -4628393851839832247L;
-    private final ViewMain vm;
-    private ViewLobbyModel viewLobbyModel;
-    private ViewLobbyController viewLobbyController;
+    private final ClientViewMain cvm;
+    private ClientLobbyModel viewLobbyModel;
+    private ClientLobbyController viewLobbyController;
     private JTextField txtUsername;
 
-    public PanelUser(ViewMain vm, ViewLobbyModel viewLobbyModel, ViewLobbyController viewLobbyController) {
-        this.vm = vm;
+    public PanelUser(ClientViewMain cvm, ClientLobbyModel viewLobbyModel, ClientLobbyController viewLobbyController) {
+        this.cvm = cvm;
         this.viewLobbyModel = viewLobbyModel;
         this.viewLobbyController = viewLobbyController;
         createUserPanel();
@@ -72,7 +72,7 @@ public class PanelUser extends JPanel {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                vm.previousCard();
+                cvm.previousCard();
             }
         });
         GridBagConstraints gbc_backButton = new GridBagConstraints();
@@ -90,8 +90,8 @@ public class PanelUser extends JPanel {
                     if (viewLobbyController.isNameAvailable(txtUsername.getText())) {
                         User user = new User(txtUsername.getText());
                         viewLobbyController.registerAtLobby(user);
-                        vm.addPanel(new PanelLobby(vm, viewLobbyModel, viewLobbyController), "lobbyPanel");
-                        vm.nextCard();
+                        cvm.addPanel(new PanelLobby(cvm, viewLobbyModel, viewLobbyController), "lobbyPanel");
+                        cvm.nextCard();
                     }
                 } catch (RemoteException e) {
                     // TODO Auto-generated catch block

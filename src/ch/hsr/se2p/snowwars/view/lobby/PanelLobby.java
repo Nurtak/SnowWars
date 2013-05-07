@@ -18,20 +18,20 @@ import javax.swing.border.LineBorder;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
-import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyModel;
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.exception.UserIsNotInLobbyException;
 
 public class PanelLobby extends JPanel {
     private static final long serialVersionUID = -4628393851839832247L;
     private final static Logger logger = Logger.getLogger(PanelLobby.class.getPackage().getName());
-    private final ViewMain vm;
-    private ViewLobbyModel viewLobbyModel;
-    private ViewLobbyController viewLobbyController;
+    private final ClientViewMain cvm;
+    private ClientLobbyModel viewLobbyModel;
+    private ClientLobbyController viewLobbyController;
 
-    public PanelLobby(ViewMain vm, ViewLobbyModel viewLobbyModel, ViewLobbyController viewLobbyController) {
-        this.vm = vm;
+    public PanelLobby(ClientViewMain cvm, ClientLobbyModel viewLobbyModel, ClientLobbyController viewLobbyController) {
+        this.cvm = cvm;
         this.viewLobbyModel = viewLobbyModel;
         this.viewLobbyController = viewLobbyController;
         createMainPanel();
@@ -80,7 +80,7 @@ public class PanelLobby extends JPanel {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                vm.previousCard();
+                cvm.previousCard();
             }
         });
         GridBagConstraints gbc_backButton = new GridBagConstraints();

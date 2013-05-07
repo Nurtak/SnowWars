@@ -17,25 +17,25 @@ import ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface;
-import ch.hsr.se2p.snowwars.view.lobby.ViewMain;
+import ch.hsr.se2p.snowwars.view.lobby.ClientViewMain;
 
-public class ViewLobbyController extends UnicastRemoteObject implements LobbyClientSessionInterface, Serializable {
+public class ClientLobbyController extends UnicastRemoteObject implements LobbyClientSessionInterface, Serializable {
 
     private static final long serialVersionUID = -7299346634181477899L;
-    private final static Logger logger = Logger.getLogger(ViewLobbyController.class.getPackage().getName());
+    private final static Logger logger = Logger.getLogger(ClientLobbyController.class.getPackage().getName());
     
     private SnowWarsClientInterface snowWarsClientInterface;
     private ConnectedServerSessionInterface connectedServerSessionInterface;
-    private ViewLobbyModel viewLobbyModel;
-    private ViewMain viewMain;
+    private ClientLobbyModel viewLobbyModel;
+    private ClientViewMain viewMain;
     private LobbyServerSessionInterface lobbyServerSessionInterface;
 
-    public ViewLobbyController(SnowWarsClientInterface snowWarsClientInterface, ConnectedServerSessionInterface connectedServerSessionInterface)
+    public ClientLobbyController(SnowWarsClientInterface snowWarsClientInterface, ConnectedServerSessionInterface connectedServerSessionInterface)
             throws RemoteException {
         this.snowWarsClientInterface = snowWarsClientInterface;
         this.connectedServerSessionInterface = connectedServerSessionInterface;
-        viewLobbyModel = new ViewLobbyModel();
-        viewMain = new ViewMain(viewLobbyModel, this);
+        viewLobbyModel = new ClientLobbyModel();
+        viewMain = new ClientViewMain(viewLobbyModel, this);
         viewLobbyModel.addObserver(viewMain);
     }
 

@@ -19,21 +19,21 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
-import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyModel;
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 
-public class ViewMain extends JFrame implements Observer{
+public class ClientViewMain extends JFrame implements Observer{
 	
-    private final static Logger logger = Logger.getLogger(ViewMain.class.getPackage().getName());
+    private final static Logger logger = Logger.getLogger(ClientViewMain.class.getPackage().getName());
 	private static final long serialVersionUID = 7390513127049817797L;
-	private ViewLobbyModel viewLobbyModel;
-	private ViewLobbyController viewLobbyController;
+	private ClientLobbyModel viewLobbyModel;
+	private ClientLobbyController viewLobbyController;
 
 	private JPanel contentPanel;
 	private CardLayout cardLayout;
 
-	public ViewMain(ViewLobbyModel viewLobbyModel, ViewLobbyController viewLobbyController) {
+	public ClientViewMain(ClientLobbyModel viewLobbyModel, ClientLobbyController viewLobbyController) {
 		this.viewLobbyModel = viewLobbyModel;
 		this.viewLobbyController = viewLobbyController;
 
