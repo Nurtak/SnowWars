@@ -15,6 +15,7 @@ public interface LobbyServerSessionInterface extends Remote {
     public void inviteUser(User selectedUser) throws RemoteException, UserIsNotInLobbyException;
 
     public ConnectedServerSessionInterface leaveLobby() throws RemoteException, SnowWarsRMIException;
+    
+    public User getUser() throws RemoteException;
 
-    public GameServerSessionInterface getGameSessionInterface() throws RemoteException, SnowWarsRMIException;
 }

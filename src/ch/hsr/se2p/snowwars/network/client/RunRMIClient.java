@@ -7,7 +7,7 @@ import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
+import java.util.Observable;
 
 import org.apache.log4j.Logger;
 
@@ -16,12 +16,11 @@ import ch.hsr.se2p.snowwars.config.SnowWarsConfigFactory;
 import ch.hsr.se2p.snowwars.network.server.RMIServerInterface;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 
-public class RunRMIClient {
+public class RunRMIClient extends Observable{
 
     private final static Logger logger = Logger.getLogger(RunRMIClient.class.getPackage().getName());   
     private SnowWarsConfig snowWarsConfig;
     private ConnectedServerSessionInterface connectedServerSessionInterface;
-    private RMIClientInterface clientStub;
     private RMIServerInterface server;
 
     public RunRMIClient() {
@@ -32,11 +31,8 @@ public class RunRMIClient {
     }
 
     private void setServer() {
-        try {
-            
+        try {            
             Registry serverRegistry = LocateRegistry.getRegistry(snowWarsConfig.getHostname(), snowWarsConfig.getRmiRegistryPort());
-            RMIClientInterface client = new RMIClient(this);
-            clientStub = (RMIClientInterface) UnicastRemoteObject.exportObject(client, 0);
             server = (RMIServerInterface) serverRegistry.lookup(snowWarsConfig.getServerRMILookupName());
         } catch (RemoteException | NotBoundException e) {
             logger.error(e.getMessage());
@@ -45,7 +41,7 @@ public class RunRMIClient {
     
     private void setConnectedServerSessionInterface() {
         try {
-            connectedServerSessionInterface = server.connect(clientStub);
+            connectedServerSessionInterface = server.connect();
             logger.info("Successfully Connected to " + snowWarsConfig.getHostname());
         } catch (RemoteException e) {
             logger.error(e.getMessage());

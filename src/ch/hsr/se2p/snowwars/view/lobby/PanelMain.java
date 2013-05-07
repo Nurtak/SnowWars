@@ -5,21 +5,27 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import ch.hsr.se2p.snowwars.application.SnowWarsClient;
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 
-public class PanelMain extends JPanel {
+public class PanelMain extends JPanel implements Observer{
 
     private static final long serialVersionUID = -4628393851839832247L;
-    private SnowWarsClient snowWarsClient;
-    private final ViewMain vm;
+    private final ClientViewMain cvm;
+    private ClientLobbyModel clientLobbyModel;
+    private ClientLobbyController clientLobbyController;
 
-    public PanelMain(SnowWarsClient snowWarsClient, final ViewMain vm) {
-        this.snowWarsClient = snowWarsClient;
-        this.vm = vm;
+    public PanelMain(ClientViewMain cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
+        this.cvm = cvm;
+        this.clientLobbyModel = clientLobbyModel;
+        this.clientLobbyController = clientLobbyController;
+        clientLobbyModel.addObserver(this);
         createMainPanel();
     }
 
@@ -34,9 +40,9 @@ public class PanelMain extends JPanel {
         JButton playButton = new JButton("Play");
         playButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                vm.addPanel(new PanelUser(vm, snowWarsClient.getRunRMIClient().getConnectedServerSessionInterface()), "userPanel");
-                vm.nextCard();
+            public void actionPerformed(ActionEvent e) {    
+                cvm.addPanel(new PanelUser(cvm, clientLobbyModel, clientLobbyController), "userPanel");
+                cvm.nextCard();
             }
         });
         GridBagConstraints gbc_playButton = new GridBagConstraints();
@@ -50,7 +56,7 @@ public class PanelMain extends JPanel {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vm.exit();
+                cvm.exit();
             }
         });
         GridBagConstraints gbc_exitButton = new GridBagConstraints();
@@ -59,5 +65,10 @@ public class PanelMain extends JPanel {
         gbc_exitButton.gridy = 1;
         add(exitButton, gbc_exitButton);
 
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        // TODO Auto-generated method stub       
     }
 }

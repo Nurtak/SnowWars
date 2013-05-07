@@ -1,16 +1,18 @@
 package ch.hsr.se2p.snowwars.network.session.client;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface;
 
-public class GameClientSession implements GameClientSessionInterface {
+public class GameClientSession extends UnicastRemoteObject implements GameClientSessionInterface {
     
-    private LobbyClientSession lobbyClientSession;
+    private static final long serialVersionUID = -7334933765388332978L;
 
-    public GameClientSession(LobbyClientSession lobbyClientSession) {
-        this.lobbyClientSession = lobbyClientSession;
+    public GameClientSession() throws RemoteException{
     }
     
     @Override

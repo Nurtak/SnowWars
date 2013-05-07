@@ -4,6 +4,8 @@ import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
+import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
+
 public class SnowWarsMain {
 
     /**
@@ -29,7 +31,7 @@ public class SnowWarsMain {
             if ("-server".equalsIgnoreCase(args[0])) {
                 new SnowWarsServer().startProgram();
             } else {
-                new SnowWarsClient().startProgram();
+                new SnowWarsClient(new RunRMIClient());
             }
         }
 

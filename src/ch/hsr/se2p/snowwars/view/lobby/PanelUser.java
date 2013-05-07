@@ -7,26 +7,30 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
+import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
-import ch.hsr.se2p.snowwars.network.exception.UsernameAlreadyTakenException;
-import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 
-public class PanelUser extends JPanel {
+public class PanelUser extends JPanel implements Observer {
     private static final long serialVersionUID = -4628393851839832247L;
-    private ConnectedServerSessionInterface connectedServerSessionInterface;
-    private final ViewMain vm;
+    private final ClientViewMain cvm;
+    private ClientLobbyModel viewLobbyModel;
+    private ClientLobbyController viewLobbyController;
     private JTextField txtUsername;
 
-    public PanelUser(final ViewMain vm, ConnectedServerSessionInterface connectedServerSessionInterface) {
-        this.vm = vm;
-        this.connectedServerSessionInterface = connectedServerSessionInterface;
+    public PanelUser(ClientViewMain cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
+        this.cvm = cvm;
+        this.viewLobbyModel = clientLobbyModel;
+        this.viewLobbyController = clientLobbyController;
+        clientLobbyModel.addObserver(this);
         createUserPanel();
     }
 
@@ -71,7 +75,7 @@ public class PanelUser extends JPanel {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                vm.previousCard();
+                cvm.previousCard();
             }
         });
         GridBagConstraints gbc_backButton = new GridBagConstraints();
@@ -86,24 +90,16 @@ public class PanelUser extends JPanel {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 try {
-                    if (connectedServerSessionInterface.isNameAvalible(txtUsername.getText())) {
+                    if (viewLobbyController.isNameAvailable(txtUsername.getText())) {
                         User user = new User(txtUsername.getText());
-                        System.out.println("Neuer User: " + user.getName());
-                        try {
-                            vm.addPanel(new PanelLobby(vm, user, connectedServerSessionInterface.registerAtLobby(user)), "lobbyPanel");
-                        } catch (SnowWarsRMIException e) {
-                            // TODO
-                        } catch (UsernameAlreadyTakenException e) {
-                            // TODO show error
-                        }
-                        vm.nextCard();
-                    } else {
-                        // TODO show error
+                        viewLobbyController.registerAtLobby(user);
+                        cvm.addPanel(new PanelLobby(cvm, viewLobbyModel, viewLobbyController), "lobbyPanel");
+                        cvm.nextCard();
                     }
                 } catch (RemoteException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                }
+                }              
             }
         });
         GridBagConstraints gbc_playButton = new GridBagConstraints();
@@ -112,5 +108,10 @@ public class PanelUser extends JPanel {
         gbc_playButton.gridy = 3;
         add(playButton, gbc_playButton);
 
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        // TODO Auto-generated method stub
     }
 }
