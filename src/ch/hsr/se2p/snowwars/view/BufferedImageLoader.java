@@ -13,6 +13,7 @@ public class BufferedImageLoader {
 	private final static String FILENAME_PLAYER_LEFT = new String("img/playerLeft.png");
 	private final static String FILENAME_PLAYER_RIGHT = new String("img/playerRight.png");
 	private final static String FILENAME_SPRITESHEET_SNOWBALL = new String ("img/snowball.png");
+	private final static String FILENAME_SPRITESHEET_KNOLL = new String ("img/Knoll.png");
 	private static BufferedImageLoader bil;
 
 	private BufferedImageLoader() {}
@@ -50,5 +51,9 @@ public class BufferedImageLoader {
 	
 	public BufferedImage getPlayerRightSpriteSheet() throws IOException {
 		return loadImage(FILENAME_PLAYER_RIGHT);
+	}
+	
+	public BufferedImage getKnollSpriteSheet() throws IOException {
+		return loadImage(FILENAME_SPRITESHEET_KNOLL);
 	}
 }

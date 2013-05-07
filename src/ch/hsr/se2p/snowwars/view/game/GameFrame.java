@@ -3,16 +3,13 @@ package ch.hsr.se2p.snowwars.view.game;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.controller.game.GraphicalObject;
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 
 public class GameFrame extends JFrame implements Observer, WindowListener {
@@ -51,16 +48,17 @@ public class GameFrame extends JFrame implements Observer, WindowListener {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-//		if (getViewGameController().getShowNoConnectionError()) {
-//			Object[] options = { "Cancel", "Retry" };
-//			int returnValue = JOptionPane.showOptionDialog(null, "No connection to server!", "No connection", JOptionPane.OK_OPTION,
-//					JOptionPane.ERROR_MESSAGE, null, options, null);
-//			if (returnValue == 1) {
-//				getViewGameController().retryConnectToServer();
-//			}
-//		}
-//
-//		board.repaint();
+		// if (getViewGameController().getShowNoConnectionError()) {
+		// Object[] options = { "Cancel", "Retry" };
+		// int returnValue = JOptionPane.showOptionDialog(null,
+		// "No connection to server!", "No connection", JOptionPane.OK_OPTION,
+		// JOptionPane.ERROR_MESSAGE, null, options, null);
+		// if (returnValue == 1) {
+		// getViewGameController().retryConnectToServer();
+		// }
+		// }
+		//
+		board.repaint();
 	}
 
 	@Override
@@ -90,10 +88,6 @@ public class GameFrame extends JFrame implements Observer, WindowListener {
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
-	}
-
-	protected ArrayList<GraphicalObject> getGraphicalObjects() {
-		return getViewGameController().getGraphicalObjects();
 	}
 
 	protected ViewGameController getViewGameController() {

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import ch.hsr.se2p.snowwars.controller.game.GraphicalObject;
-import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
+import ch.hsr.se2p.snowwars.model.Game;
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.Snowball;
@@ -22,165 +22,169 @@ import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 import ch.hsr.se2p.snowwars.view.game.PlayerInfoPanel.PlayerInfoPanelPosition;
 
 public class Board extends JPanel implements MouseListener {
-    private static final long serialVersionUID = -2949809536472598850L;
+	private static final long serialVersionUID = -2949809536472598850L;
 
-    private final GameFrame gameFrame;
+	private final GameFrame gameFrame;
 
-    private BufferedImage backgroundImage;
+	private BufferedImage backgroundImage;
 
-    private boolean playerAiming;
-    private int aimingStartX;
-    private int aimingStartY;
+	private boolean playerAiming;
+	private int aimingStartX;
+	private int aimingStartY;
 
-    public Board(GameFrame vg) throws IOException {
-        this.gameFrame = vg;
+	ArrayList<GraphicalObject> graphicalObjectsList = new ArrayList<GraphicalObject>();
 
-        BufferedImageLoader bil = BufferedImageLoader.getInstance();
-        backgroundImage = bil.getBackgroundImage();
+	public Board(GameFrame vg) throws IOException {
+		this.gameFrame = vg;
 
-        SoundPlayer.getInstance().playWindSound();
-        addMouseListener(this);
-        setFocusable(true);
-        setDoubleBuffered(true);
-    }
+		BufferedImageLoader bil = BufferedImageLoader.getInstance();
+		backgroundImage = bil.getBackgroundImage();
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        Graphics2D g2d = (Graphics2D) g;
+		SoundPlayer.getInstance().playWindSound();
+		addMouseListener(this);
+		setFocusable(true);
+		setDoubleBuffered(true);
+	}
 
-        paintBackground(g2d);
-        paintGraphicalObjects(g2d);
-        paintPlayerInfoPanel(g2d);
-        paintAimingArrow(g2d);
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		Graphics2D g2d = (Graphics2D) g;
 
-        Toolkit.getDefaultToolkit().sync();
-        g.dispose();
-    }
+		paintBackground(g2d);
+		paintGraphicalObjects(g2d);
+		paintPlayerInfoPanel(g2d);
+		paintAimingArrow(g2d);
 
-    private void paintBackground(Graphics2D g2d) {
-        g2d.drawImage(backgroundImage, 0, 0, null);
-    }
+		Toolkit.getDefaultToolkit().sync();
+		g.dispose();
+	}
 
-    private void paintGraphicalObjects(Graphics2D g2d) {
-        ArrayList<GraphicalObject> graphicalObjectsList = gameFrame.getGraphicalObjects();
-        synchronized (graphicalObjectsList) {
-            for (GraphicalObject go : graphicalObjectsList) {
-                if (go.isVisible()) {
-                    g2d.drawImage(go.getImage(), go.getX(), go.getY(), this);
-                }
-            }
-        }
-    }
+	private void paintBackground(Graphics2D g2d) {
+		g2d.drawImage(backgroundImage, 0, 0, null);
+	}
 
-    private void paintPlayerInfoPanel(Graphics2D g2d) {
-        Player playerLeft = gameFrame.getViewGameController().getPlayerLeft();
-        Player playerRight = gameFrame.getViewGameController().getPlayerRight();
+	private void paintGraphicalObjects(Graphics2D g2d) {
+		graphicalObjectsList.clear();
+		graphicalObjectsList.add(gameFrame.getViewGameController().getLeftPlayer());
+		graphicalObjectsList.add(gameFrame.getViewGameController().getRightPlayer());
+		graphicalObjectsList.addAll(gameFrame.getViewGameController().getGraphicalSnowballs());
 
-        int gameWidth = gameFrame.getViewGameController().getGameWidth();
-        new PlayerInfoPanel(playerLeft, PlayerInfoPanelPosition.LEFT, gameWidth).paint(g2d);
-        new PlayerInfoPanel(playerRight, PlayerInfoPanelPosition.RIGHT, gameWidth).paint(g2d);
-    }
+		for (GraphicalObject go : graphicalObjectsList) {
+			if (go.isVisible()) {
+				g2d.drawImage(go.getImage(), go.getX(), go.getY(), this);
+			}
+		}
+	}
 
-    private void paintAimingArrow(Graphics2D g2d) {
-        if (playerAiming) {
-            try {
-                drawArrow(g2d, (int) this.getMousePosition().getX(), (int) this.getMousePosition().getY(), aimingStartX, aimingStartY);
-            } catch (Exception e) {
-            }
-        }
-    }
+	private void paintPlayerInfoPanel(Graphics2D g2d) {
+		Player playerLeft = gameFrame.getViewGameController().getGame().getPlayerLeft();
+		Player playerRight = gameFrame.getViewGameController().getGame().getPlayerRight();
 
-    private void drawArrow(Graphics2D g, int x, int y, int xx, int yy) {
-        if (x == xx && y == yy) {
-            return;
-        }
+		int gameWidth = gameFrame.getViewGameController().getGameWidth();
+		new PlayerInfoPanel(playerLeft, PlayerInfoPanelPosition.LEFT, gameWidth).paint(g2d);
+		new PlayerInfoPanel(playerRight, PlayerInfoPanelPosition.RIGHT, gameWidth).paint(g2d);
+	}
 
-        float arrowWidth = 25.0f;
-        float theta = 1.0f;
-        int[] xPoints = new int[3];
-        int[] yPoints = new int[3];
-        float[] vecLine = new float[2];
-        float[] vecLeft = new float[2];
-        float fLength;
-        float th;
-        float ta;
-        float baseX, baseY;
+	private void paintAimingArrow(Graphics2D g2d) {
+		if (playerAiming) {
+			try {
+				drawArrow(g2d, (int) this.getMousePosition().getX(), (int) this.getMousePosition().getY(), aimingStartX, aimingStartY);
+			} catch (Exception e) {
+			}
+		}
+	}
 
-        xPoints[0] = xx;
-        yPoints[0] = yy;
+	private void drawArrow(Graphics2D g, int x, int y, int xx, int yy) {
+		if (x == xx && y == yy) {
+			return;
+		}
 
-        // build the line vector
-        vecLine[0] = (float) xPoints[0] - x;
-        vecLine[1] = (float) yPoints[0] - y;
+		float arrowWidth = 25.0f;
+		float theta = 1.0f;
+		int[] xPoints = new int[3];
+		int[] yPoints = new int[3];
+		float[] vecLine = new float[2];
+		float[] vecLeft = new float[2];
+		float fLength;
+		float th;
+		float ta;
+		float baseX, baseY;
 
-        // build the arrow base vector - normal to the line
-        vecLeft[0] = -vecLine[1];
-        vecLeft[1] = vecLine[0];
+		xPoints[0] = xx;
+		yPoints[0] = yy;
 
-        // setup length parameters
-        fLength = (float) Math.sqrt(vecLine[0] * vecLine[0] + vecLine[1] * vecLine[1]);
-        th = arrowWidth / (2.0f * fLength);
-        ta = arrowWidth / (2.0f * ((float) Math.tan(theta) / 2.0f) * fLength);
+		// build the line vector
+		vecLine[0] = (float) xPoints[0] - x;
+		vecLine[1] = (float) yPoints[0] - y;
 
-        // find the base of the arrow
-        baseX = ((float) xPoints[0] - ta * vecLine[0]);
-        baseY = ((float) yPoints[0] - ta * vecLine[1]);
+		// build the arrow base vector - normal to the line
+		vecLeft[0] = -vecLine[1];
+		vecLeft[1] = vecLine[0];
 
-        // build the points on the sides of the arrow
-        xPoints[1] = (int) (baseX + th * vecLeft[0]);
-        yPoints[1] = (int) (baseY + th * vecLeft[1]);
-        xPoints[2] = (int) (baseX - th * vecLeft[0]);
-        yPoints[2] = (int) (baseY - th * vecLeft[1]);
+		// setup length parameters
+		fLength = (float) Math.sqrt(vecLine[0] * vecLine[0] + vecLine[1] * vecLine[1]);
+		th = arrowWidth / (2.0f * fLength);
+		ta = arrowWidth / (2.0f * ((float) Math.tan(theta) / 2.0f) * fLength);
 
-        g.setColor(Color.red);
-        g.setStroke(new BasicStroke(3));
-        g.drawLine(x, y, (int) baseX, (int) baseY);
-        g.fillPolygon(xPoints, yPoints, 3);
-    }
+		// find the base of the arrow
+		baseX = ((float) xPoints[0] - ta * vecLine[0]);
+		baseY = ((float) yPoints[0] - ta * vecLine[1]);
 
-    public void startNewThrowRequest(Shot throwRequest) {
-//        gameFrame.getViewGameController().sendThrow(throwRequest);
-    }
+		// build the points on the sides of the arrow
+		xPoints[1] = (int) (baseX + th * vecLeft[0]);
+		yPoints[1] = (int) (baseY + th * vecLeft[1]);
+		xPoints[2] = (int) (baseX - th * vecLeft[0]);
+		yPoints[2] = (int) (baseY - th * vecLeft[1]);
 
-    @Override
-    public void mousePressed(MouseEvent arg0) {
-        playerAiming = true;
-        aimingStartX = (int) arg0.getPoint().getX();
-        aimingStartY = (int) arg0.getPoint().getY();
-    }
+		g.setColor(Color.red);
+		g.setStroke(new BasicStroke(3));
+		g.drawLine(x, y, (int) baseX, (int) baseY);
+		g.fillPolygon(xPoints, yPoints, 3);
+	}
 
-    @Override
-    public void mouseReleased(MouseEvent arg0) {
-        if (playerAiming) {
-            playerAiming = false;
+	public void startNewThrowRequest(Shot throwRequest) {
+		// gameFrame.getViewGameController().sendThrow(throwRequest);
+	}
 
-            try {
-                int x = (int) (this.aimingStartX - (int) this.getMousePosition().getX());
-                int y = (int) ((int) this.getMousePosition().getY() - this.aimingStartY);
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		playerAiming = true;
+		aimingStartX = (int) arg0.getPoint().getX();
+		aimingStartY = (int) arg0.getPoint().getY();
+	}
 
-                int angle = (int) Math.toDegrees(Math.atan2(y, x));
-                int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-                strength = strength / ViewGameController.FORCE_REDUCE_FACTOR_STRENGTH;
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		if (playerAiming) {
+			playerAiming = false;
 
-                Snowball sb = new Snowball(10);
-                Shot shot = new Shot(angle, strength, sb);
+			try {
+				int x = (int) (this.aimingStartX - (int) this.getMousePosition().getX());
+				int y = (int) ((int) this.getMousePosition().getY() - this.aimingStartY);
 
-                startNewThrowRequest(shot);
-            } catch (Exception e) {
-            }
-        }
-    }
+				int angle = (int) Math.toDegrees(Math.atan2(y, x));
+				int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+				strength = strength / Game.FORCE_REDUCE_FACTOR_STRENGTH;
 
-    @Override
-    public void mouseClicked(MouseEvent arg0) {
-    }
+				Snowball sb = new Snowball(10);
+				Shot shot = new Shot(angle, strength, sb);
 
-    @Override
-    public void mouseEntered(MouseEvent arg0) {
-    }
+				startNewThrowRequest(shot);
+			} catch (Exception e) {
+			}
+		}
+	}
 
-    @Override
-    public void mouseExited(MouseEvent arg0) {
-    }
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+	}
 }
