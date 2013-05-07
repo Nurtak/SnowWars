@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.Set;
 
 import javax.swing.DefaultListModel;
@@ -20,6 +21,7 @@ import org.apache.log4j.Logger;
 import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyController;
 import ch.hsr.se2p.snowwars.controller.lobby.ViewLobbyModel;
 import ch.hsr.se2p.snowwars.model.User;
+import ch.hsr.se2p.snowwars.network.exception.UserIsNotInLobbyException;
 
 public class PanelLobby extends JPanel {
     private static final long serialVersionUID = -4628393851839832247L;
@@ -52,7 +54,7 @@ public class PanelLobby extends JPanel {
         gbc_lblUsername.gridy = 0;
         add(lblUsername, gbc_lblUsername);
 
-        JList<User> lstUsers = new JList<User>();
+        final JList<User> lstUsers = new JList<User>();
         lstUsers.setBorder(new LineBorder(new Color(0, 0, 0)));
 
         DefaultListModel<User> testModel = new DefaultListModel<User>();
@@ -93,7 +95,12 @@ public class PanelLobby extends JPanel {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 logger.info("Invite Player...");
-                //viewLobbyController.
+                try {
+                    viewLobbyController.inviteUser(lstUsers.getSelectedValue());
+                } catch (RemoteException | UserIsNotInLobbyException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
         GridBagConstraints gbc_inviteButton = new GridBagConstraints();

@@ -4,6 +4,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import ch.hsr.se2p.snowwars.model.Lobby;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
@@ -14,6 +16,7 @@ import ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface;
 public class LobbyServerSession extends UnicastRemoteObject implements LobbyServerSessionInterface {
 
     private static final long serialVersionUID = -3804423975783216087L;
+    private final static Logger logger = Logger.getLogger(LobbyServerSession.class.getPackage().getName());
 
     private User user;
     private Lobby lobby;
@@ -46,7 +49,8 @@ public class LobbyServerSession extends UnicastRemoteObject implements LobbyServ
 
     @Override
     public void inviteUser(User selectedUser) throws UserIsNotInLobbyException {
-//        lobby.inviteUser(this, selectedUser);
+        logger.info("received invitation from " + user.getName() + " to " + selectedUser.getName());
+        lobby.inviteUser(this, selectedUser);
     }
 
     /**

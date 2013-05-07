@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
+import ch.hsr.se2p.snowwars.network.exception.UserIsNotInLobbyException;
 import ch.hsr.se2p.snowwars.network.exception.UsernameAlreadyTakenException;
 import ch.hsr.se2p.snowwars.network.session.client.GameClientSession;
 import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
@@ -22,6 +23,7 @@ public class ViewLobbyController extends UnicastRemoteObject implements LobbyCli
 
     private static final long serialVersionUID = -7299346634181477899L;
     private final static Logger logger = Logger.getLogger(ViewLobbyController.class.getPackage().getName());
+    
     private SnowWarsClientInterface snowWarsClientInterface;
     private ConnectedServerSessionInterface connectedServerSessionInterface;
     private ViewLobbyModel viewLobbyModel;
@@ -77,6 +79,15 @@ public class ViewLobbyController extends UnicastRemoteObject implements LobbyCli
         }
         snowWarsClientInterface.enterGame(snowWarsClientInterface, gameServerSessionInterface);
         return gameClientSession;
+    }
+    
+    public void inviteUser(User selectedUser) throws RemoteException, UserIsNotInLobbyException {
+        logger.info("Sending Invitation to " + selectedUser.getName());
+        lobbyServerSessionInterface.inviteUser(selectedUser);        
+    }
+    
+    public void leaveLobby() throws RemoteException, SnowWarsRMIException {
+        // TODO Auto-generated method stub
     }
 
 }

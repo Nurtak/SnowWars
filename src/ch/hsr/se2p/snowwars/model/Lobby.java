@@ -1,5 +1,6 @@
 package ch.hsr.se2p.snowwars.model;
 
+import java.rmi.RemoteException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,6 +34,22 @@ public class Lobby {
             result.add(lobbyServerSession.getUser());
         }
         return result;
+    }
+    
+    public synchronized void inviteUser(LobbyServerSession lobbyServerSession, User target) {
+        User from = lobbyServerSession.getUser();
+        for (LobbyServerSession userSession : users) {
+            if (userSession.getUser().equals(target)) {
+                try {
+                    userSession.getLobbyClientSessionInterface().receiveInvitation(from);
+                } catch (RemoteException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                // just one
+                return;
+            }
+        }
     }
 
     public synchronized void leave(LobbyServerSession lobbyServerSession) {
