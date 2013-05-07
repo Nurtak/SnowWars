@@ -5,6 +5,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -12,7 +14,7 @@ import javax.swing.JPanel;
 import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
 import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 
-public class PanelMain extends JPanel {
+public class PanelMain extends JPanel implements Observer{
 
     private static final long serialVersionUID = -4628393851839832247L;
     private final ClientViewMain cvm;
@@ -23,6 +25,7 @@ public class PanelMain extends JPanel {
         this.cvm = cvm;
         this.clientLobbyModel = clientLobbyModel;
         this.clientLobbyController = clientLobbyController;
+        clientLobbyModel.addObserver(this);
         createMainPanel();
     }
 
@@ -62,5 +65,10 @@ public class PanelMain extends JPanel {
         gbc_exitButton.gridy = 1;
         add(exitButton, gbc_exitButton);
 
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        // TODO Auto-generated method stub       
     }
 }

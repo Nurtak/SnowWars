@@ -7,6 +7,8 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,7 +19,7 @@ import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
 import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 import ch.hsr.se2p.snowwars.model.User;
 
-public class PanelUser extends JPanel {
+public class PanelUser extends JPanel implements Observer {
     private static final long serialVersionUID = -4628393851839832247L;
     private final ClientViewMain cvm;
     private ClientLobbyModel viewLobbyModel;
@@ -28,6 +30,7 @@ public class PanelUser extends JPanel {
         this.cvm = cvm;
         this.viewLobbyModel = clientLobbyModel;
         this.viewLobbyController = clientLobbyController;
+        clientLobbyModel.addObserver(this);
         createUserPanel();
     }
 
@@ -105,5 +108,10 @@ public class PanelUser extends JPanel {
         gbc_playButton.gridy = 3;
         add(playButton, gbc_playButton);
 
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        // TODO Auto-generated method stub
     }
 }

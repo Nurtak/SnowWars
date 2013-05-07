@@ -59,6 +59,7 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 
     @Override
     public void receiveLobbyUpdate(Set<User> users) throws RemoteException {
+        logger.info("new users received");
         clientLobbyModel.setUsers(users);      
     }
     

@@ -7,6 +7,8 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 
 import javax.swing.DefaultListModel;
@@ -23,17 +25,19 @@ import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.exception.UserIsNotInLobbyException;
 
-public class PanelLobby extends JPanel {
+public class PanelLobby extends JPanel implements Observer{
     private static final long serialVersionUID = -4628393851839832247L;
     private final static Logger logger = Logger.getLogger(PanelLobby.class.getPackage().getName());
     private final ClientViewMain cvm;
     private ClientLobbyModel clientLobbyModel;
     private ClientLobbyController clientLobbyController;
+    private JList<User> lstUsers;
 
     public PanelLobby(ClientViewMain cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
         this.cvm = cvm;
         this.clientLobbyModel = clientLobbyModel;
         this.clientLobbyController = clientLobbyController;
+        clientLobbyModel.addObserver(this);
         createMainPanel();
     }
 
@@ -54,12 +58,12 @@ public class PanelLobby extends JPanel {
         gbc_lblUsername.gridy = 0;
         add(lblUsername, gbc_lblUsername);
 
-        final JList<User> lstUsers = new JList<User>();
+        lstUsers = new JList<User>();
         lstUsers.setBorder(new LineBorder(new Color(0, 0, 0)));
 
         DefaultListModel<User> testModel = new DefaultListModel<User>();
-        Set<User> usersToDisplay;
-
+        
+        Set<User> usersToDisplay;      
         usersToDisplay = clientLobbyModel.getUsers();
         for (User userToDisplay : usersToDisplay) {
             if (!userToDisplay.equals(clientLobbyModel.getUser())) {
@@ -109,5 +113,19 @@ public class PanelLobby extends JPanel {
         gbc_inviteButton.gridx = 1;
         gbc_inviteButton.gridy = 2;
         add(inviteButton, gbc_inviteButton);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        DefaultListModel<User> testModel = new DefaultListModel<User>();
+        
+        Set<User> usersToDisplay;      
+        usersToDisplay = clientLobbyModel.getUsers();
+        for (User userToDisplay : usersToDisplay) {
+            if (!userToDisplay.equals(clientLobbyModel.getUser())) {
+                testModel.addElement(userToDisplay);
+            }
+        }
+        lstUsers.setModel(testModel);     
     }
 }
