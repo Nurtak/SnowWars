@@ -1,53 +1,55 @@
 package ch.hsr.se2p.snowwars.controller.game;
 
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
+import ch.hsr.se2p.snowwars.model.Player;
+import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
+import ch.hsr.se2p.snowwars.model.Player.PlayerState;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 
 public class GraphicalPlayer extends GraphicalObject {
-	protected final static int PLAYER_LEFT_POSITION_X = 40;
-	protected final static int PLAYER_LEFT_POSITION_Y = 300;
-	protected final static int PLAYER_RIGHT_POSITION_X = 840;
-	protected final static int PLAYER_RIGHT_POSITION_Y = 300;
-	private final static int PLAYER_HEIGHT = 40;
-	private final static int PLAYER_WIDTH = 40;
-	
+	private final static Logger logger = Logger.getLogger(GraphicalPlayer.class.getPackage().getName());
+
 	private final int WIDTH = 158;
 	private final int HEIGHT = 149;
 
-	public AnimationController throwingSprites;
-	public AnimationController standing;
+	public AnimationController throwingAnimation;
+	public AnimationController standingAnimation;
+	public AnimationController buildingAnimation;
 	public AnimationController activeAnimation;
 
 	private BufferedImage spriteSheet;
 	public BufferedImageLoader loader;
 
-	public static enum PlayerPosition{
-		LEFT,
-		RIGHT
-	}
-	private final PlayerPosition playerPosition;
-	
-	public GraphicalPlayer(PlayerPosition pos) throws IOException {	
-		this.playerPosition = pos;
-		
-		loader = BufferedImageLoader.getInstance();
-		switch(pos){
-		case LEFT:
-			spriteSheet = loader.getPlayerLeftSpriteSheet();
-			break;
-		case RIGHT:
-			spriteSheet = loader.getPlayerRightSpriteSheet();
-			break;
+	private Player player;
+
+	public GraphicalPlayer(Player player) {
+		this.player = player;
+		PlayerPosition pos = player.getPosition();
+
+		try {
+			loader = BufferedImageLoader.getInstance();
+			switch (pos) {
+			case LEFT:
+				spriteSheet = loader.getPlayerLeftSpriteSheet();
+				break;
+			case RIGHT:
+				spriteSheet = loader.getPlayerRightSpriteSheet();
+				break;
+			}
+		} catch (IOException e) {
+			logger.error(e.getMessage());
 		}
-		
+
 		loadThrowAnimation();
 		loadStandingAnimation();
-		activeAnimation = standing;
+		loadBuildingAnimation();
+		activeAnimation = standingAnimation;
 	}
 
 	private void loadThrowAnimation() {
@@ -60,57 +62,42 @@ public class GraphicalPlayer extends GraphicalObject {
 		spritesForThrow.add(spriteSheet.getSubimage(WIDTH, HEIGHT, WIDTH, HEIGHT));
 		spritesForThrow.add(spriteSheet.getSubimage(2 * WIDTH, HEIGHT, WIDTH, HEIGHT));
 
-		throwingSprites = new AnimationController(spritesForThrow);
-		throwingSprites.setSpeed(100);
+		throwingAnimation = new AnimationController(spritesForThrow);
+		throwingAnimation.setSpeed(100);
 	}
 
 	private void loadStandingAnimation() {
 		ArrayList<BufferedImage> spritesForStand = new ArrayList<BufferedImage>();
 		spritesForStand.add(spriteSheet.getSubimage(0, 0, WIDTH, HEIGHT));
-		standing = new AnimationController(spritesForStand);
-		standing.setSpeed(-1);
+		standingAnimation = new AnimationController(spritesForStand);
+		standingAnimation.setSpeed(-1);
+	}
+
+	public void loadBuildingAnimation() {
+		ArrayList<BufferedImage> spritesForStand = new ArrayList<BufferedImage>();
+		spritesForStand.add(spriteSheet.getSubimage(0, 0, WIDTH, HEIGHT));
+		standingAnimation = new AnimationController(spritesForStand);
+		standingAnimation.setSpeed(-1);
 	}
 
 	@Override
 	public int getX() {
-		switch(this.playerPosition){
+		switch (this.player.getPosition()) {
 		case LEFT:
-			return PLAYER_LEFT_POSITION_X;
+			return Player.PLAYER_LEFT_POSITION_X;
 		default:
-			return PLAYER_RIGHT_POSITION_X;
+			return Player.PLAYER_RIGHT_POSITION_X;
 		}
 	}
 
 	@Override
 	public int getY() {
-		switch(this.playerPosition){
+		switch (this.player.getPosition()) {
 		case LEFT:
-			return PLAYER_LEFT_POSITION_Y;
+			return Player.PLAYER_LEFT_POSITION_Y;
 		default:
-			return PLAYER_RIGHT_POSITION_Y;
+			return Player.PLAYER_RIGHT_POSITION_Y;
 		}
-	}
-
-	public Rectangle getBounds() {
-		switch(playerPosition){
-		case LEFT:
-			return new Rectangle(PLAYER_LEFT_POSITION_X, PLAYER_LEFT_POSITION_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
-		default:
-			return new Rectangle(PLAYER_RIGHT_POSITION_X, PLAYER_RIGHT_POSITION_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
-		}
-	}
-
-	@Override
-	public void updateValues() {
-		try {
-			activeAnimation.update(System.currentTimeMillis());
-		} catch (Exception e) {
-			activeAnimation = standing;
-		}
-	}
-
-	public void startThrowAnimation() {
-		this.activeAnimation = throwingSprites;
 	}
 
 	@Override
@@ -121,6 +108,29 @@ public class GraphicalPlayer extends GraphicalObject {
 	@Override
 	public boolean isVisible() {
 		return true;
+	}
+
+	@Override
+	public void updateAnimation() {
+		PlayerState playerState = player.getPlayerState();
+
+		switch (playerState) {
+		case BUILDING:
+			this.activeAnimation = buildingAnimation;
+			return;
+		case STANDING:
+			this.activeAnimation = standingAnimation;
+			break;
+		case THROWING:
+			this.activeAnimation = throwingAnimation;
+			break;
+		}
+
+		try {
+			activeAnimation.update(System.currentTimeMillis());
+		} catch (Exception e) {
+			activeAnimation = standingAnimation;
+		}
 	}
 
 }

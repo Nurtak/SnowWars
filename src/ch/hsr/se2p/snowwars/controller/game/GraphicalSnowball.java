@@ -1,63 +1,44 @@
 package ch.hsr.se2p.snowwars.controller.game;
 
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
+import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.model.ShotObject.ShotObjectState;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 
 public class GraphicalSnowball extends GraphicalObject {
 	private final static Logger logger = Logger.getLogger(GraphicalSnowball.class.getPackage().getName());
 
-	private int x, y;
-	private double dy, dx;
-
 	public AnimationController splashingAnimation;
-	public AnimationController normalSnowball;
+	public AnimationController normalSnowballAnimation;
 	public AnimationController activeAnimation;
+
 	private BufferedImage spriteSheetSnowball;
 	public BufferedImageLoader loader;
+
 	private int width = 35;
 	private int height = 35;
 
-	public enum SnowballState {
-		CRASHED, CRASHING, CRASHEDINGROUND, MOVING
-	};
+	private final Shot shot;
 
-	public SnowballState snowballState;
+	public GraphicalSnowball(Shot shot) {
+		this.shot = shot;
 
-	public GraphicalSnowball(int angle, int strength) {
 		loader = BufferedImageLoader.getInstance();
 		try {
 			spriteSheetSnowball = loader.getSnowballSpriteSheet();
 		} catch (IOException e1) {
-			logger.error("Bild nicht gefunden");
+			logger.error(e1.getMessage());
 		}
 
 		loadSplashAnimation();
 		loadNormalSnowballAnimation();
-		activeAnimation = normalSnowball;
-		snowballState = SnowballState.MOVING;
-
-		this.x = GraphicalPlayer.PLAYER_LEFT_POSITION_X + 50;
-		this.y = GraphicalPlayer.PLAYER_LEFT_POSITION_Y;
-
-		double vySin = Math.sin(Math.toRadians(angle));
-		double vxCos = Math.cos(Math.toRadians(angle));
-
-		this.dy = (int) (vySin * strength) * -1;
-		this.dx = (int) (vxCos * strength);
-
-		this.dy = this.dy / ViewGameController.FORCE_REDUCE_FACTOR;
-		this.dx = this.dx / ViewGameController.FORCE_REDUCE_FACTOR;
-	}
-
-	public void stopSnowball() {
-		snowballState = SnowballState.CRASHING;
+		activeAnimation = normalSnowballAnimation;
 	}
 
 	public Image getImage() {
@@ -65,49 +46,18 @@ public class GraphicalSnowball extends GraphicalObject {
 	}
 
 	public boolean isVisible() {
-		return snowballState == SnowballState.MOVING || snowballState == SnowballState.CRASHEDINGROUND || snowballState == SnowballState.CRASHING;
-	}
-
-	public void updateValues() {
-		if (snowballState == SnowballState.MOVING) {
-			this.dy += ViewGameController.GRAVITATION;
-
-			this.x = (int) ((int) this.x + this.dx);
-			this.y = (int) ((int) this.y + this.dy);
-
-			if (x > ViewGameController.GAME_WIDTH || y > ViewGameController.GROUND_LEVEL_Y) {
-				snowballState = SnowballState.CRASHEDINGROUND;
-			}
-		}
-
-		try {
-			activeAnimation.update(System.currentTimeMillis());
-		} catch (Exception e) {
-			snowballState = SnowballState.CRASHED;
-			activeAnimation = normalSnowball;
-		}
+		ShotObjectState state = shot.getShotObject().getShotObjectState();
+		return state == ShotObjectState.MOVING || state == ShotObjectState.CRASHEDINGROUND || state == ShotObjectState.CRASHING;
 	}
 
 	@Override
 	public int getX() {
-		return this.x;
+		return this.shot.getX();
 	}
 
 	@Override
 	public int getY() {
-		return this.y;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public Rectangle getBounds() {
-		return new Rectangle(getX() + 5, getY() + 5, 20, 20);
+		return this.shot.getY();
 	}
 
 	private void loadSplashAnimation() {
@@ -134,13 +84,42 @@ public class GraphicalSnowball extends GraphicalObject {
 		ArrayList<BufferedImage> spritesForNormalSnowball = new ArrayList<BufferedImage>();
 		spritesForNormalSnowball.add(spriteSheetSnowball.getSubimage(0, 0, width, height));
 
-		normalSnowball = new AnimationController(spritesForNormalSnowball);
-		normalSnowball.setSpeed(-1);
+		normalSnowballAnimation = new AnimationController(spritesForNormalSnowball);
+		normalSnowballAnimation.setSpeed(-1);
 	}
 
-	public void startSplashingAnimation() {
-		snowballState = SnowballState.CRASHING;
-		this.activeAnimation = splashingAnimation;
+	@Override
+	public void updateAnimation() {
+		ShotObjectState activeSnowballState = shot.getShotObjectState();
+
+		switch (activeSnowballState) {
+		case CRASHED:
+			return;
+		case CRASHEDINGROUND:
+			this.activeAnimation = normalSnowballAnimation;
+			break;
+		case CRASHING:
+			this.activeAnimation = splashingAnimation;
+			break;
+		case MOVING:
+			this.activeAnimation = normalSnowballAnimation;
+			break;
+		}
+
+		try {
+			activeAnimation.update(System.currentTimeMillis());
+		} catch (Exception e) {
+			activeAnimation = normalSnowballAnimation;
+		}
 	}
 
+	@Override
+	public int hashCode() {
+		return this.shot.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return this.shot.equals((Shot) obj);
+	}
 }

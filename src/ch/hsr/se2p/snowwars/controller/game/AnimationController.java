@@ -14,6 +14,7 @@ public class AnimationController {
 	public AnimationController(ArrayList<BufferedImage> frames) {
 		this.frames = frames;
 	}
+	
 
 	public void setSpeed(long speed) {
 		this.speed = speed;

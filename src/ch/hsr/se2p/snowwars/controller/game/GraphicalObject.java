@@ -9,7 +9,7 @@ public abstract class GraphicalObject {
 
 	public abstract Image getImage();
 
-	protected abstract void updateValues();
-
 	public abstract boolean isVisible();
+	
+	public abstract void updateAnimation();
 }
