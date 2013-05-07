@@ -24,10 +24,10 @@ public class PanelUser extends JPanel {
     private ClientLobbyController viewLobbyController;
     private JTextField txtUsername;
 
-    public PanelUser(ClientViewMain cvm, ClientLobbyModel viewLobbyModel, ClientLobbyController viewLobbyController) {
+    public PanelUser(ClientViewMain cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
         this.cvm = cvm;
-        this.viewLobbyModel = viewLobbyModel;
-        this.viewLobbyController = viewLobbyController;
+        this.viewLobbyModel = clientLobbyModel;
+        this.viewLobbyController = clientLobbyController;
         createUserPanel();
     }
 

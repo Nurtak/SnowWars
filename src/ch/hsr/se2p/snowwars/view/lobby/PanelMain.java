@@ -16,13 +16,13 @@ public class PanelMain extends JPanel {
 
     private static final long serialVersionUID = -4628393851839832247L;
     private final ClientViewMain cvm;
-    private ClientLobbyModel viewLobbyModel;
-    private ClientLobbyController viewLobbyController;
+    private ClientLobbyModel clientLobbyModel;
+    private ClientLobbyController clientLobbyController;
 
-    public PanelMain(ClientViewMain cvm, ClientLobbyModel viewLobbyModel, ClientLobbyController viewLobbyController) {
+    public PanelMain(ClientViewMain cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
         this.cvm = cvm;
-        this.viewLobbyModel = viewLobbyModel;
-        this.viewLobbyController = viewLobbyController;
+        this.clientLobbyModel = clientLobbyModel;
+        this.clientLobbyController = clientLobbyController;
         createMainPanel();
     }
 
@@ -38,7 +38,7 @@ public class PanelMain extends JPanel {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {    
-                cvm.addPanel(new PanelUser(cvm, viewLobbyModel, viewLobbyController), "userPanel");
+                cvm.addPanel(new PanelUser(cvm, clientLobbyModel, clientLobbyController), "userPanel");
                 cvm.nextCard();
             }
         });

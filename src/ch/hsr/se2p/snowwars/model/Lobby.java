@@ -13,7 +13,7 @@ public class Lobby {
 
     public synchronized boolean isNameAvailable(String name) {
         for (LobbyServerSession lobbyServerSession : users) {
-            if (lobbyServerSession.getUser().getName().equals(name)) {                
+            if (lobbyServerSession.getUser().getName().equals(name)) {
                 return false;
             }
         }
@@ -22,6 +22,16 @@ public class Lobby {
 
     public synchronized boolean addSession(LobbyServerSession lobbyServerSession) throws UsernameAlreadyTakenException {
         if (users.add(lobbyServerSession)) {
+            for (LobbyServerSession userSession : users) {
+                try {
+                    if (!userSession.equals(lobbyServerSession)) {                        
+                        userSession.getLobbyClientSessionInterface().receiveLobbyUpdate(getUsers());
+                    }
+                } catch (RemoteException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
             return true;
         } else {
             throw new UsernameAlreadyTakenException();
@@ -35,7 +45,7 @@ public class Lobby {
         }
         return result;
     }
-    
+
     public synchronized void inviteUser(LobbyServerSession lobbyServerSession, User target) {
         User from = lobbyServerSession.getUser();
         for (LobbyServerSession userSession : users) {

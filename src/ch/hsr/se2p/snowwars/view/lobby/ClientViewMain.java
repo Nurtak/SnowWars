@@ -27,15 +27,15 @@ public class ClientViewMain extends JFrame implements Observer{
 	
     private final static Logger logger = Logger.getLogger(ClientViewMain.class.getPackage().getName());
 	private static final long serialVersionUID = 7390513127049817797L;
-	private ClientLobbyModel viewLobbyModel;
-	private ClientLobbyController viewLobbyController;
+	private ClientLobbyModel clientLobbyModel;
+	private ClientLobbyController clientLobbyController;
 
 	private JPanel contentPanel;
 	private CardLayout cardLayout;
 
-	public ClientViewMain(ClientLobbyModel viewLobbyModel, ClientLobbyController viewLobbyController) {
-		this.viewLobbyModel = viewLobbyModel;
-		this.viewLobbyController = viewLobbyController;
+	public ClientViewMain(ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
+		this.clientLobbyModel = clientLobbyModel;
+		this.clientLobbyController = clientLobbyController;
 
 		logger.info("Starting GUI...");		
 		createFrame();
@@ -100,7 +100,7 @@ public class ClientViewMain extends JFrame implements Observer{
 		cardLayout = new CardLayout();
 		contentPanel.setLayout(cardLayout);
 
-        JPanel mainPanel = new PanelMain(this, viewLobbyModel, viewLobbyController);
+        JPanel mainPanel = new PanelMain(this, clientLobbyModel, clientLobbyController);
 //        JPanel userPanel = new PanelUser(this);
 //        JPanel lobbyPanel = new PanelLobby(this);
 

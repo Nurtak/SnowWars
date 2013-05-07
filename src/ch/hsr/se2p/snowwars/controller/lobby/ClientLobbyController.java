@@ -3,6 +3,9 @@ package ch.hsr.se2p.snowwars.controller.lobby;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Set;
+
+import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
@@ -26,17 +29,17 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
     
     private SnowWarsClientInterface snowWarsClientInterface;
     private ConnectedServerSessionInterface connectedServerSessionInterface;
-    private ClientLobbyModel viewLobbyModel;
-    private ClientViewMain viewMain;
+    private ClientLobbyModel clientLobbyModel;
+    private ClientViewMain clientViewMain;
     private LobbyServerSessionInterface lobbyServerSessionInterface;
 
     public ClientLobbyController(SnowWarsClientInterface snowWarsClientInterface, ConnectedServerSessionInterface connectedServerSessionInterface)
             throws RemoteException {
         this.snowWarsClientInterface = snowWarsClientInterface;
         this.connectedServerSessionInterface = connectedServerSessionInterface;
-        viewLobbyModel = new ClientLobbyModel();
-        viewMain = new ClientViewMain(viewLobbyModel, this);
-        viewLobbyModel.addObserver(viewMain);
+        clientLobbyModel = new ClientLobbyModel();
+        clientViewMain = new ClientViewMain(clientLobbyModel, this);
+        clientLobbyModel.addObserver(clientViewMain);
     }
 
     public boolean isNameAvailable(String name) throws RemoteException {
@@ -46,8 +49,8 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
     public void registerAtLobby(User user) {
         try {
             lobbyServerSessionInterface = connectedServerSessionInterface.registerAtLobby(this, user);
-            viewLobbyModel.setUser(user);
-            viewLobbyModel.setUsers(lobbyServerSessionInterface.getUsers());
+            clientLobbyModel.setUser(user);
+            clientLobbyModel.setUsers(lobbyServerSessionInterface.getUsers());
         } catch (RemoteException | SnowWarsRMIException | UsernameAlreadyTakenException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -55,8 +58,14 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
     }
 
     @Override
+    public void receiveLobbyUpdate(Set<User> users) throws RemoteException {
+        clientLobbyModel.setUsers(users);      
+    }
+    
+    @Override
     public void receiveInvitation(User from) {
         logger.info("Invitation received from " + from.getName());
+        JOptionPane.showConfirmDialog(null, from.getName() + " wants to play a game!");
         // TODO display invitation
     }
 
@@ -89,5 +98,6 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
     public void leaveLobby() throws RemoteException, SnowWarsRMIException {
         // TODO Auto-generated method stub
     }
+
 
 }

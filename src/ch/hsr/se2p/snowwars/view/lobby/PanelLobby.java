@@ -27,13 +27,13 @@ public class PanelLobby extends JPanel {
     private static final long serialVersionUID = -4628393851839832247L;
     private final static Logger logger = Logger.getLogger(PanelLobby.class.getPackage().getName());
     private final ClientViewMain cvm;
-    private ClientLobbyModel viewLobbyModel;
-    private ClientLobbyController viewLobbyController;
+    private ClientLobbyModel clientLobbyModel;
+    private ClientLobbyController clientLobbyController;
 
-    public PanelLobby(ClientViewMain cvm, ClientLobbyModel viewLobbyModel, ClientLobbyController viewLobbyController) {
+    public PanelLobby(ClientViewMain cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
         this.cvm = cvm;
-        this.viewLobbyModel = viewLobbyModel;
-        this.viewLobbyController = viewLobbyController;
+        this.clientLobbyModel = clientLobbyModel;
+        this.clientLobbyController = clientLobbyController;
         createMainPanel();
     }
 
@@ -45,7 +45,7 @@ public class PanelLobby extends JPanel {
         gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
         setLayout(gridBagLayout);
 
-        JLabel lblUsername = new JLabel("Your Username: " + viewLobbyModel.getUser().getName());
+        JLabel lblUsername = new JLabel("Your Username: " + clientLobbyModel.getUser().getName());
         GridBagConstraints gbc_lblUsername = new GridBagConstraints();
         gbc_lblUsername.gridwidth = 2;
         gbc_lblUsername.anchor = GridBagConstraints.WEST;
@@ -60,9 +60,9 @@ public class PanelLobby extends JPanel {
         DefaultListModel<User> testModel = new DefaultListModel<User>();
         Set<User> usersToDisplay;
 
-        usersToDisplay = viewLobbyModel.getUsers();
+        usersToDisplay = clientLobbyModel.getUsers();
         for (User userToDisplay : usersToDisplay) {
-            if (!userToDisplay.equals(viewLobbyModel.getUser())) {
+            if (!userToDisplay.equals(clientLobbyModel.getUser())) {
                 testModel.addElement(userToDisplay);
             }
         }
@@ -96,7 +96,7 @@ public class PanelLobby extends JPanel {
             public void actionPerformed(ActionEvent arg0) {
                 logger.info("Invite Player...");
                 try {
-                    viewLobbyController.inviteUser(lstUsers.getSelectedValue());
+                    clientLobbyController.inviteUser(lstUsers.getSelectedValue());
                 } catch (RemoteException | UserIsNotInLobbyException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
