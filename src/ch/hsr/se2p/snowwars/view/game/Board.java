@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import ch.hsr.se2p.snowwars.controller.game.GraphicalObject;
-import ch.hsr.se2p.snowwars.model.Game;
+import ch.hsr.se2p.snowwars.model.AbstractGame;
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.Snowball;
@@ -66,9 +66,9 @@ public class Board extends JPanel implements MouseListener {
 
 	private void paintGraphicalObjects(Graphics2D g2d) {
 		graphicalObjectsList.clear();
-		graphicalObjectsList.add(gameFrame.getViewGameController().getLeftPlayer());
-		graphicalObjectsList.add(gameFrame.getViewGameController().getRightPlayer());
-		graphicalObjectsList.addAll(gameFrame.getViewGameController().getGraphicalSnowballs());
+		graphicalObjectsList.add(gameFrame.getViewGameModel().getLeftPlayer());
+		graphicalObjectsList.add(gameFrame.getViewGameModel().getRightPlayer());
+		graphicalObjectsList.addAll(gameFrame.getViewGameModel().getGraphicalSnowballs());
 
 		for (GraphicalObject go : graphicalObjectsList) {
 			if (go.isVisible()) {
@@ -78,10 +78,10 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	private void paintPlayerInfoPanel(Graphics2D g2d) {
-		Player playerLeft = gameFrame.getViewGameController().getGame().getPlayerLeft();
-		Player playerRight = gameFrame.getViewGameController().getGame().getPlayerRight();
+		Player playerLeft = gameFrame.getViewGameModel().getGame().getPlayerLeft();
+		Player playerRight = gameFrame.getViewGameModel().getGame().getPlayerRight();
 
-		int gameWidth = gameFrame.getViewGameController().getGameWidth();
+		int gameWidth = gameFrame.getViewGameModel().getGameWidth();
 		new PlayerInfoPanel(playerLeft, PlayerInfoPanelPosition.LEFT, gameWidth).paint(g2d);
 		new PlayerInfoPanel(playerRight, PlayerInfoPanelPosition.RIGHT, gameWidth).paint(g2d);
 	}
@@ -165,7 +165,7 @@ public class Board extends JPanel implements MouseListener {
 
 				int angle = (int) Math.toDegrees(Math.atan2(y, x));
 				int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-				strength = strength / Game.FORCE_REDUCE_FACTOR_STRENGTH;
+				strength = strength / AbstractGame.FORCE_REDUCE_FACTOR_STRENGTH;
 
 				Snowball sb = new Snowball(10);
 				Shot shot = new Shot(angle, strength, sb);

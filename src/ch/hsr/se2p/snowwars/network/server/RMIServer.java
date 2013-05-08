@@ -10,7 +10,6 @@ import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterfa
 
 public class RMIServer implements RMIServerInterface {
 
-    private final static Logger logger = Logger.getLogger(RMIServer.class.getPackage().getName());
     private Lobby lobby;
 
     public RMIServer(Lobby lobby) {

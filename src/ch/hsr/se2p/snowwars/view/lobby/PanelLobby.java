@@ -119,8 +119,7 @@ public class PanelLobby extends JPanel implements Observer{
     public void update(Observable o, Object arg) {
         DefaultListModel<User> testModel = new DefaultListModel<User>();
         
-        Set<User> usersToDisplay;      
-        usersToDisplay = clientLobbyModel.getUsers();
+        Set<User> usersToDisplay = clientLobbyModel.getUsers();
         for (User userToDisplay : usersToDisplay) {
             if (!userToDisplay.equals(clientLobbyModel.getUser())) {
                 testModel.addElement(userToDisplay);

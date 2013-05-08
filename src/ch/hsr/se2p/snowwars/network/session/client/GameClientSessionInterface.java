@@ -12,7 +12,7 @@ public interface GameClientSessionInterface extends Remote {
 
     public void receiveShot(Shot shot) throws RemoteException;
 
-    public void setHitPoints(Player player, int hitPoints) throws RemoteException;
+    public void updatePlayer(Player player) throws RemoteException;
 
     public LobbyServerSessionInterface youWon() throws SnowWarsRMIException, RemoteException;
 

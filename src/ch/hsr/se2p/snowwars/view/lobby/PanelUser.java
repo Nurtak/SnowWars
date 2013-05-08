@@ -12,6 +12,7 @@ import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -90,14 +91,20 @@ public class PanelUser extends JPanel implements Observer {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 try {
+                	if(txtUsername.getText().equals("")){
+                		JOptionPane.showMessageDialog(cvm, "Please enter an username!", "Error", JOptionPane.ERROR_MESSAGE);
+                		return;
+                	}
+                	
                     if (viewLobbyController.isNameAvailable(txtUsername.getText())) {
                         User user = new User(txtUsername.getText());
                         viewLobbyController.registerAtLobby(user);
                         cvm.addPanel(new PanelLobby(cvm, viewLobbyModel, viewLobbyController), "lobbyPanel");
                         cvm.nextCard();
+                    } else {
+                    	JOptionPane.showMessageDialog(cvm, "Username is already taken!", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (RemoteException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }              
             }

@@ -1,105 +1,65 @@
 package ch.hsr.se2p.snowwars.controller.game;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Set;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-import ch.hsr.se2p.snowwars.application.SnowWarsClient;
-import ch.hsr.se2p.snowwars.model.Game;
+import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
+import ch.hsr.se2p.snowwars.model.AbstractGame;
+import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
+import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
+import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface;
+import ch.hsr.se2p.snowwars.view.game.GameFrame;
 
-public class ViewGameController extends Observable implements Observer {
-	public final static int GAME_WIDTH = 1000;
-	public final static int GAME_HEIGHT = 600;
-	protected final static String GAME_TITLE = "Snow Wars";
+public class ViewGameController extends UnicastRemoteObject implements
+		GameClientSessionInterface {
+	private static final long serialVersionUID = -7593697054318420277L;
 
-	private Set<GraphicalSnowball> graphicalSnowballs = new HashSet<GraphicalSnowball>();
-	private GraphicalPlayer leftPlayer;
-	private GraphicalPlayer rightPlayer;
+	// private final static Logger logger = Logger
+	// .getLogger(ViewGameController.class.getPackage().getName());
 
-	private Game game;
-	private SnowWarsClient snowWarsClient;
-	private boolean noConnectionError;
+	// private GameFrame gameFrame;
+	private ViewGameModel viewGameModel;
+	private SnowWarsClientInterface snowWarsClientInterface;
 
-	public ViewGameController(SnowWarsClient snc, Game game) {
-		this.snowWarsClient = snc;
-		this.game = game;
-		this.game.addObserver(this);
-	}
-
-	public void showNoConnectionError() {
-		this.noConnectionError = true;
-		this.setChanged();
-		this.notifyObservers();
-	}
-
-	public boolean getShowNoConnectionError() {
-		boolean error = noConnectionError;
-		noConnectionError = false;
-		return error;
+	public ViewGameController(SnowWarsClientInterface snowWarsClientInterface, AbstractGame game) throws RemoteException {
+		this.snowWarsClientInterface = snowWarsClientInterface;
+		this.viewGameModel = new ViewGameModel(game);
+		new GameFrame(this, this.viewGameModel);
 	}
 
 	public void closeProgram() {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				snowWarsClient.closeProgram();
-			}
-		}).start();
+		snowWarsClientInterface.closeProgram();
 	}
 
-	public Game getGame() {
-		return this.game;
-	}
-
-	public int getGameWidth() {
-		return GAME_WIDTH;
-	}
-
-	public int getGameHeight() {
-		return GAME_HEIGHT;
-	}
-
-	public String getGameTitle() {
-		return GAME_TITLE;
+	public void showGui() {
+		this.viewGameModel.setGuiVisible(true);
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		if (leftPlayer == null) {
-			leftPlayer = new GraphicalPlayer(game.getPlayerLeft());
-		}
+	public void receiveShot(Shot shot) throws RemoteException {
+		// TODO Auto-generated method stub
 
-		if (rightPlayer == null) {
-			rightPlayer = new GraphicalPlayer(game.getPlayerRight());
-		}
-
-		leftPlayer.updateAnimation();
-		rightPlayer.updateAnimation();
-
-		ArrayList<Shot> shotList = game.getShots();
-		for (Shot activeShot : shotList) {
-			graphicalSnowballs.add(new GraphicalSnowball(activeShot));
-		}
-		for (GraphicalSnowball activeGraphicalSnowball : graphicalSnowballs) {
-			activeGraphicalSnowball.updateAnimation();
-		}
-
-		this.setChanged();
-		this.notifyObservers();
 	}
-	
-	public Set<GraphicalSnowball> getGraphicalSnowballs(){
-		return this.graphicalSnowballs;
+
+	@Override
+	public LobbyServerSessionInterface youWon() throws SnowWarsRMIException,
+			RemoteException {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	public GraphicalPlayer getLeftPlayer(){
-		return this.leftPlayer;
+
+	@Override
+	public LobbyServerSessionInterface youLost() throws SnowWarsRMIException,
+			RemoteException {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	public GraphicalPlayer getRightPlayer(){
-		return this.rightPlayer;
-	}	
+
+	@Override
+	public void updatePlayer(Player player) throws RemoteException {
+		// TODO Auto-generated method stub
+
+	}
 }

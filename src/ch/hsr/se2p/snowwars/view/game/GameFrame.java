@@ -11,27 +11,32 @@ import javax.swing.JFrame;
 import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
+import ch.hsr.se2p.snowwars.controller.game.ViewGameModel;
 
 public class GameFrame extends JFrame implements Observer, WindowListener {
-	private final static Logger logger = Logger.getLogger(GameFrame.class.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(GameFrame.class
+			.getPackage().getName());
 	private static final long serialVersionUID = -7803629994015778818L;
 
 	private Board board;
 
 	private final ViewGameController viewGameController;
+	private final ViewGameModel viewGameModel;
 
-	public GameFrame(ViewGameController vgc) {
+	public GameFrame(ViewGameController vgc, ViewGameModel vgm) {
 		this.viewGameController = vgc;
+		this.viewGameModel = vgm;
 		initializeGui();
-		vgc.addObserver(this);
+		vgm.addObserver(this);
 	}
 
 	private void initializeGui() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(this);
-		setMinimumSize(new Dimension(getViewGameController().getGameWidth(), getViewGameController().getGameHeight()));
+		setMinimumSize(new Dimension(getViewGameModel().getGameWidth(),
+				getViewGameModel().getGameHeight()));
 		setLocationRelativeTo(null);
-		setTitle(getViewGameController().getGameTitle());
+		setTitle(getViewGameModel().getGameTitle());
 		setResizable(false);
 		setVisible(true);
 
@@ -92,5 +97,9 @@ public class GameFrame extends JFrame implements Observer, WindowListener {
 
 	protected ViewGameController getViewGameController() {
 		return viewGameController;
+	}
+
+	protected ViewGameModel getViewGameModel() {
+		return viewGameModel;
 	}
 }

@@ -12,7 +12,7 @@ import ch.hsr.se2p.snowwars.model.Knoll;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 
 public class GraphicalKnoll extends GraphicalObject {
-	private final static Logger logger = Logger.getLogger(GraphicalSnowball.class.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(GraphicalKnoll.class.getPackage().getName());
 
 	BufferedImage spriteSheetKnoll;
 	BufferedImageLoader loader;

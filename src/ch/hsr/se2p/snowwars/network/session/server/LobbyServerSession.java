@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import ch.hsr.se2p.snowwars.model.Invitation.InvitationAnswer;
 import ch.hsr.se2p.snowwars.model.Lobby;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
@@ -66,5 +67,10 @@ public class LobbyServerSession extends UnicastRemoteObject implements LobbyServ
     public User getUser() {
         return user;
     }
+
+	@Override
+	public void answerInvitation(User invitingUser, InvitationAnswer answer) throws RemoteException, UserIsNotInLobbyException {
+		lobby.answerInvitation(this, invitingUser, answer);
+	}
 
 }

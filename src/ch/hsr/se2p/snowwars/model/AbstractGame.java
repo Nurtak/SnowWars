@@ -7,11 +7,14 @@ import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.Timer;
 import org.apache.log4j.Logger;
+
+import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.ShotObject.ShotObjectState;
+import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 
-public class Game extends Observable implements ActionListener {
-	private final static Logger logger = Logger.getLogger(Game.class.getPackage().getName());
+public abstract class AbstractGame extends Observable implements ActionListener {
+	private final static Logger logger = Logger.getLogger(AbstractGame.class.getPackage().getName());
 
 	private final static int TIMER_REDRAW_INTERVAL = 10;
 	protected final static int GROUND_LEVEL_Y = 400;
@@ -28,7 +31,11 @@ public class Game extends Observable implements ActionListener {
 
 	private Timer recalcTimer;
 
-	public Game() {
+	private GameServerSessionInterface gameServerSessionInterface;
+	
+	public AbstractGame(GameServerSessionInterface gameServerSessionInterface) {
+		this.gameServerSessionInterface = gameServerSessionInterface;
+		
 		playerLeft = new Player(new User("Test1"), PlayerPosition.LEFT);
 		playerRight = new Player(new User("Test2"), PlayerPosition.RIGHT);
 
@@ -146,4 +153,6 @@ public class Game extends Observable implements ActionListener {
 	public ArrayList<Shot> getShots() {
 		return this.shots;
 	}
+	
+	public abstract void updatePlayerHitPoints();
 }

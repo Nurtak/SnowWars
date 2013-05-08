@@ -5,39 +5,42 @@ import java.rmi.RemoteException;
 
 import org.apache.log4j.Logger;
 
+import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
 import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
-import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 
-public class SnowWarsClient implements SnowWarsClientInterface, Serializable{
+public class SnowWarsClient implements SnowWarsClientInterface, Serializable {
 
-    private static final long serialVersionUID = 4874885087870016147L;
-    private final static Logger logger = Logger.getLogger(SnowWarsClient.class.getPackage().getName());
+	private static final long serialVersionUID = 4874885087870016147L;
+	private final static Logger logger = Logger.getLogger(SnowWarsClient.class
+			.getPackage().getName());
 
-    public SnowWarsClient(RunRMIClient runRMIClient) {
-        logger.info("Starting SnowWars-Client");
-        enterLobby(runRMIClient.getConnectedServerSessionInterface());
-    }
+	public SnowWarsClient() {
+	}
 
-    @Override
-    public void enterLobby(ConnectedServerSessionInterface connectedServerSessionInterface) {
-        try {
-            new ClientLobbyController(this, connectedServerSessionInterface);
-        } catch (RemoteException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+	protected void startProgram() {
+		logger.info("Starting SnowWars-Client");
+		enterLobby(new RunRMIClient().getConnectedServerSessionInterface());
+	}
 
-    @Override
-    public void enterGame(SnowWarsClientInterface snowWarsClientInterface, GameServerSessionInterface gameServerSessionInterface) {
-        // TODO Auto-generated method stub
-    }
+	@Override
+	public void enterLobby(
+			ConnectedServerSessionInterface connectedServerSessionInterface) {
+		try {
+			new ClientLobbyController(this, connectedServerSessionInterface);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
 
-    public void closeProgram() {
-        logger.info("Closing SnowWars-Client");
-        System.exit(0);
-        // TODO
-    }
+	public void closeProgram() {
+		logger.info("Closing SnowWars-Client");
+		System.exit(0);
+	}
+
+	@Override
+	public void enterGame(ViewGameController viewGameController) {
+		viewGameController.showGui();
+	}
 }

@@ -43,6 +43,7 @@ public class ClientViewMain extends JFrame implements Observer {
         createContentPanel();
 
         pack();
+        setSize(400,400);
         setVisible(true);
         setLocationRelativeTo(null);
     }
@@ -101,12 +102,7 @@ public class ClientViewMain extends JFrame implements Observer {
         contentPanel.setLayout(cardLayout);
 
         JPanel mainPanel = new PanelMain(this, clientLobbyModel, clientLobbyController);
-        // JPanel userPanel = new PanelUser(this);
-        // JPanel lobbyPanel = new PanelLobby(this);
-
         contentPanel.add(mainPanel, "mainPanel");
-        // contentPanel.add(userPanel, "userPanel");
-        // contentPanel.add(lobbyPanel, "lobbyPanel");
     }
 
     private void createKeyBindings() {
