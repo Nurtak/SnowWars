@@ -2,9 +2,14 @@ package ch.hsr.se2p.snowwars.model;
 
 import java.rmi.RemoteException;
 
+import org.apache.log4j.Logger;
+
 import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSession;
 
 public class Invitation {
+	private final static Logger logger = Logger.getLogger(Invitation.class
+			.getPackage().getName());
+
 	private LobbyServerSession invitingUserSession;
 	private LobbyServerSession answeringUserSession;
 
@@ -27,19 +32,23 @@ public class Invitation {
 	}
 
 	public void answerInvitation(InvitationAnswer answer) {
+		logger.info("Sending invitation-answer from "
+				+ answeringUserSession.getUser() + " to "
+				+ invitingUserSession.getUser());
 		try {
-			invitingUserSession
-					.getLobbyClientSessionInterface()
-					.receiveInvitationAnswer(answeringUserSession.getUser(), answer);
+			invitingUserSession.getLobbyClientSessionInterface()
+					.receiveInvitationAnswer(answeringUserSession.getUser(),
+							answer);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void sendInvitation() {
+		logger.info("Sending invitation from " + invitingUserSession.getUser()
+				+ " to " + answeringUserSession.getUser());
 		try {
-			this.answeringUserSession.getLobbyClientSessionInterface()
-					.receiveInvitation(invitingUserSession.getUser());
+			this.answeringUserSession.getLobbyClientSessionInterface().receiveInvitation(invitingUserSession.getUser());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -62,25 +71,17 @@ public class Invitation {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		Invitation otherInvitation = (Invitation) obj;
+		User invitingUser = invitingUserSession.getUser();
+		User answeringUser = answeringUserSession.getUser();
+		User otherInvitingUser = otherInvitation.invitingUserSession.getUser();
+		User otherAnsweringUser = otherInvitation.answeringUserSession.getUser();
+		
+		if(invitingUser.equals(otherInvitingUser) || invitingUser.equals(otherAnsweringUser)){
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Invitation other = (Invitation) obj;
-		if (answeringUserSession == null) {
-			if (other.answeringUserSession != null)
-				return false;
-		} else if (!answeringUserSession.getUser().equals(
-				other.answeringUserSession.getUser()))
-			return false;
-		if (invitingUserSession == null) {
-			if (other.invitingUserSession != null)
-				return false;
-		} else if (!invitingUserSession.getUser().equals(
-				other.invitingUserSession.getUser()))
-			return false;
-		return true;
+		} else if(answeringUser.equals(otherInvitingUser) || answeringUser.equals(otherAnsweringUser)){
+			return true;
+		}
+		return false;
 	}
 }

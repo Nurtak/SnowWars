@@ -5,16 +5,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Observable;
+
 import javax.swing.Timer;
+
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
-import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.ShotObject.ShotObjectState;
-import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 
 public abstract class AbstractGame extends Observable implements ActionListener {
-	private final static Logger logger = Logger.getLogger(AbstractGame.class.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(AbstractGame.class
+			.getPackage().getName());
 
 	private final static int TIMER_REDRAW_INTERVAL = 10;
 	protected final static int GROUND_LEVEL_Y = 400;
@@ -26,23 +26,20 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
 	private ArrayList<Knoll> knolls = new ArrayList<Knoll>();
 
-	private Player playerLeft;
-	private Player playerRight;
+	public Player playerLeft;
+	public Player playerRight;
 
 	private Timer recalcTimer;
 
-	private GameServerSessionInterface gameServerSessionInterface;
-	
-	public AbstractGame(GameServerSessionInterface gameServerSessionInterface) {
-		this.gameServerSessionInterface = gameServerSessionInterface;
-		
-		playerLeft = new Player(new User("Test1"), PlayerPosition.LEFT);
-		playerRight = new Player(new User("Test2"), PlayerPosition.RIGHT);
-
+	public AbstractGame() {
 		recalcTimer = new Timer(TIMER_REDRAW_INTERVAL, this);
-		recalcTimer.start();
 	}
 
+	//invoked by GameServer and GameClient after initialization
+	protected void startTimer(){
+		recalcTimer.start();
+	}
+	
 	public void shoot(Shot shot) {
 		logger.info("Shoot shot: " + shot.toString());
 	}
@@ -112,9 +109,11 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 				Rectangle activeShotRectangle = activeShot.getBounds();
 
 				if (activeShotRectangle.intersects(shotRectangle)) {
-					if (activeShot.getShotObjectState() == ShotObjectState.CRASHEDINGROUND || shot.getShotObjectState() == ShotObjectState.CRASHEDINGROUND) {
+					if (activeShot.getShotObjectState() == ShotObjectState.CRASHEDINGROUND
+							|| shot.getShotObjectState() == ShotObjectState.CRASHEDINGROUND) {
 						shot.setShotObjectState(ShotObjectState.CRASHEDINGROUND);
-						activeShot.setShotObjectState(ShotObjectState.CRASHEDINGROUND);
+						activeShot
+								.setShotObjectState(ShotObjectState.CRASHEDINGROUND);
 					} else {
 						activeShot.stopShotObject();
 						activeShot.setShotObjectState(ShotObjectState.CRASHING);
@@ -123,22 +122,22 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 			}
 		}
 	}
-	
+
 	private void checkCollisionWithGroundAndKnolls(Shot activeShot) {
 		Rectangle shotRectangle = activeShot.getBounds();
-		
-		for(Knoll activeKnoll : knolls){
+
+		for (Knoll activeKnoll : knolls) {
 			Rectangle activeKnollRectangle = activeKnoll.getBounds();
-			if (activeKnollRectangle.intersects(shotRectangle)){
+			if (activeKnollRectangle.intersects(shotRectangle)) {
 				activeKnoll.increaseHits();
 				activeShot.setShotObjectState(ShotObjectState.CRASHED);
 			}
 		}
-		
-		if(activeShot.getY() > GROUND_LEVEL_Y){
+
+		if (activeShot.getY() > GROUND_LEVEL_Y) {
 			knolls.add(new Knoll(activeShot.getX(), activeShot.getY()));
 		}
-		
+
 	}
 
 	public void receivedShot(Shot receivedShot) {
@@ -153,6 +152,6 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 	public ArrayList<Shot> getShots() {
 		return this.shots;
 	}
-	
+
 	public abstract void updatePlayerHitPoints();
 }

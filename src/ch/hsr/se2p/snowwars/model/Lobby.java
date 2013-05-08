@@ -1,18 +1,22 @@
 package ch.hsr.se2p.snowwars.model;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import ch.hsr.se2p.snowwars.model.Invitation.InvitationAnswer;
 import ch.hsr.se2p.snowwars.network.exception.UsernameAlreadyTakenException;
+import ch.hsr.se2p.snowwars.network.session.server.GameServerSession;
 import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSession;
 
 public class Lobby {
-
+	private final static Logger logger = Logger.getLogger(Lobby.class.getPackage().getName());
 	private Set<LobbyServerSession> users = new HashSet<LobbyServerSession>();
-	private Set<Invitation> invitationList = new HashSet<Invitation>();
-	
+	private ArrayList<Invitation> invitationList = new ArrayList<Invitation>();
+
 	public synchronized boolean isNameAvailable(String name) {
 		for (LobbyServerSession lobbyServerSession : users) {
 			if (lobbyServerSession.getUser().getName().equals(name)) {
@@ -58,14 +62,14 @@ public class Lobby {
 				// create new invitation
 				Invitation invitation;
 				try {
-					invitation = new Invitation(lobbyServerSession,
-							userSession);
+					invitation = new Invitation(lobbyServerSession, userSession);
 
 					// if invitation already existing
 					if (invitationList.contains(invitation)) {
 						invitation
 								.answerInvitation(InvitationAnswer.USER_ALREADY_INVITED);
 					} else {
+						invitationList.add(invitation);
 						invitation.sendInvitation();
 					}
 				} catch (RemoteException e) {}
@@ -76,19 +80,37 @@ public class Lobby {
 	public synchronized void answerInvitation(
 			LobbyServerSession answeringUserSession, User invitingUser,
 			InvitationAnswer answer) {
-		for (LobbyServerSession userSession : users) {
-			if (userSession.getUser().equals(invitingUser)) {
+		for (LobbyServerSession activeSession : users) {
+			if (activeSession.getUser().equals(invitingUser)) {
 				// check if there is an invitation
-				Invitation invitation;
 				try {
-					invitation = new Invitation(userSession,
-							answeringUserSession);
+					Invitation invitation = new Invitation(activeSession, answeringUserSession);
 					if (invitationList.contains(invitation)) {
 						invitation.answerInvitation(answer);
+						
+						if(answer == InvitationAnswer.ACCEPTED){
+							startNewGame(activeSession, answeringUserSession);
+						}
 					}
 					invitationList.remove(invitation);
 				} catch (RemoteException e) {}
 			}
+		}
+	}
+	
+	private void startNewGame(LobbyServerSession playerLeftLobbyServerSession, LobbyServerSession playerRightLobbyServerSession){
+		logger.info("Starting new game between " + playerLeftLobbyServerSession.getUser() + " and " + playerRightLobbyServerSession.getUser());
+		
+		try {
+			GameServerSession playerLeftGameServerSession = new GameServerSession();
+			GameServerSession playerRightGameServerSession = new GameServerSession();
+			
+			playerLeftLobbyServerSession.getLobbyClientSessionInterface().startGame(playerLeftGameServerSession);
+			playerRightLobbyServerSession.getLobbyClientSessionInterface().startGame(playerRightGameServerSession);
+			
+			new GameServer(playerLeftGameServerSession, playerRightGameServerSession);
+		} catch (RemoteException e) {
+			e.printStackTrace();
 		}
 	}
 

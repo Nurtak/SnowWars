@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
-import ch.hsr.se2p.snowwars.model.AbstractGame;
+import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
@@ -23,7 +23,8 @@ public class ViewGameController extends UnicastRemoteObject implements
 	private ViewGameModel viewGameModel;
 	private SnowWarsClientInterface snowWarsClientInterface;
 
-	public ViewGameController(SnowWarsClientInterface snowWarsClientInterface, AbstractGame game) throws RemoteException {
+	public ViewGameController(SnowWarsClientInterface snowWarsClientInterface,
+			GameClient game) throws RemoteException {
 		this.snowWarsClientInterface = snowWarsClientInterface;
 		this.viewGameModel = new ViewGameModel(game);
 		new GameFrame(this, this.viewGameModel);

@@ -8,6 +8,7 @@ import java.util.Observer;
 import java.util.Set;
 
 import ch.hsr.se2p.snowwars.model.AbstractGame;
+import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.model.Shot;
 
 public class ViewGameModel extends Observable implements Observer, Serializable {
@@ -24,7 +25,7 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 	private GraphicalPlayer rightPlayer;
 	private boolean guiVisible = false;
 
-	public ViewGameModel(AbstractGame game) {
+	public ViewGameModel(GameClient game) {
 		this.game = game;
 		game.addObserver(this);
 	}

@@ -4,42 +4,47 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import ch.hsr.se2p.snowwars.model.GameServer;
-import ch.hsr.se2p.snowwars.model.Lobby;
-import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
-import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
 
-public class GameServerSession extends UnicastRemoteObject implements GameServerSessionInterface {
+public class GameServerSession extends UnicastRemoteObject implements
+		GameServerSessionInterface {
 
-    private static final long serialVersionUID = 8590130911163707937L;
-    private User user;
-    
-    private GameClientSessionInterface gameClientSession;
-    private GameServer gameServer;
-    
-    public GameServerSession(GameServer gameServer, GameClientSessionInterface gcs) throws RemoteException {
-    	this.gameClientSession = gcs;
-    	this.gameServer = gameServer;
-    }
+	private static final long serialVersionUID = 8590130911163707937L;
 
-    @Override
-    public void startBuildingSnowball() {
-        // TODO Auto-generated method stub
+	private GameClientSessionInterface gameClientSession;
+	private GameServer gameServer;
 
-    }
+	public GameServerSession() throws RemoteException {
+	}
 
-    @Override
-    public void shoot(Shot shot) {
-        // TODO Auto-generated method stub
+	public void setGameClientSessionInterface(GameClientSessionInterface gcsi) {
+		this.gameClientSession = gcsi;
+	}
 
-    }
+	public void setGameServer(GameServer gameServer) {
+		this.gameServer = gameServer;
+	}
 
-    @Override
-    public LobbyServerSessionInterface chickenOut() throws SnowWarsRMIException {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	public GameClientSessionInterface getGameClientSessionInterface() {
+		return gameClientSession;
+	}
+
+	@Override
+	public void startBuildingSnowball() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void shoot(Shot shot) {
+		gameServer.shoot(shot);
+	}
+
+	@Override
+	public LobbyServerSessionInterface chickenOut() throws SnowWarsRMIException {
+		return null;
+	}
 
 }

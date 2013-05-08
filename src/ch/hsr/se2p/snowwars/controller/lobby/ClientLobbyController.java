@@ -74,8 +74,8 @@ public class ClientLobbyController extends UnicastRemoteObject implements
 	@Override
 	public void receiveInvitation(User from) {
 		logger.info("Invitation received from " + from.getName());
-		int resultValue = JOptionPane.showConfirmDialog(clientViewMain, from.getName()
-				+ " wants to play a game!");
+		int resultValue = JOptionPane.showConfirmDialog(clientViewMain,
+				from.getName() + " wants to play a game!");
 
 		// answer invitation
 		InvitationAnswer answer = InvitationAnswer.TIMEOUT;
@@ -88,12 +88,39 @@ public class ClientLobbyController extends UnicastRemoteObject implements
 			break;
 		}
 
-		try {
-			lobbyServerSessionInterface.answerInvitation(from, answer);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		} catch (UserIsNotInLobbyException e) {
-			e.printStackTrace();
+		sendInvitationAnswer(from, answer);
+	}
+	
+	private void sendInvitationAnswer(final User from, final InvitationAnswer answer){
+		new Thread(){
+			public void run(){
+				logger.info("Sending Invitation-Answer...");
+				try {
+					lobbyServerSessionInterface.answerInvitation(from, answer);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				} catch (UserIsNotInLobbyException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+	}
+	
+	@Override
+	public void receiveInvitationAnswer(User from, InvitationAnswer answer) {
+		switch(answer){
+		case ACCEPTED:
+			JOptionPane.showMessageDialog(clientViewMain, "User " + from + " accepted your invitation!");
+			break;
+		case DISCARDED:
+			JOptionPane.showMessageDialog(clientViewMain, "User " + from + " discarded your invitation!", "Error", JOptionPane.ERROR_MESSAGE);
+			break;
+		case USER_ALREADY_INVITED: 
+			JOptionPane.showMessageDialog(clientViewMain, "User " + from + " was already invited!", "Error", JOptionPane.ERROR_MESSAGE);
+			break;
+		default:
+			JOptionPane.showMessageDialog(clientViewMain, "User " + from + " didn't answer your invitation! Timeout has occurred.", "Error", JOptionPane.ERROR_MESSAGE);
+			break;
 		}
 	}
 
@@ -104,8 +131,7 @@ public class ClientLobbyController extends UnicastRemoteObject implements
 
 		GameClientSessionInterface gameClientSession = null;
 		try {
-			gameClientSession = new ViewGameController(snowWarsClientInterface,
-					new GameClient(gameServerSessionInterface));
+			gameClientSession = new ViewGameController(snowWarsClientInterface,new GameClient(gameServerSessionInterface));
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -115,18 +141,24 @@ public class ClientLobbyController extends UnicastRemoteObject implements
 		return gameClientSession;
 	}
 
-	public void inviteUser(User selectedUser) throws RemoteException,
+	public void inviteUser(final User selectedUser) throws RemoteException,
 			UserIsNotInLobbyException {
-		logger.info("Sending Invitation to " + selectedUser.getName());
-		lobbyServerSessionInterface.inviteUser(selectedUser);
+		new Thread() {
+			public void run() {
+				logger.info("Sending Invitation to " + selectedUser.getName());
+				try {
+					lobbyServerSessionInterface.inviteUser(selectedUser);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				} catch (UserIsNotInLobbyException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+
 	}
 
 	public void leaveLobby() throws RemoteException, SnowWarsRMIException {
 		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void receiveInvitationAnswer(User from, InvitationAnswer answer) {
-		logger.info("Received answer from " + from.getName());
 	}
 }
