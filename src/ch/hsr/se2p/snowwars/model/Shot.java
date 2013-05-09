@@ -21,11 +21,10 @@ public class Shot implements Serializable {
 		double vySin = Math.sin(Math.toRadians(angle));
 		double vxCos = Math.cos(Math.toRadians(angle));
 
-		int dy = (int) (vySin * strength) * -1;
+		double dy = (vySin * strength) * -1;
 		dy = dy / FORCE_REDUCE_FACTOR;
-		dy = dy += AbstractGame.GRAVITATION;
 		
-		int dx = (int) (vxCos * strength);
+		double dx = (vxCos * strength);
 		dx = dx / FORCE_REDUCE_FACTOR;
 	
 		throwingObject.setDy(dy);
@@ -97,10 +96,6 @@ public class Shot implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Shot other = (Shot) obj;

@@ -42,11 +42,6 @@ public class SoundPlayer {
 		soundManager.playSound(1);
 
 	}
-
-//	private void playSound(String filename) {
-//		soundManager.addClip(filename);
-//		soundManager.playSound(0);
-//	}
 }
 
 class SoundManager {

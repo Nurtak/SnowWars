@@ -9,7 +9,8 @@ public abstract class ShotObject implements Serializable {
 
 	private static final long serialVersionUID = -4934533719382550831L;
 
-	private int x, y, dx, dy;
+	private int x, y;
+	private double dx, dy;
 
 	public abstract int getWeight();
 
@@ -29,10 +30,16 @@ public abstract class ShotObject implements Serializable {
 
 	public void updateCoordinates() {
 		if (shotObjectState == ShotObjectState.MOVING) {
+			this.dy = (this.dy + AbstractGame.GRAVITATION);
+			
 			this.x = (int) ((int) this.x + this.dx);
 			this.y = (int) ((int) this.y + this.dy);
-
-			if (x > ViewGameModel.GAME_WIDTH) {
+			
+			if(y >= AbstractGame.GROUND_LEVEL_Y){
+				shotObjectState = ShotObjectState.CRASHEDINGROUND;
+			}
+			
+			if (x > ViewGameModel.GAME_WIDTH || x < 0) {
 				shotObjectState = ShotObjectState.CRASHED;
 			}
 		}
@@ -46,19 +53,19 @@ public abstract class ShotObject implements Serializable {
 		this.y = y;
 	}
 
-	public int getDx() {
+	public double getDx() {
 		return dx;
 	}
 
-	protected void setDx(int dx) {
+	protected void setDx(double dx) {
 		this.dx = dx;
 	}
 
-	public int getDy() {
+	public double getDy() {
 		return dy;
 	}
 
-	protected void setDy(int dy) {
+	protected void setDy(double dy) {
 		this.dy = dy;
 	}
 

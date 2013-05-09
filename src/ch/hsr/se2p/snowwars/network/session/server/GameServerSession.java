@@ -46,11 +46,11 @@ public class GameServerSession extends UnicastRemoteObject implements
 
 		// set first shot-coordinates
 		if (gameServer.getPlayerLeft().getUser().equals(user)) {
-			shot.getShotObject().setX(Player.PLAYER_LEFT_POSITION_X);
-			shot.getShotObject().setY(Player.PLAYER_LEFT_POSITION_Y);
+			shot.getShotObject().setX(Player.SNOWBALL_LEFT_THROW_POS_X);
+			shot.getShotObject().setY(Player.SNOWBALL_LEFT_THROW_POS_Y);
 		} else {
-			shot.getShotObject().setX(Player.PLAYER_RIGHT_POSITION_X);
-			shot.getShotObject().setY(Player.PLAYER_RIGHT_POSITION_Y);
+			shot.getShotObject().setX(Player.SNOWBALL_RIGHT_THROW_POS_X);
+			shot.getShotObject().setY(Player.SNOWBALL_RIGHT_THROW_POS_Y);
 		}
 
 		gameServer.shoot(shot);

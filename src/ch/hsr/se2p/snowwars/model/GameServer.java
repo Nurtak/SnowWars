@@ -4,15 +4,16 @@ import java.rmi.RemoteException;
 
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSession;
 
-public class GameServer extends AbstractGame{
+public class GameServer extends AbstractGame {
 
 	GameServerSession playerLeftGameServerSession;
 	GameServerSession playerRightGameServerSession;
-	
-	public GameServer(GameServerSession playerLeftGameServerSession, GameServerSession playerRightGameServerSession) {
+
+	public GameServer(GameServerSession playerLeftGameServerSession,
+			GameServerSession playerRightGameServerSession) {
 		this.playerLeftGameServerSession = playerLeftGameServerSession;
 		this.playerRightGameServerSession = playerRightGameServerSession;
-		
+
 		initializePlayers();
 	}
 
@@ -23,9 +24,11 @@ public class GameServer extends AbstractGame{
 
 	@Override
 	public void initializePlayers() {
-		Player playerLeft = new Player(playerLeftGameServerSession.getUser(), Player.PlayerPosition.LEFT);
-		Player playerRight = new Player(playerRightGameServerSession.getUser(), Player.PlayerPosition.RIGHT);
-		
+		Player playerLeft = new Player(playerLeftGameServerSession.getUser(),
+				Player.PlayerPosition.LEFT);
+		Player playerRight = new Player(playerRightGameServerSession.getUser(),
+				Player.PlayerPosition.RIGHT);
+
 		this.setPlayerLeft(playerLeft);
 		this.setPlayerRight(playerRight);
 	}
@@ -33,8 +36,10 @@ public class GameServer extends AbstractGame{
 	@Override
 	public void shoot(Shot shot) {
 		try {
-			playerLeftGameServerSession.getGameClientSessionInterface().receiveShot(shot);
-			playerRightGameServerSession.getGameClientSessionInterface().receiveShot(shot);
+			playerLeftGameServerSession.getGameClientSessionInterface()
+					.receiveShot(shot);
+			playerRightGameServerSession.getGameClientSessionInterface()
+					.receiveShot(shot);
 			this.getShots().add(shot);
 		} catch (RemoteException e) {
 			e.printStackTrace();

@@ -4,18 +4,20 @@ import java.rmi.RemoteException;
 
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 
-public class GameClient extends AbstractGame{
+public class GameClient extends AbstractGame {
 
 	GameServerSessionInterface gameServerSessionInterface;
-	
+
 	public GameClient(GameServerSessionInterface gameServerSessionInterface) {
 		this.gameServerSessionInterface = gameServerSessionInterface;
 	}
 
 	@Override
-	public void updatePlayerHitPoints() {}
+	public void updatePlayerHitPoints() {
+	}
 
-	//called by abstractGame in constructor, server and client got different algorithms to get player
+	// called by abstractGame in constructor, server and client got different
+	// algorithms to get player
 	@Override
 	public void initializePlayers() {
 		try {
@@ -25,8 +27,8 @@ public class GameClient extends AbstractGame{
 			e.printStackTrace();
 		}
 	}
-	
-	public void startNewShotRequest(Shot shotRequest){
+
+	public void startNewShotRequest(Shot shotRequest) {
 		try {
 			gameServerSessionInterface.shoot(shotRequest);
 		} catch (RemoteException e) {

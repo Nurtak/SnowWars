@@ -59,13 +59,24 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 		leftPlayer.updateAnimation();
 		rightPlayer.updateAnimation();
 
-		synchronized (game.getShots()) {
-			ArrayList<Shot> shotList = game.getShots();
-			for (Shot activeShot : shotList) {
-				graphicalSnowballs.add(new GraphicalSnowball(activeShot));
+		ArrayList<Shot> shots = game.getShots();
+		boolean found;
+		synchronized (shots) {
+			for (Shot activeShot : shots) {
+				found = false;
+				for (GraphicalSnowball activeSnowball : graphicalSnowballs) {
+					if (activeSnowball.getShot().equals(activeShot)) {
+						found = true;
+						break;
+					}
+				}
+
+				if (!found) {
+					graphicalSnowballs.add(new GraphicalSnowball(activeShot));
+				}
 			}
 		}
-		
+
 		for (GraphicalSnowball activeGraphicalSnowball : graphicalSnowballs) {
 			activeGraphicalSnowball.updateAnimation();
 		}

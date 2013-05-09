@@ -16,12 +16,12 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 	private final static Logger logger = Logger.getLogger(AbstractGame.class
 			.getPackage().getName());
 
-	private final static int TIMER_REDRAW_INTERVAL = 10;
+	private final static int TIMER_RECALC_INTERVAL = 10;
 	protected final static int GROUND_LEVEL_Y = 400;
 
-	protected final static int FORCE_REDUCE_FACTOR = 15;
-	public final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
-	protected final static double GRAVITATION = 9.81 / 30;
+	protected final static int FORCE_REDUCE_FACTOR = 10;
+	public final static int FORCE_REDUCE_FACTOR_STRENGTH = 8;
+	protected final static double GRAVITATION = 9.81 / 80;
 
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
 	private ArrayList<Knoll> knolls = new ArrayList<Knoll>();
@@ -32,7 +32,7 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 	private Timer recalcTimer;
 
 	public AbstractGame() {
-		recalcTimer = new Timer(TIMER_REDRAW_INTERVAL, this);
+		recalcTimer = new Timer(TIMER_RECALC_INTERVAL, this);
 		startTimer();
 	}
 
@@ -50,15 +50,29 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 
 	public void setPlayerLeft(Player playerLeft) {
 		this.playerLeft = playerLeft;
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public void setPlayerRight(Player playerRight) {
 		this.playerRight = playerRight;
 	}
 
+	protected synchronized void checkCollision() {
+		for (Shot activeShot : shots) {
+			if (activeShot.getShotObjectState() != ShotObjectState.MOVING){
+				continue;
+			}
+			
+			checkCollisionWithPlayer(activeShot);
+			checkCollisionWithOtherShot(activeShot);
+			checkCollisionWithGroundAndKnolls(activeShot);
+		}
+	}
+	
 	@Override
 	public synchronized void actionPerformed(ActionEvent e) {
-		for (Shot activeShot : shots) {
+		for (Shot activeShot : this.getShots()) {
 			activeShot.updateCoordinates();
 			checkCollision();
 		}
@@ -66,19 +80,7 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 		this.setChanged();
 		this.notifyObservers();
 	}
-
-	private synchronized void checkCollision() {
-		for (Shot activeShot : shots) {
-			if (activeShot.getShotObjectState() != ShotObjectState.CRASHED) {
-				continue;
-			}
-
-			checkCollisionWithPlayer(activeShot);
-			checkCollisionWithOtherShot(activeShot);
-			checkCollisionWithGroundAndKnolls(activeShot);
-		}
-	}
-
+	
 	private void checkCollisionWithPlayer(Shot shot) {
 		Rectangle shotRectangle = shot.getBounds();
 		Rectangle playerLeftRectangle = playerLeft.getBounds();
@@ -139,7 +141,6 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 		if (activeShot.getY() > GROUND_LEVEL_Y) {
 			knolls.add(new Knoll(activeShot.getX(), activeShot.getY()));
 		}
-
 	}
 
 	public synchronized void receivedShot(Shot receivedShot) {

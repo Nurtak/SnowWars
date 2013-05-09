@@ -60,6 +60,10 @@ public class GraphicalSnowball extends GraphicalObject {
 		return this.shot.getY();
 	}
 
+	public Shot getShot(){
+		return this.shot;
+	}
+	
 	private void loadSplashAnimation() {
 		ArrayList<BufferedImage> spritesForSplash = new ArrayList<BufferedImage>();
 
