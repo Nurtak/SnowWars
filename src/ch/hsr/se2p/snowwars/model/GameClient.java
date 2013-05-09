@@ -2,6 +2,7 @@ package ch.hsr.se2p.snowwars.model;
 
 import java.rmi.RemoteException;
 
+import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 
 public class GameClient extends AbstractGame {
@@ -10,10 +11,6 @@ public class GameClient extends AbstractGame {
 
 	public GameClient(GameServerSessionInterface gameServerSessionInterface) {
 		this.gameServerSessionInterface = gameServerSessionInterface;
-	}
-
-	@Override
-	public void updatePlayerHitPoints() {
 	}
 
 	// called by abstractGame in constructor, server and client got different
@@ -40,4 +37,7 @@ public class GameClient extends AbstractGame {
 	public void shoot(Shot shot) {
 		this.getShots().add(shot);
 	}
+
+	@Override
+	public void updatePlayerHitPoints(PlayerPosition playerPosition, Shot shot) {}
 }

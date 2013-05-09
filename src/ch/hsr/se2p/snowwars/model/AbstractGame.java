@@ -10,6 +10,7 @@ import javax.swing.Timer;
 
 import org.apache.log4j.Logger;
 
+import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.ShotObject.ShotObjectState;
 
 public abstract class AbstractGame extends Observable implements ActionListener {
@@ -50,8 +51,7 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 
 	public void setPlayerLeft(Player playerLeft) {
 		this.playerLeft = playerLeft;
-		this.setChanged();
-		this.notifyObservers();
+		updateObserver();
 	}
 
 	public void setPlayerRight(Player playerRight) {
@@ -76,9 +76,7 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 			activeShot.updateCoordinates();
 			checkCollision();
 		}
-
-		this.setChanged();
-		this.notifyObservers();
+		updateObserver();
 	}
 	
 	private void checkCollisionWithPlayer(Shot shot) {
@@ -90,14 +88,14 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 			logger.info("Snowball hit right player");
 			shot.stopShotObject();
 			shot.setShotObjectState(ShotObjectState.CRASHING);
-			updatePlayerHitPoints();
+			updatePlayerHitPoints(Player.PlayerPosition.RIGHT, shot);
 		}
 
 		if (shotRectangle.intersects(playerLeftRectangle)) {
 			logger.info("Snowball hit left player");
 			shot.stopShotObject();
 			shot.setShotObjectState(ShotObjectState.CRASHING);
-			updatePlayerHitPoints();
+			updatePlayerHitPoints(Player.PlayerPosition.LEFT, shot);
 		}
 	}
 
@@ -146,17 +144,21 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 	public synchronized void receivedShot(Shot receivedShot) {
 		shots.add(receivedShot);
 
-		this.setChanged();
-		this.notifyObservers();
+		updateObserver();
 	}
 
 	public synchronized ArrayList<Shot> getShots() {
 		return this.shots;
+	}
+	
+	public void updateObserver(){
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public abstract void shoot(Shot shot);
 
 	public abstract void initializePlayers();
 
-	public abstract void updatePlayerHitPoints();
+	public abstract void updatePlayerHitPoints(PlayerPosition playerPosition, Shot shot);
 }
