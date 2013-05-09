@@ -21,7 +21,7 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 
 	protected final static int FORCE_REDUCE_FACTOR = 15;
 	public final static int FORCE_REDUCE_FACTOR_STRENGTH = 2;
-	protected final static double GRAVITATION = 9.81 / 50;
+	protected final static double GRAVITATION = 9.81 / 30;
 
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
 	private ArrayList<Knoll> knolls = new ArrayList<Knoll>();
@@ -35,13 +35,9 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 		recalcTimer = new Timer(TIMER_REDRAW_INTERVAL, this);
 		startTimer();
 	}
-	
-	private void startTimer(){
+
+	private void startTimer() {
 		recalcTimer.start();
-	}
-	
-	public void shoot(Shot shot) {
-		logger.info("Shoot shot: " + shot.toString());
 	}
 
 	public Player getPlayerLeft() {
@@ -51,39 +47,35 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 	public Player getPlayerRight() {
 		return playerRight;
 	}
-	
-	public void setPlayerLeft(Player playerLeft){
+
+	public void setPlayerLeft(Player playerLeft) {
 		this.playerLeft = playerLeft;
 	}
-	
-	public void setPlayerRight(Player playerRight){
+
+	public void setPlayerRight(Player playerRight) {
 		this.playerRight = playerRight;
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		synchronized (shots) {
-			for (Shot activeShot : shots) {
-				activeShot.updateCoordinates();
-				checkCollision();
-			}
+	public synchronized void actionPerformed(ActionEvent e) {
+		for (Shot activeShot : shots) {
+			activeShot.updateCoordinates();
+			checkCollision();
 		}
 
 		this.setChanged();
 		this.notifyObservers();
 	}
 
-	private void checkCollision() {
-		synchronized (shots) {
-			for (Shot activeShot : shots) {
-				if (activeShot.getShotObjectState() != ShotObjectState.CRASHED) {
-					continue;
-				}
-
-				checkCollisionWithPlayer(activeShot);
-				checkCollisionWithOtherShot(activeShot);
-				checkCollisionWithGroundAndKnolls(activeShot);
+	private synchronized void checkCollision() {
+		for (Shot activeShot : shots) {
+			if (activeShot.getShotObjectState() != ShotObjectState.CRASHED) {
+				continue;
 			}
+
+			checkCollisionWithPlayer(activeShot);
+			checkCollisionWithOtherShot(activeShot);
+			checkCollisionWithGroundAndKnolls(activeShot);
 		}
 	}
 
@@ -150,19 +142,20 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 
 	}
 
-	public void receivedShot(Shot receivedShot) {
-		synchronized (shots) {
-			shots.add(receivedShot);
-		}
+	public synchronized void receivedShot(Shot receivedShot) {
+		shots.add(receivedShot);
 
 		this.setChanged();
 		this.notifyObservers();
 	}
 
-	public ArrayList<Shot> getShots() {
+	public synchronized ArrayList<Shot> getShots() {
 		return this.shots;
 	}
 
+	public abstract void shoot(Shot shot);
+
 	public abstract void initializePlayers();
+
 	public abstract void updatePlayerHitPoints();
 }

@@ -143,8 +143,8 @@ public class Board extends JPanel implements MouseListener {
 		g.fillPolygon(xPoints, yPoints, 3);
 	}
 
-	public void startNewThrowRequest(Shot throwRequest) {
-		// gameFrame.getViewGameController().sendThrow(throwRequest);
+	public void startNewThrowRequest(Shot shotRequest) {
+		gameFrame.getViewGameModel().startNewShotRequest(shotRequest);
 	}
 
 	@Override

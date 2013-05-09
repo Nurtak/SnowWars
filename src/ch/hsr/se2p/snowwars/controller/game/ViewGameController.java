@@ -17,8 +17,7 @@ public class ViewGameController extends UnicastRemoteObject implements
 		GameClientSessionInterface {
 	private static final long serialVersionUID = -7593697054318420277L;
 
-	private final static Logger logger = Logger
-			.getLogger(ViewGameController.class.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(ViewGameController.class.getPackage().getName());
 
 	// private GameFrame gameFrame;
 	private ViewGameModel viewGameModel;
@@ -45,6 +44,7 @@ public class ViewGameController extends UnicastRemoteObject implements
 	@Override
 	public void receiveShot(Shot shot) throws RemoteException {
 		logger.info("Received shot from server: " + shot.toString());
+		this.game.shoot(shot);
 	}
 
 	@Override

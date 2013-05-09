@@ -25,5 +25,17 @@ public class GameClient extends AbstractGame{
 			e.printStackTrace();
 		}
 	}
+	
+	public void startNewShotRequest(Shot shotRequest){
+		try {
+			gameServerSessionInterface.shoot(shotRequest);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
 
+	@Override
+	public void shoot(Shot shot) {
+		this.getShots().add(shot);
+	}
 }

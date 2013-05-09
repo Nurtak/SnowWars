@@ -1,5 +1,7 @@
 package ch.hsr.se2p.snowwars.model;
 
+import java.rmi.RemoteException;
+
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSession;
 
 public class GameServer extends AbstractGame{
@@ -28,4 +30,14 @@ public class GameServer extends AbstractGame{
 		this.setPlayerRight(playerRight);
 	}
 
+	@Override
+	public void shoot(Shot shot) {
+		try {
+			playerLeftGameServerSession.getGameClientSessionInterface().receiveShot(shot);
+			playerRightGameServerSession.getGameClientSessionInterface().receiveShot(shot);
+			this.getShots().add(shot);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
 }

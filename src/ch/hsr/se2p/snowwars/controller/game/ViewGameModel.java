@@ -14,7 +14,7 @@ import ch.hsr.se2p.snowwars.model.Shot;
 public class ViewGameModel extends Observable implements Observer, Serializable {
 	private static final long serialVersionUID = 9153023421344526026L;
 
-	private AbstractGame game;
+	private GameClient game;
 
 	public final static int GAME_WIDTH = 1000;
 	public final static int GAME_HEIGHT = 600;
@@ -29,8 +29,8 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 		this.game = game;
 		game.addObserver(this);
 	}
-	
-	public AbstractGame getGame(){
+
+	public AbstractGame getGame() {
 		return game;
 	}
 
@@ -59,10 +59,13 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 		leftPlayer.updateAnimation();
 		rightPlayer.updateAnimation();
 
-		ArrayList<Shot> shotList = game.getShots();
-		for (Shot activeShot : shotList) {
-			graphicalSnowballs.add(new GraphicalSnowball(activeShot));
+		synchronized (game.getShots()) {
+			ArrayList<Shot> shotList = game.getShots();
+			for (Shot activeShot : shotList) {
+				graphicalSnowballs.add(new GraphicalSnowball(activeShot));
+			}
 		}
+		
 		for (GraphicalSnowball activeGraphicalSnowball : graphicalSnowballs) {
 			activeGraphicalSnowball.updateAnimation();
 		}
@@ -86,8 +89,12 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 	public boolean getGuiVisible() {
 		return this.guiVisible;
 	}
-	
-	public void setGuiVisible(boolean visibility){
+
+	public void setGuiVisible(boolean visibility) {
 		this.guiVisible = true;
+	}
+
+	public void startNewShotRequest(Shot shotRequest) {
+		game.startNewShotRequest(shotRequest);
 	}
 }

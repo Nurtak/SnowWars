@@ -18,17 +18,18 @@ public class Shot implements Serializable {
 		this.strength = strength;
 		this.shotObject = throwingObject;
 
-		throwingObject.setX(Player.PLAYER_LEFT_POSITION_X + 50);
-		throwingObject.setY(Player.PLAYER_LEFT_POSITION_Y);
-
 		double vySin = Math.sin(Math.toRadians(angle));
 		double vxCos = Math.cos(Math.toRadians(angle));
 
-		throwingObject.setDy((int) (vySin * strength) * -1);
-		throwingObject.setDx((int) (vxCos * strength));
-
-		throwingObject.setDy(this.shotObject.getDy() / FORCE_REDUCE_FACTOR);
-		throwingObject.setDx(this.shotObject.getDx() / FORCE_REDUCE_FACTOR);
+		int dy = (int) (vySin * strength) * -1;
+		dy = dy / FORCE_REDUCE_FACTOR;
+		dy = dy += AbstractGame.GRAVITATION;
+		
+		int dx = (int) (vxCos * strength);
+		dx = dx / FORCE_REDUCE_FACTOR;
+	
+		throwingObject.setDy(dy);
+		throwingObject.setDx(dx);
 	}
 
 	public int getAngle() {

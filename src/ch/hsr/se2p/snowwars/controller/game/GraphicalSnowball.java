@@ -120,6 +120,7 @@ public class GraphicalSnowball extends GraphicalObject {
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.shot.equals((Shot) obj);
+		GraphicalSnowball other = (GraphicalSnowball)obj;
+		return this.shot.equals(other.shot);
 	}
 }

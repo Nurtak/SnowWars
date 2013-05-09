@@ -29,8 +29,6 @@ public abstract class ShotObject implements Serializable {
 
 	public void updateCoordinates() {
 		if (shotObjectState == ShotObjectState.MOVING) {
-			this.dy += AbstractGame.GRAVITATION;
-
 			this.x = (int) ((int) this.x + this.dx);
 			this.y = (int) ((int) this.y + this.dy);
 
