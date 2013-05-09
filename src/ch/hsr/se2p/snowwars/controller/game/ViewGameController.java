@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
 import ch.hsr.se2p.snowwars.model.GameClient;
-import ch.hsr.se2p.snowwars.model.Player;
+import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
@@ -60,9 +60,16 @@ public class ViewGameController extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void updatePlayer(Player player) throws RemoteException {
-		logger.info("Received player update: Player "
-				+ player.getUser().getName() + " now has "
-				+ player.getHitPoints() + " HP");
+	public void updatePlayerHitPoints(PlayerPosition playerPosition,
+			int hitPoints) throws RemoteException {
+		switch (playerPosition) {
+		case LEFT:
+			this.game.getPlayerLeft().setHitPoints(hitPoints);
+			break;
+		case RIGHT:
+			this.game.getPlayerRight().setHitPoints(hitPoints);
+			break;
+		}
+		this.game.updateObserver();
 	}
 }
