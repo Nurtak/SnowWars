@@ -60,7 +60,6 @@ public class ClientLobbyController extends UnicastRemoteObject implements
 			clientLobbyModel.setUsers(lobbyServerSessionInterface.getUsers());
 		} catch (RemoteException | SnowWarsRMIException
 				| UsernameAlreadyTakenException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

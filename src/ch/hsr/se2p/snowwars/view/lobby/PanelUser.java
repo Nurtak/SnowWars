@@ -95,7 +95,6 @@ public class PanelUser extends JPanel implements Observer {
                 		JOptionPane.showMessageDialog(cvm, "Please enter an username!", "Error", JOptionPane.ERROR_MESSAGE);
                 		return;
                 	}
-                	
                     if (viewLobbyController.isNameAvailable(txtUsername.getText())) {
                         User user = new User(txtUsername.getText());
                         viewLobbyController.registerAtLobby(user);
