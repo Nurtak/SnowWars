@@ -79,5 +79,4 @@ public class GameServerSession extends UnicastRemoteObject implements
 			throws RemoteException {
 		this.gameClientSession = gcsi;
 	}
-
 }
