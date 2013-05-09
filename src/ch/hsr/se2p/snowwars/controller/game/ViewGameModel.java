@@ -9,6 +9,7 @@ import java.util.Set;
 
 import ch.hsr.se2p.snowwars.model.AbstractGame;
 import ch.hsr.se2p.snowwars.model.GameClient;
+import ch.hsr.se2p.snowwars.model.Player.PlayerState;
 import ch.hsr.se2p.snowwars.model.Shot;
 
 public class ViewGameModel extends Observable implements Observer, Serializable {
@@ -73,6 +74,15 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 
 				if (!found) {
 					graphicalSnowballs.add(new GraphicalSnowball(activeShot));
+					
+					switch(activeShot.getShotOrigin()){
+					case LEFT:
+						game.getPlayerLeft().setPlayerState(PlayerState.THROWING);
+						break;
+					case RIGHT:
+						game.getPlayerRight().setPlayerState(PlayerState.THROWING);
+						break;
+					}
 				}
 			}
 		}

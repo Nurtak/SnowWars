@@ -114,6 +114,7 @@ public class GraphicalSnowball extends GraphicalObject {
 			activeAnimation.update(System.currentTimeMillis());
 		} catch (Exception e) {
 			activeAnimation = normalSnowballAnimation;
+			this.shot.setShotObjectState(ShotObjectState.CRASHED);
 		}
 	}
 

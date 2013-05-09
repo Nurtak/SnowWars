@@ -3,6 +3,7 @@ package ch.hsr.se2p.snowwars.model;
 import java.awt.Rectangle;
 import java.io.Serializable;
 
+import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.ShotObject.ShotObjectState;
 
 public class Shot implements Serializable {
@@ -11,6 +12,7 @@ public class Shot implements Serializable {
 	protected final static int FORCE_REDUCE_FACTOR = 15;
 	private final int angle;
 	private final int strength;
+	private PlayerPosition shotOrigin;
 	private ShotObject shotObject;
 
 	public Shot(int angle, int strength, ShotObject throwingObject) {
@@ -23,10 +25,10 @@ public class Shot implements Serializable {
 
 		double dy = (vySin * strength) * -1;
 		dy = dy / FORCE_REDUCE_FACTOR;
-		
+
 		double dx = (vxCos * strength);
 		dx = dx / FORCE_REDUCE_FACTOR;
-	
+
 		throwingObject.setDy(dy);
 		throwingObject.setDx(dx);
 	}
@@ -79,9 +81,28 @@ public class Shot implements Serializable {
 		return this.shotObject;
 	}
 
+	public void setShotOrigin(PlayerPosition shotOrigin) {
+		this.shotOrigin = shotOrigin;
+		switch(shotOrigin){
+		case LEFT:
+			shotObject.setX(Player.SNOWBALL_LEFT_THROW_POS_X);
+			shotObject.setY(Player.SNOWBALL_LEFT_THROW_POS_Y);
+			break;
+		case RIGHT:
+			shotObject.setX(Player.SNOWBALL_RIGHT_THROW_POS_X);
+			shotObject.setY(Player.SNOWBALL_RIGHT_THROW_POS_Y);
+		}
+	}
+	
+	public PlayerPosition getShotOrigin(){
+		return this.shotOrigin;
+	}
+
 	@Override
 	public String toString() {
-		return "Angle(" + angle + ") " + "Strength(" + strength + ") " + "Weight(" + shotObject.getWeight() + ") " + "DamageValue(" + shotObject.getDamage() + ")";
+		return "Angle(" + angle + ") " + "Strength(" + strength + ") "
+				+ "Weight(" + shotObject.getWeight() + ") " + "DamageValue("
+				+ shotObject.getDamage() + ")";
 	}
 
 	@Override

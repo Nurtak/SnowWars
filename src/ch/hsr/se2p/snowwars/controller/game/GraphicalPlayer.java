@@ -117,7 +117,7 @@ public class GraphicalPlayer extends GraphicalObject {
 		switch (playerState) {
 		case BUILDING:
 			this.activeAnimation = buildingAnimation;
-			return;
+			break;
 		case STANDING:
 			this.activeAnimation = standingAnimation;
 			break;
@@ -130,6 +130,7 @@ public class GraphicalPlayer extends GraphicalObject {
 			activeAnimation.update(System.currentTimeMillis());
 		} catch (Exception e) {
 			activeAnimation = standingAnimation;
+			this.player.setPlayerState(PlayerState.STANDING);
 		}
 	}
 
