@@ -3,31 +3,32 @@ package ch.hsr.se2p.snowwars.controller.game;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import org.apache.log4j.Logger;
+
 import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
 import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
-import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface;
 import ch.hsr.se2p.snowwars.view.game.GameFrame;
 
 public class ViewGameController extends UnicastRemoteObject implements
 		GameClientSessionInterface {
 	private static final long serialVersionUID = -7593697054318420277L;
 
-	// private final static Logger logger = Logger
-	// .getLogger(ViewGameController.class.getPackage().getName());
+	private final static Logger logger = Logger
+			.getLogger(ViewGameController.class.getPackage().getName());
 
 	// private GameFrame gameFrame;
 	private ViewGameModel viewGameModel;
+	private GameClient game;
 	private SnowWarsClientInterface snowWarsClientInterface;
 
 	public ViewGameController(SnowWarsClientInterface snowWarsClientInterface,
 			GameClient game) throws RemoteException {
+		this.game = game;
 		this.snowWarsClientInterface = snowWarsClientInterface;
-		this.viewGameModel = new ViewGameModel(game);
-		new GameFrame(this, this.viewGameModel);
 	}
 
 	public void closeProgram() {
@@ -35,32 +36,31 @@ public class ViewGameController extends UnicastRemoteObject implements
 	}
 
 	public void showGui() {
+		this.game.initializePlayers();
+		this.viewGameModel = new ViewGameModel(game);
+		new GameFrame(this, this.viewGameModel);
 		this.viewGameModel.setGuiVisible(true);
 	}
 
 	@Override
 	public void receiveShot(Shot shot) throws RemoteException {
-		// TODO Auto-generated method stub
-
+		logger.info("Received shot from server: " + shot.toString());
 	}
 
 	@Override
-	public LobbyServerSessionInterface youWon() throws SnowWarsRMIException,
-			RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public void youWon() throws SnowWarsRMIException, RemoteException {
+		logger.info("Received Won-Notification! This SnowWarsClient won the match!");
 	}
 
 	@Override
-	public LobbyServerSessionInterface youLost() throws SnowWarsRMIException,
-			RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public void youLost() throws SnowWarsRMIException, RemoteException {
+		logger.info("Received Lost-Notification! This SnowWarsClient lost the match!");
 	}
 
 	@Override
 	public void updatePlayer(Player player) throws RemoteException {
-		// TODO Auto-generated method stub
-
+		logger.info("Received player update: Player "
+				+ player.getUser().getName() + " now has "
+				+ player.getHitPoints() + " HP");
 	}
 }

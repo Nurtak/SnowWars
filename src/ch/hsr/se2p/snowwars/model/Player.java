@@ -1,8 +1,11 @@
 package ch.hsr.se2p.snowwars.model;
 
 import java.awt.Rectangle;
+import java.io.Serializable;
 
-public class Player {
+public class Player implements Serializable{
+	private static final long serialVersionUID = 4159132927256644041L;
+	
 	public final static int MAX_HIT_POINTS = 100;
 	public final static int PLAYER_LEFT_POSITION_X = 40;
 	public final static int PLAYER_LEFT_POSITION_Y = 300;
@@ -28,6 +31,7 @@ public class Player {
 		this.user = user;
 		this.position = pos;
 		this.hitPoints = hitPoints;
+		this.playerState = PlayerState.STANDING;
 	}
 
 	public User getUser() {

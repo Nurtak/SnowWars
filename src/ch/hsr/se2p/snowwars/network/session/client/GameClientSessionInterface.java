@@ -6,7 +6,6 @@ import java.rmi.RemoteException;
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
-import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface;
 
 public interface GameClientSessionInterface extends Remote {
 
@@ -14,7 +13,7 @@ public interface GameClientSessionInterface extends Remote {
 
     public void updatePlayer(Player player) throws RemoteException;
 
-    public LobbyServerSessionInterface youWon() throws SnowWarsRMIException, RemoteException;
+    public void youWon() throws SnowWarsRMIException, RemoteException;
 
-    public LobbyServerSessionInterface youLost() throws SnowWarsRMIException, RemoteException;
+    public void youLost() throws SnowWarsRMIException, RemoteException;
 }

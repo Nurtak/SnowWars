@@ -26,17 +26,17 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
 	private ArrayList<Knoll> knolls = new ArrayList<Knoll>();
 
-	public Player playerLeft;
-	public Player playerRight;
+	private Player playerLeft;
+	private Player playerRight;
 
 	private Timer recalcTimer;
 
 	public AbstractGame() {
 		recalcTimer = new Timer(TIMER_REDRAW_INTERVAL, this);
+		startTimer();
 	}
-
-	//invoked by GameServer and GameClient after initialization
-	protected void startTimer(){
+	
+	private void startTimer(){
 		recalcTimer.start();
 	}
 	
@@ -50,6 +50,14 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 
 	public Player getPlayerRight() {
 		return playerRight;
+	}
+	
+	public void setPlayerLeft(Player playerLeft){
+		this.playerLeft = playerLeft;
+	}
+	
+	public void setPlayerRight(Player playerRight){
+		this.playerRight = playerRight;
 	}
 
 	@Override
@@ -88,12 +96,14 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 			logger.info("Snowball hit right player");
 			shot.stopShotObject();
 			shot.setShotObjectState(ShotObjectState.CRASHING);
+			updatePlayerHitPoints();
 		}
 
 		if (shotRectangle.intersects(playerLeftRectangle)) {
 			logger.info("Snowball hit left player");
 			shot.stopShotObject();
 			shot.setShotObjectState(ShotObjectState.CRASHING);
+			updatePlayerHitPoints();
 		}
 	}
 
@@ -153,5 +163,6 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 		return this.shots;
 	}
 
+	public abstract void initializePlayers();
 	public abstract void updatePlayerHitPoints();
 }

@@ -125,20 +125,24 @@ public class ClientLobbyController extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public GameClientSessionInterface startGame(
+	public void startGame(
 			GameServerSessionInterface gameServerSessionInterface) {
 		logger.info("startGame received!");
 
 		GameClientSessionInterface gameClientSession = null;
 		try {
-			gameClientSession = new ViewGameController(snowWarsClientInterface,new GameClient(gameServerSessionInterface));
+			gameClientSession = new ViewGameController(snowWarsClientInterface, new GameClient(gameServerSessionInterface));
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 
-		snowWarsClientInterface
-				.enterGame((ViewGameController) gameClientSession);
-		return gameClientSession;
+		try {
+			gameServerSessionInterface.setGameClientSessionInterface(gameClientSession);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		snowWarsClientInterface.enterGame((ViewGameController) gameClientSession);
 	}
 
 	public void inviteUser(final User selectedUser) throws RemoteException,
