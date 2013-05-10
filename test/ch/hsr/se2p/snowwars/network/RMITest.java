@@ -6,18 +6,18 @@ import java.net.ServerSocket;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
-import ch.hsr.se2p.snowwars.config.SnowWarsConfigFactory;
-import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
-import ch.hsr.se2p.snowwars.network.server.RunRMIServer;
+import ch.hsr.se2p.snowwars.config.Config;
+import ch.hsr.se2p.snowwars.config.ConfigLoader;
+import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
+import ch.hsr.se2p.snowwars.network.server.StartRMIServer;
 
 public class RMITest {
 
-	static SnowWarsConfig snowWarsConfig;
+	static Config snowWarsConfig;
 
 	@BeforeClass
 	public static void setUpConfig() {
-		snowWarsConfig = SnowWarsConfigFactory.getSnowWarsConfig();
+		snowWarsConfig = ConfigLoader.getConfig();
 	}
 
 	@Test
@@ -28,39 +28,8 @@ public class RMITest {
 
 	@Test(expected = IOException.class)
 	public void testServerUsesRightRegistryPort() throws SnowWarsRMIException, IOException {
-		new RunRMIServer();
+		new StartRMIServer();
 		ServerSocket serverSocket = new ServerSocket(snowWarsConfig.getRmiRegistryPort());
 		serverSocket.close();
 	}
-
-	// @Test
-	// public void testRMICommunication() {
-	//
-	// try {
-	// SnowWarsServer snowWarsServer = new SnowWarsServer();
-	// RunRMIServer runRMIServer = new RunRMIServer(snowWarsServer);
-	//
-	// Registry serverRegistry =
-	// LocateRegistry.getRegistry(snowWarsConfig.getHostname(),
-	// snowWarsConfig.getRmiRegistryPort());
-	//
-	// SnowWarsClient snowWarsClient = new SnowWarsClient();
-	// RunRMIClient runRMIClient = new RunRMIClient(snowWarsClient);
-	//
-	// RMIClientInterface client = new RMIClient(runRMIClient);
-	// RMIClientInterface clientStub = (RMIClientInterface)
-	// UnicastRemoteObject.exportObject(client, 0);
-	//
-	// RMIServerInterface server = (RMIServerInterface)
-	// serverRegistry.lookup(snowWarsConfig.getServerRMILookupName());
-	// // server.registerClient(clientStub);
-	// // server.deregisterClient(clientStub);
-	//
-	// } catch (SnowWarsRMIException | RemoteException | NotBoundException e) {
-	// e.printStackTrace();
-	// fail();
-	// }
-	//
-	// }
-
 }

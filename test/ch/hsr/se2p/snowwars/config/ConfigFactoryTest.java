@@ -7,11 +7,11 @@ import org.junit.Test;
 
 public class ConfigFactoryTest {
 
-    static SnowWarsConfig snowWarsConfig;
+    static Config snowWarsConfig;
 
     @BeforeClass
     public static void setUpConfig() {
-        snowWarsConfig = SnowWarsConfigFactory.getSnowWarsConfig();
+        snowWarsConfig = ConfigLoader.getConfig();
     }
     
 	@Test
