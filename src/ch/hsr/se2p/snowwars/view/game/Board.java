@@ -2,6 +2,7 @@ package ch.hsr.se2p.snowwars.view.game;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -32,6 +33,8 @@ public class Board extends JPanel implements MouseListener {
 	private int aimingStartX;
 	private int aimingStartY;
 
+	private final static Font COUNTDOWN_FONT = new Font("Arial", Font.PLAIN, 50);
+	
 	ArrayList<GraphicalObject> graphicalObjectsList = new ArrayList<GraphicalObject>();
 
 	public Board(GameFrame vg) throws IOException {
@@ -40,7 +43,6 @@ public class Board extends JPanel implements MouseListener {
 		BufferedImageLoader bil = BufferedImageLoader.getInstance();
 		backgroundImage = bil.getBackgroundImage();
 
-		// SoundPlayer.getInstance().playWindSound();
 		addMouseListener(this);
 		setFocusable(true);
 		setDoubleBuffered(true);
@@ -53,17 +55,9 @@ public class Board extends JPanel implements MouseListener {
 
 		paintBackground(g2d);
 		paintGraphicalObjects(g2d);
+		paintCountdown(g2d);
 		paintPlayerInfoPanel(g2d);
 		paintAimingArrow(g2d);
-
-		// Player playerLeft = new Player(new User("sdf"),
-		// Player.PlayerPosition.LEFT);
-		// Player playerRight = new Player(new User("sdf"),
-		// Player.PlayerPosition.RIGHT);
-		//
-		// g.drawRect(x, y, width, height)
-		//
-		//
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -86,6 +80,27 @@ public class Board extends JPanel implements MouseListener {
 		}
 	}
 
+	private void paintCountdown(Graphics2D g2d){
+		if(gameFrame.getViewGameModel().getCountdownActive()){
+			int countdownTime = gameFrame.getViewGameModel().getCountdownTime();
+			
+			String displayMessage = "";
+			if(countdownTime == -1){
+				displayMessage = "Waiting for other player...";
+			} else {
+				displayMessage = countdownTime + "";
+			}
+			
+			g2d.setFont(COUNTDOWN_FONT);
+			g2d.setColor(Color.WHITE);
+			int stringLength = (int) g2d.getFontMetrics().getStringBounds(displayMessage, g2d).getWidth();
+			int x = gameFrame.getViewGameModel().getGameWidth() / 2;
+			x -= stringLength / 2;
+			int y = gameFrame.getViewGameModel().getGameHeight() / 2;
+			g2d.drawString(displayMessage, x,y);
+		}
+	}
+	
 	private void paintPlayerInfoPanel(Graphics2D g2d) {
 		Player playerLeft = gameFrame.getViewGameModel().getGame().getPlayerLeft();
 		Player playerRight = gameFrame.getViewGameModel().getGame().getPlayerRight();

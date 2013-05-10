@@ -12,7 +12,7 @@ import ch.hsr.se2p.snowwars.model.Lobby;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface;
 
-public class LobbyServerSession extends UnicastRemoteObject implements LobbyServerSessionInterface {
+public class LobbyServerSession extends UnicastRemoteObject implements LobbyServerSessionInterface, LobbyClientSessionInterface{
 
 	private static final long serialVersionUID = -3804423975783216087L;
 
@@ -54,17 +54,50 @@ public class LobbyServerSession extends UnicastRemoteObject implements LobbyServ
 		lobby.answerInvitation(this, invitingUser, answer);
 	}
 
-	/**
-	 * @return the lobbyClientSessionInterface
-	 */
-	public LobbyClientSessionInterface getLobbyClientSessionInterface() {
-		return lobbyClientSessionInterface;
-	}
-
-	/**
-	 * @return the user
-	 */
 	public User getUser() {
 		return user;
+	}
+	
+	public void startGame(final GameServerSessionInterface gcsi){
+		//starts in new thread, because server don't wants to wait for user-answer
+		new Thread(){
+			public void run(){
+				try {
+					lobbyClientSessionInterface.startGame(gcsi);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+	}
+	
+	public void receiveLobbyUpdate(Set<User> users) throws RemoteException{
+		lobbyClientSessionInterface.receiveLobbyUpdate(users);
+	}
+
+	public void receiveInvitation(final User from) throws RemoteException{
+		//starts in new thread, because server don't wants to wait for user-answer
+		new Thread(){
+			public void run(){
+				try {
+					lobbyClientSessionInterface.receiveInvitation(from);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+	}
+
+	public void receiveInvitationAnswer(final User from, final InvitationAnswer answer) throws RemoteException{
+		//starts in new thread, because server don't wants to wait for user-answer
+		new Thread(){
+			public void run(){
+				try {
+					lobbyClientSessionInterface.receiveInvitationAnswer(from, answer);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
 	}
 }

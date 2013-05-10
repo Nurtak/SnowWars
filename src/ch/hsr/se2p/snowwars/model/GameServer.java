@@ -1,6 +1,7 @@
 package ch.hsr.se2p.snowwars.model;
 
 import java.rmi.RemoteException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 
@@ -13,6 +14,8 @@ public class GameServer extends AbstractGame {
 
 	GameServerSession playerLeftGameServerSession;
 	GameServerSession playerRightGameServerSession;
+
+	AtomicInteger playerReadyCount = new AtomicInteger(0);
 
 	public GameServer(GameServerSession playerLeftGameServerSession, GameServerSession playerRightGameServerSession) {
 		this.playerLeftGameServerSession = playerLeftGameServerSession;
@@ -48,17 +51,17 @@ public class GameServer extends AbstractGame {
 
 		try {
 			player.setHitPoints(newHitPoints);
-			playerLeftGameServerSession.getGameClientSessionInterface().updatePlayerHitPoints(playerPosition, hitPoints);
-			playerRightGameServerSession.getGameClientSessionInterface().updatePlayerHitPoints(playerPosition, hitPoints);
+			playerLeftGameServerSession.updatePlayerHitPoints(playerPosition, hitPoints);
+			playerRightGameServerSession.updatePlayerHitPoints(playerPosition, hitPoints);
 
 			if (hitPoints <= 0) {
 				logger.info("Player " + player.getUser().getName() + " lost the game!");
 				if (playerPosition == Player.PlayerPosition.LEFT) {
-					playerLeftGameServerSession.getGameClientSessionInterface().youLost();
-					playerRightGameServerSession.getGameClientSessionInterface().youWon();
+					playerLeftGameServerSession.youLost();
+					playerRightGameServerSession.youWon();
 				} else {
-					playerLeftGameServerSession.getGameClientSessionInterface().youWon();
-					playerRightGameServerSession.getGameClientSessionInterface().youLost();
+					playerLeftGameServerSession.youWon();
+					playerRightGameServerSession.youLost();
 				}
 				stopTimer();
 			}
@@ -72,9 +75,49 @@ public class GameServer extends AbstractGame {
 	@Override
 	public void shoot(Shot shot) {
 		try {
-			playerLeftGameServerSession.getGameClientSessionInterface().receiveShot(shot);
-			playerRightGameServerSession.getGameClientSessionInterface().receiveShot(shot);
+			playerLeftGameServerSession.receiveShot(shot);
+			playerRightGameServerSession.receiveShot(shot);
 			this.getShots().add(shot);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void setPlayerReady() {
+		playerReadyCount.addAndGet(1);
+
+		logger.info("Player is ready. There are " + playerReadyCount.get() + " ready players now.");
+		if (playerReadyCount.get() == 2) {
+			startCountdown();
+		}
+	}
+
+	private void startCountdown() {
+		int countdownSeconds = 3;
+
+		while (countdownSeconds > 0) {
+			logger.info("New Game starts in " + countdownSeconds + "...");
+			try {
+				playerLeftGameServerSession.setCountdownTime(countdownSeconds);
+				playerRightGameServerSession.setCountdownTime(countdownSeconds);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			countdownSeconds--;
+		}
+
+		logger.info("Game starts NOW!");
+		
+		try {
+			playerLeftGameServerSession.countdownEnded();
+			playerRightGameServerSession.countdownEnded();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

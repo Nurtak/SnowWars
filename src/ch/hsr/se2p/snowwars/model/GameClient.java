@@ -33,6 +33,10 @@ public class GameClient extends AbstractGame {
 		}
 	}
 
+	public GameServerSessionInterface getGameServerSessionInterface(){
+		return this.gameServerSessionInterface;
+	}
+	
 	@Override
 	public void shoot(Shot shot) {
 		this.getShots().add(shot);

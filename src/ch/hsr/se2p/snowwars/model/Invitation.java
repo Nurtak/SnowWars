@@ -32,7 +32,7 @@ public class Invitation {
 	public void answerInvitation(InvitationAnswer answer) {
 		logger.info("Sending invitation-answer from " + answeringUserSession.getUser() + " to " + invitingUserSession.getUser());
 		try {
-			invitingUserSession.getLobbyClientSessionInterface().receiveInvitationAnswer(answeringUserSession.getUser(), answer);
+			invitingUserSession.receiveInvitationAnswer(answeringUserSession.getUser(), answer);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -41,7 +41,7 @@ public class Invitation {
 	public void sendInvitation() {
 		logger.info("Sending invitation from " + invitingUserSession.getUser() + " to " + answeringUserSession.getUser());
 		try {
-			this.answeringUserSession.getLobbyClientSessionInterface().receiveInvitation(invitingUserSession.getUser());
+			this.answeringUserSession.receiveInvitation(invitingUserSession.getUser());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

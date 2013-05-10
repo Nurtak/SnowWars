@@ -104,7 +104,7 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 				JOptionPane.showMessageDialog(clientViewMain, "User " + from + " discarded your invitation!", "Error", JOptionPane.ERROR_MESSAGE);
 				break;
 			case USER_ALREADY_INVITED :
-				JOptionPane.showMessageDialog(clientViewMain, "User " + from + " was already invited!", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(clientViewMain, "User " + from + " cannot be invited at the moment. Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
 				break;
 			default :
 				JOptionPane.showMessageDialog(clientViewMain, "User " + from + " didn't answer your invitation! Timeout has occurred.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -118,8 +118,6 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 		
 		new Thread(){
 			public void run(){
-				snowWarsClientInterface.enterGame(gameServerSessionInterface);
-				
 				try {
 					lobbyServerSessionInterface.leaveLobby();
 				} catch (RemoteException e) {
@@ -128,6 +126,8 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 					e.printStackTrace();
 				}
 				clientViewMain.setVisible(false);
+				
+				snowWarsClientInterface.enterGame(gameServerSessionInterface);
 			}
 		}.start();
 	}

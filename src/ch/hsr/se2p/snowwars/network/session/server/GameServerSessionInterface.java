@@ -14,6 +14,8 @@ public interface GameServerSessionInterface extends Remote {
 
 	public void shoot(Shot shot) throws RemoteException;
 
+	public void setReady() throws RemoteException;
+	
 	public Player getLeftPlayer() throws RemoteException;
 
 	public Player getRightPlayer() throws RemoteException;

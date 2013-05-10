@@ -16,4 +16,8 @@ public interface GameClientSessionInterface extends Remote {
 	public void youWon() throws SnowWarsRMIException, RemoteException;
 
 	public void youLost() throws SnowWarsRMIException, RemoteException;
+
+	public void setCountdownTime(int time) throws RemoteException;
+	
+	public void countdownEnded() throws RemoteException;
 }

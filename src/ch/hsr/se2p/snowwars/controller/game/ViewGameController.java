@@ -39,29 +39,43 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 		this.viewGameModel = new ViewGameModel(game);
 		this.gameFrame = new GameFrame(this, this.viewGameModel);
 		this.viewGameModel.setGuiVisible(true);
+		
+		askUserIfReady();
 	}
 
 	@Override
 	public void receiveShot(Shot shot) throws RemoteException {
 		logger.info("Received shot from server: " + shot.toString());
-
 		this.game.shoot(shot);
+	}
+	
+	private void askUserIfReady(){
+		JOptionPane.showMessageDialog(gameFrame, "Welcome to SnowWars. \nAre you ready?", "Welcome!", JOptionPane.INFORMATION_MESSAGE);
+		try {
+			game.getGameServerSessionInterface().setReady();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void youWon() throws SnowWarsRMIException, RemoteException {
 		logger.info("Received Won-Notification! This SnowWarsClient won the match!");
 		
-		JOptionPane.showMessageDialog(gameFrame, "You won the match!", "=)", JOptionPane.OK_OPTION);
-		this.gameFrame.setVisible(false);
+		JOptionPane.showMessageDialog(gameFrame, "You won the match!", "=)", JOptionPane.INFORMATION_MESSAGE);
 		
+		this.gameFrame.setVisible(false);
 		snowWarsClientInterface.startProgram();
 	}
 
 	@Override
 	public void youLost() throws SnowWarsRMIException, RemoteException {
 		logger.info("Received Lost-Notification! This SnowWarsClient lost the match!");
+		
 		JOptionPane.showMessageDialog(gameFrame, "You lost the match!", ":(", JOptionPane.ERROR_MESSAGE);
+		
+		this.gameFrame.setVisible(false);
+		snowWarsClientInterface.startProgram();
 	}
 
 	@Override
@@ -75,5 +89,17 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 				break;
 		}
 		this.game.updateObserver();
+	}
+
+	@Override
+	public void setCountdownTime(int time) throws RemoteException {
+		logger.info("SnowWars game starts in " + time + " seconds...");
+		this.viewGameModel.setCountDownTime(time);
+	}
+
+	@Override
+	public void countdownEnded() throws RemoteException {
+		logger.info("SnowWars game starts NOW!");
+		this.viewGameModel.setCountdownActive(false);
 	}
 }

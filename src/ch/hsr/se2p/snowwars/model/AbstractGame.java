@@ -106,7 +106,7 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 		Rectangle shotRectangle = shot.getBounds();
 
 		for (Shot activeShot : shots) {
-			if (activeShot.getShotObjectState() != ShotObjectState.CRASHED) {
+			if (activeShot.getShotObjectState() != ShotObjectState.MOVING) {
 				continue;
 			}
 

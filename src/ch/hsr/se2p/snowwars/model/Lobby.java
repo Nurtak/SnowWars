@@ -28,16 +28,7 @@ public class Lobby {
 
 	public synchronized boolean addSession(LobbyServerSession lobbyServerSession) throws UsernameAlreadyTakenException {
 		if (users.add(lobbyServerSession)) {
-			for (LobbyServerSession userSession : users) {
-				try {
-					if (!userSession.equals(lobbyServerSession)) {
-						userSession.getLobbyClientSessionInterface().receiveLobbyUpdate(getUsers());
-					}
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			notifyUsersForLobbyUpdate(lobbyServerSession);
 			return true;
 		} else {
 			throw new UsernameAlreadyTakenException();
@@ -104,8 +95,8 @@ public class Lobby {
 			playerLeftGameServerSession.setGameServer(gameServer);
 			playerRightGameServerSession.setGameServer(gameServer);
 
-			playerLeftLobbyServerSession.getLobbyClientSessionInterface().startGame(playerLeftGameServerSession);
-			playerRightLobbyServerSession.getLobbyClientSessionInterface().startGame(playerRightGameServerSession);
+			playerLeftLobbyServerSession.startGame(playerLeftGameServerSession);
+			playerRightLobbyServerSession.startGame(playerRightGameServerSession);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -113,5 +104,18 @@ public class Lobby {
 
 	public synchronized void leave(LobbyServerSession lobbyServerSession) {
 		users.remove(lobbyServerSession);
+		notifyUsersForLobbyUpdate(lobbyServerSession);
+	}
+	
+	private void notifyUsersForLobbyUpdate(LobbyServerSession sessionNotToNotify){
+		for (LobbyServerSession userSession : users) {
+			try {
+				if (!userSession.equals(sessionNotToNotify)) {
+					userSession.receiveLobbyUpdate(getUsers());
+				}
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

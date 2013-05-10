@@ -13,7 +13,7 @@ import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
 
-public class GameServerSession extends UnicastRemoteObject implements GameServerSessionInterface {
+public class GameServerSession extends UnicastRemoteObject implements GameServerSessionInterface, GameClientSessionInterface {
 	private final static Logger logger = Logger.getLogger(GameServerSession.class.getPackage().getName());
 	private static final long serialVersionUID = 8590130911163707937L;
 
@@ -27,10 +27,6 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 
 	public void setGameServer(GameServer gameServer) {
 		this.gameServer = gameServer;
-	}
-
-	public GameClientSessionInterface getGameClientSessionInterface() {
-		return gameClientSession;
 	}
 
 	@Override
@@ -74,5 +70,80 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 	@Override
 	public void setGameClientSessionInterface(GameClientSessionInterface gcsi) throws RemoteException {
 		this.gameClientSession = gcsi;
+	}
+	
+	@Override
+	public void setReady() throws RemoteException {
+		gameServer.setPlayerReady();
+	}
+
+	@Override
+	public void receiveShot(Shot shot) throws RemoteException {
+		gameClientSession.receiveShot(shot);
+	}
+
+	@Override
+	public void updatePlayerHitPoints(PlayerPosition playerPosition, int hitPoints) throws RemoteException {
+		gameClientSession.updatePlayerHitPoints(playerPosition, hitPoints);
+	}
+
+	@Override
+	public void youWon() throws SnowWarsRMIException, RemoteException {
+		// starts in new thread, because server don't wants to wait for user-answer
+		new Thread() {
+			public void run() {
+				try {
+					gameClientSession.youWon();
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				} catch (SnowWarsRMIException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+	}
+
+	@Override
+	public void youLost() throws SnowWarsRMIException, RemoteException {
+		// starts in new thread, because server don't wants to wait for user-answer
+		new Thread() {
+			public void run() {
+				try {
+					gameClientSession.youLost();
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				} catch (SnowWarsRMIException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+	}
+
+	@Override
+	public void setCountdownTime(final int time) throws RemoteException {
+		// starts in new thread, because server don't wants to wait for user-answer
+		new Thread() {
+			public void run() {
+				try {
+					gameClientSession.setCountdownTime(time);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+	}
+
+	@Override
+	public void countdownEnded() throws RemoteException {
+		// starts in new thread, because server don't wants to wait for user-answer
+		new Thread() {
+			public void run() {
+				try {
+					gameClientSession.countdownEnded();
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
 	}
 }

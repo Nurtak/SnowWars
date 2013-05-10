@@ -25,6 +25,9 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 	private GraphicalPlayer leftPlayer;
 	private GraphicalPlayer rightPlayer;
 	private boolean guiVisible = false;
+	
+	private int countdownTime = -1;
+	private boolean countdownActive = true;
 
 	public ViewGameModel(GameClient game) {
 		this.game = game;
@@ -91,6 +94,27 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 			activeGraphicalSnowball.updateAnimation();
 		}
 
+		updateObserver();
+	}
+	
+	protected void setCountdownActive(boolean countdownActive){
+		this.countdownActive = countdownActive;
+	}
+	
+	protected void setCountDownTime(int time){
+		this.countdownTime = time;
+		updateObserver();
+	}
+	
+	public boolean getCountdownActive(){
+		return this.countdownActive;
+	}
+	
+	public int getCountdownTime(){
+		return this.countdownTime;
+	}
+
+	private void updateObserver(){
 		this.setChanged();
 		this.notifyObservers();
 	}
