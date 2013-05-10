@@ -9,14 +9,15 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
+
 import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
+import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
+import ch.hsr.se2p.snowwars.exceptions.UserIsNotInLobbyException;
+import ch.hsr.se2p.snowwars.exceptions.UsernameAlreadyTakenException;
 import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.model.Invitation.InvitationAnswer;
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
-import ch.hsr.se2p.snowwars.network.exception.UserIsNotInLobbyException;
-import ch.hsr.se2p.snowwars.network.exception.UsernameAlreadyTakenException;
 import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
@@ -124,8 +125,7 @@ public class ClientLobbyController extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void startGame(
-			GameServerSessionInterface gameServerSessionInterface) {
+	public void startGame(GameServerSessionInterface gameServerSessionInterface) {
 		logger.info("startGame received!");
 
 		GameClientSessionInterface gameClientSession = null;

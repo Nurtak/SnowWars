@@ -3,10 +3,11 @@ package ch.hsr.se2p.snowwars.network.session.server;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+
+import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
+import ch.hsr.se2p.snowwars.exceptions.UsernameAlreadyTakenException;
 import ch.hsr.se2p.snowwars.model.Lobby;
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
-import ch.hsr.se2p.snowwars.network.exception.UsernameAlreadyTakenException;
 import ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface;
 
 public class ConnectedServerSession extends UnicastRemoteObject implements ConnectedServerSessionInterface {

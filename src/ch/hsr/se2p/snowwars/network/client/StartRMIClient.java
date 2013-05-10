@@ -11,20 +11,20 @@ import java.util.Observable;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
-import ch.hsr.se2p.snowwars.config.SnowWarsConfigFactory;
+import ch.hsr.se2p.snowwars.config.Config;
+import ch.hsr.se2p.snowwars.config.ConfigLoader;
 import ch.hsr.se2p.snowwars.network.server.RMIServerInterface;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 
-public class RunRMIClient extends Observable{
+public class StartRMIClient extends Observable{
 
-    private final static Logger logger = Logger.getLogger(RunRMIClient.class.getPackage().getName());   
-    private SnowWarsConfig snowWarsConfig;
+    private final static Logger logger = Logger.getLogger(StartRMIClient.class.getPackage().getName());   
+    private Config snowWarsConfig;
     private ConnectedServerSessionInterface connectedServerSessionInterface;
     private RMIServerInterface server;
 
-    public RunRMIClient() {
-        snowWarsConfig = SnowWarsConfigFactory.getSnowWarsConfig();
+    public StartRMIClient() {
+        snowWarsConfig = ConfigLoader.getConfig();
         setRMIPropertyAndSecurity();
         setServer();
         setConnectedServerSessionInterface();

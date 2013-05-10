@@ -4,8 +4,9 @@ import java.rmi.RemoteException;
 
 import org.apache.log4j.Logger;
 
+
+import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
-import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSession;
 
 public class GameServer extends AbstractGame {

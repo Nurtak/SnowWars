@@ -2,8 +2,9 @@ package ch.hsr.se2p.snowwars.application;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
-import ch.hsr.se2p.snowwars.network.server.RunRMIServer;
+
+import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
+import ch.hsr.se2p.snowwars.network.server.StartRMIServer;
 
 public class SnowWarsServer {
     
@@ -12,7 +13,7 @@ public class SnowWarsServer {
 	public SnowWarsServer() {
 		logger.info("Starting SnowWars-Server");		
 		try {
-			new RunRMIServer();
+			new StartRMIServer();
 		} catch (SnowWarsRMIException e) {
 			logger.error(e.getMessage());
 		}

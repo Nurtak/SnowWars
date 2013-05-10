@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.network.exception;
+package ch.hsr.se2p.snowwars.exceptions;
 
 public class UsernameAlreadyTakenException extends Exception {
 

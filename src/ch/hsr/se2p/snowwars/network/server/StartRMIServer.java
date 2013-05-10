@@ -1,48 +1,55 @@
 package ch.hsr.se2p.snowwars.network.server;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
-import ch.hsr.se2p.snowwars.config.SnowWarsConfigFactory;
+
+import ch.hsr.se2p.snowwars.config.Config;
+import ch.hsr.se2p.snowwars.config.ConfigLoader;
+import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.model.Lobby;
-import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 
-public class RunRMIServer {
+public class StartRMIServer {
 
-	private final static Logger logger = Logger.getLogger(RunRMIServer.class.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(StartRMIServer.class.getPackage().getName());
 
-	private final SnowWarsConfig snowWarsConfig;
+	private final Config snowWarsConfig;
 
-	public RunRMIServer() throws SnowWarsRMIException {
-        snowWarsConfig = SnowWarsConfigFactory.getSnowWarsConfig();
-		initializeRMIService();
+	public StartRMIServer() throws SnowWarsRMIException {
+		snowWarsConfig = ConfigLoader.getConfig();
+
+		setRMIPropertyAndSecurity();
+		setRegistryAndStub();
 	}
 
-	private void initializeRMIService() throws SnowWarsRMIException {
+	private void setRMIPropertyAndSecurity() {
 		try {
 			logger.info("Initializing SnowWars RMI Server...");
 			System.setProperty("java.security.policy", "rmi.policy");
 
-			try {
-				System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
-			} catch (UnknownHostException e) {
-				e.printStackTrace();
-			}
+			System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
 
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new RMISecurityManager());
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void setRegistryAndStub() {
+		try {
 			Lobby lobby = new Lobby();
 			RMIServer rmiServer = new RMIServer(lobby);
 
 			RMIServerInterface stub;
+
 			stub = (RMIServerInterface) UnicastRemoteObject.exportObject(rmiServer, 0);
 
 			// Registry
@@ -53,8 +60,8 @@ public class RunRMIServer {
 			// Bind Stub
 			registry.rebind(snowWarsConfig.getServerRMILookupName(), stub);
 			logger.info("SnowWars Server is working...");
-		} catch (Exception e) {
-			throw new SnowWarsRMIException(e.getMessage());
+		} catch (RemoteException e) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -5,11 +5,12 @@ import java.rmi.server.UnicastRemoteObject;
 
 import org.apache.log4j.Logger;
 
+
 import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
+import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Shot;
-import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
 import ch.hsr.se2p.snowwars.view.game.GameFrame;
 

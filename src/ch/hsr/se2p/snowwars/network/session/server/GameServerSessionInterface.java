@@ -3,9 +3,10 @@ package ch.hsr.se2p.snowwars.network.session.server;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+
+import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Shot;
-import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
 
 public interface GameServerSessionInterface extends Remote {

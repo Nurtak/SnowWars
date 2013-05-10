@@ -1,13 +1,13 @@
 package ch.hsr.se2p.snowwars.config;
 
-public class SnowWarsConfig {
+public class Config {
 
     private String hostname;
     private String rmiLookupName;
     private int rmiRegistryPort;
     private int rmiRemotePort;
 
-    protected SnowWarsConfig(String hostname, String rmiLookupName, int rmiRegistryPort, int rmiRemotePort) {
+    protected Config(String hostname, String rmiLookupName, int rmiRegistryPort, int rmiRemotePort) {
         this.hostname = hostname;
         this.rmiLookupName = rmiLookupName;
         this.rmiRegistryPort = rmiRegistryPort;

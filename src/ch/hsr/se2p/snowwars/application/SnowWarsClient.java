@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
-import ch.hsr.se2p.snowwars.network.client.RunRMIClient;
+import ch.hsr.se2p.snowwars.network.client.StartRMIClient;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 
 public class SnowWarsClient implements SnowWarsClientInterface, Serializable {
@@ -18,12 +18,11 @@ public class SnowWarsClient implements SnowWarsClientInterface, Serializable {
 
 	public SnowWarsClient() {
 		logger.info("Starting SnowWars-Client");
-		enterLobby(new RunRMIClient().getConnectedServerSessionInterface());
+		enterLobby(new StartRMIClient().getConnectedServerSessionInterface());
 	}
 
 	@Override
-	public void enterLobby(
-			ConnectedServerSessionInterface connectedServerSessionInterface) {
+	public void enterLobby(ConnectedServerSessionInterface connectedServerSessionInterface) {
 		try {
 			new ClientLobbyController(this, connectedServerSessionInterface);
 		} catch (RemoteException e) {
