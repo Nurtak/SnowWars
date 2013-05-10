@@ -6,7 +6,6 @@ import java.net.ServerSocket;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ch.hsr.se2p.snowwars.application.SnowWarsServer;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfigFactory;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
@@ -29,7 +28,7 @@ public class RMITest {
 
 	@Test(expected = IOException.class)
 	public void testServerUsesRightRegistryPort() throws SnowWarsRMIException, IOException {
-		new RunRMIServer(new SnowWarsServer());
+		new RunRMIServer();
 		ServerSocket serverSocket = new ServerSocket(snowWarsConfig.getRmiRegistryPort());
 		serverSocket.close();
 	}

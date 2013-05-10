@@ -17,9 +17,6 @@ public class SnowWarsClient implements SnowWarsClientInterface, Serializable {
 			.getPackage().getName());
 
 	public SnowWarsClient() {
-	}
-
-	protected void startProgram() {
 		logger.info("Starting SnowWars-Client");
 		enterLobby(new RunRMIClient().getConnectedServerSessionInterface());
 	}

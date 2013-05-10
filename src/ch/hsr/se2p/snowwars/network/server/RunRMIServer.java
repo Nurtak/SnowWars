@@ -9,8 +9,8 @@ import java.rmi.server.UnicastRemoteObject;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.application.SnowWarsServer;
 import ch.hsr.se2p.snowwars.config.SnowWarsConfig;
+import ch.hsr.se2p.snowwars.config.SnowWarsConfigFactory;
 import ch.hsr.se2p.snowwars.model.Lobby;
 import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 
@@ -20,8 +20,8 @@ public class RunRMIServer {
 
 	private final SnowWarsConfig snowWarsConfig;
 
-	public RunRMIServer(SnowWarsServer snowWarsServer) throws SnowWarsRMIException {
-		snowWarsConfig = snowWarsServer.getSnowWarsConfig();
+	public RunRMIServer() throws SnowWarsRMIException {
+        snowWarsConfig = SnowWarsConfigFactory.getSnowWarsConfig();
 		initializeRMIService();
 	}
 
