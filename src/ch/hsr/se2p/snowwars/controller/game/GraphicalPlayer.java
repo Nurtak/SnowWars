@@ -35,12 +35,12 @@ public class GraphicalPlayer extends GraphicalObject {
 		try {
 			loader = BufferedImageLoader.getInstance();
 			switch (pos) {
-			case LEFT:
-				spriteSheet = loader.getPlayerLeftSpriteSheet();
-				break;
-			case RIGHT:
-				spriteSheet = loader.getPlayerRightSpriteSheet();
-				break;
+				case LEFT :
+					spriteSheet = loader.getPlayerLeftSpriteSheet();
+					break;
+				case RIGHT :
+					spriteSheet = loader.getPlayerRightSpriteSheet();
+					break;
 			}
 		} catch (IOException e) {
 			logger.error(e.getMessage());
@@ -83,20 +83,20 @@ public class GraphicalPlayer extends GraphicalObject {
 	@Override
 	public int getX() {
 		switch (this.player.getPosition()) {
-		case LEFT:
-			return Player.PLAYER_LEFT_POSITION_X;
-		default:
-			return Player.PLAYER_RIGHT_POSITION_X;
+			case LEFT :
+				return Player.PLAYER_LEFT_POSITION_X;
+			default :
+				return Player.PLAYER_RIGHT_POSITION_X;
 		}
 	}
 
 	@Override
 	public int getY() {
 		switch (this.player.getPosition()) {
-		case LEFT:
-			return Player.PLAYER_LEFT_POSITION_Y;
-		default:
-			return Player.PLAYER_RIGHT_POSITION_Y;
+			case LEFT :
+				return Player.PLAYER_LEFT_POSITION_Y;
+			default :
+				return Player.PLAYER_RIGHT_POSITION_Y;
 		}
 	}
 
@@ -115,15 +115,15 @@ public class GraphicalPlayer extends GraphicalObject {
 		PlayerState playerState = player.getPlayerState();
 
 		switch (playerState) {
-		case BUILDING:
-			this.activeAnimation = buildingAnimation;
-			break;
-		case STANDING:
-			this.activeAnimation = standingAnimation;
-			break;
-		case THROWING:
-			this.activeAnimation = throwingAnimation;
-			break;
+			case BUILDING :
+				this.activeAnimation = buildingAnimation;
+				break;
+			case STANDING :
+				this.activeAnimation = standingAnimation;
+				break;
+			case THROWING :
+				this.activeAnimation = throwingAnimation;
+				break;
 		}
 
 		try {

@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
-
 import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
@@ -25,12 +24,10 @@ import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface;
 import ch.hsr.se2p.snowwars.view.lobby.ClientViewMain;
 
-public class ClientLobbyController extends UnicastRemoteObject implements
-		LobbyClientSessionInterface, Serializable {
+public class ClientLobbyController extends UnicastRemoteObject implements LobbyClientSessionInterface, Serializable {
 
 	private static final long serialVersionUID = -7299346634181477899L;
-	private final static Logger logger = Logger
-			.getLogger(ClientLobbyController.class.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(ClientLobbyController.class.getPackage().getName());
 
 	private SnowWarsClientInterface snowWarsClientInterface;
 	private ConnectedServerSessionInterface connectedServerSessionInterface;
@@ -38,10 +35,7 @@ public class ClientLobbyController extends UnicastRemoteObject implements
 	private ClientViewMain clientViewMain;
 	private LobbyServerSessionInterface lobbyServerSessionInterface;
 
-	public ClientLobbyController(
-			SnowWarsClientInterface snowWarsClientInterface,
-			ConnectedServerSessionInterface connectedServerSessionInterface)
-			throws RemoteException {
+	public ClientLobbyController(SnowWarsClientInterface snowWarsClientInterface, ConnectedServerSessionInterface connectedServerSessionInterface) throws RemoteException {
 		this.snowWarsClientInterface = snowWarsClientInterface;
 		this.connectedServerSessionInterface = connectedServerSessionInterface;
 		clientLobbyModel = new ClientLobbyModel();
@@ -55,12 +49,10 @@ public class ClientLobbyController extends UnicastRemoteObject implements
 
 	public void registerAtLobby(User user) {
 		try {
-			lobbyServerSessionInterface = connectedServerSessionInterface
-					.registerAtLobby(this, user);
+			lobbyServerSessionInterface = connectedServerSessionInterface.registerAtLobby(this, user);
 			clientLobbyModel.setUser(user);
 			clientLobbyModel.setUsers(lobbyServerSessionInterface.getUsers());
-		} catch (RemoteException | SnowWarsRMIException
-				| UsernameAlreadyTakenException e) {
+		} catch (RemoteException | SnowWarsRMIException | UsernameAlreadyTakenException e) {
 			e.printStackTrace();
 		}
 	}
@@ -74,26 +66,25 @@ public class ClientLobbyController extends UnicastRemoteObject implements
 	@Override
 	public void receiveInvitation(User from) {
 		logger.info("Invitation received from " + from.getName());
-		int resultValue = JOptionPane.showConfirmDialog(clientViewMain,
-				from.getName() + " wants to play a game!");
+		int resultValue = JOptionPane.showConfirmDialog(clientViewMain, from.getName() + " wants to play a game!");
 
 		// answer invitation
 		InvitationAnswer answer = InvitationAnswer.TIMEOUT;
 		switch (resultValue) {
-		case 0:
-			answer = InvitationAnswer.ACCEPTED;
-			break;
-		case 1:
-			answer = InvitationAnswer.DISCARDED;
-			break;
+			case 0 :
+				answer = InvitationAnswer.ACCEPTED;
+				break;
+			case 1 :
+				answer = InvitationAnswer.DISCARDED;
+				break;
 		}
 
 		sendInvitationAnswer(from, answer);
 	}
-	
-	private void sendInvitationAnswer(final User from, final InvitationAnswer answer){
-		new Thread(){
-			public void run(){
+
+	private void sendInvitationAnswer(final User from, final InvitationAnswer answer) {
+		new Thread() {
+			public void run() {
 				logger.info("Sending Invitation-Answer...");
 				try {
 					lobbyServerSessionInterface.answerInvitation(from, answer);
@@ -105,22 +96,22 @@ public class ClientLobbyController extends UnicastRemoteObject implements
 			}
 		}.start();
 	}
-	
+
 	@Override
 	public void receiveInvitationAnswer(User from, InvitationAnswer answer) {
-		switch(answer){
-		case ACCEPTED:
-			JOptionPane.showMessageDialog(clientViewMain, "User " + from + " accepted your invitation!");
-			break;
-		case DISCARDED:
-			JOptionPane.showMessageDialog(clientViewMain, "User " + from + " discarded your invitation!", "Error", JOptionPane.ERROR_MESSAGE);
-			break;
-		case USER_ALREADY_INVITED: 
-			JOptionPane.showMessageDialog(clientViewMain, "User " + from + " was already invited!", "Error", JOptionPane.ERROR_MESSAGE);
-			break;
-		default:
-			JOptionPane.showMessageDialog(clientViewMain, "User " + from + " didn't answer your invitation! Timeout has occurred.", "Error", JOptionPane.ERROR_MESSAGE);
-			break;
+		switch (answer) {
+			case ACCEPTED :
+				JOptionPane.showMessageDialog(clientViewMain, "User " + from + " accepted your invitation!");
+				break;
+			case DISCARDED :
+				JOptionPane.showMessageDialog(clientViewMain, "User " + from + " discarded your invitation!", "Error", JOptionPane.ERROR_MESSAGE);
+				break;
+			case USER_ALREADY_INVITED :
+				JOptionPane.showMessageDialog(clientViewMain, "User " + from + " was already invited!", "Error", JOptionPane.ERROR_MESSAGE);
+				break;
+			default :
+				JOptionPane.showMessageDialog(clientViewMain, "User " + from + " didn't answer your invitation! Timeout has occurred.", "Error", JOptionPane.ERROR_MESSAGE);
+				break;
 		}
 	}
 
@@ -140,12 +131,11 @@ public class ClientLobbyController extends UnicastRemoteObject implements
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		snowWarsClientInterface.enterGame((ViewGameController) gameClientSession);
 	}
 
-	public void inviteUser(final User selectedUser) throws RemoteException,
-			UserIsNotInLobbyException {
+	public void inviteUser(final User selectedUser) throws RemoteException, UserIsNotInLobbyException {
 		new Thread() {
 			public void run() {
 				logger.info("Sending Invitation to " + selectedUser.getName());

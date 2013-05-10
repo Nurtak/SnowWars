@@ -5,8 +5,7 @@ import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterfa
 
 public interface SnowWarsClientInterface {
 
-	public void enterLobby(
-			ConnectedServerSessionInterface connectedServerSessionInterface);
+	public void enterLobby(ConnectedServerSessionInterface connectedServerSessionInterface);
 
 	public void enterGame(ViewGameController viewGameController);
 

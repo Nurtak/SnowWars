@@ -60,10 +60,10 @@ public class GraphicalSnowball extends GraphicalObject {
 		return this.shot.getY();
 	}
 
-	public Shot getShot(){
+	public Shot getShot() {
 		return this.shot;
 	}
-	
+
 	private void loadSplashAnimation() {
 		ArrayList<BufferedImage> spritesForSplash = new ArrayList<BufferedImage>();
 
@@ -97,17 +97,17 @@ public class GraphicalSnowball extends GraphicalObject {
 		ShotObjectState activeSnowballState = shot.getShotObjectState();
 
 		switch (activeSnowballState) {
-		case CRASHED:
-			return;
-		case CRASHEDINGROUND:
-			this.activeAnimation = normalSnowballAnimation;
-			break;
-		case CRASHING:
-			this.activeAnimation = splashingAnimation;
-			break;
-		case MOVING:
-			this.activeAnimation = normalSnowballAnimation;
-			break;
+			case CRASHED :
+				return;
+			case CRASHEDINGROUND :
+				this.activeAnimation = normalSnowballAnimation;
+				break;
+			case CRASHING :
+				this.activeAnimation = splashingAnimation;
+				break;
+			case MOVING :
+				this.activeAnimation = normalSnowballAnimation;
+				break;
 		}
 
 		try {
@@ -125,7 +125,7 @@ public class GraphicalSnowball extends GraphicalObject {
 
 	@Override
 	public boolean equals(Object obj) {
-		GraphicalSnowball other = (GraphicalSnowball)obj;
+		GraphicalSnowball other = (GraphicalSnowball) obj;
 		return this.shot.equals(other.shot);
 	}
 }

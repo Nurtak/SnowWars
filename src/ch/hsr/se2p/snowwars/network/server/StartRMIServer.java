@@ -9,7 +9,6 @@ import java.rmi.server.UnicastRemoteObject;
 
 import org.apache.log4j.Logger;
 
-
 import ch.hsr.se2p.snowwars.config.Config;
 import ch.hsr.se2p.snowwars.config.ConfigLoader;
 import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;

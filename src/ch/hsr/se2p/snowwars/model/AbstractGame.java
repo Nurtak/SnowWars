@@ -14,8 +14,7 @@ import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.ShotObject.ShotObjectState;
 
 public abstract class AbstractGame extends Observable implements ActionListener {
-	private final static Logger logger = Logger.getLogger(AbstractGame.class
-			.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(AbstractGame.class.getPackage().getName());
 
 	private final static int TIMER_RECALC_INTERVAL = 10;
 	protected final static int GROUND_LEVEL_Y = 400;
@@ -40,8 +39,8 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 	private void startTimer() {
 		recalcTimer.start();
 	}
-	
-	public void stopTimer(){
+
+	public void stopTimer() {
 		recalcTimer.stop();
 	}
 
@@ -64,16 +63,16 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 
 	protected synchronized void checkCollision() {
 		for (Shot activeShot : shots) {
-			if (activeShot.getShotObjectState() != ShotObjectState.MOVING){
+			if (activeShot.getShotObjectState() != ShotObjectState.MOVING) {
 				continue;
 			}
-			
+
 			checkCollisionWithPlayer(activeShot);
 			checkCollisionWithOtherShot(activeShot);
 			checkCollisionWithGroundAndKnolls(activeShot);
 		}
 	}
-	
+
 	@Override
 	public synchronized void actionPerformed(ActionEvent e) {
 		for (Shot activeShot : this.getShots()) {
@@ -82,7 +81,7 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 		}
 		updateObserver();
 	}
-	
+
 	private void checkCollisionWithPlayer(Shot shot) {
 		Rectangle shotRectangle = shot.getBounds();
 		Rectangle playerLeftRectangle = playerLeft.getBounds();
@@ -115,11 +114,9 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 				Rectangle activeShotRectangle = activeShot.getBounds();
 
 				if (activeShotRectangle.intersects(shotRectangle)) {
-					if (activeShot.getShotObjectState() == ShotObjectState.CRASHEDINGROUND
-							|| shot.getShotObjectState() == ShotObjectState.CRASHEDINGROUND) {
+					if (activeShot.getShotObjectState() == ShotObjectState.CRASHEDINGROUND || shot.getShotObjectState() == ShotObjectState.CRASHEDINGROUND) {
 						shot.setShotObjectState(ShotObjectState.CRASHEDINGROUND);
-						activeShot
-								.setShotObjectState(ShotObjectState.CRASHEDINGROUND);
+						activeShot.setShotObjectState(ShotObjectState.CRASHEDINGROUND);
 					} else {
 						activeShot.stopShotObject();
 						activeShot.setShotObjectState(ShotObjectState.CRASHING);
@@ -154,8 +151,8 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 	public synchronized ArrayList<Shot> getShots() {
 		return this.shots;
 	}
-	
-	public void updateObserver(){
+
+	public void updateObserver() {
 		this.setChanged();
 		this.notifyObservers();
 	}

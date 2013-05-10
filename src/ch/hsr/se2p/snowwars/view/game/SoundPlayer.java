@@ -56,7 +56,7 @@ class SoundManager {
 		sizes = new Vector<Integer>();
 		infos = new Vector<Info>();
 		audios = new Vector<byte[]>();
-		
+
 		addClip("sounds/wind.wav");
 		addClip("sounds/snowball.wav");
 	}
@@ -103,7 +103,7 @@ class SoundManager {
 		return new ByteArrayInputStream(data);
 	}
 
-	public void playSound(int x){
+	public void playSound(int x) {
 		if (x > num) {
 			System.out.println("playSound: sample nr[" + x + "] is not available");
 		} else {

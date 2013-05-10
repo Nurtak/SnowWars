@@ -5,7 +5,6 @@ import java.rmi.server.UnicastRemoteObject;
 
 import org.apache.log4j.Logger;
 
-
 import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.model.GameServer;
 import ch.hsr.se2p.snowwars.model.Player;
@@ -14,10 +13,8 @@ import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
 
-public class GameServerSession extends UnicastRemoteObject implements
-		GameServerSessionInterface {
-	private final static Logger logger = Logger
-			.getLogger(GameServerSession.class.getPackage().getName());
+public class GameServerSession extends UnicastRemoteObject implements GameServerSessionInterface {
+	private final static Logger logger = Logger.getLogger(GameServerSession.class.getPackage().getName());
 	private static final long serialVersionUID = 8590130911163707937L;
 
 	private User user;
@@ -43,8 +40,7 @@ public class GameServerSession extends UnicastRemoteObject implements
 
 	@Override
 	public void shoot(Shot shot) {
-		logger.info("Received shot from player " + user.getName() + ": "
-				+ shot.toString());
+		logger.info("Received shot from player " + user.getName() + ": " + shot.toString());
 
 		// set shot origin
 		if (gameServer.getPlayerLeft().getUser().equals(user)) {
@@ -76,8 +72,7 @@ public class GameServerSession extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void setGameClientSessionInterface(GameClientSessionInterface gcsi)
-			throws RemoteException {
+	public void setGameClientSessionInterface(GameClientSessionInterface gcsi) throws RemoteException {
 		this.gameClientSession = gcsi;
 	}
 }

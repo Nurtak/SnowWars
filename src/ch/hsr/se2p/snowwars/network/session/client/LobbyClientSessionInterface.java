@@ -16,8 +16,6 @@ public interface LobbyClientSessionInterface extends Remote {
 
 	public void receiveInvitationAnswer(User from, InvitationAnswer answer) throws RemoteException;
 
-	public void startGame(
-			GameServerSessionInterface gameServerSessionInterface)
-			throws RemoteException;
+	public void startGame(GameServerSessionInterface gameServerSessionInterface) throws RemoteException;
 
 }

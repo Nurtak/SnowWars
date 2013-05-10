@@ -5,7 +5,6 @@ import java.rmi.server.UnicastRemoteObject;
 
 import org.apache.log4j.Logger;
 
-
 import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
 import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.model.GameClient;
@@ -14,20 +13,17 @@ import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
 import ch.hsr.se2p.snowwars.view.game.GameFrame;
 
-public class ViewGameController extends UnicastRemoteObject implements
-		GameClientSessionInterface {
+public class ViewGameController extends UnicastRemoteObject implements GameClientSessionInterface {
 	private static final long serialVersionUID = -7593697054318420277L;
 
-	private final static Logger logger = Logger
-			.getLogger(ViewGameController.class.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(ViewGameController.class.getPackage().getName());
 
 	// private GameFrame gameFrame;
 	private ViewGameModel viewGameModel;
 	private GameClient game;
 	private SnowWarsClientInterface snowWarsClientInterface;
 
-	public ViewGameController(SnowWarsClientInterface snowWarsClientInterface,
-			GameClient game) throws RemoteException {
+	public ViewGameController(SnowWarsClientInterface snowWarsClientInterface, GameClient game) throws RemoteException {
 		this.game = game;
 		this.snowWarsClientInterface = snowWarsClientInterface;
 	}
@@ -61,15 +57,14 @@ public class ViewGameController extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void updatePlayerHitPoints(PlayerPosition playerPosition,
-			int hitPoints) throws RemoteException {
+	public void updatePlayerHitPoints(PlayerPosition playerPosition, int hitPoints) throws RemoteException {
 		switch (playerPosition) {
-		case LEFT:
-			this.game.getPlayerLeft().setHitPoints(hitPoints);
-			break;
-		case RIGHT:
-			this.game.getPlayerRight().setHitPoints(hitPoints);
-			break;
+			case LEFT :
+				this.game.getPlayerLeft().setHitPoints(hitPoints);
+				break;
+			case RIGHT :
+				this.game.getPlayerRight().setHitPoints(hitPoints);
+				break;
 		}
 		this.game.updateObserver();
 	}

@@ -39,5 +39,6 @@ public class GameClient extends AbstractGame {
 	}
 
 	@Override
-	public void updatePlayerHitPoints(PlayerPosition playerPosition, Shot shot) {}
+	public void updatePlayerHitPoints(PlayerPosition playerPosition, Shot shot) {
+	}
 }

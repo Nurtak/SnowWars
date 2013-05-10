@@ -74,14 +74,14 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 
 				if (!found) {
 					graphicalSnowballs.add(new GraphicalSnowball(activeShot));
-					
-					switch(activeShot.getShotOrigin()){
-					case LEFT:
-						game.getPlayerLeft().setPlayerState(PlayerState.THROWING);
-						break;
-					case RIGHT:
-						game.getPlayerRight().setPlayerState(PlayerState.THROWING);
-						break;
+
+					switch (activeShot.getShotOrigin()) {
+						case LEFT :
+							game.getPlayerLeft().setPlayerState(PlayerState.THROWING);
+							break;
+						case RIGHT :
+							game.getPlayerRight().setPlayerState(PlayerState.THROWING);
+							break;
 					}
 				}
 			}

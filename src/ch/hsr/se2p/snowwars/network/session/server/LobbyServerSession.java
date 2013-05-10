@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Set;
 
-
 import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.exceptions.UserIsNotInLobbyException;
 import ch.hsr.se2p.snowwars.exceptions.UsernameAlreadyTakenException;
@@ -13,8 +12,7 @@ import ch.hsr.se2p.snowwars.model.Lobby;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface;
 
-public class LobbyServerSession extends UnicastRemoteObject implements
-		LobbyServerSessionInterface {
+public class LobbyServerSession extends UnicastRemoteObject implements LobbyServerSessionInterface {
 
 	private static final long serialVersionUID = -3804423975783216087L;
 
@@ -22,9 +20,7 @@ public class LobbyServerSession extends UnicastRemoteObject implements
 	private Lobby lobby;
 	private LobbyClientSessionInterface lobbyClientSessionInterface;
 
-	public LobbyServerSession(User user, Lobby lobby,
-			LobbyClientSessionInterface lobbyClientSessionInterface)
-			throws RemoteException, UsernameAlreadyTakenException {
+	public LobbyServerSession(User user, Lobby lobby, LobbyClientSessionInterface lobbyClientSessionInterface) throws RemoteException, UsernameAlreadyTakenException {
 		this.user = user;
 		this.lobby = lobby;
 		this.lobbyClientSessionInterface = lobbyClientSessionInterface;
@@ -32,8 +28,7 @@ public class LobbyServerSession extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public ConnectedServerSessionInterface leaveLobby()
-			throws SnowWarsRMIException {
+	public ConnectedServerSessionInterface leaveLobby() throws SnowWarsRMIException {
 		lobby.leave(this);
 		ConnectedServerSession connectedSession;
 		try {
@@ -55,8 +50,7 @@ public class LobbyServerSession extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public void answerInvitation(User invitingUser, InvitationAnswer answer)
-			throws RemoteException, UserIsNotInLobbyException {
+	public void answerInvitation(User invitingUser, InvitationAnswer answer) throws RemoteException, UserIsNotInLobbyException {
 		lobby.answerInvitation(this, invitingUser, answer);
 	}
 

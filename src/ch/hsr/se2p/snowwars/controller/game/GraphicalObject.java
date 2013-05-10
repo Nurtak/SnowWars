@@ -10,6 +10,6 @@ public abstract class GraphicalObject {
 	public abstract Image getImage();
 
 	public abstract boolean isVisible();
-	
+
 	public abstract void updateAnimation();
 }

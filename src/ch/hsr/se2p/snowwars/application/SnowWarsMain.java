@@ -6,10 +6,6 @@ import org.apache.log4j.PatternLayout;
 
 public class SnowWarsMain {
 
-	/**
-	 * @param args
-	 *            "-server" for starting the server
-	 */
 	public static void main(String[] args) {
 		installLogger();
 
@@ -20,9 +16,6 @@ public class SnowWarsMain {
 		}
 	}
 
-	/**
-	 * Installs Log4j-Library
-	 */
 	public static void installLogger() {
 		try {
 			Logger root = Logger.getRootLogger();
@@ -33,8 +26,7 @@ public class SnowWarsMain {
 			// root.addAppender(newrfa);
 			root.addAppender(new ConsoleAppender(layout));
 		} catch (Exception e) {
-			System.out.println("ERROR: Could not install logger!"
-					+ e.getMessage());
+			System.out.println("ERROR: Could not install logger!" + e.getMessage());
 		}
 	}
 }

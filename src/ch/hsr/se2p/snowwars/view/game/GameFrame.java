@@ -14,8 +14,7 @@ import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.controller.game.ViewGameModel;
 
 public class GameFrame extends JFrame implements Observer, WindowListener {
-	private final static Logger logger = Logger.getLogger(GameFrame.class
-			.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(GameFrame.class.getPackage().getName());
 	private static final long serialVersionUID = -7803629994015778818L;
 
 	private Board board;
@@ -33,8 +32,7 @@ public class GameFrame extends JFrame implements Observer, WindowListener {
 	private void initializeGui() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(this);
-		setMinimumSize(new Dimension(getViewGameModel().getGameWidth(),
-				getViewGameModel().getGameHeight()));
+		setMinimumSize(new Dimension(getViewGameModel().getGameWidth(), getViewGameModel().getGameHeight()));
 		setLocationRelativeTo(null);
 		setTitle(getViewGameModel().getGameTitle());
 		setResizable(false);

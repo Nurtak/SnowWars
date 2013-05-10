@@ -31,14 +31,14 @@ public abstract class ShotObject implements Serializable {
 	public void updateCoordinates() {
 		if (shotObjectState == ShotObjectState.MOVING) {
 			this.dy = (this.dy + AbstractGame.GRAVITATION);
-			
+
 			this.x = (int) ((int) this.x + this.dx);
 			this.y = (int) ((int) this.y + this.dy);
-			
-			if(y >= AbstractGame.GROUND_LEVEL_Y){
+
+			if (y >= AbstractGame.GROUND_LEVEL_Y) {
 				shotObjectState = ShotObjectState.CRASHEDINGROUND;
 			}
-			
+
 			if (x > ViewGameModel.GAME_WIDTH || x < 0) {
 				shotObjectState = ShotObjectState.CRASHED;
 			}

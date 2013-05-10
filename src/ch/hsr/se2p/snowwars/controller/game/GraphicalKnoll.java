@@ -23,9 +23,8 @@ public class GraphicalKnoll extends GraphicalObject {
 	public AnimationController knollSize5;
 	public AnimationController activeAnimation;
 	private final Knoll knoll;
-	
-	
-	public GraphicalKnoll (Knoll knoll){
+
+	public GraphicalKnoll(Knoll knoll) {
 		this.knoll = knoll;
 		loader = BufferedImageLoader.getInstance();
 		try {
@@ -33,26 +32,25 @@ public class GraphicalKnoll extends GraphicalObject {
 		} catch (IOException e2) {
 			logger.error("Bild nicht gefunden");
 		}
-		
+
 		loadSize1();
 		loadSize2();
 	}
-	
+
 	private void loadSize1() {
 		ArrayList<BufferedImage> spritesForKnoll1 = new ArrayList<BufferedImage>();
 		spritesForKnoll1.add(spriteSheetKnoll.getSubimage(0, 0, 0, 0));
 		knollSize1 = new AnimationController(spritesForKnoll1);
 		knollSize1.setSpeed(-1);
 	}
-	
+
 	private void loadSize2() {
 		ArrayList<BufferedImage> spritesForKnoll2 = new ArrayList<BufferedImage>();
 		spritesForKnoll2.add(spriteSheetKnoll.getSubimage(0, 0, 0, 0));
 		knollSize2 = new AnimationController(spritesForKnoll2);
 		knollSize2.setSpeed(-1);
 	}
-	
-	
+
 	@Override
 	public int getX() {
 		return this.knoll.getX();
@@ -81,27 +79,26 @@ public class GraphicalKnoll extends GraphicalObject {
 		return this.knoll.getHits();
 	}
 
-
 	@Override
 	public void updateAnimation() {
 		int hits = getHits();
 
 		switch (hits) {
-		case 1:
-			this.activeAnimation = knollSize1;
-			break;
-		case 2:
-			this.activeAnimation = knollSize2;
-			break;
-		case 3:
-			this.activeAnimation = knollSize3;
-			break;
-		case 4:
-			this.activeAnimation = knollSize4;
-			break;
-		case 5:
-			this.activeAnimation = knollSize5;
-			break;
+			case 1 :
+				this.activeAnimation = knollSize1;
+				break;
+			case 2 :
+				this.activeAnimation = knollSize2;
+				break;
+			case 3 :
+				this.activeAnimation = knollSize3;
+				break;
+			case 4 :
+				this.activeAnimation = knollSize4;
+				break;
+			case 5 :
+				this.activeAnimation = knollSize5;
+				break;
 		}
 
 		try {
@@ -114,7 +111,5 @@ public class GraphicalKnoll extends GraphicalObject {
 	public Knoll getKnoll() {
 		return knoll;
 	}
-		
-	}
 
-
+}

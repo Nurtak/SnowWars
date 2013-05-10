@@ -83,26 +83,24 @@ public class Shot implements Serializable {
 
 	public void setShotOrigin(PlayerPosition shotOrigin) {
 		this.shotOrigin = shotOrigin;
-		switch(shotOrigin){
-		case LEFT:
-			shotObject.setX(Player.SNOWBALL_LEFT_THROW_POS_X);
-			shotObject.setY(Player.SNOWBALL_LEFT_THROW_POS_Y);
-			break;
-		case RIGHT:
-			shotObject.setX(Player.SNOWBALL_RIGHT_THROW_POS_X);
-			shotObject.setY(Player.SNOWBALL_RIGHT_THROW_POS_Y);
+		switch (shotOrigin) {
+			case LEFT :
+				shotObject.setX(Player.SNOWBALL_LEFT_THROW_POS_X);
+				shotObject.setY(Player.SNOWBALL_LEFT_THROW_POS_Y);
+				break;
+			case RIGHT :
+				shotObject.setX(Player.SNOWBALL_RIGHT_THROW_POS_X);
+				shotObject.setY(Player.SNOWBALL_RIGHT_THROW_POS_Y);
 		}
 	}
-	
-	public PlayerPosition getShotOrigin(){
+
+	public PlayerPosition getShotOrigin() {
 		return this.shotOrigin;
 	}
 
 	@Override
 	public String toString() {
-		return "Angle(" + angle + ") " + "Strength(" + strength + ") "
-				+ "Weight(" + shotObject.getWeight() + ") " + "DamageValue("
-				+ shotObject.getDamage() + ")";
+		return "Angle(" + angle + ") " + "Strength(" + strength + ") " + "Weight(" + shotObject.getWeight() + ") " + "DamageValue(" + shotObject.getDamage() + ")";
 	}
 
 	@Override

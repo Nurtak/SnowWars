@@ -77,8 +77,7 @@ public class Board extends JPanel implements MouseListener {
 		graphicalObjectsList.clear();
 		graphicalObjectsList.add(gameFrame.getViewGameModel().getLeftPlayer());
 		graphicalObjectsList.add(gameFrame.getViewGameModel().getRightPlayer());
-		graphicalObjectsList.addAll(gameFrame.getViewGameModel()
-				.getGraphicalSnowballs());
+		graphicalObjectsList.addAll(gameFrame.getViewGameModel().getGraphicalSnowballs());
 
 		for (GraphicalObject go : graphicalObjectsList) {
 			if (go.isVisible()) {
@@ -88,23 +87,18 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	private void paintPlayerInfoPanel(Graphics2D g2d) {
-		Player playerLeft = gameFrame.getViewGameModel().getGame()
-				.getPlayerLeft();
-		Player playerRight = gameFrame.getViewGameModel().getGame()
-				.getPlayerRight();
+		Player playerLeft = gameFrame.getViewGameModel().getGame().getPlayerLeft();
+		Player playerRight = gameFrame.getViewGameModel().getGame().getPlayerRight();
 
 		int gameWidth = gameFrame.getViewGameModel().getGameWidth();
-		new PlayerInfoPanel(playerLeft, PlayerInfoPanelPosition.LEFT, gameWidth)
-				.paint(g2d);
-		new PlayerInfoPanel(playerRight, PlayerInfoPanelPosition.RIGHT,
-				gameWidth).paint(g2d);
+		new PlayerInfoPanel(playerLeft, PlayerInfoPanelPosition.LEFT, gameWidth).paint(g2d);
+		new PlayerInfoPanel(playerRight, PlayerInfoPanelPosition.RIGHT, gameWidth).paint(g2d);
 	}
 
 	private void paintAimingArrow(Graphics2D g2d) {
 		if (playerAiming) {
 			try {
-				drawArrow(g2d, (int) this.getMousePosition().getX(), (int) this
-						.getMousePosition().getY(), aimingStartX, aimingStartY);
+				drawArrow(g2d, (int) this.getMousePosition().getX(), (int) this.getMousePosition().getY(), aimingStartX, aimingStartY);
 			} catch (Exception e) {
 			}
 		}
@@ -138,8 +132,7 @@ public class Board extends JPanel implements MouseListener {
 		vecLeft[1] = vecLine[0];
 
 		// setup length parameters
-		fLength = (float) Math.sqrt(vecLine[0] * vecLine[0] + vecLine[1]
-				* vecLine[1]);
+		fLength = (float) Math.sqrt(vecLine[0] * vecLine[0] + vecLine[1] * vecLine[1]);
 		th = arrowWidth / (2.0f * fLength);
 		ta = arrowWidth / (2.0f * ((float) Math.tan(theta) / 2.0f) * fLength);
 
@@ -176,13 +169,11 @@ public class Board extends JPanel implements MouseListener {
 			playerAiming = false;
 
 			try {
-				int x = (int) (this.aimingStartX - (int) this
-						.getMousePosition().getX());
+				int x = (int) (this.aimingStartX - (int) this.getMousePosition().getX());
 				int y = (int) ((int) this.getMousePosition().getY() - this.aimingStartY);
 
 				int angle = (int) Math.toDegrees(Math.atan2(y, x));
-				int strength = (int) (Math
-						.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+				int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
 				strength = strength / AbstractGame.FORCE_REDUCE_FACTOR_STRENGTH;
 
 				Snowball sb = new Snowball(10);

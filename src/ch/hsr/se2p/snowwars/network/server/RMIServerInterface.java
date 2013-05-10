@@ -7,6 +7,6 @@ import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterfa
 
 public interface RMIServerInterface extends Remote {
 
-    public ConnectedServerSessionInterface connect() throws RemoteException;
+	public ConnectedServerSessionInterface connect() throws RemoteException;
 
 }

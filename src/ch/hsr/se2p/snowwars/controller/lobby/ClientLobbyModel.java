@@ -6,33 +6,33 @@ import java.util.Set;
 
 import ch.hsr.se2p.snowwars.model.User;
 
-public class ClientLobbyModel extends Observable implements Serializable{
+public class ClientLobbyModel extends Observable implements Serializable {
 
-    private static final long serialVersionUID = -7674483417217484822L;
-    
-    private User user;
-    private Set<User> users;
+	private static final long serialVersionUID = -7674483417217484822L;
 
-    public User getUser() {
-        return user;
-    }
+	private User user;
+	private Set<User> users;
 
-    public void setUser(User user) {
-        this.user = user;
-        changed();
-    }
-    
-    public Set<User> getUsers() {
-        return users;
-    }
-    
-    public void setUsers(Set<User> users) {
-        this.users = users;
-        changed();
-    }
-    
-    public void changed() {
-        setChanged();
-        notifyObservers();
-    }
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+		changed();
+	}
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+		changed();
+	}
+
+	public void changed() {
+		setChanged();
+		notifyObservers();
+	}
 }

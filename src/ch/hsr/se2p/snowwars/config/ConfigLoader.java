@@ -6,25 +6,22 @@ import org.apache.log4j.Logger;
 
 public class ConfigLoader {
 
-    private final static Logger logger = Logger.getLogger(ConfigLoader.class.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(ConfigLoader.class.getPackage().getName());
 
-    public static Config getConfig() {
-        Config snowWarsConfig;
-        try {
-            logger.info("Load XML config...");
-            XMLConfiguration xmlConfig = new XMLConfiguration("config/config.xml");
+	public static Config getConfig() {
+		Config snowWarsConfig;
+		try {
+			logger.info("Load XML config...");
+			XMLConfiguration xmlConfig = new XMLConfiguration("config/config.xml");
 
-            snowWarsConfig = new Config(xmlConfig.getString("hostname"), 
-                    xmlConfig.getString("lookupname"), 
-                    xmlConfig.getInt("port.rmi_registry"),
-                    xmlConfig.getInt("port.rmi_remote"));
-            logger.info("XML config: OK");
-            return snowWarsConfig;
+			snowWarsConfig = new Config(xmlConfig.getString("hostname"), xmlConfig.getString("lookupname"), xmlConfig.getInt("port.rmi_registry"), xmlConfig.getInt("port.rmi_remote"));
+			logger.info("XML config: OK");
+			return snowWarsConfig;
 
-        } catch (ConfigurationException cex) {
-            cex.printStackTrace();
-            return null;
-        }
-    }
+		} catch (ConfigurationException cex) {
+			cex.printStackTrace();
+			return null;
+		}
+	}
 
 }

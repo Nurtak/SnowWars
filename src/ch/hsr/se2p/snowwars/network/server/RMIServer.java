@@ -16,8 +16,7 @@ public class RMIServer implements RMIServerInterface {
 
 	@Override
 	public ConnectedServerSessionInterface connect() throws RemoteException {
-		ConnectedServerSession connectedSession = new ConnectedServerSession(
-				lobby);
+		ConnectedServerSession connectedSession = new ConnectedServerSession(lobby);
 		return connectedSession;
 	}
 }

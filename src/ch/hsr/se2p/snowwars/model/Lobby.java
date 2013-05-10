@@ -7,15 +7,13 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-
 import ch.hsr.se2p.snowwars.exceptions.UsernameAlreadyTakenException;
 import ch.hsr.se2p.snowwars.model.Invitation.InvitationAnswer;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSession;
 import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSession;
 
 public class Lobby {
-	private final static Logger logger = Logger.getLogger(Lobby.class
-			.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(Lobby.class.getPackage().getName());
 	private Set<LobbyServerSession> users = new HashSet<LobbyServerSession>();
 	private ArrayList<Invitation> invitationList = new ArrayList<Invitation>();
 
@@ -28,14 +26,12 @@ public class Lobby {
 		return true;
 	}
 
-	public synchronized boolean addSession(LobbyServerSession lobbyServerSession)
-			throws UsernameAlreadyTakenException {
+	public synchronized boolean addSession(LobbyServerSession lobbyServerSession) throws UsernameAlreadyTakenException {
 		if (users.add(lobbyServerSession)) {
 			for (LobbyServerSession userSession : users) {
 				try {
 					if (!userSession.equals(lobbyServerSession)) {
-						userSession.getLobbyClientSessionInterface()
-								.receiveLobbyUpdate(getUsers());
+						userSession.getLobbyClientSessionInterface().receiveLobbyUpdate(getUsers());
 					}
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
@@ -56,8 +52,7 @@ public class Lobby {
 		return result;
 	}
 
-	public synchronized void inviteUser(LobbyServerSession lobbyServerSession,
-			User target) {
+	public synchronized void inviteUser(LobbyServerSession lobbyServerSession, User target) {
 		// get lobbyserver session of target
 		for (LobbyServerSession userSession : users) {
 			if (userSession.getUser().equals(target)) {
@@ -68,8 +63,7 @@ public class Lobby {
 
 					// if invitation already existing
 					if (invitationList.contains(invitation)) {
-						invitation
-								.answerInvitation(InvitationAnswer.USER_ALREADY_INVITED);
+						invitation.answerInvitation(InvitationAnswer.USER_ALREADY_INVITED);
 					} else {
 						invitationList.add(invitation);
 						invitation.sendInvitation();
@@ -80,15 +74,12 @@ public class Lobby {
 		}
 	}
 
-	public synchronized void answerInvitation(
-			LobbyServerSession answeringUserSession, User invitingUser,
-			InvitationAnswer answer) {
+	public synchronized void answerInvitation(LobbyServerSession answeringUserSession, User invitingUser, InvitationAnswer answer) {
 		for (LobbyServerSession activeSession : users) {
 			if (activeSession.getUser().equals(invitingUser)) {
 				// check if there is an invitation
 				try {
-					Invitation invitation = new Invitation(activeSession,
-							answeringUserSession);
+					Invitation invitation = new Invitation(activeSession, answeringUserSession);
 					if (invitationList.contains(invitation)) {
 						invitation.answerInvitation(answer);
 
@@ -103,26 +94,18 @@ public class Lobby {
 		}
 	}
 
-	private void startNewGame(LobbyServerSession playerLeftLobbyServerSession,
-			LobbyServerSession playerRightLobbyServerSession) {
-		logger.info("Starting new game between "
-				+ playerLeftLobbyServerSession.getUser() + " and "
-				+ playerRightLobbyServerSession.getUser());
+	private void startNewGame(LobbyServerSession playerLeftLobbyServerSession, LobbyServerSession playerRightLobbyServerSession) {
+		logger.info("Starting new game between " + playerLeftLobbyServerSession.getUser() + " and " + playerRightLobbyServerSession.getUser());
 
 		try {
-			GameServerSession playerLeftGameServerSession = new GameServerSession(
-					playerLeftLobbyServerSession.getUser());
-			GameServerSession playerRightGameServerSession = new GameServerSession(
-					playerRightLobbyServerSession.getUser());
-			GameServer gameServer = new GameServer(playerLeftGameServerSession,
-					playerRightGameServerSession);
+			GameServerSession playerLeftGameServerSession = new GameServerSession(playerLeftLobbyServerSession.getUser());
+			GameServerSession playerRightGameServerSession = new GameServerSession(playerRightLobbyServerSession.getUser());
+			GameServer gameServer = new GameServer(playerLeftGameServerSession, playerRightGameServerSession);
 			playerLeftGameServerSession.setGameServer(gameServer);
 			playerRightGameServerSession.setGameServer(gameServer);
 
-			playerLeftLobbyServerSession.getLobbyClientSessionInterface()
-					.startGame(playerLeftGameServerSession);
-			playerRightLobbyServerSession.getLobbyClientSessionInterface()
-					.startGame(playerRightGameServerSession);
+			playerLeftLobbyServerSession.getLobbyClientSessionInterface().startGame(playerLeftGameServerSession);
+			playerRightLobbyServerSession.getLobbyClientSessionInterface().startGame(playerRightGameServerSession);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
