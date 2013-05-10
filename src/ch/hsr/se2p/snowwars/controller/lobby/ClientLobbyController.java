@@ -10,14 +10,11 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
-import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.exceptions.UserIsNotInLobbyException;
 import ch.hsr.se2p.snowwars.exceptions.UsernameAlreadyTakenException;
-import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.model.Invitation.InvitationAnswer;
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
@@ -116,23 +113,23 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 	}
 
 	@Override
-	public void startGame(GameServerSessionInterface gameServerSessionInterface) {
+	public void startGame(final GameServerSessionInterface gameServerSessionInterface) {
 		logger.info("startGame received!");
-
-		GameClientSessionInterface gameClientSession = null;
-		try {
-			gameClientSession = new ViewGameController(snowWarsClientInterface, new GameClient(gameServerSessionInterface));
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			gameServerSessionInterface.setGameClientSessionInterface(gameClientSession);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-
-		snowWarsClientInterface.enterGame((ViewGameController) gameClientSession);
+		
+		new Thread(){
+			public void run(){
+				snowWarsClientInterface.enterGame(gameServerSessionInterface);
+				
+				try {
+					lobbyServerSessionInterface.leaveLobby();
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				} catch (SnowWarsRMIException e) {
+					e.printStackTrace();
+				}
+				clientViewMain.setVisible(false);
+			}
+		}.start();
 	}
 
 	public void inviteUser(final User selectedUser) throws RemoteException, UserIsNotInLobbyException {

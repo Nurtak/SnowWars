@@ -7,17 +7,23 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
 import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
+import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.network.client.StartRMIClient;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
+import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 
 public class SnowWarsClient implements SnowWarsClientInterface, Serializable {
 
 	private static final long serialVersionUID = 4874885087870016147L;
-	private final static Logger logger = Logger.getLogger(SnowWarsClient.class
-			.getPackage().getName());
+	private final static Logger logger = Logger.getLogger(SnowWarsClient.class.getPackage().getName());
 
 	public SnowWarsClient() {
-		logger.info("Starting SnowWars-Client");
+		startProgram();
+	}
+
+	@Override
+	public void startProgram() {
+		logger.info("Starting new SnowWars-Client");
 		enterLobby(new StartRMIClient().getConnectedServerSessionInterface());
 	}
 
@@ -36,7 +42,14 @@ public class SnowWarsClient implements SnowWarsClientInterface, Serializable {
 	}
 
 	@Override
-	public void enterGame(ViewGameController viewGameController) {
-		viewGameController.showGui();
+	public void enterGame(final GameServerSessionInterface gameServerSessionInterface) {
+		try {
+			ViewGameController viewGameController = new ViewGameController(this, new GameClient(gameServerSessionInterface));
+			gameServerSessionInterface.setGameClientSessionInterface(viewGameController);
+			viewGameController.showGui();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

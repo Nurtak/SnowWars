@@ -3,6 +3,8 @@ package ch.hsr.se2p.snowwars.controller.game;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import javax.swing.JOptionPane;
+
 import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
@@ -18,7 +20,7 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 
 	private final static Logger logger = Logger.getLogger(ViewGameController.class.getPackage().getName());
 
-	// private GameFrame gameFrame;
+	private GameFrame gameFrame;
 	private ViewGameModel viewGameModel;
 	private GameClient game;
 	private SnowWarsClientInterface snowWarsClientInterface;
@@ -35,7 +37,7 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 	public void showGui() {
 		this.game.initializePlayers();
 		this.viewGameModel = new ViewGameModel(game);
-		new GameFrame(this, this.viewGameModel);
+		this.gameFrame = new GameFrame(this, this.viewGameModel);
 		this.viewGameModel.setGuiVisible(true);
 	}
 
@@ -49,11 +51,17 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 	@Override
 	public void youWon() throws SnowWarsRMIException, RemoteException {
 		logger.info("Received Won-Notification! This SnowWarsClient won the match!");
+		
+		JOptionPane.showMessageDialog(gameFrame, "You won the match!", "=)", JOptionPane.OK_OPTION);
+		this.gameFrame.setVisible(false);
+		
+		snowWarsClientInterface.startProgram();
 	}
 
 	@Override
 	public void youLost() throws SnowWarsRMIException, RemoteException {
 		logger.info("Received Lost-Notification! This SnowWarsClient lost the match!");
+		JOptionPane.showMessageDialog(gameFrame, "You lost the match!", ":(", JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override

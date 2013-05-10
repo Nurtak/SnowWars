@@ -23,7 +23,7 @@ import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
 import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 
-public class ClientViewMain extends JFrame implements Observer {
+public class ClientViewMain extends JFrame implements Observer, ClientViewMainInterface{
 
 	private final static Logger logger = Logger.getLogger(ClientViewMain.class.getPackage().getName());
 	private static final long serialVersionUID = 7390513127049817797L;
@@ -84,10 +84,6 @@ public class ClientViewMain extends JFrame implements Observer {
 		}
 	}
 
-	public void addPanel(JPanel jPanel, String name) {
-		contentPanel.add(jPanel, name);
-	}
-
 	private void createContentPanel() {
 		contentPanel = new JPanel();
 		GridBagConstraints gbc_contentPanel = new GridBagConstraints();
@@ -103,6 +99,11 @@ public class ClientViewMain extends JFrame implements Observer {
 
 		JPanel mainPanel = new PanelMain(this, clientLobbyModel, clientLobbyController);
 		contentPanel.add(mainPanel, "mainPanel");
+	}
+	
+	@Override
+	public void addPanel(JPanel jPanel, String name) {
+		contentPanel.add(jPanel, name);
 	}
 
 	private void createKeyBindings() {
@@ -127,18 +128,18 @@ public class ClientViewMain extends JFrame implements Observer {
 	public void nextCard() {
 		cardLayout.next(contentPanel);
 	}
-
+	
+	@Override
 	public void previousCard() {
 		cardLayout.previous(contentPanel);
 	}
 
 	public void exit() {
-
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
 	}
+
 
 }

@@ -28,7 +28,7 @@ import ch.hsr.se2p.snowwars.model.User;
 public class PanelLobby extends JPanel implements Observer {
 	private static final long serialVersionUID = -4628393851839832247L;
 	private final static Logger logger = Logger.getLogger(PanelLobby.class.getPackage().getName());
-	private final ClientViewMain cvm;
+	private final ClientViewMainInterface cvm;
 	private ClientLobbyModel clientLobbyModel;
 	private ClientLobbyController clientLobbyController;
 	private JList<User> lstUsers;
