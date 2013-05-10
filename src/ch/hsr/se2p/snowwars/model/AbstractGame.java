@@ -40,6 +40,10 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 	private void startTimer() {
 		recalcTimer.start();
 	}
+	
+	public void stopTimer(){
+		recalcTimer.stop();
+	}
 
 	public Player getPlayerLeft() {
 		return playerLeft;

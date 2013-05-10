@@ -2,10 +2,15 @@ package ch.hsr.se2p.snowwars.model;
 
 import java.rmi.RemoteException;
 
+import org.apache.log4j.Logger;
+
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
+import ch.hsr.se2p.snowwars.network.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSession;
 
 public class GameServer extends AbstractGame {
+	private final static Logger logger = Logger.getLogger(GameServer.class
+			.getPackage().getName());
 
 	GameServerSession playerLeftGameServerSession;
 	GameServerSession playerRightGameServerSession;
@@ -31,21 +36,39 @@ public class GameServer extends AbstractGame {
 
 	@Override
 	public void updatePlayerHitPoints(PlayerPosition playerPosition, Shot shot) {
-		int hitPoints = 0;
+		Player player = null;
 		switch(playerPosition){
 		case LEFT:
-			hitPoints = getPlayerLeft().getHitPoints();
+			player = getPlayerLeft();
 			break;
 		case RIGHT:
-			hitPoints = getPlayerRight().getHitPoints();
+			player = getPlayerRight();
 			break;
 		}
 		
-		hitPoints -= shot.getDamage();
+		int hitPoints = player.getHitPoints();
+		int newHitPoints = hitPoints - shot.getDamage();
+		logger.info("Changing Hitpoints of player " + player.getUser().getName() + " from " + hitPoints + " to " + newHitPoints);
+		
 		try {
+			player.setHitPoints(newHitPoints);
 			playerLeftGameServerSession.getGameClientSessionInterface().updatePlayerHitPoints(playerPosition, hitPoints);
 			playerRightGameServerSession.getGameClientSessionInterface().updatePlayerHitPoints(playerPosition, hitPoints);
+			
+			if(hitPoints <= 0){
+				logger.info("Player " + player.getUser().getName() + " lost the game!");
+				if(playerPosition == Player.PlayerPosition.LEFT){
+					playerLeftGameServerSession.getGameClientSessionInterface().youLost();
+					playerRightGameServerSession.getGameClientSessionInterface().youWon();				
+				} else {
+					playerLeftGameServerSession.getGameClientSessionInterface().youWon();
+					playerRightGameServerSession.getGameClientSessionInterface().youLost();				
+				}
+				stopTimer();
+			}
 		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (SnowWarsRMIException e) {
 			e.printStackTrace();
 		}
 	}
