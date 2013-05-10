@@ -140,6 +140,8 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 	}
 
 	public void startNewShotRequest(Shot shotRequest) {
-		game.startNewShotRequest(shotRequest);
+		if(!countdownActive){
+			game.startNewShotRequest(shotRequest);
+		}
 	}
 }
