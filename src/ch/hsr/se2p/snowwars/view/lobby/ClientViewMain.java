@@ -1,6 +1,7 @@
 package ch.hsr.se2p.snowwars.view.lobby;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,6 +10,7 @@ import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,9 +23,10 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
 import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
+import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 
-public class ClientViewMain extends JFrame implements Observer, ClientViewMainInterface{
+public class ClientViewMain extends JFrame implements Observer, ClientViewMainInterface {
 
 	private final static Logger logger = Logger.getLogger(ClientViewMain.class.getPackage().getName());
 	private static final long serialVersionUID = 7390513127049817797L;
@@ -100,7 +103,7 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 		JPanel mainPanel = new PanelMain(this, clientLobbyModel, clientLobbyController);
 		contentPanel.add(mainPanel, "mainPanel");
 	}
-	
+
 	@Override
 	public void addPanel(JPanel jPanel, String name) {
 		contentPanel.add(jPanel, name);
@@ -110,25 +113,38 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 		KeyboardFocusManager kfm = KeyboardFocusManager.getCurrentKeyboardFocusManager();
 		kfm.addKeyEventDispatcher(new KeyEventDispatcher() {
 			@Override
-			public boolean dispatchKeyEvent(KeyEvent e) {
+			public boolean dispatchKeyEvent(KeyEvent e) {				
 				switch (e.getID()) {
 					case KeyEvent.KEY_PRESSED :
 						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-							nextCard();
+							getActivePane().enterPressed();
 						} else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-							previousCard();
+							getActivePane().escPressed();
 						}
 						break;
 				}
 				return false;
 			}
 		});
+
 	}
+	
+	private PanelInterface getActivePane(){
+		Component activeComponent = null;
+		for (Component comp : contentPanel.getComponents()) {
+			if (comp.isVisible()) {
+				activeComponent = comp;
+			}
+		}
+		return (PanelInterface)activeComponent;
+	}
+
+	//
 
 	public void nextCard() {
 		cardLayout.next(contentPanel);
 	}
-	
+
 	@Override
 	public void previousCard() {
 		cardLayout.previous(contentPanel);
@@ -141,5 +157,14 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 	public void update(Observable arg0, Object arg1) {
 	}
 
-
+	@Override
+	public void leaveLobby() {
+		try {
+			this.clientLobbyController.leaveLobby();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (SnowWarsRMIException e) {
+			e.printStackTrace();
+		}
+	}
 }

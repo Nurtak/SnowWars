@@ -19,14 +19,14 @@ import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
 import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 import ch.hsr.se2p.snowwars.model.User;
 
-public class PanelUser extends JPanel implements Observer {
+public class PanelUser extends JPanel implements Observer, PanelInterface{
 	private static final long serialVersionUID = -4628393851839832247L;
-	private final ClientViewMain cvm;
+	private final ClientViewMainInterface cvm;
 	private ClientLobbyModel viewLobbyModel;
 	private ClientLobbyController viewLobbyController;
 	private JTextField txtUsername;
 
-	public PanelUser(ClientViewMain cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
+	public PanelUser(ClientViewMainInterface cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
 		this.cvm = cvm;
 		this.viewLobbyModel = clientLobbyModel;
 		this.viewLobbyController = clientLobbyController;
@@ -65,7 +65,7 @@ public class PanelUser extends JPanel implements Observer {
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				cvm.previousCard();
+				backPressed();
 			}
 		});
 		GridBagConstraints gbc_backButton = new GridBagConstraints();
@@ -79,22 +79,7 @@ public class PanelUser extends JPanel implements Observer {
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					if (txtUsername.getText().equals("")) {
-						JOptionPane.showMessageDialog(cvm, "Please enter an username!", "Error", JOptionPane.ERROR_MESSAGE);
-						return;
-					}
-					if (viewLobbyController.isNameAvailable(txtUsername.getText())) {
-						User user = new User(txtUsername.getText());
-						viewLobbyController.registerAtLobby(user);
-						cvm.addPanel(new PanelLobby(cvm, viewLobbyModel, viewLobbyController), "lobbyPanel");
-						cvm.nextCard();
-					} else {
-						JOptionPane.showMessageDialog(cvm, "Username is already taken!", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
+				playPressed();
 			}
 		});
 		GridBagConstraints gbc_playButton = new GridBagConstraints();
@@ -102,11 +87,42 @@ public class PanelUser extends JPanel implements Observer {
 		gbc_playButton.gridx = 3;
 		gbc_playButton.gridy = 3;
 		add(playButton, gbc_playButton);
+	}
 
+	private void backPressed() {
+		cvm.previousCard();
+	}
+
+	private void playPressed() {
+		try {
+			if (txtUsername.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Please enter an username!", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			if (viewLobbyController.isNameAvailable(txtUsername.getText())) {
+				User user = new User(txtUsername.getText());
+				viewLobbyController.registerAtLobby(user);
+				cvm.addPanel(new PanelLobby(cvm, viewLobbyModel, viewLobbyController), "lobbyPanel");
+				cvm.nextCard();
+			} else {
+				JOptionPane.showMessageDialog(null, "Username is already taken!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+	public void enterPressed() {
+		playPressed();
+	}
+
+	@Override
+	public void escPressed() {
+		backPressed();
 	}
 }

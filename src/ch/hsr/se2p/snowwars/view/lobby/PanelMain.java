@@ -14,14 +14,14 @@ import javax.swing.JPanel;
 import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
 import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 
-public class PanelMain extends JPanel implements Observer {
+public class PanelMain extends JPanel implements Observer, PanelInterface{
 
 	private static final long serialVersionUID = -4628393851839832247L;
-	private final ClientViewMain cvm;
+	private final ClientViewMainInterface cvm;
 	private ClientLobbyModel clientLobbyModel;
 	private ClientLobbyController clientLobbyController;
 
-	public PanelMain(ClientViewMain cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
+	public PanelMain(ClientViewMainInterface cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
 		this.cvm = cvm;
 		this.clientLobbyModel = clientLobbyModel;
 		this.clientLobbyController = clientLobbyController;
@@ -41,8 +41,7 @@ public class PanelMain extends JPanel implements Observer {
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cvm.addPanel(new PanelUser(cvm, clientLobbyModel, clientLobbyController), "userPanel");
-				cvm.nextCard();
+				playPressed();
 			}
 		});
 		GridBagConstraints gbc_playButton = new GridBagConstraints();
@@ -56,7 +55,7 @@ public class PanelMain extends JPanel implements Observer {
 		exitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cvm.exit();
+				exitPressed();
 			}
 		});
 		GridBagConstraints gbc_exitButton = new GridBagConstraints();
@@ -67,8 +66,26 @@ public class PanelMain extends JPanel implements Observer {
 
 	}
 
+	private void playPressed() {
+		cvm.addPanel(new PanelUser(cvm, clientLobbyModel, clientLobbyController), "userPanel");
+		cvm.nextCard();
+	}
+	
+	private void exitPressed() {
+		cvm.exit();
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void enterPressed() {
+		playPressed();
+	}
+
+	@Override
+	public void escPressed() {
+		escPressed();
 	}
 }

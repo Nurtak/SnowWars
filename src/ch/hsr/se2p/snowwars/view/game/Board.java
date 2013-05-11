@@ -25,7 +25,7 @@ import ch.hsr.se2p.snowwars.view.game.PlayerInfoPanel.PlayerInfoPanelPosition;
 public class Board extends JPanel implements MouseListener {
 	private static final long serialVersionUID = -2949809536472598850L;
 
-	private final GameFrame gameFrame;
+	private final GameFrameInterface gameFrame;
 
 	private BufferedImage backgroundImage;
 
@@ -37,8 +37,8 @@ public class Board extends JPanel implements MouseListener {
 	
 	ArrayList<GraphicalObject> graphicalObjectsList = new ArrayList<GraphicalObject>();
 
-	public Board(GameFrame vg) throws IOException {
-		this.gameFrame = vg;
+	public Board(GameFrameInterface gameFrameInterface) throws IOException {
+		this.gameFrame = gameFrameInterface;
 
 		BufferedImageLoader bil = BufferedImageLoader.getInstance();
 		backgroundImage = bil.getBackgroundImage();

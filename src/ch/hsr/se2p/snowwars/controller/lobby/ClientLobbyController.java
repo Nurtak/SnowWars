@@ -98,7 +98,6 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 	public void receiveInvitationAnswer(User from, InvitationAnswer answer) {
 		switch (answer) {
 			case ACCEPTED :
-				JOptionPane.showMessageDialog(clientViewMain, "User " + from + " accepted your invitation!");
 				break;
 			case DISCARDED :
 				JOptionPane.showMessageDialog(clientViewMain, "User " + from + " discarded your invitation!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -149,6 +148,6 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 	}
 
 	public void leaveLobby() throws RemoteException, SnowWarsRMIException {
-		// TODO Auto-generated method stub
+		lobbyServerSessionInterface.leaveLobby();
 	}
 }

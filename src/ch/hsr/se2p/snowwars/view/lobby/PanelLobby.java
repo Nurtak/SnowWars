@@ -25,15 +25,16 @@ import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 import ch.hsr.se2p.snowwars.exceptions.UserIsNotInLobbyException;
 import ch.hsr.se2p.snowwars.model.User;
 
-public class PanelLobby extends JPanel implements Observer {
+public class PanelLobby extends JPanel implements Observer, PanelInterface {
 	private static final long serialVersionUID = -4628393851839832247L;
 	private final static Logger logger = Logger.getLogger(PanelLobby.class.getPackage().getName());
 	private final ClientViewMainInterface cvm;
 	private ClientLobbyModel clientLobbyModel;
 	private ClientLobbyController clientLobbyController;
 	private JList<User> lstUsers;
-
-	public PanelLobby(ClientViewMain cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
+	DefaultListModel<User> lobbyModel = new DefaultListModel<User>();
+	
+	public PanelLobby(ClientViewMainInterface cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
 		this.cvm = cvm;
 		this.clientLobbyModel = clientLobbyModel;
 		this.clientLobbyController = clientLobbyController;
@@ -84,7 +85,7 @@ public class PanelLobby extends JPanel implements Observer {
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				cvm.previousCard();
+				backPressed();
 			}
 		});
 		GridBagConstraints gbc_backButton = new GridBagConstraints();
@@ -98,13 +99,7 @@ public class PanelLobby extends JPanel implements Observer {
 		inviteButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				logger.info("Invite Player...");
-				try {
-					clientLobbyController.inviteUser(lstUsers.getSelectedValue());
-				} catch (RemoteException | UserIsNotInLobbyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				invitePressed();
 			}
 		});
 		GridBagConstraints gbc_inviteButton = new GridBagConstraints();
@@ -117,14 +112,38 @@ public class PanelLobby extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		DefaultListModel<User> testModel = new DefaultListModel<User>();
+		lobbyModel.clear();
 
 		Set<User> usersToDisplay = clientLobbyModel.getUsers();
 		for (User userToDisplay : usersToDisplay) {
 			if (!userToDisplay.equals(clientLobbyModel.getUser())) {
-				testModel.addElement(userToDisplay);
+				lobbyModel.addElement(userToDisplay);
 			}
 		}
-		lstUsers.setModel(testModel);
+		lstUsers.setModel(lobbyModel);
+	}
+	
+	private void invitePressed(){
+		logger.info("Invite Player...");
+		try {
+			clientLobbyController.inviteUser(lstUsers.getSelectedValue());
+		} catch (RemoteException | UserIsNotInLobbyException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void backPressed(){
+		cvm.leaveLobby();
+		cvm.previousCard();
+	}
+	
+	@Override
+	public void enterPressed() {
+		invitePressed();
+	}
+
+	@Override
+	public void escPressed() {
+		backPressed();
 	}
 }
