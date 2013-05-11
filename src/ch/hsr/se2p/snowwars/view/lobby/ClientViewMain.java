@@ -21,10 +21,10 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
-import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
+import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyController;
+import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyModel;
 
 public class ClientViewMain extends JFrame implements Observer, ClientViewMainInterface {
 

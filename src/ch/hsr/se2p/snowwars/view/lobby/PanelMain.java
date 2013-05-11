@@ -11,8 +11,8 @@ import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
-import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
+import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyController;
+import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyModel;
 
 public class PanelMain extends JPanel implements Observer, PanelInterface{
 

@@ -15,9 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
-import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 import ch.hsr.se2p.snowwars.model.User;
+import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyController;
+import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyModel;
 
 public class PanelUser extends JPanel implements Observer, PanelInterface{
 	private static final long serialVersionUID = -4628393851839832247L;

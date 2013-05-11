@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.controller.lobby;
+package ch.hsr.se2p.snowwars.viewcontrolling.lobby;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;

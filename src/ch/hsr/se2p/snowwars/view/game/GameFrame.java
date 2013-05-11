@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
-import ch.hsr.se2p.snowwars.controller.game.ViewGameModel;
+import ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameController;
+import ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameModel;
 
 public class GameFrame extends JFrame implements Observer, WindowListener, GameFrameInterface {
 	private final static Logger logger = Logger.getLogger(GameFrame.class.getPackage().getName());

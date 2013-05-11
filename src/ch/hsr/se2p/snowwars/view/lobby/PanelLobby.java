@@ -20,10 +20,10 @@ import javax.swing.border.LineBorder;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
-import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyModel;
 import ch.hsr.se2p.snowwars.exceptions.UserIsNotInLobbyException;
 import ch.hsr.se2p.snowwars.model.User;
+import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyController;
+import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyModel;
 
 public class PanelLobby extends JPanel implements Observer, PanelInterface {
 	private static final long serialVersionUID = -4628393851839832247L;
