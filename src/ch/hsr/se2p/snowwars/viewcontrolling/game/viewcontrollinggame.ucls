@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="false" dependencies="true" nesting-relationships="true">  
+  <class id="1" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.AnimationController" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/AnimationController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="443" y="1537"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.GraphicalKnoll" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/GraphicalKnoll.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="427" width="200" x="583" y="1007"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameController" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/ViewGameController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="501" y="466"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameModel" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/ViewGameModel.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="553" width="268" x="41" y="414"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.GraphicalSnowball" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/GraphicalSnowball.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="409" width="248" x="41" y="1007"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.GraphicalPlayer" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/GraphicalPlayer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="391" width="214" x="329" y="1007"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.GraphicalObject" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/GraphicalObject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="433" y="873"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <generalization id="8">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="12">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <generalization id="16">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
