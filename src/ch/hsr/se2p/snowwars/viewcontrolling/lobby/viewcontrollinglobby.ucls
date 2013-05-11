@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
-  realizations="true" associations="false" dependencies="true" nesting-relationships="true">  
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
   <class id="1" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyModel" project="SnowWars" 
     file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/lobby/ClientLobbyModel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -30,5 +30,5 @@
     <attributes public="true" package="true" protected="true" private="true"/>    
     <operations public="true" package="true" protected="true" private="true"/>  
   </classifier-display>  
-  <association-display labels="true" multiplicity="true"/>
+  <association-display labels="false" multiplicity="false"/>
 </class-diagram>
