@@ -124,9 +124,12 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 	}
 	
 	private void invitePressed(){
-		logger.info("Invite Player...");
 		try {
-			clientLobbyController.inviteUser(lstUsers.getSelectedValue());
+			User selectedUser = lstUsers.getSelectedValue();
+			if(selectedUser != null){
+				logger.info("Invite Player...");
+				clientLobbyController.inviteUser(lstUsers.getSelectedValue());
+			}
 		} catch (RemoteException | UserIsNotInLobbyException e) {
 			e.printStackTrace();
 		}
