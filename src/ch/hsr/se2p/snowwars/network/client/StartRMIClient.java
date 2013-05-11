@@ -19,12 +19,12 @@ import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterfa
 public class StartRMIClient extends Observable {
 
 	private final static Logger logger = Logger.getLogger(StartRMIClient.class.getPackage().getName());
-	private Config snowWarsConfig;
+	private final Config config;
 	private ConnectedServerSessionInterface connectedServerSessionInterface;
 	private RMIServerInterface server;
 
 	public StartRMIClient() {
-		snowWarsConfig = ConfigLoader.getConfig();
+		config = ConfigLoader.getConfig();
 		setRMIPropertyAndSecurity();
 		setServer();
 		setConnectedServerSessionInterface();
@@ -32,8 +32,8 @@ public class StartRMIClient extends Observable {
 
 	private void setServer() {
 		try {
-			Registry serverRegistry = LocateRegistry.getRegistry(snowWarsConfig.getHostname(), snowWarsConfig.getRmiRegistryPort());
-			server = (RMIServerInterface) serverRegistry.lookup(snowWarsConfig.getServerRMILookupName());
+			Registry serverRegistry = LocateRegistry.getRegistry(config.getHostname(), config.getRmiRegistryPort());
+			server = (RMIServerInterface) serverRegistry.lookup(config.getServerRMILookupName());
 		} catch (RemoteException | NotBoundException e) {
 			logger.error(e.getMessage());
 		}
@@ -42,7 +42,7 @@ public class StartRMIClient extends Observable {
 	private void setConnectedServerSessionInterface() {
 		try {
 			connectedServerSessionInterface = server.connect();
-			logger.info("Successfully Connected to " + snowWarsConfig.getHostname());
+			logger.info("Successfully Connected to " + config.getHostname());
 		} catch (RemoteException e) {
 			logger.error(e.getMessage());
 		}
