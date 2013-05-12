@@ -24,7 +24,7 @@ public class StartRMIClient extends Observable {
     private final static Logger logger = Logger.getLogger(StartRMIClient.class.getPackage().getName());
     private final Config config;
     private ConnectedServerSessionInterface connectedServerSessionInterface;
-    private RMIServerInterface server;
+    private RMIServerInterface rmiServerInterface;
 
     public StartRMIClient() {
         config = ConfigLoader.getConfig();
@@ -53,7 +53,7 @@ public class StartRMIClient extends Observable {
     private void setServer() throws SnowWarsRMIException {
         try {
             Registry serverRegistry = LocateRegistry.getRegistry(config.getHostname(), config.getRmiRegistryPort());
-            server = (RMIServerInterface) serverRegistry.lookup(config.getServerRMILookupName());
+            rmiServerInterface = (RMIServerInterface) serverRegistry.lookup(config.getServerRMILookupName());
         } catch (RemoteException | NotBoundException e) {
             logger.error(e.getMessage());
             throw new SnowWarsRMIException(e.getMessage());
@@ -62,7 +62,7 @@ public class StartRMIClient extends Observable {
 
     private void setConnectedServerSessionInterface() throws SnowWarsRMIException {
         try {
-            connectedServerSessionInterface = server.connect();
+            connectedServerSessionInterface = rmiServerInterface.connect();
             logger.info("Successfully Connected to " + config.getHostname());
         } catch (RemoteException e) {
             logger.error(e.getMessage());
