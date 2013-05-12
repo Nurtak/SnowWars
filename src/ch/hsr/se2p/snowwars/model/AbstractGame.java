@@ -75,6 +75,10 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 
 	@Override
 	public synchronized void actionPerformed(ActionEvent e) {
+		recalculateGame();
+	}
+	
+	private void recalculateGame(){
 		for (Shot activeShot : this.getShots()) {
 			activeShot.updateCoordinates();
 			checkCollision();

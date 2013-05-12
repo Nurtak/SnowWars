@@ -47,6 +47,5 @@ public class SnowWarsClient implements SnowWarsClientInterface {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-
 	}
 }
