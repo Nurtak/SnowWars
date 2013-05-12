@@ -33,7 +33,7 @@ public class StartRMIClient extends Observable {
             setServer();
             setConnectedServerSessionInterface();
         } catch (SnowWarsRMIException e) {
-            JOptionPane.showMessageDialog(null, "No connection to server!", ":(", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No connection to server! (server was " + config.getHostname() + ")", ":(", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
     }
