@@ -17,12 +17,10 @@ import ch.hsr.se2p.snowwars.model.Lobby;
 public class StartRMIServer {
 
 	private final static Logger logger = Logger.getLogger(StartRMIServer.class.getPackage().getName());
-
-	private final Config snowWarsConfig;
+	private final Config config;
 
 	public StartRMIServer() throws SnowWarsRMIException {
-		snowWarsConfig = ConfigLoader.getConfig();
-
+		config = ConfigLoader.getConfig();
 		setRMIPropertyAndSecurity();
 		setRegistryAndStub();
 	}
@@ -53,11 +51,11 @@ public class StartRMIServer {
 
 			// Registry
 			logger.info("Creating Registry...");
-			LocateRegistry.createRegistry(snowWarsConfig.getRmiRegistryPort());
+			LocateRegistry.createRegistry(config.getRmiRegistryPort());
 			Registry registry = LocateRegistry.getRegistry();
 
 			// Bind Stub
-			registry.rebind(snowWarsConfig.getServerRMILookupName(), stub);
+			registry.rebind(config.getServerRMILookupName(), stub);
 			logger.info("SnowWars Server is working...");
 		} catch (RemoteException e) {
 			e.printStackTrace();

@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.controller.game;
+package ch.hsr.se2p.snowwars.viewcontrolling.game;
 
 import java.io.Serializable;
 import java.util.ArrayList;

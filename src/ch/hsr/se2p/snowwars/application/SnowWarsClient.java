@@ -1,20 +1,17 @@
 package ch.hsr.se2p.snowwars.application;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
-import ch.hsr.se2p.snowwars.controller.lobby.ClientLobbyController;
 import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.network.client.StartRMIClient;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
+import ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameController;
+import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyController;
 
-public class SnowWarsClient implements SnowWarsClientInterface, Serializable {
-
-	private static final long serialVersionUID = 4874885087870016147L;
+public class SnowWarsClient implements SnowWarsClientInterface {
 	private final static Logger logger = Logger.getLogger(SnowWarsClient.class.getPackage().getName());
 
 	public SnowWarsClient() {
@@ -50,6 +47,5 @@ public class SnowWarsClient implements SnowWarsClientInterface, Serializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-
 	}
 }

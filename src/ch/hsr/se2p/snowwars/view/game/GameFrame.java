@@ -10,10 +10,10 @@ import javax.swing.JFrame;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.controller.game.ViewGameController;
-import ch.hsr.se2p.snowwars.controller.game.ViewGameModel;
+import ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameController;
+import ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameModel;
 
-public class GameFrame extends JFrame implements Observer, WindowListener {
+public class GameFrame extends JFrame implements Observer, WindowListener, GameFrameInterface {
 	private final static Logger logger = Logger.getLogger(GameFrame.class.getPackage().getName());
 	private static final long serialVersionUID = -7803629994015778818L;
 
@@ -87,7 +87,8 @@ public class GameFrame extends JFrame implements Observer, WindowListener {
 		return viewGameController;
 	}
 
-	protected ViewGameModel getViewGameModel() {
+	@Override
+	public ViewGameModel getViewGameModel() {
 		return viewGameModel;
 	}
 }
