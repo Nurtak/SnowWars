@@ -30,6 +30,18 @@ public class StartRMIClient extends Observable {
 		setConnectedServerSessionInterface();
 	}
 
+	private void setRMIPropertyAndSecurity() {
+		try {
+			System.setProperty("java.security.policy", "rmi.policy");
+			System.setProperty("java.rmi.system.hostname", InetAddress.getLocalHost().getHostAddress());
+			if (System.getSecurityManager() == null) {
+				System.setSecurityManager(new RMISecurityManager());
+			}
+		} catch (UnknownHostException e) {
+			logger.error(e.getMessage());
+		}
+	}
+	
 	private void setServer() {
 		try {
 			Registry serverRegistry = LocateRegistry.getRegistry(config.getHostname(), config.getRmiRegistryPort());
@@ -48,22 +60,8 @@ public class StartRMIClient extends Observable {
 		}
 	}
 
-	private void setRMIPropertyAndSecurity() {
-		try {
-			System.setProperty("java.security.policy", "rmi.policy");
-			System.setProperty("java.rmi.system.hostname", InetAddress.getLocalHost().getHostAddress());
-			if (System.getSecurityManager() == null) {
-				System.setSecurityManager(new RMISecurityManager());
-			}
-		} catch (UnknownHostException e) {
-			logger.error(e.getMessage());
-		}
-	}
-
-	/**
-	 * @return the connectedServerSessionInterface
-	 */
 	public ConnectedServerSessionInterface getConnectedServerSessionInterface() {
 		return connectedServerSessionInterface;
 	}
+	
 }
