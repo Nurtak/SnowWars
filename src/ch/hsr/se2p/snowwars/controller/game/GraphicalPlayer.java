@@ -15,8 +15,8 @@ import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 public class GraphicalPlayer extends GraphicalObject {
 	private final static Logger logger = Logger.getLogger(GraphicalPlayer.class.getPackage().getName());
 
-	private final int WIDTH = 135;
-	private final int HEIGHT = 170;
+	private final int WIDTH = 136;
+	private final int HEIGHT = 165;
 
 	public AnimationController throwingAnimation;
 	public AnimationController standingAnimation;
