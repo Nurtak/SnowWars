@@ -4,7 +4,7 @@
   <interface id="1" language="java" name="ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface" 
     project="SnowWars" file="/SnowWars/src/ch/hsr/se2p/snowwars/network/session/client/LobbyClientSessionInterface.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="282" x="82" y="284"/>    
+    <position height="135" width="282" x="41" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -14,7 +14,7 @@
   <interface id="2" language="java" name="ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface" 
     project="SnowWars" file="/SnowWars/src/ch/hsr/se2p/snowwars/network/session/client/GameClientSessionInterface.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="171" width="242" x="404" y="284"/>    
+    <position height="171" width="242" x="363" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
