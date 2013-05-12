@@ -29,9 +29,7 @@ public class StartRMIServer {
 		try {
 			logger.info("Initializing SnowWars RMI Server...");
 			System.setProperty("java.security.policy", "rmi.policy");
-
 			System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
-
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new RMISecurityManager());
 			}
@@ -58,7 +56,9 @@ public class StartRMIServer {
 			registry.rebind(config.getServerRMILookupName(), stub);
 			logger.info("SnowWars Server is working...");
 		} catch (RemoteException e) {
-			e.printStackTrace();
+            logger.error("Could not start a RMI proxy!"); 
+            logger.error(e.getMessage()); 
+            System.exit(0);
 		}
 	}
 }
