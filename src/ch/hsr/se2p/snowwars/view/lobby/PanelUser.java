@@ -96,7 +96,7 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 	private void playPressed() {
 		try {
 			if (txtUsername.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Please enter an username!", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Please enter an username!", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			if (viewLobbyController.isNameAvailable(txtUsername.getText())) {
@@ -105,7 +105,7 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 				cvm.addPanel(new PanelLobby(cvm, viewLobbyModel, viewLobbyController), "lobbyPanel");
 				cvm.nextCard();
 			} else {
-				JOptionPane.showMessageDialog(null, "Username is already taken!", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Username is already taken!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
