@@ -151,6 +151,8 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 	}
 
 	public void exit() {
+	    logger.info("exiting via GUI");
+	    System.exit(0);
 	}
 
 	@Override
