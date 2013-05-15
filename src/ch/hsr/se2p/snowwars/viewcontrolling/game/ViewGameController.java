@@ -54,7 +54,7 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 		try {
 			game.getGameServerSessionInterface().setReady();
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 

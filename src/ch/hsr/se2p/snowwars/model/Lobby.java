@@ -98,7 +98,7 @@ public class Lobby {
 			playerLeftLobbyServerSession.startGame(playerLeftGameServerSession);
 			playerRightLobbyServerSession.startGame(playerRightGameServerSession);
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -114,7 +114,7 @@ public class Lobby {
 					userSession.receiveLobbyUpdate(getUsers());
 				}
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage(), e);
 			}
 		}
 	}

@@ -50,7 +50,7 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 			clientLobbyModel.setUser(user);
 			clientLobbyModel.setUsers(lobbyServerSessionInterface.getUsers());
 		} catch (RemoteException | SnowWarsRMIException | UsernameAlreadyTakenException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -86,9 +86,9 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 				try {
 					lobbyServerSessionInterface.answerInvitation(from, answer);
 				} catch (RemoteException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				} catch (UserIsNotInLobbyException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 		}.start();
@@ -120,9 +120,9 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 				try {
 					lobbyServerSessionInterface.leaveLobby();
 				} catch (RemoteException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				} catch (SnowWarsRMIException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 				clientViewMain.setVisible(false);
 				
@@ -138,9 +138,9 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 				try {
 					lobbyServerSessionInterface.inviteUser(selectedUser);
 				} catch (RemoteException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				} catch (UserIsNotInLobbyException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 		}.start();

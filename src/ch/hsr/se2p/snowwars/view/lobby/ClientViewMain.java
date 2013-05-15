@@ -83,7 +83,7 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 			JLabel imageLabel = new JLabel(new ImageIcon(logoImage));
 			logoPanel.add(imageLabel);
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -164,9 +164,9 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 		try {
 			this.clientLobbyController.leaveLobby();
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} catch (SnowWarsRMIException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 }

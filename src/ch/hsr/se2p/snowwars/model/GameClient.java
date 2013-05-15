@@ -2,11 +2,15 @@ package ch.hsr.se2p.snowwars.model;
 
 import java.rmi.RemoteException;
 
+import org.apache.log4j.Logger;
+
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 
 public class GameClient extends AbstractGame {
 
+	private final static Logger logger = Logger.getLogger(GameClient.class.getPackage().getName());
+	
 	GameServerSessionInterface gameServerSessionInterface;
 
 	public GameClient(GameServerSessionInterface gameServerSessionInterface) {
@@ -21,7 +25,7 @@ public class GameClient extends AbstractGame {
 			this.setPlayerLeft(gameServerSessionInterface.getLeftPlayer());
 			this.setPlayerRight(gameServerSessionInterface.getRightPlayer());
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -29,7 +33,7 @@ public class GameClient extends AbstractGame {
 		try {
 			gameServerSessionInterface.shoot(shotRequest);
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 

@@ -19,7 +19,7 @@ public class ConfigLoader {
 			return snowWarsConfig;
 
 		} catch (ConfigurationException cex) {
-			cex.printStackTrace();
+			logger.error(cex.getMessage());
 			return null;
 		}
 	}

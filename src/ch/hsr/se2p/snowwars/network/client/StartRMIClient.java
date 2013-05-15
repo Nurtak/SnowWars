@@ -46,7 +46,7 @@ public class StartRMIClient extends Observable {
                 System.setSecurityManager(new RMISecurityManager());
             }
         } catch (UnknownHostException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -55,7 +55,7 @@ public class StartRMIClient extends Observable {
             Registry serverRegistry = LocateRegistry.getRegistry(config.getHostname(), config.getRmiRegistryPort());
             rmiServerInterface = (RMIServerInterface) serverRegistry.lookup(config.getServerRMILookupName());
         } catch (RemoteException | NotBoundException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
             throw new SnowWarsRMIException(e.getMessage());
         }
     }
@@ -65,7 +65,7 @@ public class StartRMIClient extends Observable {
             connectedServerSessionInterface = rmiServerInterface.connect();
             logger.info("Successfully Connected to " + config.getHostname());
         } catch (RemoteException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
             throw new SnowWarsRMIException(e.getMessage());
         }
     }

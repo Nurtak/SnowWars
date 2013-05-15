@@ -65,9 +65,9 @@ public class GameServer extends AbstractGame {
 				stopTimer();
 			}
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} catch (SnowWarsRMIException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -78,7 +78,7 @@ public class GameServer extends AbstractGame {
 			playerRightGameServerSession.receiveShot(shot);
 			this.getShots().add(shot);
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -100,13 +100,13 @@ public class GameServer extends AbstractGame {
 				playerLeftGameServerSession.setCountdownTime(countdownSeconds);
 				playerRightGameServerSession.setCountdownTime(countdownSeconds);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage(), e);
 			}
 
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage(), e);
 			}
 
 			countdownSeconds--;
@@ -118,7 +118,7 @@ public class GameServer extends AbstractGame {
 			playerLeftGameServerSession.countdownEnded();
 			playerRightGameServerSession.countdownEnded();
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 }

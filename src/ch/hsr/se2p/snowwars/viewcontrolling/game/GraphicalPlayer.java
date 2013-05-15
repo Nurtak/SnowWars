@@ -43,7 +43,7 @@ public class GraphicalPlayer extends GraphicalObject {
 					break;
 			}
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 
 		loadThrowAnimation();

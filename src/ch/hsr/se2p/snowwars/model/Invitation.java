@@ -34,7 +34,7 @@ public class Invitation {
 		try {
 			invitingUserSession.receiveInvitationAnswer(answeringUserSession.getUser(), answer);
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -43,7 +43,7 @@ public class Invitation {
 		try {
 			this.answeringUserSession.receiveInvitation(invitingUserSession.getUser());
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 

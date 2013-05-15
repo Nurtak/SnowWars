@@ -29,7 +29,7 @@ public class SnowWarsClient implements SnowWarsClientInterface {
 		try {
 			new ClientLobbyController(this, connectedServerSessionInterface);
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -45,7 +45,7 @@ public class SnowWarsClient implements SnowWarsClientInterface {
 			gameServerSessionInterface.setGameClientSessionInterface(viewGameController);
 			viewGameController.showGui();
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 }

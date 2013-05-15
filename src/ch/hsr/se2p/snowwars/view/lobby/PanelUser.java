@@ -15,12 +15,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.apache.log4j.Logger;
+
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyController;
 import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyModel;
 
 public class PanelUser extends JPanel implements Observer, PanelInterface{
 	private static final long serialVersionUID = -4628393851839832247L;
+	private final static Logger logger = Logger.getLogger(PanelLobby.class.getPackage().getName());
 	private final ClientViewMainInterface cvm;
 	private ClientLobbyModel viewLobbyModel;
 	private ClientLobbyController viewLobbyController;
@@ -108,7 +111,7 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 				JOptionPane.showMessageDialog(this, "Username is already taken!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 	

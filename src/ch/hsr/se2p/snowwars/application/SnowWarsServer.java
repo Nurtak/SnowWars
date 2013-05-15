@@ -14,7 +14,7 @@ public class SnowWarsServer {
 		try {
 			new StartRMIServer();
 		} catch (SnowWarsRMIException e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 		}
 	}
 }

@@ -34,7 +34,7 @@ public class StartRMIServer {
 				System.setSecurityManager(new RMISecurityManager());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -57,7 +57,7 @@ public class StartRMIServer {
 			logger.info("SnowWars Server is working...");
 		} catch (RemoteException e) {
             logger.error("Could not start a RMI proxy!"); 
-            logger.error(e.getMessage()); 
+            logger.error(e.getMessage(), e); 
             System.exit(0);
 		}
 	}

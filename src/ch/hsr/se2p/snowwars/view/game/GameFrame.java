@@ -42,7 +42,7 @@ public class GameFrame extends JFrame implements Observer, WindowListener, GameF
 			board = new Board(this);
 			add(board);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
 			setVisible(false);
 		}
 

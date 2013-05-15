@@ -95,9 +95,9 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 				try {
 					gameClientSession.youWon();
 				} catch (RemoteException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				} catch (SnowWarsRMIException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 		}.start();
@@ -111,9 +111,9 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 				try {
 					gameClientSession.youLost();
 				} catch (RemoteException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				} catch (SnowWarsRMIException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 		}.start();
@@ -127,7 +127,7 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 				try {
 					gameClientSession.setCountdownTime(time);
 				} catch (RemoteException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 		}.start();
@@ -141,7 +141,7 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 				try {
 					gameClientSession.countdownEnded();
 				} catch (RemoteException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 		}.start();
