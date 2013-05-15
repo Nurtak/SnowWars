@@ -123,7 +123,9 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 						activeShot.setShotObjectState(ShotObjectState.CRASHEDINGROUND);
 					} else {
 						activeShot.stopShotObject();
+						shot.stopShotObject();
 						activeShot.setShotObjectState(ShotObjectState.CRASHING);
+						shot.setShotObjectState(ShotObjectState.CRASHING);
 					}
 				}
 			}
