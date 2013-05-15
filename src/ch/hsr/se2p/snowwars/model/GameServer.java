@@ -45,16 +45,16 @@ public class GameServer extends AbstractGame {
 				break;
 		}
 
-		int hitPoints = player.getHitPoints();
-		int newHitPoints = hitPoints - shot.getDamage();
-		logger.info("Changing Hitpoints of player " + player.getUser().getName() + " from " + hitPoints + " to " + newHitPoints);
+		int oldHitPoints = player.getHitPoints();
+		int newHitPoints = oldHitPoints - shot.getDamage();
+		logger.info("Changing Hitpoints of player " + player.getUser().getName() + " from " + oldHitPoints + " to " + newHitPoints);
 
 		try {
 			player.setHitPoints(newHitPoints);
-			playerLeftGameServerSession.updatePlayerHitPoints(playerPosition, hitPoints);
-			playerRightGameServerSession.updatePlayerHitPoints(playerPosition, hitPoints);
+			playerLeftGameServerSession.updatePlayerHitPoints(playerPosition, newHitPoints);
+			playerRightGameServerSession.updatePlayerHitPoints(playerPosition, newHitPoints);
 
-			if (hitPoints <= 0) {
+			if (newHitPoints <= 0) {
 				logger.info("Player " + player.getUser().getName() + " lost the game!");
 				if (playerPosition == Player.PlayerPosition.LEFT) {
 					playerLeftGameServerSession.youLost();

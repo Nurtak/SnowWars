@@ -66,7 +66,7 @@ public class Board extends JPanel implements MouseListener {
 	private void paintBackground(Graphics2D g2d) {
 		g2d.drawImage(backgroundImage, 0, 0, null);
 	}
-
+	
 	private void paintGraphicalObjects(Graphics2D g2d) {
 		graphicalObjectsList.clear();
 		graphicalObjectsList.add(gameFrame.getViewGameModel().getLeftPlayer());

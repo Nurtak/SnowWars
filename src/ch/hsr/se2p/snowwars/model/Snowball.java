@@ -27,6 +27,6 @@ public class Snowball extends ShotObject {
 
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(getX() + 5, getY() + 5, SNOWBALL_WIDTH, SNOWBALL_HEIGHT);
+		return new Rectangle(getX(), getY(), SNOWBALL_WIDTH, SNOWBALL_HEIGHT);
 	}
 }
