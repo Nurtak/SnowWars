@@ -1,7 +1,6 @@
 package ch.hsr.se2p.snowwars.model;
 
 import java.rmi.RemoteException;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 
@@ -15,7 +14,7 @@ public class GameServer extends AbstractGame {
 	GameServerSession playerLeftGameServerSession;
 	GameServerSession playerRightGameServerSession;
 
-	AtomicInteger playerReadyCount = new AtomicInteger(0);
+	int playerReadyCount = 0;
 
 	public GameServer(GameServerSession playerLeftGameServerSession, GameServerSession playerRightGameServerSession) {
 		this.playerLeftGameServerSession = playerLeftGameServerSession;
@@ -83,11 +82,11 @@ public class GameServer extends AbstractGame {
 		}
 	}
 
-	public void setPlayerReady() {
-		playerReadyCount.addAndGet(1);
+	public synchronized void setPlayerReady() {
+		playerReadyCount++;
 
-		logger.info("Player is ready. There are " + playerReadyCount.get() + " ready players now.");
-		if (playerReadyCount.get() == 2) {
+		logger.info("Player is ready. There are " + playerReadyCount + " ready players now.");
+		if (playerReadyCount == 2) {
 			startCountdown();
 		}
 	}
@@ -114,7 +113,7 @@ public class GameServer extends AbstractGame {
 		}
 
 		logger.info("Game starts NOW!");
-		
+
 		try {
 			playerLeftGameServerSession.countdownEnded();
 			playerRightGameServerSession.countdownEnded();
