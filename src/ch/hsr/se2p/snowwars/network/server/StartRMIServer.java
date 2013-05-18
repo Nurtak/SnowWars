@@ -28,7 +28,7 @@ public class StartRMIServer {
 	private void setRMIPropertyAndSecurity() {
 		try {
 			logger.info("Initializing SnowWars RMI Server...");
-			System.setProperty("java.security.policy", "rmi.policy");
+			System.setProperty("java.security.policy", ClassLoader.getSystemResource("rmi.policy").toExternalForm());
 			System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().getHostAddress());
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new RMISecurityManager());

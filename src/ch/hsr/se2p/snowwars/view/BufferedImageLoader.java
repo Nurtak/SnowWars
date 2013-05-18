@@ -1,19 +1,18 @@
 package ch.hsr.se2p.snowwars.view;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class BufferedImageLoader {
 
-	private final static String FILENAME_BACKGROUND = new String("img/background.jpg");
-	private final static String FILENAME_LOGO = new String("img/logo.png");
-	private final static String FILENAME_THROW_PLAYER_LEFT = new String("img/ThrowLeftPlayer.png");
-	private final static String FILENAME_THROW_PLAYER_RIGHT = new String("img/ThrowRightPlayer.png");
-	private final static String FILENAME_SPRITESHEET_SNOWBALL = new String("img/snowball.png");
-	private final static String FILENAME_SPRITESHEET_KNOLL = new String("img/Knoll.png");
+	private final static String FILENAME_BACKGROUND = new String("/img/background.jpg");
+	private final static String FILENAME_LOGO = new String("/img/logo.png");
+	private final static String FILENAME_THROW_PLAYER_LEFT = new String("/img/ThrowLeftPlayer.png");
+	private final static String FILENAME_THROW_PLAYER_RIGHT = new String("/img/ThrowRightPlayer.png");
+	private final static String FILENAME_SPRITESHEET_SNOWBALL = new String("/img/snowball.png");
+	private final static String FILENAME_SPRITESHEET_KNOLL = new String("/img/Knoll.png");
 	private static BufferedImageLoader bil;
 
 	private BufferedImageLoader() {
@@ -27,11 +26,7 @@ public class BufferedImageLoader {
 	}
 
 	private BufferedImage loadImage(String pathRelativeToThis) throws IOException {
-		File imageFile = new File(pathRelativeToThis);
-		if (!imageFile.exists()) {
-			throw new IOException("Image not found: " + pathRelativeToThis);
-		}
-		return ImageIO.read(imageFile);
+		return ImageIO.read(BufferedImage.class.getResourceAsStream(pathRelativeToThis));
 	}
 
 	public BufferedImage getSnowballSpriteSheet() throws IOException {
