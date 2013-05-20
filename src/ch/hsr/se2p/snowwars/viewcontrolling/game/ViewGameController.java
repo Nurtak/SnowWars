@@ -22,11 +22,11 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 
 	private GameFrame gameFrame;
 	private ViewGameModel viewGameModel;
-	private GameClient game;
+	private GameClient gameClient;
 	private SnowWarsClientInterface snowWarsClientInterface;
 
 	public ViewGameController(SnowWarsClientInterface snowWarsClientInterface, GameClient game) throws RemoteException {
-		this.game = game;
+		this.gameClient = game;
 		this.snowWarsClientInterface = snowWarsClientInterface;
 	}
 
@@ -35,8 +35,8 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 	}
 
 	public void showGui() {
-		this.game.initializePlayers();
-		this.viewGameModel = new ViewGameModel(game);
+		this.gameClient.initializePlayers();
+		this.viewGameModel = new ViewGameModel(gameClient);
 		this.gameFrame = new GameFrame(this, this.viewGameModel);
 		this.viewGameModel.setGuiVisible(true);
 		
@@ -46,13 +46,19 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 	@Override
 	public void receiveShot(Shot shot) throws RemoteException {
 		logger.info("Received shot from server: " + shot.toString());
-		this.game.shoot(shot);
+		this.gameClient.shoot(shot);
+	}
+	
+	@Override
+	public void playerIsBuilding(PlayerPosition playerPosition) throws RemoteException {	
+		logger.info(playerPosition + " player is now building a snowball...");
+		gameClient.playerIsBuilding(playerPosition);
 	}
 	
 	private void askUserIfReady(){
 		JOptionPane.showMessageDialog(gameFrame, "Welcome to SnowWars. \nAre you ready?", "Welcome!", JOptionPane.INFORMATION_MESSAGE);
 		try {
-			game.getGameServerSessionInterface().setReady();
+			gameClient.getGameServerSessionInterface().setReady();
 		} catch (RemoteException e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -80,15 +86,16 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 
 	@Override
 	public void updatePlayerHitPoints(PlayerPosition playerPosition, int hitPoints) throws RemoteException {
+		logger.info("Received Update of player hitpoints from server...");
 		switch (playerPosition) {
 			case LEFT :
-				this.game.getPlayerLeft().setHitPoints(hitPoints);
+				this.gameClient.getPlayerLeft().setHitPoints(hitPoints);
 				break;
 			case RIGHT :
-				this.game.getPlayerRight().setHitPoints(hitPoints);
+				this.gameClient.getPlayerRight().setHitPoints(hitPoints);
 				break;
 		}
-		this.game.updateObserver();
+		this.gameClient.updateObserver();
 	}
 
 	@Override

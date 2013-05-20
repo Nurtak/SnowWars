@@ -74,10 +74,10 @@ public class GraphicalPlayer extends GraphicalObject {
 	}
 
 	public void loadBuildingAnimation() {
-		ArrayList<BufferedImage> spritesForStand = new ArrayList<BufferedImage>();
-		spritesForStand.add(spriteSheet.getSubimage(0, 0, WIDTH, HEIGHT));
-		standingAnimation = new AnimationController(spritesForStand);
-		standingAnimation.setSpeed(-1);
+		ArrayList<BufferedImage> spritesForBuild = new ArrayList<BufferedImage>();
+		spritesForBuild.add(spriteSheet.getSubimage(2 * WIDTH, HEIGHT, WIDTH, HEIGHT));
+		buildingAnimation = new AnimationController(spritesForBuild);
+		buildingAnimation.setSpeed(-1);
 	}
 
 	@Override

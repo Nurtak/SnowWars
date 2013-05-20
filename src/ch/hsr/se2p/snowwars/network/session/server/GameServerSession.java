@@ -18,6 +18,7 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 	private static final long serialVersionUID = 8590130911163707937L;
 
 	private User user;
+	private PlayerPosition playerPosition;
 	private GameClientSessionInterface gameClientSession;
 	private GameServer gameServer;
 
@@ -27,24 +28,25 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 
 	public void setGameServer(GameServer gameServer) {
 		this.gameServer = gameServer;
+		
+		//set this players position
+		if (gameServer.getPlayerLeft().getUser().equals(user)) {
+			playerPosition = PlayerPosition.LEFT;
+		} else {
+			playerPosition = PlayerPosition.RIGHT;
+		}
 	}
 
 	@Override
-	public void startBuildingSnowball() {
-		// TODO Auto-generated method stub
+	public void startBuilding() {
+		logger.info("Player " + user.getName() + " is now building a snowball...");
+		gameServer.build(playerPosition);
 	}
 
 	@Override
 	public void shoot(Shot shot) {
 		logger.info("Received shot from player " + user.getName() + ": " + shot.toString());
-
-		// set shot origin
-		if (gameServer.getPlayerLeft().getUser().equals(user)) {
-			shot.setShotOrigin(PlayerPosition.LEFT);
-		} else {
-			shot.setShotOrigin(PlayerPosition.RIGHT);
-		}
-
+		shot.setShotOrigin(playerPosition);
 		gameServer.shoot(shot);
 	}
 
@@ -141,6 +143,21 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 				try {
 					gameClientSession.countdownEnded();
 				} catch (RemoteException e) {
+					logger.error(e.getMessage(), e);
+				}
+			}
+		}.start();
+	}
+
+	@Override
+	public void playerIsBuilding(final PlayerPosition playerPosition) throws RemoteException {
+		// starts in new thread, because server don't wants to wait for user-answer
+		new Thread() {
+			public void run() {
+				try {
+					gameClientSession.playerIsBuilding(playerPosition);
+				} catch (RemoteException e) {
+
 					logger.error(e.getMessage(), e);
 				}
 			}

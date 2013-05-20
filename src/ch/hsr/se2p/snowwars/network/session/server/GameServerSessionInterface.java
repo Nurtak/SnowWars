@@ -10,10 +10,10 @@ import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
 
 public interface GameServerSessionInterface extends Remote {
 
-	public void startBuildingSnowball() throws RemoteException;
+	public void startBuilding() throws RemoteException;
 
 	public void shoot(Shot shot) throws RemoteException;
-
+	
 	public void setReady() throws RemoteException;
 	
 	public Player getLeftPlayer() throws RemoteException;

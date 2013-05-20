@@ -81,6 +81,15 @@ public class GameServer extends AbstractGame {
 			logger.error(e.getMessage(), e);
 		}
 	}
+	
+	public void build(PlayerPosition playerPosition){
+		try{
+			playerLeftGameServerSession.playerIsBuilding(playerPosition);
+			playerRightGameServerSession.playerIsBuilding(playerPosition);
+		} catch (RemoteException e) {
+			logger.error(e.getMessage(), e);
+		}
+	}
 
 	public synchronized void setPlayerReady() {
 		playerReadyCount++;

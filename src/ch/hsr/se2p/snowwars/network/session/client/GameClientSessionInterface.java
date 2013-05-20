@@ -11,6 +11,8 @@ public interface GameClientSessionInterface extends Remote {
 
 	public void receiveShot(Shot shot) throws RemoteException;
 
+	public void playerIsBuilding(PlayerPosition playerPosition) throws RemoteException;
+	
 	public void updatePlayerHitPoints(PlayerPosition playerPosition, int hitPoints) throws RemoteException;
 
 	public void youWon() throws SnowWarsRMIException, RemoteException;

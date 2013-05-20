@@ -144,4 +144,8 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 			game.startNewShotRequest(shotRequest);
 		}
 	}
+	
+	public void startNewBuildRequest(){
+		game.startNewBuildRequest();
+	}
 }

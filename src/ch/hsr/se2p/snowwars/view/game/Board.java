@@ -170,12 +170,17 @@ public class Board extends JPanel implements MouseListener {
 	public void startNewThrowRequest(Shot shotRequest) {
 		gameFrame.getViewGameModel().startNewShotRequest(shotRequest);
 	}
+	
+	private void startNewBuildRequest(){
+		gameFrame.getViewGameModel().startNewBuildRequest();
+	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		playerAiming = true;
 		aimingStartX = (int) arg0.getPoint().getX();
 		aimingStartY = (int) arg0.getPoint().getY();
+		startNewBuildRequest();
 	}
 
 	@Override
