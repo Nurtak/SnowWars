@@ -92,7 +92,8 @@ public class PlayerInfoPanel {
 		}
 
 		g2d.fillRect(xPositionRemainingBar, yPositionRemainingBar, remainingBarWidth, HEALTH_BAR_HEIGHT);
-
+		g2d.drawRect(xPositionRemainingBar, yPositionRemainingBar, remainingBarWidth, HEALTH_BAR_HEIGHT);
+		
 		if (lostBarWidth > 0) {
 			g2d.drawRect(xPositionLostBar, yPositionLostBar, lostBarWidth, HEALTH_BAR_HEIGHT);
 		}
