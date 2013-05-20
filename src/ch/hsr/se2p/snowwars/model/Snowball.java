@@ -6,17 +6,17 @@ public class Snowball extends ShotObject {
 
 	private static final long serialVersionUID = -7432399665707233393L;
 
-	private double damageMultiplier = 1.0;
-	private int weight;
+	private double damageMultiplier = 4.0;
+	private double weight;
 	private final static int SNOWBALL_WIDTH = 20;
 	private final static int SNOWBALL_HEIGHT = 20;
 
-	public Snowball(int weight) {
+	public Snowball(double weight) {
 		this.weight = weight;
 	}
 
 	@Override
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 

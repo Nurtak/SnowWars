@@ -16,10 +16,9 @@ import javax.swing.JPanel;
 
 import ch.hsr.se2p.snowwars.model.AbstractGame;
 import ch.hsr.se2p.snowwars.model.Player;
-import ch.hsr.se2p.snowwars.model.Shot;
-import ch.hsr.se2p.snowwars.model.Snowball;
+import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
+import ch.hsr.se2p.snowwars.model.Player.PlayerState;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
-import ch.hsr.se2p.snowwars.view.game.PlayerInfoPanel.PlayerInfoPanelPosition;
 import ch.hsr.se2p.snowwars.viewcontrolling.game.GraphicalObject;
 
 public class Board extends JPanel implements MouseListener {
@@ -34,7 +33,7 @@ public class Board extends JPanel implements MouseListener {
 	private int aimingStartY;
 
 	private final static Font COUNTDOWN_FONT = new Font("Arial", Font.PLAIN, 50);
-	
+
 	ArrayList<GraphicalObject> graphicalObjectsList = new ArrayList<GraphicalObject>();
 
 	public Board(GameFrameInterface gameFrameInterface) throws IOException {
@@ -58,6 +57,7 @@ public class Board extends JPanel implements MouseListener {
 		paintCountdown(g2d);
 		paintPlayerInfoPanel(g2d);
 		paintAimingArrow(g2d);
+		paintBuildingInfo(g2d);
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -66,7 +66,7 @@ public class Board extends JPanel implements MouseListener {
 	private void paintBackground(Graphics2D g2d) {
 		g2d.drawImage(backgroundImage, 0, 0, null);
 	}
-	
+
 	private void paintGraphicalObjects(Graphics2D g2d) {
 		graphicalObjectsList.clear();
 		graphicalObjectsList.add(gameFrame.getViewGameModel().getLeftPlayer());
@@ -80,34 +80,34 @@ public class Board extends JPanel implements MouseListener {
 		}
 	}
 
-	private void paintCountdown(Graphics2D g2d){
-		if(gameFrame.getViewGameModel().getCountdownActive()){
+	private void paintCountdown(Graphics2D g2d) {
+		if (gameFrame.getViewGameModel().getCountdownActive()) {
 			int countdownTime = gameFrame.getViewGameModel().getCountdownTime();
-			
+
 			String displayMessage = "";
-			if(countdownTime == -1){
+			if (countdownTime == -1) {
 				displayMessage = "Waiting for other player...";
 			} else {
 				displayMessage = countdownTime + "";
 			}
-			
+
 			g2d.setFont(COUNTDOWN_FONT);
 			g2d.setColor(Color.WHITE);
 			int stringLength = (int) g2d.getFontMetrics().getStringBounds(displayMessage, g2d).getWidth();
 			int x = gameFrame.getViewGameModel().getGameWidth() / 2;
 			x -= stringLength / 2;
 			int y = gameFrame.getViewGameModel().getGameHeight() / 2;
-			g2d.drawString(displayMessage, x,y);
+			g2d.drawString(displayMessage, x, y);
 		}
 	}
-	
+
 	private void paintPlayerInfoPanel(Graphics2D g2d) {
-		Player playerLeft = gameFrame.getViewGameModel().getGame().getPlayerLeft();
-		Player playerRight = gameFrame.getViewGameModel().getGame().getPlayerRight();
+		Player playerLeft = gameFrame.getViewGameModel().getPlayerLeft();
+		Player playerRight = gameFrame.getViewGameModel().getPlayerRight();
 
 		int gameWidth = gameFrame.getViewGameModel().getGameWidth();
-		new PlayerInfoPanel(playerLeft, PlayerInfoPanelPosition.LEFT, gameWidth).paint(g2d);
-		new PlayerInfoPanel(playerRight, PlayerInfoPanelPosition.RIGHT, gameWidth).paint(g2d);
+		new PlayerInfoPanel(playerLeft, PlayerPosition.LEFT, gameWidth).paint(g2d);
+		new PlayerInfoPanel(playerRight, PlayerPosition.RIGHT, gameWidth).paint(g2d);
 	}
 
 	private void paintAimingArrow(Graphics2D g2d) {
@@ -166,12 +166,27 @@ public class Board extends JPanel implements MouseListener {
 		g.drawLine(x, y, (int) baseX, (int) baseY);
 		g.fillPolygon(xPoints, yPoints, 3);
 	}
-
-	public void startNewThrowRequest(Shot shotRequest) {
-		gameFrame.getViewGameModel().startNewShotRequest(shotRequest);
+	
+	private void paintBuildingInfo(Graphics2D g2d){
+		Player playerLeft = gameFrame.getViewGameModel().getPlayerLeft();
+		Player playerRight = gameFrame.getViewGameModel().getPlayerRight();
+		
+		if(playerLeft.getPlayerState() == PlayerState.BUILDING){
+			WeightValueBar wvbleft = new WeightValueBar(playerLeft.getPosition(), gameFrame.getViewGameModel().getBuildTime(playerLeft.getPosition()));
+			wvbleft.paint(g2d);
+		}
+		
+		if(playerRight.getPlayerState() == PlayerState.BUILDING){
+			WeightValueBar wvbright = new WeightValueBar(playerRight.getPosition(), gameFrame.getViewGameModel().getBuildTime(playerRight.getPosition()));
+			wvbright.paint(g2d);
+		}
 	}
 	
-	private void startNewBuildRequest(){
+	public void startNewThrowRequest(int angle, int strength) {
+		gameFrame.getViewGameModel().startNewShotRequest(angle, strength);
+	}
+
+	private void startNewBuildRequest() {
 		gameFrame.getViewGameModel().startNewBuildRequest();
 	}
 
@@ -196,10 +211,7 @@ public class Board extends JPanel implements MouseListener {
 				int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
 				strength = strength / AbstractGame.FORCE_REDUCE_FACTOR_STRENGTH;
 
-				Snowball sb = new Snowball(10);
-				Shot shot = new Shot(angle, strength, sb);
-
-				startNewThrowRequest(shot);
+				startNewThrowRequest(angle, strength);
 			} catch (Exception e) {
 			}
 		}

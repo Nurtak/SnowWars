@@ -56,7 +56,7 @@ public class GameFrame extends JFrame implements Observer, WindowListener, GameF
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		getViewGameController().closeProgram();
+		getViewGameController().quitGame();
 	}
 
 	@Override

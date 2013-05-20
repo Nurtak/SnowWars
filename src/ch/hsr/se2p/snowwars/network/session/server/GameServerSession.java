@@ -5,7 +5,6 @@ import java.rmi.server.UnicastRemoteObject;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.model.GameServer;
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
@@ -28,8 +27,8 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 
 	public void setGameServer(GameServer gameServer) {
 		this.gameServer = gameServer;
-		
-		//set this players position
+
+		// set this players position
 		if (gameServer.getPlayerLeft().getUser().equals(user)) {
 			playerPosition = PlayerPosition.LEFT;
 		} else {
@@ -51,8 +50,10 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 	}
 
 	@Override
-	public LobbyServerSessionInterface chickenOut() throws SnowWarsRMIException {
-		return null;
+	public void quitGame() throws RemoteException {
+		logger.info("Player " + user.getName() + " chickened out!");
+
+		gameServer.quitGame(playerPosition);
 	}
 
 	@Override
@@ -65,6 +66,11 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 		return gameServer.getPlayerRight();
 	}
 
+	@Override
+	public PlayerPosition getPlayerPosition() throws RemoteException {
+		return playerPosition;
+	}
+	
 	public User getUser() {
 		return this.user;
 	}
@@ -73,7 +79,7 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 	public void setGameClientSessionInterface(GameClientSessionInterface gcsi) throws RemoteException {
 		this.gameClientSession = gcsi;
 	}
-	
+
 	@Override
 	public void setReady() throws RemoteException {
 		gameServer.setPlayerReady();
@@ -90,15 +96,14 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 	}
 
 	@Override
-	public void youWon() throws SnowWarsRMIException, RemoteException {
-		// starts in new thread, because server don't wants to wait for user-answer
+	public void youWon() throws RemoteException {
+		// starts in new thread, because server don't wants to wait for
+		// user-answer
 		new Thread() {
 			public void run() {
 				try {
 					gameClientSession.youWon();
 				} catch (RemoteException e) {
-					logger.error(e.getMessage(), e);
-				} catch (SnowWarsRMIException e) {
 					logger.error(e.getMessage(), e);
 				}
 			}
@@ -106,15 +111,14 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 	}
 
 	@Override
-	public void youLost() throws SnowWarsRMIException, RemoteException {
-		// starts in new thread, because server don't wants to wait for user-answer
+	public void youLost() throws RemoteException {
+		// starts in new thread, because server don't wants to wait for
+		// user-answer
 		new Thread() {
 			public void run() {
 				try {
 					gameClientSession.youLost();
 				} catch (RemoteException e) {
-					logger.error(e.getMessage(), e);
-				} catch (SnowWarsRMIException e) {
 					logger.error(e.getMessage(), e);
 				}
 			}
@@ -123,7 +127,8 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 
 	@Override
 	public void setCountdownTime(final int time) throws RemoteException {
-		// starts in new thread, because server don't wants to wait for user-answer
+		// starts in new thread, because server don't wants to wait for
+		// user-answer
 		new Thread() {
 			public void run() {
 				try {
@@ -137,7 +142,8 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 
 	@Override
 	public void countdownEnded() throws RemoteException {
-		// starts in new thread, because server don't wants to wait for user-answer
+		// starts in new thread, because server don't wants to wait for
+		// user-answer
 		new Thread() {
 			public void run() {
 				try {
@@ -151,13 +157,29 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 
 	@Override
 	public void playerIsBuilding(final PlayerPosition playerPosition) throws RemoteException {
-		// starts in new thread, because server don't wants to wait for user-answer
+		// starts in new thread, because server don't wants to wait for
+		// user-answer
 		new Thread() {
 			public void run() {
 				try {
 					gameClientSession.playerIsBuilding(playerPosition);
 				} catch (RemoteException e) {
 
+					logger.error(e.getMessage(), e);
+				}
+			}
+		}.start();
+	}
+
+	@Override
+	public void opponentQuitGame() throws RemoteException {
+		// starts in new thread, because server don't wants to wait for
+		// user-answer
+		new Thread() {
+			public void run() {
+				try {
+					gameClientSession.opponentQuitGame();
+				} catch (RemoteException e) {
 					logger.error(e.getMessage(), e);
 				}
 			}

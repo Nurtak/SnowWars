@@ -7,15 +7,17 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
-import ch.hsr.se2p.snowwars.model.AbstractGame;
 import ch.hsr.se2p.snowwars.model.GameClient;
+import ch.hsr.se2p.snowwars.model.Player;
+import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Player.PlayerState;
 import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.model.Snowball;
 
 public class ViewGameModel extends Observable implements Observer, Serializable {
 	private static final long serialVersionUID = 9153023421344526026L;
 
-	private GameClient game;
+	private GameClient gameClient;
 
 	public final static int GAME_WIDTH = 1000;
 	public final static int GAME_HEIGHT = 600;
@@ -25,17 +27,28 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 	private GraphicalPlayer leftPlayer;
 	private GraphicalPlayer rightPlayer;
 	private boolean guiVisible = false;
-	
+
+	private long startBuildTimeLeftPlayer = 0;
+	private long startBuildTimeRightPlayer = 0;
+
 	private int countdownTime = -1;
 	private boolean countdownActive = true;
 
 	public ViewGameModel(GameClient game) {
-		this.game = game;
+		this.gameClient = game;
 		game.addObserver(this);
 	}
 
-	public AbstractGame getGame() {
-		return game;
+	public Player getPlayerRight() {
+		return gameClient.getPlayerRight();
+	}
+
+	public Player getPlayerLeft() {
+		return gameClient.getPlayerLeft();
+	}
+
+	public void quitGame() {
+		gameClient.quitGame();
 	}
 
 	public int getGameWidth() {
@@ -50,20 +63,45 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 		return GAME_TITLE;
 	}
 
+	public void startBuildTimer(PlayerPosition playerPosition) {
+		switch(playerPosition){
+			case LEFT:
+				this.startBuildTimeLeftPlayer = System.currentTimeMillis();
+				break;
+			case RIGHT:
+				this.startBuildTimeRightPlayer = System.currentTimeMillis();
+				break;
+		}
+	}
+	
+	public double getBuildTime(PlayerPosition playerPosition){
+		long buildTime = 0;
+		switch(playerPosition){
+			case LEFT:
+				buildTime = System.currentTimeMillis() - startBuildTimeLeftPlayer;
+				break;
+			case RIGHT:
+				buildTime = System.currentTimeMillis() - startBuildTimeRightPlayer;
+				break;
+		}
+		double buildTimeSeconds = buildTime / 1000.0;
+		return buildTimeSeconds;
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
 		if (leftPlayer == null) {
-			leftPlayer = new GraphicalPlayer(game.getPlayerLeft());
+			leftPlayer = new GraphicalPlayer(gameClient.getPlayerLeft());
 		}
 
 		if (rightPlayer == null) {
-			rightPlayer = new GraphicalPlayer(game.getPlayerRight());
+			rightPlayer = new GraphicalPlayer(gameClient.getPlayerRight());
 		}
 
 		leftPlayer.updateAnimation();
 		rightPlayer.updateAnimation();
 
-		ArrayList<Shot> shots = game.getShots();
+		ArrayList<Shot> shots = gameClient.getShots();
 		boolean found;
 		synchronized (shots) {
 			for (Shot activeShot : shots) {
@@ -75,15 +113,16 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 					}
 				}
 
+				// add new graphicslSowball if wasn't found in list
 				if (!found) {
 					graphicalSnowballs.add(new GraphicalSnowball(activeShot));
 
 					switch (activeShot.getShotOrigin()) {
 						case LEFT :
-							game.getPlayerLeft().setPlayerState(PlayerState.THROWING);
+							gameClient.getPlayerLeft().setPlayerState(PlayerState.THROWING);
 							break;
 						case RIGHT :
-							game.getPlayerRight().setPlayerState(PlayerState.THROWING);
+							gameClient.getPlayerRight().setPlayerState(PlayerState.THROWING);
 							break;
 					}
 				}
@@ -96,25 +135,25 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 
 		updateObserver();
 	}
-	
-	protected void setCountdownActive(boolean countdownActive){
+
+	protected void setCountdownActive(boolean countdownActive) {
 		this.countdownActive = countdownActive;
 	}
-	
-	protected void setCountDownTime(int time){
+
+	protected void setCountDownTime(int time) {
 		this.countdownTime = time;
 		updateObserver();
 	}
-	
-	public boolean getCountdownActive(){
+
+	public boolean getCountdownActive() {
 		return this.countdownActive;
 	}
-	
-	public int getCountdownTime(){
+
+	public int getCountdownTime() {
 		return this.countdownTime;
 	}
 
-	private void updateObserver(){
+	private void updateObserver() {
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -139,13 +178,18 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 		this.guiVisible = true;
 	}
 
-	public void startNewShotRequest(Shot shotRequest) {
-		if(!countdownActive){
-			game.startNewShotRequest(shotRequest);
+	public void startNewShotRequest(int angle, int strength) {
+		if (!countdownActive) {
+			PlayerPosition playerPos = gameClient.getPlayerPosition();
+			// weight starts with 1, because 0 weight meant 0 gravity
+			Snowball sb = new Snowball(1.0 + getBuildTime(playerPos));
+			Shot activeShot = new Shot(angle, strength, sb);
+
+			gameClient.startNewShotRequest(activeShot);
 		}
 	}
-	
-	public void startNewBuildRequest(){
-		game.startNewBuildRequest();
+
+	public void startNewBuildRequest() {
+		gameClient.startNewBuildRequest();
 	}
 }

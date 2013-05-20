@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSession;
 
@@ -66,8 +65,6 @@ public class GameServer extends AbstractGame {
 			}
 		} catch (RemoteException e) {
 			logger.error(e.getMessage(), e);
-		} catch (SnowWarsRMIException e) {
-			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -81,14 +78,28 @@ public class GameServer extends AbstractGame {
 			logger.error(e.getMessage(), e);
 		}
 	}
-	
-	public void build(PlayerPosition playerPosition){
-		try{
+
+	public void build(PlayerPosition playerPosition) {
+		try {
 			playerLeftGameServerSession.playerIsBuilding(playerPosition);
 			playerRightGameServerSession.playerIsBuilding(playerPosition);
 		} catch (RemoteException e) {
 			logger.error(e.getMessage(), e);
 		}
+	}
+
+	public void quitGame(PlayerPosition playerPosition) {
+		try {
+			switch (playerPosition) {
+				case LEFT :
+					playerRightGameServerSession.opponentQuitGame();
+				case RIGHT :
+					playerLeftGameServerSession.opponentQuitGame();
+			}
+		} catch (RemoteException e) {
+			logger.error(e.getMessage(), e);
+		}
+		stopTimer();
 	}
 
 	public synchronized void setPlayerReady() {

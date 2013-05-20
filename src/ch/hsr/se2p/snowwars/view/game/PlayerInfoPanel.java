@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import ch.hsr.se2p.snowwars.model.Player;
+import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 
 public class PlayerInfoPanel {
 
@@ -20,15 +21,11 @@ public class PlayerInfoPanel {
 	private final static Color ORANGE = new Color(246, 94, 2);
 
 	private final Player player;
-	private final PlayerInfoPanelPosition position;
+	private final PlayerPosition position;
 
 	private final int GAME_WIDTH;
 
-	public static enum PlayerInfoPanelPosition {
-		LEFT, RIGHT
-	}
-
-	public PlayerInfoPanel(Player player, PlayerInfoPanelPosition pos, int gameWidth) {
+	public PlayerInfoPanel(Player player, PlayerPosition pos, int gameWidth) {
 		this.GAME_WIDTH = gameWidth;
 		this.position = pos;
 		this.player = player;

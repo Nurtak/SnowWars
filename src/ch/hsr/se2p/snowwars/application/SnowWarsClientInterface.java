@@ -8,8 +8,6 @@ public interface SnowWarsClientInterface {
 	public void enterLobby(ConnectedServerSessionInterface connectedServerSessionInterface);
 
 	public void enterGame(GameServerSessionInterface gameServerSessionInterface);
-
-	public void closeProgram();
 	
 	public void startProgram();
 }

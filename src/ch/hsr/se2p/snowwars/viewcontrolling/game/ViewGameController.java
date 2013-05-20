@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
-import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Shot;
@@ -30,8 +29,13 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 		this.snowWarsClientInterface = snowWarsClientInterface;
 	}
 
-	public void closeProgram() {
-		snowWarsClientInterface.closeProgram();
+	public void quitGame() {
+		int returnValue = JOptionPane.showConfirmDialog(gameFrame, "Do you really want to quit the game?", "Chicken out", JOptionPane.YES_NO_OPTION);
+		if (returnValue == 0) {
+			logger.info("Quitting the game...");
+			viewGameModel.quitGame();
+			snowWarsClientInterface.startProgram();
+		}
 	}
 
 	public void showGui() {
@@ -39,7 +43,6 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 		this.viewGameModel = new ViewGameModel(gameClient);
 		this.gameFrame = new GameFrame(this, this.viewGameModel);
 		this.viewGameModel.setGuiVisible(true);
-		
 		askUserIfReady();
 	}
 
@@ -50,12 +53,13 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 	}
 	
 	@Override
-	public void playerIsBuilding(PlayerPosition playerPosition) throws RemoteException {	
+	public void playerIsBuilding(PlayerPosition playerPosition) throws RemoteException {
 		logger.info(playerPosition + " player is now building a snowball...");
+		viewGameModel.startBuildTimer(playerPosition);
 		gameClient.playerIsBuilding(playerPosition);
 	}
 	
-	private void askUserIfReady(){
+	private void askUserIfReady() {
 		JOptionPane.showMessageDialog(gameFrame, "Welcome to SnowWars. \nAre you ready?", "Welcome!", JOptionPane.INFORMATION_MESSAGE);
 		try {
 			gameClient.getGameServerSessionInterface().setReady();
@@ -65,21 +69,27 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 	}
 
 	@Override
-	public void youWon() throws SnowWarsRMIException, RemoteException {
+	public void youWon() throws RemoteException {
 		logger.info("Received Won-Notification! This SnowWarsClient won the match!");
-		
 		JOptionPane.showMessageDialog(gameFrame, "You won the match!", "=)", JOptionPane.INFORMATION_MESSAGE);
-		
-		this.gameFrame.setVisible(false);
-		snowWarsClientInterface.startProgram();
+		backToLobby();
 	}
 
 	@Override
-	public void youLost() throws SnowWarsRMIException, RemoteException {
+	public void youLost() throws RemoteException {
 		logger.info("Received Lost-Notification! This SnowWarsClient lost the match!");
-		
 		JOptionPane.showMessageDialog(gameFrame, "You lost the match!", ":(", JOptionPane.ERROR_MESSAGE);
-		
+		backToLobby();
+	}
+	
+	@Override
+	public void opponentQuitGame() throws RemoteException {
+		logger.info("Your opponent chickened out!");
+		JOptionPane.showMessageDialog(gameFrame, "You won the match, your opponent gave up!", ":)", JOptionPane.INFORMATION_MESSAGE);
+		backToLobby();
+	}
+	
+	private void backToLobby(){
 		this.gameFrame.setVisible(false);
 		snowWarsClientInterface.startProgram();
 	}

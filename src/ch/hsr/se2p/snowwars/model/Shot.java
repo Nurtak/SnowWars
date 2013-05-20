@@ -41,7 +41,7 @@ public class Shot implements Serializable {
 		return strength;
 	}
 
-	public int getWeight() {
+	public double getWeight() {
 		return shotObject.getWeight();
 	}
 
@@ -108,7 +108,7 @@ public class Shot implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + angle;
-		result = prime * result + shotObject.getWeight();
+		result = (int) (prime * result + shotObject.getWeight());
 		result = prime * result + strength;
 		return result;
 	}

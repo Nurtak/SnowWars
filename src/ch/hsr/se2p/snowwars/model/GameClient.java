@@ -11,14 +11,15 @@ import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 public class GameClient extends AbstractGame {
 
 	private final static Logger logger = Logger.getLogger(GameClient.class.getPackage().getName());
-	
+
 	GameServerSessionInterface gameServerSessionInterface;
 
 	public GameClient(GameServerSessionInterface gameServerSessionInterface) {
 		this.gameServerSessionInterface = gameServerSessionInterface;
 	}
 
-	// called by abstractGame in constructor, server and client got different algorithms to get player
+	// called by abstractGame in constructor, server and client got different
+	// algorithms to get player
 	@Override
 	public void initializePlayers() {
 		try {
@@ -36,8 +37,8 @@ public class GameClient extends AbstractGame {
 			logger.error(e.getMessage(), e);
 		}
 	}
-	
-	public void startNewBuildRequest(){
+
+	public void startNewBuildRequest() {
 		try {
 			gameServerSessionInterface.startBuilding();
 		} catch (RemoteException e) {
@@ -45,21 +46,38 @@ public class GameClient extends AbstractGame {
 		}
 	}
 
-	public GameServerSessionInterface getGameServerSessionInterface(){
+	public void quitGame() {
+		try {
+			gameServerSessionInterface.quitGame();
+		} catch (RemoteException e) {
+			logger.error(e.getMessage(), e);
+		}
+	}
+
+	public GameServerSessionInterface getGameServerSessionInterface() {
 		return this.gameServerSessionInterface;
 	}
-	
+
 	@Override
 	public void shoot(Shot shot) {
 		this.getShots().add(shot);
 	}
+
+	public PlayerPosition getPlayerPosition(){
+		try {
+			return gameServerSessionInterface.getPlayerPosition();
+		} catch (RemoteException e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
+	}
 	
-	public void playerIsBuilding(PlayerPosition playerPosition){
-		switch(playerPosition){
-			case LEFT:
+	public void playerIsBuilding(PlayerPosition playerPosition) {
+		switch (playerPosition) {
+			case LEFT :
 				this.getPlayerLeft().setPlayerState(PlayerState.BUILDING);
 				break;
-			case RIGHT:
+			case RIGHT :
 				this.getPlayerRight().setPlayerState(PlayerState.BUILDING);
 				break;
 		}

@@ -10,9 +10,9 @@ public abstract class ShotObject implements Serializable {
 	private static final long serialVersionUID = -4934533719382550831L;
 
 	private int x, y;
-	private double dx, dy;
-
-	public abstract int getWeight();
+	private double dx, dy; 
+	
+	public abstract double getWeight();
 
 	public abstract int getDamage();
 
@@ -30,7 +30,8 @@ public abstract class ShotObject implements Serializable {
 
 	public void updateCoordinates() {
 		if (shotObjectState == ShotObjectState.MOVING) {
-			this.dy = (this.dy + AbstractGame.GRAVITATION);
+			double gravitationImpact = AbstractGame.GRAVITATION * this.getWeight();
+			this.dy = (this.dy + gravitationImpact);
 
 			this.x = (int) ((int) this.x + this.dx);
 			this.y = (int) ((int) this.y + this.dy);
