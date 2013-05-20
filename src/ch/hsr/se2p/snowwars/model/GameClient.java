@@ -18,8 +18,7 @@ public class GameClient extends AbstractGame {
 		this.gameServerSessionInterface = gameServerSessionInterface;
 	}
 
-	// called by abstractGame in constructor, server and client got different
-	// algorithms to get player
+	// called by abstractGame in constructor, server and client got different algorithms to get player
 	@Override
 	public void initializePlayers() {
 		try {
