@@ -179,7 +179,7 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 	}
 
 	public void startNewShotRequest(int angle, int strength) {
-		if (!countdownActive) {
+		if (!countdownActive) {			
 			PlayerPosition playerPos = gameClient.getPlayerPosition();
 			// weight starts with 1, because 0 weight meant 0 gravity
 			Snowball sb = new Snowball(1.0 + getBuildTime(playerPos));

@@ -63,8 +63,8 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 	@Override
 	public void receiveInvitation(User from) {
 		logger.info("Invitation received from " + from.getName());
-		int resultValue = JOptionPane.showConfirmDialog(clientViewMain, from.getName() + " wants to play a game!");
-
+		int resultValue = JOptionPane.showConfirmDialog(clientViewMain, from.getName() + " wants to play a game!", "Invitation", JOptionPane.YES_NO_OPTION);
+		
 		// answer invitation
 		InvitationAnswer answer = InvitationAnswer.TIMEOUT;
 		switch (resultValue) {

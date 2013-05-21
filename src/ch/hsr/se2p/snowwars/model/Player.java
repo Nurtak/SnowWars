@@ -12,10 +12,10 @@ public class Player implements Serializable {
 	public final static int PLAYER_RIGHT_POSITION_X = 840;
 	public final static int PLAYER_RIGHT_POSITION_Y = 300;
 
-	public final static int SNOWBALL_LEFT_THROW_POS_X = PLAYER_LEFT_POSITION_X + 25;
-	public final static int SNOWBALL_LEFT_THROW_POS_Y = PLAYER_LEFT_POSITION_Y - 25;
-	public final static int SNOWBALL_RIGHT_THROW_POS_X = PLAYER_RIGHT_POSITION_X + 25;
-	public final static int SNOWBALL_RIGHT_THROW_POS_Y = PLAYER_RIGHT_POSITION_Y - 25;
+	public final static int SNOWBALL_LEFT_THROW_POS_X = PLAYER_LEFT_POSITION_X + 60;
+	public final static int SNOWBALL_LEFT_THROW_POS_Y = PLAYER_LEFT_POSITION_Y + 20;
+	public final static int SNOWBALL_RIGHT_THROW_POS_X = PLAYER_RIGHT_POSITION_X - 20;
+	public final static int SNOWBALL_RIGHT_THROW_POS_Y = PLAYER_RIGHT_POSITION_Y + 20;
 	
 	public final static int PLAYER_LEFT_BOUNDS_X = 40;
 	public final static int PLAYER_LEFT_BOUNDS_Y = 320;

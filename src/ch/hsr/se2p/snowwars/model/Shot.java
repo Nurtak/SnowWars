@@ -19,7 +19,7 @@ public class Shot implements Serializable {
 		this.angle = angle;
 		this.strength = strength;
 		this.shotObject = throwingObject;
-
+		
 		double vySin = Math.sin(Math.toRadians(angle));
 		double vxCos = Math.cos(Math.toRadians(angle));
 
