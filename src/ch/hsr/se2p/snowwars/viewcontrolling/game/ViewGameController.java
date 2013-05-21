@@ -33,6 +33,7 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 		int returnValue = JOptionPane.showConfirmDialog(gameFrame, "Do you really want to quit the game?", "Chicken out", JOptionPane.YES_NO_OPTION);
 		if (returnValue == 0) {
 			logger.info("Quitting the game...");
+			this.gameFrame.setVisible(false);
 			viewGameModel.quitGame();
 			snowWarsClientInterface.startProgram();
 		}
