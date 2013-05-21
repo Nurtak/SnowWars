@@ -28,6 +28,7 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 	private GraphicalPlayer rightPlayer;
 	private boolean guiVisible = false;
 
+	private final static long TIMER_START_VALUE = 1000;
 	private long startBuildTimeLeftPlayer = 0;
 	private long startBuildTimeRightPlayer = 0;
 
@@ -66,10 +67,10 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 	public void startBuildTimer(PlayerPosition playerPosition) {
 		switch(playerPosition){
 			case LEFT:
-				this.startBuildTimeLeftPlayer = System.currentTimeMillis();
+				this.startBuildTimeLeftPlayer = System.currentTimeMillis() - TIMER_START_VALUE;
 				break;
 			case RIGHT:
-				this.startBuildTimeRightPlayer = System.currentTimeMillis();
+				this.startBuildTimeRightPlayer = System.currentTimeMillis() - TIMER_START_VALUE;
 				break;
 		}
 	}
@@ -182,7 +183,7 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 		if (!countdownActive) {			
 			PlayerPosition playerPos = gameClient.getPlayerPosition();
 			// weight starts with 1, because 0 weight meant 0 gravity
-			Snowball sb = new Snowball(1.0 + getBuildTime(playerPos));
+			Snowball sb = new Snowball(getBuildTime(playerPos));
 			Shot activeShot = new Shot(angle, strength, sb);
 
 			gameClient.startNewShotRequest(activeShot);
