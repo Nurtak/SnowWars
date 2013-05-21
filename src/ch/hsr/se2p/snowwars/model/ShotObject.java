@@ -8,6 +8,7 @@ import ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameModel;
 public abstract class ShotObject implements Serializable {
 
 	private static final long serialVersionUID = -4934533719382550831L;
+	public static final double DAMAGE_MULTIPLIER = 1.0;
 
 	private int x, y;
 	private double dx, dy; 
@@ -17,7 +18,7 @@ public abstract class ShotObject implements Serializable {
 	public abstract int getDamage();
 
 	public abstract Rectangle getBounds();
-
+	
 	public enum ShotObjectState {
 		CRASHED, CRASHING, CRASHEDINGROUND, MOVING
 	};
@@ -25,16 +26,16 @@ public abstract class ShotObject implements Serializable {
 	private ShotObjectState shotObjectState;
 
 	public ShotObject() {
-		this.shotObjectState = ShotObjectState.MOVING;
+		shotObjectState = ShotObjectState.MOVING;
 	}
 
 	public void updateCoordinates() {
 		if (shotObjectState == ShotObjectState.MOVING) {
-			double gravitationImpact = AbstractGame.GRAVITATION * this.getWeight();
-			this.dy = (this.dy + gravitationImpact);
-
-			this.x = (int) ((int) this.x + this.dx);
-			this.y = (int) ((int) this.y + this.dy);
+		    
+			double gravitationImpact = AbstractGame.GRAVITATION * getWeight();			
+			dy += gravitationImpact;
+			x += (int) dx;
+			y += (int) dy;
 
 			if (y >= AbstractGame.GROUND_LEVEL_Y) {
 				shotObjectState = ShotObjectState.CRASHEDINGROUND;
@@ -79,14 +80,15 @@ public abstract class ShotObject implements Serializable {
 	}
 
 	public ShotObjectState getShotObjectState() {
-		return this.shotObjectState;
+		return shotObjectState;
 	}
 
 	public void setShotObjectState(ShotObjectState newState) {
-		this.shotObjectState = newState;
+		shotObjectState = newState;
 	}
 
 	public void stopShotObject() {
-		this.shotObjectState = ShotObjectState.CRASHING;
+		shotObjectState = ShotObjectState.CRASHING;
 	}
+
 }

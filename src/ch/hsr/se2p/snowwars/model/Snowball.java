@@ -5,11 +5,10 @@ import java.awt.Rectangle;
 public class Snowball extends ShotObject {
 
 	private static final long serialVersionUID = -7432399665707233393L;
-
-	private double damageMultiplier = 4.0;
+	public static final double DAMAGE_MULTIPLIER = 4.0;
+	private static final int WIDTH = 20;
+	private static final int HEIGHT = 20;
 	private double weight;
-	private final static int SNOWBALL_WIDTH = 20;
-	private final static int SNOWBALL_HEIGHT = 20;
 
 	public Snowball(double weight) {
 		this.weight = weight;
@@ -22,11 +21,12 @@ public class Snowball extends ShotObject {
 
 	@Override
 	public int getDamage() {
-		return (int) Math.round(weight * damageMultiplier);
+		return (int) Math.round(weight * DAMAGE_MULTIPLIER);
 	}
 
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(getX(), getY(), SNOWBALL_WIDTH, SNOWBALL_HEIGHT);
+		return new Rectangle(getX(), getY(), WIDTH, HEIGHT);
 	}
+	
 }

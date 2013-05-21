@@ -2,16 +2,44 @@ package ch.hsr.se2p.snowwars.model;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class ShotTest {
 
-	@Test
-    public void testGetDamage() {
-        Shot shot = new Shot(10, 10, new Snowball(10.0));
-        assertEquals(10, shot.getAngle());
-        assertEquals(10, shot.getStrength());
-        assertEquals(10.0, shot.getWeight(), 0.001);
-        assertEquals(10.0, shot.getDamage(), 0.001);
+    private Shot shot;
+    private int angle;
+    private int strength;
+    private double weight;
+    private ShotObject snowball;
+
+    @Before
+    public void setUp() throws Exception {
+        angle = 10;
+        strength = 10;
+        weight = 10.0;
+        snowball = new Snowball(weight);
+        shot = new Shot(angle, strength, snowball);
     }
+
+    @Test
+    public void testGetAngle() {
+        assertEquals(angle, shot.getAngle());
+    }
+
+    @Test
+    public void testGetStrength() {
+        assertEquals(strength, shot.getStrength());
+    }
+
+    @Test
+    public void testGetWeight() {
+        assertEquals(weight, shot.getWeight(), 0.001);
+    }
+
+    @Test
+    public void testGetDamage() {
+        assertEquals(weight * Snowball.DAMAGE_MULTIPLIER, shot.getDamage(), 0.001);
+    }
+
 }
