@@ -8,10 +8,10 @@ public class ShotTest {
 
 	@Test
     public void testGetDamage() {
-        Shot shot = new Shot(0, 0, new Snowball(10));
-        assertEquals(0, shot.getAngle());
-        assertEquals(0, shot.getStrength());
-        assertEquals(10, shot.getWeight());
-        assertEquals(10, shot.getDamage());
+        Shot shot = new Shot(10, 10, new Snowball(10.0));
+        assertEquals(10, shot.getAngle());
+        assertEquals(10, shot.getStrength());
+        assertEquals(10.0, shot.getWeight(), 0.001);
+        assertEquals(10.0, shot.getDamage(), 0.001);
     }
 }

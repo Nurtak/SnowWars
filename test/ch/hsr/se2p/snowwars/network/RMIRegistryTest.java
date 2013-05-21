@@ -11,25 +11,19 @@ import ch.hsr.se2p.snowwars.config.ConfigLoader;
 import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.server.StartRMIServer;
 
-public class RMITest {
+public class RMIRegistryTest {
 
-	static Config snowWarsConfig;
+	private static Config config;
 
 	@BeforeClass
 	public static void setUpConfig() {
-		snowWarsConfig = ConfigLoader.getConfig();
-	}
-
-	@Test
-	public void testRegistryPortIsNotInUse() throws SnowWarsRMIException, IOException {
-		ServerSocket serverSocket = new ServerSocket(snowWarsConfig.getRmiRegistryPort());
-		serverSocket.close();
+		config = ConfigLoader.getConfig();
 	}
 
 	@Test(expected = IOException.class)
 	public void testServerUsesRightRegistryPort() throws SnowWarsRMIException, IOException {
 		new StartRMIServer();
-		ServerSocket serverSocket = new ServerSocket(snowWarsConfig.getRmiRegistryPort());
+		ServerSocket serverSocket = new ServerSocket(config.getRmiRegistryPort());
 		serverSocket.close();
 	}
 }

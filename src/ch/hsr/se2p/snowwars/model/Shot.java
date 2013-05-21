@@ -15,22 +15,19 @@ public class Shot implements Serializable {
 	private PlayerPosition shotOrigin;
 	private ShotObject shotObject;
 
-	public Shot(int angle, int strength, ShotObject throwingObject) {
+	public Shot(int angle, int strength, ShotObject shotObject) {
 		this.angle = angle;
 		this.strength = strength;
-		this.shotObject = throwingObject;
+		this.shotObject = shotObject;
 		
 		double vySin = Math.sin(Math.toRadians(angle));
 		double vxCos = Math.cos(Math.toRadians(angle));
 
-		double dy = (vySin * strength) * -1;
-		dy = dy / FORCE_REDUCE_FACTOR;
+		double dy = -(vySin * strength) / FORCE_REDUCE_FACTOR;
+		double dx = (vxCos * strength) / FORCE_REDUCE_FACTOR;
 
-		double dx = (vxCos * strength);
-		dx = dx / FORCE_REDUCE_FACTOR;
-
-		throwingObject.setDy(dy);
-		throwingObject.setDx(dx);
+		shotObject.setDy(dy);
+		shotObject.setDx(dx);
 	}
 
 	public int getAngle() {
@@ -66,7 +63,7 @@ public class Shot implements Serializable {
 	}
 
 	public void setShotObjectState(ShotObjectState newState) {
-		this.shotObject.setShotObjectState(newState);
+		shotObject.setShotObjectState(newState);
 	}
 
 	public Rectangle getBounds() {
@@ -74,11 +71,11 @@ public class Shot implements Serializable {
 	}
 
 	public void stopShotObject() {
-		this.shotObject.stopShotObject();
+		shotObject.stopShotObject();
 	}
 
 	public ShotObject getShotObject() {
-		return this.shotObject;
+		return shotObject;
 	}
 
 	public void setShotOrigin(PlayerPosition shotOrigin) {
@@ -95,7 +92,7 @@ public class Shot implements Serializable {
 	}
 
 	public PlayerPosition getShotOrigin() {
-		return this.shotOrigin;
+		return shotOrigin;
 	}
 
 	@Override
