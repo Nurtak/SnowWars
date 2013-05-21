@@ -14,7 +14,7 @@ public class ShotTest {
     private ShotObject snowball;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         angle = 10;
         strength = 10;
         weight = 10.0;

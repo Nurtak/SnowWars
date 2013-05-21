@@ -16,6 +16,11 @@ public class User implements Serializable {
 	}
 
 	@Override
+	public String toString() {
+	    return name;
+	}
+	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -40,8 +45,4 @@ public class User implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return name;
-	}
 }
