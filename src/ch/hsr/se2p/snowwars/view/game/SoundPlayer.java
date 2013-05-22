@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 public class SoundPlayer {
 	private final static Logger logger = Logger.getLogger(SoundPlayer.class.getPackage().getName());
 
-	private final static String WIND_HOWL_SOUND_PATH = "/sounds/wind.wav";
+	private final static String WIND_HOWL_SOUND_PATH = new String("/sounds/wind.wav");
 	private Clip clip;
 
 	public SoundPlayer() {
