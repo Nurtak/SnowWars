@@ -11,7 +11,6 @@ import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Player.PlayerState;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
-import ch.hsr.se2p.snowwars.viewcontrolling.game.AnimationController.KindOfAnimation;
 
 public class GraphicalPlayer extends GraphicalObject {
 	private final static Logger logger = Logger.getLogger(GraphicalPlayer.class.getPackage().getName());
@@ -69,14 +68,14 @@ public class GraphicalPlayer extends GraphicalObject {
 		spritesForThrow.add(spriteSheet.getSubimage(2 * WIDTH, HEIGHT, WIDTH, HEIGHT));
 
 		throwingAnimation = new AnimationController(spritesForThrow);
-		throwingAnimation.setKindOfAnimation(KindOfAnimation.MOVING);
+		throwingAnimation.setSpeed(100);
 	}
 
 	private void loadStandingAnimation() {
 		ArrayList<BufferedImage> spritesForStand = new ArrayList<BufferedImage>();
 		spritesForStand.add(spriteSheet.getSubimage(0, 0, WIDTH, HEIGHT));
 		standingAnimation = new AnimationController(spritesForStand);
-		standingAnimation.setKindOfAnimation(KindOfAnimation.ONEIMAGE);
+		standingAnimation.setSpeed(-1);
 	}
 
 	public void loadBuildingAnimation() {
@@ -85,7 +84,7 @@ public class GraphicalPlayer extends GraphicalObject {
 		spritesForBuild.add(spriteSheetBendDown.getSubimage(WIDTH_BUILDING, 0, WIDTH_BUILDING, HEIGHT_BUILDING));
 		spritesForBuild.add(spriteSheetBendDown.getSubimage(2*WIDTH_BUILDING, 0, WIDTH_BUILDING, HEIGHT_BUILDING));
 		buildingAnimation = new AnimationController(spritesForBuild);
-		buildingAnimation.setKindOfAnimation(KindOfAnimation.ENDLESS);
+		buildingAnimation.setSpeed(200);
 	}
 
 	@Override
@@ -137,8 +136,10 @@ public class GraphicalPlayer extends GraphicalObject {
 		try {
 			activeAnimation.update(System.currentTimeMillis());
 		} catch (Exception e) {
-			activeAnimation = standingAnimation;
-			this.player.setPlayerState(PlayerState.STANDING);
+			if(player.getPlayerState() != PlayerState.BUILDING){
+				activeAnimation = standingAnimation;
+				this.player.setPlayerState(PlayerState.STANDING);
+			}
 		}
 	}
 

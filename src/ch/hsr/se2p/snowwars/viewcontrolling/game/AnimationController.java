@@ -11,29 +11,19 @@ public class AnimationController {
 	private long previousTime, speed;
 	private int currentFrame;
 
-	public enum KindOfAnimation {
-		ENDLESS, ONEIMAGE, MOVING
-	};
-
-	public KindOfAnimation kindOfAnimation;
-
 	public AnimationController(ArrayList<BufferedImage> frames) {
 		this.frames = frames;
 	}
 
-	public void setKindOfAnimation(KindOfAnimation kind) {
-		this.kindOfAnimation = kind;
-	}
 
 	public void setSpeed(long speed) {
 		this.speed = speed;
 	}
 
-	public void update(long time) throws Exception {
-		if (kindOfAnimation == KindOfAnimation.ONEIMAGE) {
+	public void update(long time) throws Exception {		
+		if (speed < 0) {
 			sprite = frames.get(currentFrame);
-		} else if (kindOfAnimation == KindOfAnimation.MOVING) {
-			setSpeed(100);
+		} else  {
 			if (time - previousTime >= speed) {
 				// Update the animation
 				currentFrame++;
@@ -41,24 +31,14 @@ public class AnimationController {
 					sprite = frames.get(currentFrame);
 				} catch (IndexOutOfBoundsException e) {
 					currentFrame = 0;
+					
 					throw new Exception("finished animation");
-				}
-				previousTime = time;
-			}
-		} else {
-			setSpeed(100);
-			if (time - previousTime >= speed) {
-				currentFrame++;
-				if (currentFrame > frames.size()) {
-					currentFrame = 0;
-					sprite = frames.get(currentFrame);
-				} else {
-					sprite = frames.get(currentFrame);
 				}
 				previousTime = time;
 			}
 		}
 	}
+	
 
 	public BufferedImage getSprite() {
 		return sprite;
