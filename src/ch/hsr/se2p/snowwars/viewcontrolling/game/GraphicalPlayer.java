@@ -11,12 +11,15 @@ import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Player.PlayerState;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
+import ch.hsr.se2p.snowwars.viewcontrolling.game.AnimationController.KindOfAnimation;
 
 public class GraphicalPlayer extends GraphicalObject {
 	private final static Logger logger = Logger.getLogger(GraphicalPlayer.class.getPackage().getName());
 
 	private final int WIDTH = 136;
 	private final int HEIGHT = 167;
+	private final int WIDTH_BUILDING = 129;
+	private final int HEIGHT_BUILDING = 146;
 
 	public AnimationController throwingAnimation;
 	public AnimationController standingAnimation;
@@ -24,6 +27,7 @@ public class GraphicalPlayer extends GraphicalObject {
 	public AnimationController activeAnimation;
 
 	private BufferedImage spriteSheet;
+	private BufferedImage spriteSheetBendDown;
 	public BufferedImageLoader loader;
 
 	private Player player;
@@ -37,9 +41,11 @@ public class GraphicalPlayer extends GraphicalObject {
 			switch (pos) {
 				case LEFT :
 					spriteSheet = loader.getPlayerLeftSpriteSheet();
+					spriteSheetBendDown = loader.getBendDownLeftPlayer();
 					break;
 				case RIGHT :
 					spriteSheet = loader.getPlayerRightSpriteSheet();
+					spriteSheetBendDown = loader.getBendDownLeftPlayer();
 					break;
 			}
 		} catch (IOException e) {
@@ -63,21 +69,23 @@ public class GraphicalPlayer extends GraphicalObject {
 		spritesForThrow.add(spriteSheet.getSubimage(2 * WIDTH, HEIGHT, WIDTH, HEIGHT));
 
 		throwingAnimation = new AnimationController(spritesForThrow);
-		throwingAnimation.setSpeed(100);
+		throwingAnimation.setKindOfAnimation(KindOfAnimation.MOVING);
 	}
 
 	private void loadStandingAnimation() {
 		ArrayList<BufferedImage> spritesForStand = new ArrayList<BufferedImage>();
 		spritesForStand.add(spriteSheet.getSubimage(0, 0, WIDTH, HEIGHT));
 		standingAnimation = new AnimationController(spritesForStand);
-		standingAnimation.setSpeed(-1);
+		standingAnimation.setKindOfAnimation(KindOfAnimation.ONEIMAGE);
 	}
 
 	public void loadBuildingAnimation() {
 		ArrayList<BufferedImage> spritesForBuild = new ArrayList<BufferedImage>();
-		spritesForBuild.add(spriteSheet.getSubimage(2 * WIDTH, HEIGHT, WIDTH, HEIGHT));
+		spritesForBuild.add(spriteSheetBendDown.getSubimage(0, 0, WIDTH_BUILDING, HEIGHT_BUILDING));
+		spritesForBuild.add(spriteSheetBendDown.getSubimage(WIDTH_BUILDING, 0, WIDTH_BUILDING, HEIGHT_BUILDING));
+		spritesForBuild.add(spriteSheetBendDown.getSubimage(2*WIDTH_BUILDING, 0, WIDTH_BUILDING, HEIGHT_BUILDING));
 		buildingAnimation = new AnimationController(spritesForBuild);
-		buildingAnimation.setSpeed(-1);
+		buildingAnimation.setKindOfAnimation(KindOfAnimation.ENDLESS);
 	}
 
 	@Override
