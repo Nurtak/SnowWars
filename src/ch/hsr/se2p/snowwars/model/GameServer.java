@@ -10,6 +10,8 @@ import ch.hsr.se2p.snowwars.network.session.server.GameServerSession;
 public class GameServer extends AbstractGame {
 	private final static Logger logger = Logger.getLogger(GameServer.class.getPackage().getName());
 
+	private final static int COUNTDOWN_SECONDS = 1;
+	
 	GameServerSession playerLeftGameServerSession;
 	GameServerSession playerRightGameServerSession;
 
@@ -112,7 +114,7 @@ public class GameServer extends AbstractGame {
 	}
 
 	private void startCountdown() {
-		int countdownSeconds = 3;
+		int countdownSeconds = COUNTDOWN_SECONDS;
 
 		while (countdownSeconds > 0) {
 			logger.info("New Game starts in " + countdownSeconds + "...");

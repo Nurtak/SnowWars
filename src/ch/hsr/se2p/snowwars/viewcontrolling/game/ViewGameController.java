@@ -23,19 +23,20 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 	private ViewGameModel viewGameModel;
 	private GameClient gameClient;
 	private SnowWarsClientInterface snowWarsClientInterface;
+	private SoundPlayer soundPlayer;
 
 	public ViewGameController(SnowWarsClientInterface snowWarsClientInterface, GameClient game) throws RemoteException {
 		this.gameClient = game;
 		this.snowWarsClientInterface = snowWarsClientInterface;
+		this.soundPlayer = new SoundPlayer();
 	}
 
 	public void quitGame() {
 		int returnValue = JOptionPane.showConfirmDialog(gameFrame, "Do you really want to quit the game?", "Chicken out", JOptionPane.YES_NO_OPTION);
 		if (returnValue == 0) {
 			logger.info("Quitting the game...");
-			this.gameFrame.setVisible(false);
 			viewGameModel.quitGame();
-			snowWarsClientInterface.startProgram();
+			backToLobby();
 		}
 	}
 
@@ -43,7 +44,8 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 		this.gameClient.initializePlayers();
 		this.viewGameModel = new ViewGameModel(gameClient);
 		this.gameFrame = new GameFrame(this, this.viewGameModel);
-		this.viewGameModel.setGuiVisible(true);
+		this.gameFrame.setVisible(true);
+		this.soundPlayer.playWindHowl();
 		askUserIfReady();
 	}
 
@@ -72,6 +74,7 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 	@Override
 	public void youWon() throws RemoteException {
 		logger.info("Received Won-Notification! This SnowWarsClient won the match!");
+		soundPlayer.playWon();
 		JOptionPane.showMessageDialog(gameFrame, "You won the match!", "=)", JOptionPane.INFORMATION_MESSAGE);
 		backToLobby();
 	}
@@ -79,6 +82,7 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 	@Override
 	public void youLost() throws RemoteException {
 		logger.info("Received Lost-Notification! This SnowWarsClient lost the match!");
+		soundPlayer.playLost();
 		JOptionPane.showMessageDialog(gameFrame, "You lost the match!", ":(", JOptionPane.ERROR_MESSAGE);
 		backToLobby();
 	}
@@ -86,12 +90,14 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 	@Override
 	public void opponentQuitGame() throws RemoteException {
 		logger.info("Your opponent chickened out!");
+		soundPlayer.playWon();
 		JOptionPane.showMessageDialog(gameFrame, "You won the match, your opponent gave up!", ":)", JOptionPane.INFORMATION_MESSAGE);
 		backToLobby();
 	}
 	
 	private void backToLobby(){
 		this.gameFrame.setVisible(false);
+		this.soundPlayer.stopWindHowl();
 		snowWarsClientInterface.startProgram();
 	}
 
@@ -112,12 +118,14 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 	@Override
 	public void setCountdownTime(int time) throws RemoteException {
 		logger.info("SnowWars game starts in " + time + " seconds...");
+		this.soundPlayer.playCountdown();
 		this.viewGameModel.setCountDownTime(time);
 	}
 
 	@Override
 	public void countdownEnded() throws RemoteException {
 		logger.info("SnowWars game starts NOW!");
+		this.soundPlayer.playStart();
 		this.viewGameModel.setCountdownActive(false);
 	}
 }
