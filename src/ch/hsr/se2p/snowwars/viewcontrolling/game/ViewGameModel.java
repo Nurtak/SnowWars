@@ -26,7 +26,6 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 	private Set<GraphicalSnowball> graphicalSnowballs = new HashSet<GraphicalSnowball>();
 	private GraphicalPlayer leftPlayer;
 	private GraphicalPlayer rightPlayer;
-	private boolean guiVisible = false;
 
 	private final static long TIMER_START_VALUE = 1000;
 	private long startBuildTimeLeftPlayer = 0;
@@ -136,7 +135,7 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 
 		updateObserver();
 	}
-
+	
 	protected void setCountdownActive(boolean countdownActive) {
 		this.countdownActive = countdownActive;
 	}
@@ -169,14 +168,6 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 
 	public GraphicalPlayer getRightPlayer() {
 		return this.rightPlayer;
-	}
-
-	public boolean getGuiVisible() {
-		return this.guiVisible;
-	}
-
-	public void setGuiVisible(boolean visibility) {
-		this.guiVisible = true;
 	}
 
 	public void startNewShotRequest(int angle, int strength) {

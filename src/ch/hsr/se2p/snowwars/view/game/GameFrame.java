@@ -21,7 +21,6 @@ public class GameFrame extends JFrame implements Observer, WindowListener, GameF
 
 	private final ViewGameController viewGameController;
 	private final ViewGameModel viewGameModel;
-	private SoundPlayer soundPlayer = new SoundPlayer();
 
 	public GameFrame(ViewGameController vgc, ViewGameModel vgm) {
 		this.viewGameController = vgc;
@@ -37,7 +36,6 @@ public class GameFrame extends JFrame implements Observer, WindowListener, GameF
 		setLocationRelativeTo(null);
 		setTitle(getViewGameModel().getGameTitle());
 		setResizable(false);
-		setVisible(true);
 
 		try {
 			board = new Board(this);
@@ -47,16 +45,7 @@ public class GameFrame extends JFrame implements Observer, WindowListener, GameF
 			setVisible(false);
 		}
 
-		playWindHowl();
 		this.pack();
-	}
-	
-	private void playWindHowl(){
-		soundPlayer.playWindHowl();
-	}
-	
-	private void stopWindHowl(){
-		soundPlayer.stopWindHowl();
 	}
 
 	@Override
@@ -66,7 +55,6 @@ public class GameFrame extends JFrame implements Observer, WindowListener, GameF
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		stopWindHowl();
 		getViewGameController().quitGame();
 	}
 
