@@ -182,7 +182,7 @@ public class Board extends JPanel implements MouseListener {
 		}
 	}
 	
-	public void startNewThrowRequest(int angle, int strength) {
+	public void startNewShotRequest(int angle, int strength) {
 		gameFrame.getViewGameModel().startNewShotRequest(angle, strength);
 	}
 
@@ -200,21 +200,7 @@ public class Board extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		if (playerAiming) {
-			playerAiming = false;
-
-			try {
-				int x = (int) (this.aimingStartX - (int) this.getMousePosition().getX());
-				int y = (int) ((int) this.getMousePosition().getY() - this.aimingStartY);
-
-				int angle = (int) Math.toDegrees(Math.atan2(y, x));
-				int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-				strength = strength / AbstractGame.FORCE_REDUCE_FACTOR_STRENGTH;
-
-				startNewThrowRequest(angle, strength);
-			} catch (Exception e) {
-			}
-		}
+		shoot();
 	}
 
 	@Override
@@ -227,5 +213,24 @@ public class Board extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
+		shoot();
+	}
+	
+	private void shoot(){
+		System.out.println("shoot!");
+		if (playerAiming) {
+			playerAiming = false;
+
+			try {
+				int x = (int) (this.aimingStartX - (int) this.getMousePosition().getX());
+				int y = (int) ((int) this.getMousePosition().getY() - this.aimingStartY);
+
+				int angle = (int) Math.toDegrees(Math.atan2(y, x));
+				int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+				strength = strength / AbstractGame.FORCE_REDUCE_FACTOR_STRENGTH;
+
+				startNewShotRequest(angle, strength);
+			} catch (Exception e) {}
+		}
 	}
 }

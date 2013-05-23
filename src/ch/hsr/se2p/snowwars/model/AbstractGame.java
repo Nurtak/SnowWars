@@ -62,13 +62,15 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 	}
 
 	protected synchronized void checkCollision() {
-		for (Shot activeShot : shots) {
+		for(int i=0; i<shots.size(); i++){
+			Shot activeShot = shots.get(i);
+		
 			if (activeShot.getShotObjectState() != ShotObjectState.MOVING) {
 				continue;
 			}
 
 			checkCollisionWithPlayer(activeShot);
-			checkCollisionWithOtherShot(activeShot);
+			checkCollisionWithOtherShot(i);
 			checkCollisionWithGroundAndKnolls(activeShot);
 		}
 	}
@@ -106,10 +108,12 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 		}
 	}
 
-	private void checkCollisionWithOtherShot(Shot shot) {
+	private void checkCollisionWithOtherShot(int indexOfActiveShot) {
+		Shot shot = shots.get(indexOfActiveShot);
 		Rectangle shotRectangle = shot.getBounds();
 
-		for (Shot activeShot : shots) {
+		for (int i=indexOfActiveShot; i<shots.size(); i++) {
+			Shot activeShot = shots.get(i);
 			if (activeShot.getShotObjectState() != ShotObjectState.MOVING) {
 				continue;
 			}

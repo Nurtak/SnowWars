@@ -90,7 +90,9 @@ public class SoundPlayer {
 
 	public void stopWindHowl() {
 		logger.info("Stopping Windhowl sound...");
-		windHowlClip.close();
+		if(windHowlClip.isActive()){
+			windHowlClip.close();
+		}
 	}
 
 	public void playWon() {
