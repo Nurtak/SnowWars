@@ -17,8 +17,8 @@ public class GraphicalPlayer extends GraphicalObject {
 
 	private final int WIDTH = 136;
 	private final int HEIGHT = 167;
-	private final int WIDTH_BUILDING = 129;
-	private final int HEIGHT_BUILDING = 146;
+	private final int WIDTH_BUILDING = 136;
+	private final int HEIGHT_BUILDING = 167;
 
 	public AnimationController throwingAnimation;
 	public AnimationController standingAnimation;
