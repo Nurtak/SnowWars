@@ -107,4 +107,29 @@ public class LobbyServerSession extends UnicastRemoteObject implements LobbyServ
 			}
 		}.start();
 	}
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        return prime + ((user == null) ? 0 : user.hashCode());
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (getClass() != obj.getClass())
+            return false;
+        LobbyServerSession other = (LobbyServerSession) obj;
+        if (user == null) {
+            if (other.user != null)
+                return false;
+        } else if (!user.equals(other.user))
+            return false;
+        return true;
+    }
+	
 }
