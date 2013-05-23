@@ -12,7 +12,7 @@ public class BufferedImageLoader {
 	private final static String FILENAME_THROW_PLAYER_RIGHT = new String("/img/ThrowRightPlayer.png");
 	private final static String FILENAME_SPRITESHEET_SNOWBALL = new String("/img/snowball.png");
 	private final static String FILENAME_SPRITESHEET_KNOLL = new String("/img/Knoll.png");
-	private final static String FILENAME_BENDDOWN_PLAYER_LEFT = new String("/img/BendDownLeftPlayer2");
+	private final static String FILENAME_BENDDOWN_PLAYER_LEFT = new String("/img/BendDownLeftPlayer2.png");
 	
 	private static BufferedImageLoader bil;
 
