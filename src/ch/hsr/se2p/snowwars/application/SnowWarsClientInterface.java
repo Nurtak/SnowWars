@@ -1,7 +1,7 @@
 package ch.hsr.se2p.snowwars.application;
 
-import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
-import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
+import ch.hsr.se2p.snowwars.network.server.session.ConnectedServerSessionInterface;
+import ch.hsr.se2p.snowwars.network.server.session.GameServerSessionInterface;
 
 public interface SnowWarsClientInterface {
 

@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
-import ch.hsr.se2p.snowwars.network.session.server.GameServerSession;
+import ch.hsr.se2p.snowwars.network.server.session.GameServerSession;
 
 public class GameServer extends AbstractGame {
 	private final static Logger logger = Logger.getLogger(GameServer.class.getPackage().getName());

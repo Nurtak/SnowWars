@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
-  <class id="1" language="java" name="ch.hsr.se2p.snowwars.network.session.server.GameServerSession" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/network/session/server/GameServerSession.java" binary="false" 
+  <class id="1" language="java" name="ch.hsr.se2p.snowwars.network.server.session.GameServerSession" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/network/server/session/GameServerSession.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1003" y="721"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -11,8 +11,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSession" 
-    project="SnowWars" file="/SnowWars/src/ch/hsr/se2p/snowwars/network/session/server/ConnectedServerSession.java" 
+  <class id="2" language="java" name="ch.hsr.se2p.snowwars.network.server.session.ConnectedServerSession" 
+    project="SnowWars" file="/SnowWars/src/ch/hsr/se2p/snowwars/network/server/session/ConnectedServerSession.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="225" y="12"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -21,8 +21,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="ch.hsr.se2p.snowwars.network.session.server.LobbyServerSession" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/network/session/server/LobbyServerSession.java" binary="false" 
+  <class id="3" language="java" name="ch.hsr.se2p.snowwars.network.server.session.LobbyServerSession" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/network/server/session/LobbyServerSession.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="618" y="395"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -31,8 +31,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <interface id="4" language="java" name="ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface" 
-    project="SnowWars" file="/SnowWars/src/ch/hsr/se2p/snowwars/network/session/server/GameServerSessionInterface.java" 
+  <interface id="4" language="java" name="ch.hsr.se2p.snowwars.network.server.session.GameServerSessionInterface" 
+    project="SnowWars" file="/SnowWars/src/ch/hsr/se2p/snowwars/network/server/session/GameServerSessionInterface.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1002" y="391"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -41,9 +41,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <interface id="5" language="java" name="ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface" 
+  <interface id="5" language="java" name="ch.hsr.se2p.snowwars.network.server.session.ConnectedServerSessionInterface" 
     project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/network/session/server/ConnectedServerSessionInterface.java" binary="false" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/network/server/session/ConnectedServerSessionInterface.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="227" y="-151"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -52,8 +52,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <interface id="6" language="java" name="ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface" 
-    project="SnowWars" file="/SnowWars/src/ch/hsr/se2p/snowwars/network/session/server/LobbyServerSessionInterface.java" 
+  <interface id="6" language="java" name="ch.hsr.se2p.snowwars.network.server.session.LobbyServerSessionInterface" 
+    project="SnowWars" file="/SnowWars/src/ch/hsr/se2p/snowwars/network/server/session/LobbyServerSessionInterface.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="618" y="115"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 

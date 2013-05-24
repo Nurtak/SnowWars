@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSession;
+import ch.hsr.se2p.snowwars.network.server.session.LobbyServerSession;
 
 public class Invitation {
 	private final static Logger logger = Logger.getLogger(Invitation.class.getPackage().getName());

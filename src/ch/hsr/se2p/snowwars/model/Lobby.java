@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.exceptions.UsernameAlreadyTakenException;
 import ch.hsr.se2p.snowwars.model.Invitation.InvitationAnswer;
-import ch.hsr.se2p.snowwars.network.session.server.GameServerSession;
-import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSession;
+import ch.hsr.se2p.snowwars.network.server.session.GameServerSession;
+import ch.hsr.se2p.snowwars.network.server.session.LobbyServerSession;
 
 public class Lobby {
     private final static Logger logger = Logger.getLogger(Lobby.class.getPackage().getName());

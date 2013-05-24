@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.network.session.server;
+package ch.hsr.se2p.snowwars.network.server.session;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -10,7 +10,7 @@ import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
+import ch.hsr.se2p.snowwars.network.client.session.GameClientSessionInterface;
 
 public class GameServerSession extends UnicastRemoteObject implements GameServerSessionInterface, GameClientSessionInterface {
 	private final static Logger logger = Logger.getLogger(GameServerSession.class.getPackage().getName());

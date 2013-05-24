@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.network.session.server;
+package ch.hsr.se2p.snowwars.network.server.session;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Shot;
-import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
+import ch.hsr.se2p.snowwars.network.client.session.GameClientSessionInterface;
 
 public interface GameServerSessionInterface extends Remote {
 

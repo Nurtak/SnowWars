@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.network.client.StartRMIClient;
-import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
-import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
+import ch.hsr.se2p.snowwars.network.server.session.ConnectedServerSessionInterface;
+import ch.hsr.se2p.snowwars.network.server.session.GameServerSessionInterface;
 import ch.hsr.se2p.snowwars.view.game.controlling.ViewGameController;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 

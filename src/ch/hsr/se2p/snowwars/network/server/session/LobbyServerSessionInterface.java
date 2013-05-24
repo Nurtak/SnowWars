@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.network.session.server;
+package ch.hsr.se2p.snowwars.network.server.session;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

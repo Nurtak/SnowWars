@@ -3,8 +3,8 @@ package ch.hsr.se2p.snowwars.network.server;
 import java.rmi.RemoteException;
 
 import ch.hsr.se2p.snowwars.model.Lobby;
-import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSession;
-import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
+import ch.hsr.se2p.snowwars.network.server.session.ConnectedServerSession;
+import ch.hsr.se2p.snowwars.network.server.session.ConnectedServerSessionInterface;
 
 public class RMIServer implements RMIServerInterface {
 

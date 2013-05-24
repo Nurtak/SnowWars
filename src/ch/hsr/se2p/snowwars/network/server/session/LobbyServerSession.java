@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.network.session.server;
+package ch.hsr.se2p.snowwars.network.server.session;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -12,7 +12,7 @@ import ch.hsr.se2p.snowwars.exceptions.UsernameAlreadyTakenException;
 import ch.hsr.se2p.snowwars.model.Invitation.InvitationAnswer;
 import ch.hsr.se2p.snowwars.model.Lobby;
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface;
+import ch.hsr.se2p.snowwars.network.client.session.LobbyClientSessionInterface;
 
 public class LobbyServerSession extends UnicastRemoteObject implements LobbyServerSessionInterface, LobbyClientSessionInterface {
 

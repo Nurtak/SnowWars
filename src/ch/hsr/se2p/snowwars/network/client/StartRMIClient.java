@@ -17,7 +17,7 @@ import ch.hsr.se2p.snowwars.config.Config;
 import ch.hsr.se2p.snowwars.config.ConfigLoader;
 import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.network.server.RMIServerInterface;
-import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
+import ch.hsr.se2p.snowwars.network.server.session.ConnectedServerSessionInterface;
 
 public class StartRMIClient extends Observable {
 

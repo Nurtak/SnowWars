@@ -11,7 +11,7 @@ import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
 import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Shot;
-import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
+import ch.hsr.se2p.snowwars.network.client.session.GameClientSessionInterface;
 import ch.hsr.se2p.snowwars.view.game.presentation.GameFrame;
 
 public class ViewGameController extends UnicastRemoteObject implements GameClientSessionInterface {

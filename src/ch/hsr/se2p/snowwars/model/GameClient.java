@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Player.PlayerState;
-import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
+import ch.hsr.se2p.snowwars.network.server.session.GameServerSessionInterface;
 
 public class GameClient extends AbstractGame {
 
