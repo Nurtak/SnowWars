@@ -44,7 +44,7 @@ public class GraphicalPlayer extends GraphicalObject {
 					break;
 				case RIGHT :
 					spriteSheet = loader.getPlayerRightSpriteSheet();
-					spriteSheetBendDown = loader.getBendDownLeftPlayer();
+					spriteSheetBendDown = loader.getBendDownRightPlayer();
 					break;
 			}
 		} catch (IOException e) {

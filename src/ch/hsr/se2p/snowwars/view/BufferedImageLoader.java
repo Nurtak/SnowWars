@@ -10,10 +10,11 @@ public class BufferedImageLoader {
     private final static String FILENAME_BACKGROUND = IMAGE_PATH + "background.jpg";
     private final static String FILENAME_LOGO = IMAGE_PATH + "logo.png";
     private final static String FILENAME_THROW_PLAYER_LEFT = IMAGE_PATH + "ThrowLeftPlayer.png";
-    private final static String FILENAME_THROW_PLAYER_RIGHT = IMAGE_PATH + "ThrowRightPlayer.png";
+    private final static String FILENAME_THROW_PLAYER_RIGHT = IMAGE_PATH + "ThrowRightPlayer5.png";
     private final static String FILENAME_SPRITESHEET_SNOWBALL = IMAGE_PATH + "snowball.png";
     private final static String FILENAME_SPRITESHEET_KNOLL = IMAGE_PATH + "Knoll.png";
     private final static String FILENAME_BENDDOWN_PLAYER_LEFT = IMAGE_PATH + "BendDownLeftPlayer3.png";
+    private final static String	FILENAME_BENDDOWN_PLAYER_RIGHT = IMAGE_PATH + "BendDownRightPlayer3.png";
     
     private static BufferedImageLoader instance = null;
 
@@ -33,6 +34,10 @@ public class BufferedImageLoader {
 
     public BufferedImage getBendDownLeftPlayer() throws IOException{
         return loadImage(FILENAME_BENDDOWN_PLAYER_LEFT);
+    }
+    
+    public BufferedImage getBendDownRightPlayer() throws IOException{
+    	return loadImage(FILENAME_BENDDOWN_PLAYER_RIGHT);
     }
     
     public BufferedImage getSnowballSpriteSheet() throws IOException {
