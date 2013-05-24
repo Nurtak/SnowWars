@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="false">  
   <class id="1" language="java" name="ch.hsr.se2p.snowwars.model.Shot" project="SnowWars" 
     file="/SnowWars/src/ch/hsr/se2p/snowwars/model/Shot.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="618" y="152"/>    
+    <position height="-1" width="-1" x="607" y="134"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" accessors="true" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="ch.hsr.se2p.snowwars.model.Player" project="SnowWars" 
     file="/SnowWars/src/ch/hsr/se2p/snowwars/model/Player.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="430" y="274"/>    
+    <position height="-1" width="-1" x="419" y="256"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" accessors="true" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="ch.hsr.se2p.snowwars.model.Lobby" project="SnowWars" 
     file="/SnowWars/src/ch/hsr/se2p/snowwars/model/Lobby.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="257" y="355"/>    
+    <position height="-1" width="-1" x="246" y="337"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" accessors="true" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="ch.hsr.se2p.snowwars.model.AbstractGame" project="SnowWars" 
     file="/SnowWars/src/ch/hsr/se2p/snowwars/model/AbstractGame.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="621" y="275"/>    
+    <position height="-1" width="-1" x="610" y="257"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" accessors="true" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="ch.hsr.se2p.snowwars.model.Snowball" project="SnowWars" 
     file="/SnowWars/src/ch/hsr/se2p/snowwars/model/Snowball.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="449" y="69"/>    
+    <position height="-1" width="-1" x="438" y="51"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" accessors="true" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="ch.hsr.se2p.snowwars.model.Knoll" project="SnowWars" 
     file="/SnowWars/src/ch/hsr/se2p/snowwars/model/Knoll.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="777" y="152"/>    
+    <position height="-1" width="-1" x="766" y="134"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" accessors="true" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
@@ -57,7 +57,7 @@
   </class>  
   <class id="7" language="java" name="ch.hsr.se2p.snowwars.model.GameClient" project="SnowWars" 
     file="/SnowWars/src/ch/hsr/se2p/snowwars/model/GameClient.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="699" y="355"/>    
+    <position height="-1" width="-1" x="688" y="337"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" accessors="true" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
@@ -66,7 +66,7 @@
   </class>  
   <class id="8" language="java" name="ch.hsr.se2p.snowwars.model.GameServer" project="SnowWars" 
     file="/SnowWars/src/ch/hsr/se2p/snowwars/model/GameServer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="528" y="355"/>    
+    <position height="-1" width="-1" x="517" y="337"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" accessors="true" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
@@ -75,7 +75,7 @@
   </class>  
   <class id="9" language="java" name="ch.hsr.se2p.snowwars.model.ShotObject" project="SnowWars" 
     file="/SnowWars/src/ch/hsr/se2p/snowwars/model/ShotObject.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="617" y="70"/>    
+    <position height="-1" width="-1" x="606" y="52"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" accessors="true" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
@@ -84,7 +84,7 @@
   </class>  
   <class id="10" language="java" name="ch.hsr.se2p.snowwars.model.Invitation" project="SnowWars" 
     file="/SnowWars/src/ch/hsr/se2p/snowwars/model/Invitation.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="92" y="273"/>    
+    <position height="-1" width="-1" x="81" y="255"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" accessors="true" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
@@ -93,7 +93,7 @@
   </class>  
   <class id="11" language="java" name="ch.hsr.se2p.snowwars.model.User" project="SnowWars" 
     file="/SnowWars/src/ch/hsr/se2p/snowwars/model/User.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="257" y="274"/>    
+    <position height="-1" width="-1" x="246" y="256"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" accessors="true" 
       visibility="false">      
       <attributes public="false" package="false" protected="false" private="false"/>      
