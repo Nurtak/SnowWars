@@ -18,6 +18,7 @@ import ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface;
+import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 
 public class ClientLobbyControllerTest {
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="false" dependencies="true" nesting-relationships="true">  
-  <class id="1" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.AnimationController" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/AnimationController.java" binary="false" 
+  <class id="1" language="java" name="ch.hsr.se2p.snowwars.view.game.controlling.AnimationController" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/controlling/AnimationController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="459" y="1428"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -11,8 +11,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.GraphicalKnoll" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/GraphicalKnoll.java" binary="false" 
+  <class id="2" language="java" name="ch.hsr.se2p.snowwars.view.game.controlling.GraphicalKnoll" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/controlling/GraphicalKnoll.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="695" y="1231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -21,8 +21,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameController" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/ViewGameController.java" binary="false" 
+  <class id="3" language="java" name="ch.hsr.se2p.snowwars.view.game.controlling.ViewGameController" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/controlling/ViewGameController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="222" y="568"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -31,8 +31,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameModel" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/ViewGameModel.java" binary="false" 
+  <class id="4" language="java" name="ch.hsr.se2p.snowwars.view.game.controlling.ViewGameModel" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/controlling/ViewGameModel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="217" y="889"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -41,8 +41,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.GraphicalSnowball" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/GraphicalSnowball.java" binary="false" 
+  <class id="5" language="java" name="ch.hsr.se2p.snowwars.view.game.controlling.GraphicalSnowball" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/controlling/GraphicalSnowball.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="222" y="1230"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -51,8 +51,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.GraphicalPlayer" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/GraphicalPlayer.java" binary="false" 
+  <class id="6" language="java" name="ch.hsr.se2p.snowwars.view.game.controlling.GraphicalPlayer" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/controlling/GraphicalPlayer.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="461" y="1212"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -61,8 +61,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="ch.hsr.se2p.snowwars.viewcontrolling.game.GraphicalObject" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/viewcontrolling/game/GraphicalObject.java" binary="false" 
+  <class id="7" language="java" name="ch.hsr.se2p.snowwars.view.game.controlling.GraphicalObject" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/controlling/GraphicalObject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="458" y="989"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 

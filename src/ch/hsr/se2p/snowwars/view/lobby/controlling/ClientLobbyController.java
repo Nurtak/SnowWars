@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.viewcontrolling.lobby;
+package ch.hsr.se2p.snowwars.view.lobby.controlling;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -19,7 +19,7 @@ import ch.hsr.se2p.snowwars.network.session.client.LobbyClientSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.LobbyServerSessionInterface;
-import ch.hsr.se2p.snowwars.view.lobby.ClientViewMain;
+import ch.hsr.se2p.snowwars.view.lobby.presentation.ClientViewMain;
 
 public class ClientLobbyController extends UnicastRemoteObject implements LobbyClientSessionInterface, Serializable {
 

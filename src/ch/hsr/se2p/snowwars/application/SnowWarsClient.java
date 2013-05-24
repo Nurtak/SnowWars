@@ -8,8 +8,8 @@ import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.network.client.StartRMIClient;
 import ch.hsr.se2p.snowwars.network.session.server.ConnectedServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.session.server.GameServerSessionInterface;
-import ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameController;
-import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyController;
+import ch.hsr.se2p.snowwars.view.game.controlling.ViewGameController;
+import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 
 public class SnowWarsClient implements SnowWarsClientInterface {
 	private final static Logger logger = Logger.getLogger(SnowWarsClient.class.getPackage().getName());

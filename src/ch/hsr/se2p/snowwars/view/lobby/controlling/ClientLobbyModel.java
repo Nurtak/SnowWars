@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.viewcontrolling.lobby;
+package ch.hsr.se2p.snowwars.view.lobby.controlling;
 
 import java.io.Serializable;
 import java.util.Observable;

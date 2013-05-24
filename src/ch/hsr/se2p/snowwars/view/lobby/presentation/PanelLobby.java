@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.view.lobby;
+package ch.hsr.se2p.snowwars.view.lobby.presentation;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -22,8 +22,8 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.exceptions.UserIsNotInLobbyException;
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyController;
-import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyModel;
+import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
+import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyModel;
 
 public class PanelLobby extends JPanel implements Observer, PanelInterface {
 	private static final long serialVersionUID = -4628393851839832247L;

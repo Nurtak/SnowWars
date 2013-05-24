@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.view.game;
+package ch.hsr.se2p.snowwars.view.game.presentation;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -19,7 +19,7 @@ import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Player.PlayerState;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
-import ch.hsr.se2p.snowwars.viewcontrolling.game.GraphicalObject;
+import ch.hsr.se2p.snowwars.view.game.controlling.GraphicalObject;
 
 public class Board extends JPanel implements MouseListener {
 	private static final long serialVersionUID = -2949809536472598850L;

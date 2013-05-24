@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.view.game;
+package ch.hsr.se2p.snowwars.view.game.presentation;
 
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameController;
-import ch.hsr.se2p.snowwars.viewcontrolling.game.ViewGameModel;
+import ch.hsr.se2p.snowwars.view.game.controlling.ViewGameController;
+import ch.hsr.se2p.snowwars.view.game.controlling.ViewGameModel;
 
 public class GameFrame extends JFrame implements Observer, WindowListener, GameFrameInterface {
 	private final static Logger logger = Logger.getLogger(GameFrame.class.getPackage().getName());

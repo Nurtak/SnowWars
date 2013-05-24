@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
-  <class id="1" language="java" name="ch.hsr.se2p.snowwars.view.game.GameFrame" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/GameFrame.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="ch.hsr.se2p.snowwars.view.game.presentation.GameFrame" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/presentation/GameFrame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="662" y="490"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -10,8 +10,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <interface id="2" language="java" name="ch.hsr.se2p.snowwars.view.game.GameFrameInterface" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/GameFrameInterface.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="2" language="java" name="ch.hsr.se2p.snowwars.view.game.presentation.GameFrameInterface" 
+    project="SnowWars" file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/presentation/GameFrameInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="662" y="215"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -19,8 +20,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <class id="3" language="java" name="ch.hsr.se2p.snowwars.view.game.PlayerInfoPanel" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/PlayerInfoPanel.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="ch.hsr.se2p.snowwars.view.game.presentation.PlayerInfoPanel" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/presentation/PlayerInfoPanel.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="265" y="935"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -38,8 +40,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </enumeration>  
-  <class id="5" language="java" name="ch.hsr.se2p.snowwars.view.game.Board" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/Board.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="ch.hsr.se2p.snowwars.view.game.presentation.Board" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/game/presentation/Board.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="267" y="490"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

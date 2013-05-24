@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
-  <class id="1" language="java" name="ch.hsr.se2p.snowwars.view.lobby.PanelUser" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/lobby/PanelUser.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="ch.hsr.se2p.snowwars.view.lobby.presentation.PanelUser" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/lobby/presentation/PanelUser.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="634" y="663"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -10,9 +11,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <interface id="2" language="java" name="ch.hsr.se2p.snowwars.view.lobby.ClientViewMainInterface" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/lobby/ClientViewMainInterface.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <interface id="2" language="java" name="ch.hsr.se2p.snowwars.view.lobby.presentation.ClientViewMainInterface" 
+    project="SnowWars" file="/SnowWars/src/ch/hsr/se2p/snowwars/view/lobby/presentation/ClientViewMainInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="239" y="93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -20,8 +21,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <class id="3" language="java" name="ch.hsr.se2p.snowwars.view.lobby.PanelMain" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/lobby/PanelMain.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="ch.hsr.se2p.snowwars.view.lobby.presentation.PanelMain" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/lobby/presentation/PanelMain.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="636" y="384"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -29,8 +31,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="ch.hsr.se2p.snowwars.view.lobby.PanelLobby" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/lobby/PanelLobby.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="ch.hsr.se2p.snowwars.view.lobby.presentation.PanelLobby" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/lobby/presentation/PanelLobby.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="632" y="957"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -38,8 +41,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <interface id="5" language="java" name="ch.hsr.se2p.snowwars.view.lobby.PanelInterface" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/lobby/PanelInterface.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="5" language="java" name="ch.hsr.se2p.snowwars.view.lobby.presentation.PanelInterface" 
+    project="SnowWars" file="/SnowWars/src/ch/hsr/se2p/snowwars/view/lobby/presentation/PanelInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="639" y="172"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -47,8 +51,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <class id="6" language="java" name="ch.hsr.se2p.snowwars.view.lobby.ClientViewMain" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/lobby/ClientViewMain.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="ch.hsr.se2p.snowwars.view.lobby.presentation.ClientViewMain" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/view/lobby/presentation/ClientViewMain.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="237" y="388"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

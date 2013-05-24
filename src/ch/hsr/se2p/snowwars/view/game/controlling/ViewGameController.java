@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.viewcontrolling.game;
+package ch.hsr.se2p.snowwars.view.game.controlling;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -12,7 +12,7 @@ import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.network.session.client.GameClientSessionInterface;
-import ch.hsr.se2p.snowwars.view.game.GameFrame;
+import ch.hsr.se2p.snowwars.view.game.presentation.GameFrame;
 
 public class ViewGameController extends UnicastRemoteObject implements GameClientSessionInterface {
 	private static final long serialVersionUID = -7593697054318420277L;

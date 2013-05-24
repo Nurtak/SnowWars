@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.view.lobby;
+package ch.hsr.se2p.snowwars.view.lobby.presentation;
 
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -23,8 +23,8 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
-import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyController;
-import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyModel;
+import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
+import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyModel;
 
 public class ClientViewMain extends JFrame implements Observer, ClientViewMainInterface {
 

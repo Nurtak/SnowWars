@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.view.game;
+package ch.hsr.se2p.snowwars.view.game.presentation;
 
 import java.awt.Color;
 import java.awt.Font;

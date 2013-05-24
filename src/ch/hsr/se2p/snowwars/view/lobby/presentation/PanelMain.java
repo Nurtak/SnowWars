@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.view.lobby;
+package ch.hsr.se2p.snowwars.view.lobby.presentation;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,8 +11,8 @@ import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyController;
-import ch.hsr.se2p.snowwars.viewcontrolling.lobby.ClientLobbyModel;
+import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
+import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyModel;
 
 public class PanelMain extends JPanel implements Observer, PanelInterface{
 

@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.viewcontrolling.game;
+package ch.hsr.se2p.snowwars.view.game.controlling;
 
 import java.awt.Image;
 import java.awt.Rectangle;

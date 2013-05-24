@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.view.lobby;
+package ch.hsr.se2p.snowwars.view.lobby.presentation;
 
 import javax.swing.JPanel;
 
