@@ -217,7 +217,6 @@ public class Board extends JPanel implements MouseListener {
 	}
 	
 	private void shoot(){
-		System.out.println("shoot!");
 		if (playerAiming) {
 			playerAiming = false;
 
