@@ -28,6 +28,7 @@ import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyModel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class PanelLobby extends JPanel implements Observer, PanelInterface {
 	private static final long serialVersionUID = -4628393851839832247L;
@@ -64,7 +65,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 		lblUsername.setFont(FontLoader.getInstance().getGameFont(17));
 		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
 		gbc_lblUsername.anchor = GridBagConstraints.WEST;
-		gbc_lblUsername.insets = new Insets(0, 40, 5, 5);
+		gbc_lblUsername.insets = new Insets(0, 40, 5, 0);
 		gbc_lblUsername.gridx = 0;
 		gbc_lblUsername.gridy = 1;
 		add(lblUsername, gbc_lblUsername);
@@ -105,7 +106,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 				GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 				gbc_scrollPane.gridwidth = 3;
 				gbc_scrollPane.fill = GridBagConstraints.BOTH;
-				gbc_scrollPane.insets = new Insets(0, 40, 5, 5);
+				gbc_scrollPane.insets = new Insets(0, 40, 5, 40);
 				gbc_scrollPane.gridx = 0;
 				gbc_scrollPane.gridy = 3;
 				add(scrollPane, gbc_scrollPane);
@@ -114,8 +115,12 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 				lstUsers.setBorder(new LineBorder(new Color(0, 0, 0)));
 				lstUsers.setModel(testModel);
 
-		JButton backButton = new JButton("Back");
-		backButton.setFont(new Font("Verdana", Font.BOLD, 12));
+		JButton backButton = new JButton();
+		backButton.setIcon(new ImageIcon("/home/flae/Dropbox/SE2_Projekt/10 Schlusspräsentation/Unbenannt-3.png"));
+		backButton.setBackground(new Color(32, 145, 210));
+		backButton.setSize(20, 20);
+		backButton.setBorder(null);
+		backButton.setFont(new Font("Verdana", Font.BOLD, 14));
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
