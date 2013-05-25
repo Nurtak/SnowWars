@@ -43,7 +43,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 	private JLabel lblName;
 	
 	public PanelLobby(ClientViewMainInterface cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
-		setBackground(new Color(30, 144, 255));
+		setBackground(new Color(32, 145, 210));
 		this.cvm = cvm;
 		this.clientLobbyModel = clientLobbyModel;
 		this.clientLobbyController = clientLobbyController;

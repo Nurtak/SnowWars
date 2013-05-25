@@ -38,7 +38,7 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 	private CardLayout cardLayout;
 
 	public ClientViewMain(ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
-		getContentPane().setBackground(new Color(30, 144, 255));
+		getContentPane().setBackground(new Color(32, 145, 210));
 		this.clientLobbyModel = clientLobbyModel;
 		this.clientLobbyController = clientLobbyController;
 
