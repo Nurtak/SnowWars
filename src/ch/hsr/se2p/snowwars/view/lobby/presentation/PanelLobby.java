@@ -112,7 +112,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 				add(scrollPane, gbc_scrollPane);
 				lstUsers = new JList<User>();
 				scrollPane.setViewportView(lstUsers);
-				lstUsers.setBorder(new LineBorder(new Color(0, 0, 0)));
+				lstUsers.setBorder(null);
 				lstUsers.setModel(testModel);
 
 		JButton backButton = new JButton();

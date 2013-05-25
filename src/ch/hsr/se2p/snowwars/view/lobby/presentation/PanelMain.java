@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyModel;
+import java.awt.Color;
 
 public class PanelMain extends JPanel implements Observer, PanelInterface{
 
@@ -22,6 +23,7 @@ public class PanelMain extends JPanel implements Observer, PanelInterface{
 	private ClientLobbyController clientLobbyController;
 
 	public PanelMain(ClientViewMainInterface cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
+		setBackground(new Color(32,145,210));
 		this.cvm = cvm;
 		this.clientLobbyModel = clientLobbyModel;
 		this.clientLobbyController = clientLobbyController;
@@ -32,9 +34,9 @@ public class PanelMain extends JPanel implements Observer, PanelInterface{
 	private void createMainPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 
 		JButton playButton = new JButton("Play");
@@ -48,21 +50,22 @@ public class PanelMain extends JPanel implements Observer, PanelInterface{
 		gbc_playButton.fill = GridBagConstraints.BOTH;
 		gbc_playButton.insets = new Insets(0, 0, 5, 0);
 		gbc_playButton.gridx = 0;
-		gbc_playButton.gridy = 0;
+		gbc_playButton.gridy = 1;
 		add(playButton, gbc_playButton);
-
-		JButton exitButton = new JButton("Exit");
-		exitButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				exitPressed();
-			}
-		});
-		GridBagConstraints gbc_exitButton = new GridBagConstraints();
-		gbc_exitButton.fill = GridBagConstraints.BOTH;
-		gbc_exitButton.gridx = 0;
-		gbc_exitButton.gridy = 1;
-		add(exitButton, gbc_exitButton);
+				
+						JButton exitButton = new JButton("Exit");
+						exitButton.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								exitPressed();
+							}
+						});
+						GridBagConstraints gbc_exitButton = new GridBagConstraints();
+						gbc_exitButton.insets = new Insets(0, 0, 5, 0);
+						gbc_exitButton.fill = GridBagConstraints.BOTH;
+						gbc_exitButton.gridx = 0;
+						gbc_exitButton.gridy = 2;
+						add(exitButton, gbc_exitButton);
 
 	}
 

@@ -18,8 +18,10 @@ import javax.swing.JTextField;
 import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.model.User;
+import ch.hsr.se2p.snowwars.view.FontLoader;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyModel;
+import java.awt.Color;
 
 public class PanelUser extends JPanel implements Observer, PanelInterface{
 	private static final long serialVersionUID = -4628393851839832247L;
@@ -30,6 +32,7 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 	private JTextField txtUsername;
 
 	public PanelUser(ClientViewMainInterface cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
+		setBackground(new Color(32,145,210));
 		this.cvm = cvm;
 		this.viewLobbyModel = clientLobbyModel;
 		this.viewLobbyController = clientLobbyController;
@@ -40,18 +43,20 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 	private void createUserPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{26, 186, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 
 		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setForeground(new Color(255, 255, 255));
+		lblUsername.setFont(FontLoader.getInstance().getGameFont(17));
 		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
 		gbc_lblUsername.anchor = GridBagConstraints.WEST;
 		gbc_lblUsername.gridwidth = 3;
 		gbc_lblUsername.insets = new Insets(0, 40, 5, 0);
 		gbc_lblUsername.gridx = 1;
-		gbc_lblUsername.gridy = 0;
+		gbc_lblUsername.gridy = 1;
 		add(lblUsername, gbc_lblUsername);
 
 		txtUsername = new JTextField();
@@ -60,7 +65,7 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 		gbc_txtUsername.insets = new Insets(0, 40, 5, 0);
 		gbc_txtUsername.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtUsername.gridx = 1;
-		gbc_txtUsername.gridy = 1;
+		gbc_txtUsername.gridy = 2;
 		add(txtUsername, gbc_txtUsername);
 		txtUsername.setColumns(10);
 
@@ -75,7 +80,7 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 		gbc_backButton.anchor = GridBagConstraints.WEST;
 		gbc_backButton.insets = new Insets(0, 40, 0, 5);
 		gbc_backButton.gridx = 1;
-		gbc_backButton.gridy = 3;
+		gbc_backButton.gridy = 4;
 		add(backButton, gbc_backButton);
 
 		JButton playButton = new JButton("Play");
@@ -88,7 +93,7 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 		GridBagConstraints gbc_playButton = new GridBagConstraints();
 		gbc_playButton.anchor = GridBagConstraints.EAST;
 		gbc_playButton.gridx = 3;
-		gbc_playButton.gridy = 3;
+		gbc_playButton.gridy = 4;
 		add(playButton, gbc_playButton);
 	}
 

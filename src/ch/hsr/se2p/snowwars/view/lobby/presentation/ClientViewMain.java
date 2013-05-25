@@ -92,6 +92,7 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 
 	private void createContentPanel() {
 		contentPanel = new JPanel();
+		contentPanel.setBackground(new Color(32,145,210));
 		GridBagConstraints gbc_contentPanel = new GridBagConstraints();
 		gbc_contentPanel.insets = new Insets(5, 5, 5, 5);
 		gbc_contentPanel.fill = GridBagConstraints.HORIZONTAL;
