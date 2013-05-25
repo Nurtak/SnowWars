@@ -15,6 +15,7 @@ public class BufferedImageLoader {
     private final static String FILENAME_SPRITESHEET_KNOLL = IMAGE_PATH + "Knoll.png";
     private final static String FILENAME_BENDDOWN_PLAYER_LEFT = IMAGE_PATH + "BendDownLeftPlayer3.png";
     private final static String	FILENAME_BENDDOWN_PLAYER_RIGHT = IMAGE_PATH + "BendDownRightPlayer3.png";
+    private final static String FILENAME_BACK_BUTTON = IMAGE_PATH + "BackButton.gif";
     
     private static BufferedImageLoader instance = null;
 
@@ -32,6 +33,10 @@ public class BufferedImageLoader {
         return ImageIO.read(BufferedImage.class.getResourceAsStream(pathRelativeToThis));
     }
 
+    public BufferedImage getBackButton() throws IOException{
+        return loadImage(FILENAME_BACK_BUTTON);
+    }
+    
     public BufferedImage getBendDownLeftPlayer() throws IOException{
         return loadImage(FILENAME_BENDDOWN_PLAYER_LEFT);
     }
