@@ -7,19 +7,19 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+
 import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
 import javax.swing.DefaultListModel;
-import javax.swing.Icon;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
+
 
 import org.apache.log4j.Logger;
 
@@ -120,12 +120,10 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 				lstUsers.setModel(testModel);
 
 		JButton backButton = new JButton();
-		ImageIcon back = new ImageIcon("img/BackButton.gif");
-		backButton.setIcon(back);
+		backButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/BackButton.gif")));
 
-		backButton.setBackground(new Color(255, 255, 255));
+		backButton.setBackground(new Color(32, 145, 210));
 		backButton.setBorder(null);
-		//backButton.setFont(new Font("Verdana", Font.BOLD, 14));
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
