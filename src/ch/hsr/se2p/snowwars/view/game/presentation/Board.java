@@ -2,9 +2,9 @@ package ch.hsr.se2p.snowwars.view.game.presentation;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -20,6 +20,7 @@ import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Player.PlayerState;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
+import ch.hsr.se2p.snowwars.view.FontLoader;
 import ch.hsr.se2p.snowwars.view.game.controlling.GraphicalObject;
 
 public class Board extends JPanel implements MouseListener, MouseMotionListener {
@@ -34,8 +35,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	private int lastPositionY;
 	private int aimingStartX;
 	private int aimingStartY;
-
-	private final static Font COUNTDOWN_FONT = new Font("Arial", Font.PLAIN, 50);
+	
+	private final static String WAIT_TEXT = "Waiting for other player...";
 
 	ArrayList<GraphicalObject> graphicalObjectsList = new ArrayList<GraphicalObject>();
 
@@ -90,13 +91,14 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
 			String displayMessage = "";
 			if (countdownTime == -1) {
-				displayMessage = "Waiting for other player...";
+				displayMessage = WAIT_TEXT;
 			} else {
 				displayMessage = countdownTime + "";
 			}
 
-			g2d.setFont(COUNTDOWN_FONT);
+			g2d.setFont(FontLoader.getInstance().getGameFont(50));
 			g2d.setColor(Color.WHITE);
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			int stringLength = (int) g2d.getFontMetrics().getStringBounds(displayMessage, g2d).getWidth();
 			int x = gameFrame.getViewGameModel().getGameWidth() / 2;
 			x -= stringLength / 2;
