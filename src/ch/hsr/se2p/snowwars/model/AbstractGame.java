@@ -81,10 +81,11 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 	}
 	
 	private void recalculateGame(){
-		for (Shot activeShot : this.getShots()) {
+		for (Shot activeShot : getShots()) {
 			activeShot.updateCoordinates();
-			checkCollision();
 		}
+		checkCollision();
+		
 		updateObserver();
 	}
 
