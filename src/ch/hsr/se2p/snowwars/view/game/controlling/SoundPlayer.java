@@ -85,7 +85,7 @@ public class SoundPlayer {
 
 	public void playWindHowl() {
 		logger.info("Playing Windhowl sound...");
-		windHowlClip.start();
+		windHowlClip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
 	public void stopWindHowl() {

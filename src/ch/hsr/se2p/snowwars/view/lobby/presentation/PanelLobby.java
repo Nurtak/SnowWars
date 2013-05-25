@@ -30,6 +30,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 	private final static Logger logger = Logger.getLogger(PanelLobby.class.getPackage().getName());
 	private final ClientViewMainInterface cvm;
 	private ClientLobbyModel clientLobbyModel;
+	private JLabel lblUsername;
 	private ClientLobbyController clientLobbyController;
 	private JList<User> lstUsers;
 	DefaultListModel<User> lobbyModel = new DefaultListModel<User>();
@@ -50,7 +51,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 
-		JLabel lblUsername = new JLabel("Your Username: " + clientLobbyModel.getUser().getName());
+		lblUsername = new JLabel("Your Username: " + clientLobbyModel.getUser().getName());
 		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
 		gbc_lblUsername.gridwidth = 2;
 		gbc_lblUsername.anchor = GridBagConstraints.WEST;
@@ -121,6 +122,8 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 			}
 		}
 		lstUsers.setModel(lobbyModel);
+		
+		lblUsername.setText("Your Username: " + clientLobbyModel.getUser());
 	}
 	
 	private void invitePressed(){
