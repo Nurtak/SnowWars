@@ -88,27 +88,11 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 		
 		updateObserver();
 	}
-
-	private void checkCollisionWithPlayer(Shot shot) {
-		Rectangle shotRectangle = shot.getBounds();
-		Rectangle playerLeftRectangle = playerLeft.getBounds();
-		Rectangle playerRightRectangle = playerRight.getBounds();
-
-		if (shotRectangle.intersects(playerRightRectangle)) {
-			logger.info("Snowball hit right player");
-			shot.stopShotObject();
-			shot.setShotObjectState(ShotObjectState.CRASHING);
-			updatePlayerHitPoints(Player.PlayerPosition.RIGHT, shot);
-		}
-
-		if (shotRectangle.intersects(playerLeftRectangle)) {
-			logger.info("Snowball hit left player");
-			shot.stopShotObject();
-			shot.setShotObjectState(ShotObjectState.CRASHING);
-			updatePlayerHitPoints(Player.PlayerPosition.LEFT, shot);
-		}
-	}
-
+	
+	/*
+	 * indexOfActiveShot is given to start collision-check after this index.
+	 * performance of function is improved.
+	 */
 	private void checkCollisionWithOtherShot(int indexOfActiveShot) {
 		Shot shot = shots.get(indexOfActiveShot);
 		Rectangle shotRectangle = shot.getBounds();
@@ -136,6 +120,27 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 			}
 		}
 	}
+
+	private void checkCollisionWithPlayer(Shot shot) {
+		Rectangle shotRectangle = shot.getBounds();
+		Rectangle playerLeftRectangle = playerLeft.getBounds();
+		Rectangle playerRightRectangle = playerRight.getBounds();
+
+		if (shotRectangle.intersects(playerRightRectangle)) {
+			logger.info("Snowball hit right player");
+			shot.stopShotObject();
+			shot.setShotObjectState(ShotObjectState.CRASHING);
+			updatePlayerHitPoints(Player.PlayerPosition.RIGHT, shot);
+		}
+
+		if (shotRectangle.intersects(playerLeftRectangle)) {
+			logger.info("Snowball hit left player");
+			shot.stopShotObject();
+			shot.setShotObjectState(ShotObjectState.CRASHING);
+			updatePlayerHitPoints(Player.PlayerPosition.LEFT, shot);
+		}
+	}
+
 
 	private void checkCollisionWithGroundAndKnolls(Shot activeShot) {
 		Rectangle shotRectangle = activeShot.getBounds();
