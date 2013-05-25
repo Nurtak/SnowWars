@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class FontLoader {
 
-	private static final String FONT_PATH = "/fonts/fonts/";
+	private static final String FONT_PATH = "fonts/fonts/";
 
 	public static final Font OrangeJuice;
 	
