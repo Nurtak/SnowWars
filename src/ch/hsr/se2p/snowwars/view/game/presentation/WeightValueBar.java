@@ -2,9 +2,11 @@ package ch.hsr.se2p.snowwars.view.game.presentation;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
+import ch.hsr.se2p.snowwars.view.FontLoader;
 
 public class WeightValueBar {
 
@@ -12,7 +14,7 @@ public class WeightValueBar {
 	private final double weightValue;
 
 	private final static int Y_DISTANCE_TO_PLAYER = 200;
-	private final static int PANEL_MARGIN = 15;
+	private final static int PANEL_MARGIN = 20;
 	private final static int BORDER_RIGHT = 50;
 
 	private final static String INFO_MESSAGE = "(affects damage and flight)";
@@ -42,9 +44,13 @@ public class WeightValueBar {
 
 		g2d.setColor(Color.BLACK);
 		g2d.drawString(weightString, xPosition, yPosition);
+		g2d.setFont(FontLoader.getInstance().getGameFont(13));
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		yPosition += PANEL_MARGIN;
 		g2d.setColor(Color.BLACK);
 		g2d.drawString(INFO_MESSAGE, xPosition, yPosition);
+		g2d.setFont(FontLoader.getInstance().getGameFont(25));
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 }
