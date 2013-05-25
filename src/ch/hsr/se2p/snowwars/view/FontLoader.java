@@ -14,7 +14,7 @@ public class FontLoader {
 	private final static Logger logger = Logger.getLogger(FontLoader.class.getPackage().getName());
 
 	private static final String FONT_PATH = "/fonts/";
-	private static final String FONT_FILE_PATH = FONT_PATH + "Feed The Bears.ttf";
+	private static final String FONT_FILE_PATH = FONT_PATH + "PreppyGirlsHandwriting.ttf";
 	private Font gameFont = null;
 	
 	private static FontLoader instance = null;
