@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import ch.hsr.se2p.snowwars.model.Player.PlayerState;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 import ch.hsr.se2p.snowwars.view.game.controlling.GraphicalObject;
 
-public class Board extends JPanel implements MouseListener {
+public class Board extends JPanel implements MouseListener, MouseMotionListener {
 	private static final long serialVersionUID = -2949809536472598850L;
 
 	private final GameFrameInterface gameFrame;
@@ -29,6 +30,8 @@ public class Board extends JPanel implements MouseListener {
 	private BufferedImage backgroundImage;
 
 	private boolean playerAiming;
+	private int lastPositionX;
+	private int lastPositionY;
 	private int aimingStartX;
 	private int aimingStartY;
 
@@ -43,6 +46,7 @@ public class Board extends JPanel implements MouseListener {
 		backgroundImage = bil.getBackgroundImage();
 
 		addMouseListener(this);
+		addMouseMotionListener(this);
 		setFocusable(true);
 		setDoubleBuffered(true);
 	}
@@ -166,22 +170,22 @@ public class Board extends JPanel implements MouseListener {
 		g.drawLine(x, y, (int) baseX, (int) baseY);
 		g.fillPolygon(xPoints, yPoints, 3);
 	}
-	
-	private void paintBuildingInfo(Graphics2D g2d){
+
+	private void paintBuildingInfo(Graphics2D g2d) {
 		Player playerLeft = gameFrame.getViewGameModel().getPlayerLeft();
 		Player playerRight = gameFrame.getViewGameModel().getPlayerRight();
-		
-		if(playerLeft.getPlayerState() == PlayerState.BUILDING){
+
+		if (playerLeft.getPlayerState() == PlayerState.BUILDING) {
 			WeightValueBar wvbleft = new WeightValueBar(playerLeft.getPosition(), gameFrame.getViewGameModel().getBuildTime(playerLeft.getPosition()));
 			wvbleft.paint(g2d);
 		}
-		
-		if(playerRight.getPlayerState() == PlayerState.BUILDING){
+
+		if (playerRight.getPlayerState() == PlayerState.BUILDING) {
 			WeightValueBar wvbright = new WeightValueBar(playerRight.getPosition(), gameFrame.getViewGameModel().getBuildTime(playerRight.getPosition()));
 			wvbright.paint(g2d);
 		}
 	}
-	
+
 	public void startNewShotRequest(int angle, int strength) {
 		gameFrame.getViewGameModel().startNewShotRequest(angle, strength);
 	}
@@ -215,21 +219,39 @@ public class Board extends JPanel implements MouseListener {
 	public void mouseExited(MouseEvent arg0) {
 		shoot();
 	}
-	
-	private void shoot(){
-		if (playerAiming) {
-			playerAiming = false;
 
-			try {
-				int x = (int) (this.aimingStartX - (int) this.getMousePosition().getX());
-				int y = (int) ((int) this.getMousePosition().getY() - this.aimingStartY);
-
-				int angle = (int) Math.toDegrees(Math.atan2(y, x));
-				int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-				strength = strength / AbstractGame.FORCE_REDUCE_FACTOR_STRENGTH;
-
-				startNewShotRequest(angle, strength);
-			} catch (Exception e) {}
+	private void shoot() {
+		if (!playerAiming) {
+			return;
 		}
+
+		playerAiming = false;
+		try {
+			int x = (int) (this.aimingStartX - this.lastPositionX);
+			int y = (int) (this.lastPositionY - this.aimingStartY);
+
+			int angle = (int) Math.toDegrees(Math.atan2(y, x));
+			int strength = (int) (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+			strength = strength / AbstractGame.FORCE_REDUCE_FACTOR_STRENGTH;
+
+			startNewShotRequest(angle, strength);
+		} catch (Exception e) {
+		}
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (!playerAiming)
+			return;
+
+		try {
+			this.lastPositionX = (int) this.getMousePosition().getX();
+			this.lastPositionY = (int) this.getMousePosition().getY();
+		} catch (Exception exception) {
+		}
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
 	}
 }
