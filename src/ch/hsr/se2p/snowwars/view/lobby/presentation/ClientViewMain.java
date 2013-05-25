@@ -25,6 +25,7 @@ import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyModel;
+import java.awt.Color;
 
 public class ClientViewMain extends JFrame implements Observer, ClientViewMainInterface {
 
@@ -37,6 +38,7 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 	private CardLayout cardLayout;
 
 	public ClientViewMain(ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
+		getContentPane().setBackground(new Color(30, 144, 255));
 		this.clientLobbyModel = clientLobbyModel;
 		this.clientLobbyController = clientLobbyController;
 
@@ -46,7 +48,7 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 		createContentPanel();
 
 		pack();
-		setSize(400, 400);
+		setSize(400, 500);
 		setVisible(true);
 		setLocationRelativeTo(null);
 	}
@@ -72,6 +74,7 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 			logoImage = bufferedImageLoader.getLogoImage();
 
 			JPanel logoPanel = new JPanel();
+			logoPanel.setBackground(Color.WHITE);
 			logoPanel.setBorder(null);
 			GridBagConstraints gbc_logoPanel = new GridBagConstraints();
 			gbc_logoPanel.anchor = GridBagConstraints.NORTH;
@@ -101,6 +104,7 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 		contentPanel.setLayout(cardLayout);
 
 		JPanel mainPanel = new PanelMain(this, clientLobbyModel, clientLobbyController);
+		mainPanel.setBackground(Color.WHITE);
 		contentPanel.add(mainPanel, "mainPanel");
 	}
 

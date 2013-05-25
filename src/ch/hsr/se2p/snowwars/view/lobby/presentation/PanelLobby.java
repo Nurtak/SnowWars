@@ -1,6 +1,7 @@
 package ch.hsr.se2p.snowwars.view.lobby.presentation;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -22,8 +23,11 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.exceptions.UserIsNotInLobbyException;
 import ch.hsr.se2p.snowwars.model.User;
+import ch.hsr.se2p.snowwars.view.FontLoader;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyModel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 public class PanelLobby extends JPanel implements Observer, PanelInterface {
 	private static final long serialVersionUID = -4628393851839832247L;
@@ -34,8 +38,12 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 	private ClientLobbyController clientLobbyController;
 	private JList<User> lstUsers;
 	DefaultListModel<User> lobbyModel = new DefaultListModel<User>();
+	private JScrollPane scrollPane;
+	private JLabel lblUsersDieSich;
+	private JLabel lblName;
 	
 	public PanelLobby(ClientViewMainInterface cvm, ClientLobbyModel clientLobbyModel, ClientLobbyController clientLobbyController) {
+		setBackground(new Color(30, 144, 255));
 		this.cvm = cvm;
 		this.clientLobbyModel = clientLobbyModel;
 		this.clientLobbyController = clientLobbyController;
@@ -45,26 +53,25 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 
 	private void createMainPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 
-		lblUsername = new JLabel("Your Username: " + clientLobbyModel.getUser().getName());
+		lblUsername = new JLabel("Your Username: ");
+		lblUsername.setForeground(new Color(255, 255, 255));
+		lblUsername.setFont(FontLoader.getInstance().getGameFont(17));
 		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
-		gbc_lblUsername.gridwidth = 2;
 		gbc_lblUsername.anchor = GridBagConstraints.WEST;
-		gbc_lblUsername.insets = new Insets(0, 40, 5, 40);
+		gbc_lblUsername.insets = new Insets(0, 40, 5, 5);
 		gbc_lblUsername.gridx = 0;
-		gbc_lblUsername.gridy = 0;
+		gbc_lblUsername.gridy = 1;
 		add(lblUsername, gbc_lblUsername);
 
-		lstUsers = new JList<User>();
-		lstUsers.setBorder(new LineBorder(new Color(0, 0, 0)));
-
 		DefaultListModel<User> testModel = new DefaultListModel<User>();
-
+		
+		
 		Set<User> usersToDisplay;
 		usersToDisplay = clientLobbyModel.getUsers();
 		for (User userToDisplay : usersToDisplay) {
@@ -72,17 +79,43 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 				testModel.addElement(userToDisplay);
 			}
 		}
-		lstUsers.setModel(testModel);
-
-		GridBagConstraints gbc_lstUsers = new GridBagConstraints();
-		gbc_lstUsers.gridwidth = 2;
-		gbc_lstUsers.insets = new Insets(0, 40, 0, 40);
-		gbc_lstUsers.fill = GridBagConstraints.BOTH;
-		gbc_lstUsers.gridx = 0;
-		gbc_lstUsers.gridy = 1;
-		add(lstUsers, gbc_lstUsers);
+				
+				lblName = new JLabel(""+clientLobbyModel.getUser().getName());
+				lblName.setFont(new Font("Verdana", Font.PLAIN, 12));
+				lblName.setForeground(new Color(255, 255, 255));
+				GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+				gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
+				gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+				gbc_lblNewLabel.gridx = 1;
+				gbc_lblNewLabel.gridy = 1;
+				add(lblName, gbc_lblNewLabel);
+				
+				lblUsersDieSich = new JLabel("Users die sich gerade in der Lobby befinden:");
+				lblUsersDieSich.setFont(new Font("Verdana", Font.PLAIN, 12));
+				lblUsersDieSich.setForeground(new Color(255, 255, 255));
+				GridBagConstraints gbc_lblUsersDieSich = new GridBagConstraints();
+				gbc_lblUsersDieSich.anchor = GridBagConstraints.WEST;
+				gbc_lblUsersDieSich.gridwidth = 3;
+				gbc_lblUsersDieSich.insets = new Insets(0, 40, 5, 5);
+				gbc_lblUsersDieSich.gridx = 0;
+				gbc_lblUsersDieSich.gridy = 2;
+				add(lblUsersDieSich, gbc_lblUsersDieSich);
+				
+				scrollPane = new JScrollPane();
+				GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+				gbc_scrollPane.gridwidth = 3;
+				gbc_scrollPane.fill = GridBagConstraints.BOTH;
+				gbc_scrollPane.insets = new Insets(0, 40, 5, 5);
+				gbc_scrollPane.gridx = 0;
+				gbc_scrollPane.gridy = 3;
+				add(scrollPane, gbc_scrollPane);
+				lstUsers = new JList<User>();
+				scrollPane.setViewportView(lstUsers);
+				lstUsers.setBorder(new LineBorder(new Color(0, 0, 0)));
+				lstUsers.setModel(testModel);
 
 		JButton backButton = new JButton("Back");
+		backButton.setFont(new Font("Verdana", Font.BOLD, 12));
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -90,25 +123,26 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 			}
 		});
 		GridBagConstraints gbc_backButton = new GridBagConstraints();
-		gbc_backButton.anchor = GridBagConstraints.WEST;
-		gbc_backButton.insets = new Insets(5, 40, 5, 40);
+		gbc_backButton.anchor = GridBagConstraints.NORTHWEST;
+		gbc_backButton.insets = new Insets(5, 40, 0, 40);
 		gbc_backButton.gridx = 0;
-		gbc_backButton.gridy = 2;
+		gbc_backButton.gridy = 4;
 		add(backButton, gbc_backButton);
-
-		JButton inviteButton = new JButton("Invite");
-		inviteButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				invitePressed();
-			}
-		});
-		GridBagConstraints gbc_inviteButton = new GridBagConstraints();
-		gbc_inviteButton.anchor = GridBagConstraints.EAST;
-		gbc_inviteButton.insets = new Insets(5, 0, 5, 40);
-		gbc_inviteButton.gridx = 1;
-		gbc_inviteButton.gridy = 2;
-		add(inviteButton, gbc_inviteButton);
+		
+				JButton inviteButton = new JButton("Invite");
+				inviteButton.setFont(new Font("Verdana", Font.BOLD, 12));
+				inviteButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						invitePressed();
+					}
+				});
+				GridBagConstraints gbc_inviteButton = new GridBagConstraints();
+				gbc_inviteButton.anchor = GridBagConstraints.NORTHEAST;
+				gbc_inviteButton.insets = new Insets(5, 0, 0, 40);
+				gbc_inviteButton.gridx = 2;
+				gbc_inviteButton.gridy = 4;
+				add(inviteButton, gbc_inviteButton);
 	}
 
 	@Override
