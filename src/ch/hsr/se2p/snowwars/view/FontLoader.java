@@ -4,26 +4,49 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import org.apache.log4j.Logger;
 
 public class FontLoader {
 
-	private static final String FONT_PATH = "fonts/fonts/";
+	private final static Logger logger = Logger.getLogger(FontLoader.class.getPackage().getName());
 
-	public static final Font OrangeJuice;
+	private static final String FONT_PATH = "/fonts/";
+	private static final String FONT_FILE_PATH = FONT_PATH + "Feed The Bears.ttf";
+	private Font gameFont = null;
 	
+	private static FontLoader instance = null;
+    private FontLoader() {
+    }
 
-	static {
-		Font tryFont = null;
-		try {
-			tryFont = Font.createFont(Font.TRUETYPE_FONT, new File(FONT_PATH + "Feed The Bears.ttf"));
-		} catch (FontFormatException e) {
-			throw new ExceptionInInitializerError(e);
-		} catch (IOException e) {
-			throw new ExceptionInInitializerError(e);
-		} finally {
-			OrangeJuice = tryFont.deriveFont(Font.PLAIN, 35);
-
-		}
-	}
-
+    public static FontLoader getInstance() {
+        if (instance == null) {
+            instance = new FontLoader();
+        }
+        return instance;
+    }
+	
+    public Font getGameFont(int size){
+    	initFont();
+    	return gameFont.deriveFont(Font.PLAIN, size);
+    }
+    
+    private void initFont(){
+      	if(gameFont == null){
+    		try {
+    			URL fontURL = FontLoader.class.getResource(FONT_FILE_PATH);
+    			File fontFile = new File(fontURL.toURI());
+    			gameFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+    			logger.info("Successfully loaded font from " + FONT_FILE_PATH);
+    		} catch (FontFormatException e) {
+    			logger.error(e.getMessage(), e);
+    		} catch (IOException e) {
+    			logger.error(e.getMessage(), e);
+    		} catch (URISyntaxException e) {
+    			logger.error(e.getMessage(), e);
+    		}
+    	}
+    }
 }
