@@ -1,6 +1,6 @@
 package ch.hsr.se2p.snowwars.view.game.controlling;
 
-import java.io.InputStream;
+import java.io.BufferedInputStream;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -33,7 +33,7 @@ public class SoundPlayer {
 
 	private void initializeWindHowl() {
 		try {
-			InputStream bufferedIn = SoundPlayer.class.getResourceAsStream(WIND_HOWL_SOUND_PATH);
+			BufferedInputStream bufferedIn = new BufferedInputStream(SoundPlayer.class.getResourceAsStream(WIND_HOWL_SOUND_PATH));
 			AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
 			AudioFormat audioFormat = audioStream.getFormat();
 			DataLine.Info info = new DataLine.Info(Clip.class, audioFormat);
@@ -46,7 +46,7 @@ public class SoundPlayer {
 
 	private void initializeLost() {
 		try {
-			InputStream bufferedIn = SoundPlayer.class.getResourceAsStream(LOST_SOUND_PATH);
+			BufferedInputStream bufferedIn = new BufferedInputStream(SoundPlayer.class.getResourceAsStream(LOST_SOUND_PATH));
 			AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
 			AudioFormat audioFormat = audioStream.getFormat();
 			DataLine.Info info = new DataLine.Info(Clip.class, audioFormat);
@@ -59,7 +59,7 @@ public class SoundPlayer {
 
 	private void initializeWon() {
 		try {
-			InputStream bufferedIn = SoundPlayer.class.getResourceAsStream(WON_SOUND_PATH);
+			BufferedInputStream bufferedIn = new BufferedInputStream(SoundPlayer.class.getResourceAsStream(WON_SOUND_PATH));
 			AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
 			AudioFormat audioFormat = audioStream.getFormat();
 			DataLine.Info info = new DataLine.Info(Clip.class, audioFormat);
@@ -72,7 +72,7 @@ public class SoundPlayer {
 
 	private void initializeStart() {
 		try {
-			InputStream bufferedIn = SoundPlayer.class.getResourceAsStream(START_SOUND_PATH);
+			BufferedInputStream bufferedIn = new BufferedInputStream(SoundPlayer.class.getResourceAsStream(START_SOUND_PATH));
 			AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
 			AudioFormat audioFormat = audioStream.getFormat();
 			DataLine.Info info = new DataLine.Info(Clip.class, audioFormat);
@@ -112,7 +112,7 @@ public class SoundPlayer {
 
 	public void playCountdown() {
 		try {
-			InputStream bufferedIn = SoundPlayer.class.getResourceAsStream(COUNTDOWN_SOUND_PATH);
+			BufferedInputStream bufferedIn = new BufferedInputStream(SoundPlayer.class.getResourceAsStream(COUNTDOWN_SOUND_PATH));
 			AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
 			AudioFormat audioFormat = audioStream.getFormat();
 			DataLine.Info info = new DataLine.Info(Clip.class, audioFormat);
