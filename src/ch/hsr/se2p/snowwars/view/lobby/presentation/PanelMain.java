@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -39,7 +40,7 @@ public class PanelMain extends JPanel implements Observer, PanelInterface{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 
-		JButton playButton = new JButton("Play");
+		JButton playButton = new JButton();
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -47,13 +48,19 @@ public class PanelMain extends JPanel implements Observer, PanelInterface{
 			}
 		});
 		GridBagConstraints gbc_playButton = new GridBagConstraints();
+		playButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/PlayButton.gif")));
+		playButton.setBackground(new Color(25,145,210));
+		playButton.setBorder(null);
 		gbc_playButton.fill = GridBagConstraints.BOTH;
 		gbc_playButton.insets = new Insets(0, 0, 5, 0);
 		gbc_playButton.gridx = 0;
 		gbc_playButton.gridy = 1;
 		add(playButton, gbc_playButton);
 				
-						JButton exitButton = new JButton("Exit");
+						JButton exitButton = new JButton();
+						exitButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/ExitButton.gif")));
+						exitButton.setBackground(new Color(25,145,210));
+						exitButton.setBorder(null);
 						exitButton.addActionListener(new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {

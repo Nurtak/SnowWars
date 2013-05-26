@@ -71,7 +71,8 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 		txtUsername.setColumns(10);
 
 		JButton backButton = new JButton();
-		backButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/BackButton2.gif")));
+		backButton.setBackground(new Color(25,145,210));
+
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -79,13 +80,16 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 			}
 		});
 		GridBagConstraints gbc_backButton = new GridBagConstraints();
+		backButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/BackButton2.gif")));
 		gbc_backButton.anchor = GridBagConstraints.WEST;
 		gbc_backButton.insets = new Insets(0, 40, 0, 5);
 		gbc_backButton.gridx = 1;
 		gbc_backButton.gridy = 4;
 		add(backButton, gbc_backButton);
 
-		JButton playButton = new JButton("Play");
+		JButton playButton = new JButton();
+		playButton.setBackground(new Color(25,145,210));
+		playButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/PlayButton.gif")));
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

@@ -116,7 +116,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 		lstUsers.setModel(testModel);
 
 		JButton backButton = new JButton();
-		backButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/BackButton.gif")));
+		backButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/BackButton2.gif")));
 
 		backButton.setBackground(new Color(32, 145, 210));
 		backButton.setBorder(null);
