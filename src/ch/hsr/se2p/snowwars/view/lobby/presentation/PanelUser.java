@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -69,7 +70,8 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 		add(txtUsername, gbc_txtUsername);
 		txtUsername.setColumns(10);
 
-		JButton backButton = new JButton("Back");
+		JButton backButton = new JButton();
+		backButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/BackButton2.gif")));
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
