@@ -105,7 +105,7 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 		contentPanel.setLayout(cardLayout);
 
 		JPanel mainPanel = new PanelMain(this, clientLobbyModel, clientLobbyController);
-		mainPanel.setBackground(Color.WHITE);
+		mainPanel.setBackground(new Color(25,145,210));
 		contentPanel.add(mainPanel, "mainPanel");
 	}
 

@@ -91,6 +91,7 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 		JButton playButton = new JButton();
 		playButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/playButton.gif")));
 		playButton.setBorder(null);
+		playButton.setBackground(new Color(25,145,210));
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
