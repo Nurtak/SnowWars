@@ -1,6 +1,7 @@
 package ch.hsr.se2p.snowwars.view.lobby.presentation;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
 
@@ -27,9 +29,8 @@ import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyModel;
-import java.awt.Color;
 
-public class ClientViewMain extends JFrame implements Observer, WindowListener, ClientViewMainInterface{
+public class ClientViewMain extends JFrame implements Observer, WindowListener, ClientViewMainInterface {
 
 	private final static Logger logger = Logger.getLogger(ClientViewMain.class.getPackage().getName());
 	private static final long serialVersionUID = 7390513127049817797L;
@@ -58,9 +59,15 @@ public class ClientViewMain extends JFrame implements Observer, WindowListener, 
 	private void createFrame() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		logger.info("Displaying ViewMain...");
-		setTitle("SnowWars");
+		setTitle("Snow Wars");
 		addWindowListener(this);
 		createKeyBindings();
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{124, 0};
@@ -95,7 +102,7 @@ public class ClientViewMain extends JFrame implements Observer, WindowListener, 
 
 	private void createContentPanel() {
 		contentPanel = new JPanel();
-		contentPanel.setBackground(new Color(32,145,210));
+		contentPanel.setBackground(new Color(32, 145, 210));
 		GridBagConstraints gbc_contentPanel = new GridBagConstraints();
 		gbc_contentPanel.insets = new Insets(5, 5, 5, 5);
 		gbc_contentPanel.fill = GridBagConstraints.HORIZONTAL;
@@ -108,7 +115,7 @@ public class ClientViewMain extends JFrame implements Observer, WindowListener, 
 		contentPanel.setLayout(cardLayout);
 
 		JPanel mainPanel = new PanelMain(this, clientLobbyModel, clientLobbyController);
-		mainPanel.setBackground(new Color(25,145,210));
+		mainPanel.setBackground(new Color(25, 145, 210));
 		contentPanel.add(mainPanel, "mainPanel");
 	}
 
@@ -121,7 +128,7 @@ public class ClientViewMain extends JFrame implements Observer, WindowListener, 
 		KeyboardFocusManager kfm = KeyboardFocusManager.getCurrentKeyboardFocusManager();
 		kfm.addKeyEventDispatcher(new KeyEventDispatcher() {
 			@Override
-			public boolean dispatchKeyEvent(KeyEvent e) {				
+			public boolean dispatchKeyEvent(KeyEvent e) {
 				switch (e.getID()) {
 					case KeyEvent.KEY_PRESSED :
 						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -136,15 +143,15 @@ public class ClientViewMain extends JFrame implements Observer, WindowListener, 
 		});
 
 	}
-	
-	private PanelInterface getActivePane(){
+
+	private PanelInterface getActivePane() {
 		Component activeComponent = null;
 		for (Component comp : contentPanel.getComponents()) {
 			if (comp.isVisible()) {
 				activeComponent = comp;
 			}
 		}
-		return (PanelInterface)activeComponent;
+		return (PanelInterface) activeComponent;
 	}
 
 	public void nextCard() {
@@ -157,8 +164,8 @@ public class ClientViewMain extends JFrame implements Observer, WindowListener, 
 	}
 
 	public void exit() {
-	    logger.info("exiting via GUI");
-	    System.exit(0);
+		logger.info("exiting via GUI");
+		System.exit(0);
 	}
 
 	@Override
@@ -176,13 +183,13 @@ public class ClientViewMain extends JFrame implements Observer, WindowListener, 
 			logger.error(e.getMessage(), e);
 		}
 	}
-	
+
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		leaveLobby();
 		exit();
 	}
-	
+
 	@Override
 	public void windowActivated(WindowEvent arg0) {
 	}
