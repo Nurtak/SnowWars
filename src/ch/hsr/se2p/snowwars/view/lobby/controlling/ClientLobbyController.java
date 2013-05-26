@@ -148,6 +148,8 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 	}
 
 	public void leaveLobby() throws RemoteException, SnowWarsRMIException {
-		lobbyServerSessionInterface.leaveLobby();
+		if(lobbyServerSessionInterface != null){
+			lobbyServerSessionInterface.leaveLobby();
+		}
 	}
 }

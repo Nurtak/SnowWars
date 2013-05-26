@@ -1,6 +1,7 @@
 package ch.hsr.se2p.snowwars.view.lobby.presentation;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,6 +9,8 @@ import java.awt.Insets;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -18,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
 
@@ -25,9 +29,8 @@ import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.view.BufferedImageLoader;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyModel;
-import java.awt.Color;
 
-public class ClientViewMain extends JFrame implements Observer, ClientViewMainInterface {
+public class ClientViewMain extends JFrame implements Observer, WindowListener, ClientViewMainInterface {
 
 	private final static Logger logger = Logger.getLogger(ClientViewMain.class.getPackage().getName());
 	private static final long serialVersionUID = 7390513127049817797L;
@@ -54,10 +57,17 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 	}
 
 	private void createFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		logger.info("Displaying ViewMain...");
-		setTitle("SnowWars");
+		setTitle("Snow Wars");
+		addWindowListener(this);
 		createKeyBindings();
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{124, 0};
@@ -92,7 +102,7 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 
 	private void createContentPanel() {
 		contentPanel = new JPanel();
-		contentPanel.setBackground(new Color(32,145,210));
+		contentPanel.setBackground(new Color(32, 145, 210));
 		GridBagConstraints gbc_contentPanel = new GridBagConstraints();
 		gbc_contentPanel.insets = new Insets(5, 5, 5, 5);
 		gbc_contentPanel.fill = GridBagConstraints.HORIZONTAL;
@@ -105,7 +115,7 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 		contentPanel.setLayout(cardLayout);
 
 		JPanel mainPanel = new PanelMain(this, clientLobbyModel, clientLobbyController);
-		mainPanel.setBackground(new Color(25,145,210));
+		mainPanel.setBackground(new Color(25, 145, 210));
 		contentPanel.add(mainPanel, "mainPanel");
 	}
 
@@ -118,7 +128,7 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 		KeyboardFocusManager kfm = KeyboardFocusManager.getCurrentKeyboardFocusManager();
 		kfm.addKeyEventDispatcher(new KeyEventDispatcher() {
 			@Override
-			public boolean dispatchKeyEvent(KeyEvent e) {				
+			public boolean dispatchKeyEvent(KeyEvent e) {
 				switch (e.getID()) {
 					case KeyEvent.KEY_PRESSED :
 						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -133,18 +143,16 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 		});
 
 	}
-	
-	private PanelInterface getActivePane(){
+
+	private PanelInterface getActivePane() {
 		Component activeComponent = null;
 		for (Component comp : contentPanel.getComponents()) {
 			if (comp.isVisible()) {
 				activeComponent = comp;
 			}
 		}
-		return (PanelInterface)activeComponent;
+		return (PanelInterface) activeComponent;
 	}
-
-	//
 
 	public void nextCard() {
 		cardLayout.next(contentPanel);
@@ -156,8 +164,8 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 	}
 
 	public void exit() {
-	    logger.info("exiting via GUI");
-	    System.exit(0);
+		logger.info("exiting via GUI");
+		System.exit(0);
 	}
 
 	@Override
@@ -167,11 +175,42 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 	@Override
 	public void leaveLobby() {
 		try {
+			logger.info("Leaving Lobby...");
 			this.clientLobbyController.leaveLobby();
 		} catch (RemoteException e) {
 			logger.error(e.getMessage(), e);
 		} catch (SnowWarsRMIException e) {
 			logger.error(e.getMessage(), e);
 		}
+	}
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		leaveLobby();
+		exit();
+	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
 	}
 }
