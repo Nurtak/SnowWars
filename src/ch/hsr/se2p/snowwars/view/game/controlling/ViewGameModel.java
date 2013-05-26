@@ -7,6 +7,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import ch.hsr.se2p.snowwars.model.GameClient;
 import ch.hsr.se2p.snowwars.model.Player;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
@@ -15,6 +17,9 @@ import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.Snowball;
 
 public class ViewGameModel extends Observable implements Observer, Serializable {
+
+	private final static Logger logger = Logger.getLogger(ViewGameModel.class.getPackage().getName());
+
 	private static final long serialVersionUID = 9153023421344526026L;
 
 	private GameClient gameClient;
@@ -64,23 +69,25 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 	}
 
 	public void startBuildTimer(PlayerPosition playerPosition) {
-		switch(playerPosition){
-			case LEFT:
+		logger.info(playerPosition + " player is now building a snowball...");
+		switch (playerPosition) {
+			case LEFT :
 				this.startBuildTimeLeftPlayer = System.currentTimeMillis() - TIMER_START_VALUE;
 				break;
-			case RIGHT:
+			case RIGHT :
 				this.startBuildTimeRightPlayer = System.currentTimeMillis() - TIMER_START_VALUE;
 				break;
 		}
+		gameClient.playerIsBuilding(playerPosition);
 	}
-	
-	public double getBuildTime(PlayerPosition playerPosition){
+
+	public double getBuildTime(PlayerPosition playerPosition) {
 		long buildTime = 0;
-		switch(playerPosition){
-			case LEFT:
+		switch (playerPosition) {
+			case LEFT :
 				buildTime = System.currentTimeMillis() - startBuildTimeLeftPlayer;
 				break;
-			case RIGHT:
+			case RIGHT :
 				buildTime = System.currentTimeMillis() - startBuildTimeRightPlayer;
 				break;
 		}
@@ -135,7 +142,7 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 
 		updateObserver();
 	}
-	
+
 	protected void setCountdownActive(boolean countdownActive) {
 		this.countdownActive = countdownActive;
 	}
@@ -171,7 +178,7 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 	}
 
 	public void startNewShotRequest(int angle, int strength) {
-		if (!countdownActive) {			
+		if (!countdownActive) {
 			PlayerPosition playerPos = gameClient.getPlayerPosition();
 			// weight starts with 1, because 0 weight meant 0 gravity
 			Snowball sb = new Snowball(getBuildTime(playerPos));
@@ -182,6 +189,8 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 	}
 
 	public void startNewBuildRequest() {
-		gameClient.startNewBuildRequest();
+		if(!countdownActive){
+			gameClient.startNewBuildRequest();
+		}
 	}
 }

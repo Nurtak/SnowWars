@@ -57,9 +57,7 @@ public class ViewGameController extends UnicastRemoteObject implements GameClien
 	
 	@Override
 	public void playerIsBuilding(PlayerPosition playerPosition) throws RemoteException {
-		logger.info(playerPosition + " player is now building a snowball...");
 		viewGameModel.startBuildTimer(playerPosition);
-		gameClient.playerIsBuilding(playerPosition);
 	}
 	
 	private void askUserIfReady() {
