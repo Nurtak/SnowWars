@@ -95,8 +95,10 @@ public class GameServer extends AbstractGame {
 			switch (playerPosition) {
 				case LEFT :
 					playerRightGameServerSession.opponentQuitGame();
+					break;
 				case RIGHT :
 					playerLeftGameServerSession.opponentQuitGame();
+					break;
 			}
 		} catch (RemoteException e) {
 			logger.error(e.getMessage(), e);

@@ -52,7 +52,7 @@ public class GameServerSession extends UnicastRemoteObject implements GameServer
 	@Override
 	public void quitGame() throws RemoteException {
 		logger.info("Player " + user.getName() + " chickened out!");
-
+		
 		gameServer.quitGame(playerPosition);
 	}
 
