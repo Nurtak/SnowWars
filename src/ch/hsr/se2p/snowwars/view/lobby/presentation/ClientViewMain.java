@@ -8,6 +8,8 @@ import java.awt.Insets;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -27,7 +29,7 @@ import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyModel;
 import java.awt.Color;
 
-public class ClientViewMain extends JFrame implements Observer, ClientViewMainInterface {
+public class ClientViewMain extends JFrame implements Observer, WindowListener, ClientViewMainInterface{
 
 	private final static Logger logger = Logger.getLogger(ClientViewMain.class.getPackage().getName());
 	private static final long serialVersionUID = 7390513127049817797L;
@@ -54,9 +56,10 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 	}
 
 	private void createFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		logger.info("Displaying ViewMain...");
 		setTitle("SnowWars");
+		addWindowListener(this);
 		createKeyBindings();
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -144,8 +147,6 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 		return (PanelInterface)activeComponent;
 	}
 
-	//
-
 	public void nextCard() {
 		cardLayout.next(contentPanel);
 	}
@@ -167,11 +168,42 @@ public class ClientViewMain extends JFrame implements Observer, ClientViewMainIn
 	@Override
 	public void leaveLobby() {
 		try {
+			logger.info("Leaving Lobby...");
 			this.clientLobbyController.leaveLobby();
 		} catch (RemoteException e) {
 			logger.error(e.getMessage(), e);
 		} catch (SnowWarsRMIException e) {
 			logger.error(e.getMessage(), e);
 		}
+	}
+	
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		leaveLobby();
+		exit();
+	}
+	
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
 	}
 }
