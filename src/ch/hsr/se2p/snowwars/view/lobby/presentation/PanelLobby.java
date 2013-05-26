@@ -116,7 +116,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 		lstUsers.setModel(testModel);
 
 		JButton backButton = new JButton();
-		backButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/BackButton8.gif")));
+		backButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/backButton.gif")));
 		backButton.setBorder(null);
 		backButton.addActionListener(new ActionListener() {
 			@Override
@@ -132,7 +132,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 		add(backButton, gbc_backButton);
 
 		JButton inviteButton = new JButton();
-		inviteButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/inviteButton3.gif")));
+		inviteButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/inviteButton.gif")));
 		inviteButton.setBorder(null);
 		inviteButton.addActionListener(new ActionListener() {
 			@Override

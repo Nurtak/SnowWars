@@ -80,7 +80,7 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 			}
 		});
 		GridBagConstraints gbc_backButton = new GridBagConstraints();
-		backButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/backButton8.gif")));
+		backButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/backButton.gif")));
 		backButton.setBorder(null);
 		gbc_backButton.anchor = GridBagConstraints.WEST;
 		gbc_backButton.insets = new Insets(0, 40, 0, 5);
@@ -89,7 +89,7 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 		add(backButton, gbc_backButton);
 
 		JButton playButton = new JButton();
-		playButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/playButton3.gif")));
+		playButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/playButton.gif")));
 		playButton.setBorder(null);
 		playButton.addActionListener(new ActionListener() {
 			@Override

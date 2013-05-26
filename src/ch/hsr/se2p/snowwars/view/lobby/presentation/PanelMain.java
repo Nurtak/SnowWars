@@ -48,7 +48,7 @@ public class PanelMain extends JPanel implements Observer, PanelInterface{
 			}
 		});
 		GridBagConstraints gbc_playButton = new GridBagConstraints();
-		playButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/playButton3.gif")));
+		playButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/playButton.gif")));
 		playButton.setBorder(null);
 		gbc_playButton.fill = GridBagConstraints.BOTH;
 		gbc_playButton.insets = new Insets(0, 0, 5, 0);
@@ -57,7 +57,7 @@ public class PanelMain extends JPanel implements Observer, PanelInterface{
 		add(playButton, gbc_playButton);
 				
 						JButton exitButton = new JButton();
-						exitButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/exitButton3.gif")));
+						exitButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/exitButton.gif")));
 						exitButton.setBorder(null);
 						exitButton.addActionListener(new ActionListener() {
 							@Override
