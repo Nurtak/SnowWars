@@ -63,7 +63,7 @@ public class PanelUser extends JPanel implements Observer, PanelInterface{
 		txtUsername = new JTextField();
 		GridBagConstraints gbc_txtUsername = new GridBagConstraints();
 		gbc_txtUsername.gridwidth = 3;
-		gbc_txtUsername.insets = new Insets(0, 40, 5, 0);
+		gbc_txtUsername.insets = new Insets(0, 38, 5, 5);
 		gbc_txtUsername.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtUsername.gridx = 1;
 		gbc_txtUsername.gridy = 2;

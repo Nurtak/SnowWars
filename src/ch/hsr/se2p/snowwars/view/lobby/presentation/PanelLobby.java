@@ -81,7 +81,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 		}
 
 		lblUsername = new JLabel(clientLobbyModel.getUser().getName());
-		lblUsername.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblUsername.setFont(new Font("Verdana", Font.PLAIN, 15));
 		lblUsername.setForeground(new Color(255, 255, 255));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.gridwidth = 2;
