@@ -21,7 +21,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
 
@@ -62,12 +61,12 @@ public class ClientViewMain extends JFrame implements Observer, WindowListener, 
 		setTitle("Snow Wars");
 		addWindowListener(this);
 		createKeyBindings();
-		
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
+
+		// try {
+		// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		// } catch (Exception e) {
+		// logger.error(e.getMessage(), e);
+		// }
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{124, 0};
