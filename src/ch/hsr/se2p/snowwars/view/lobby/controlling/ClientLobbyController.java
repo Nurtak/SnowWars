@@ -30,7 +30,8 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 	private ConnectedServerSessionInterface connectedServerSessionInterface;
 	private ClientLobbyModel clientLobbyModel;
 	private ClientViewMain clientViewMain;
-	private LobbyServerSessionInterface lobbyServerSessionInterface;
+
+    private LobbyServerSessionInterface lobbyServerSessionInterface;
 
 	public ClientLobbyController(SnowWarsClientInterface snowWarsClientInterface, ConnectedServerSessionInterface connectedServerSessionInterface) throws RemoteException {
 		this.snowWarsClientInterface = snowWarsClientInterface;
@@ -152,4 +153,12 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 			lobbyServerSessionInterface.leaveLobby();
 		}
 	}
+	
+    /**
+     * ONLY FOR TESTING!
+     * @return the clientViewMain
+     */
+    public ClientViewMain getClientViewMain() {
+        return clientViewMain;
+    }
 }

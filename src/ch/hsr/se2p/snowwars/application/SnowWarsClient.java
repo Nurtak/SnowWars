@@ -10,9 +10,11 @@ import ch.hsr.se2p.snowwars.network.server.session.ConnectedServerSessionInterfa
 import ch.hsr.se2p.snowwars.network.server.session.GameServerSessionInterface;
 import ch.hsr.se2p.snowwars.view.game.controlling.ViewGameController;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
+import ch.hsr.se2p.snowwars.view.lobby.presentation.ClientViewMain;
 
 public class SnowWarsClient implements SnowWarsClientInterface {
 	private final static Logger logger = Logger.getLogger(SnowWarsClient.class.getPackage().getName());
+	private ClientLobbyController clientLobbyController;
 
 	public SnowWarsClient() {
 		startProgram();
@@ -27,7 +29,7 @@ public class SnowWarsClient implements SnowWarsClientInterface {
 	@Override
 	public void enterLobby(ConnectedServerSessionInterface connectedServerSessionInterface) {
 		try {
-			new ClientLobbyController(this, connectedServerSessionInterface);
+			clientLobbyController = new ClientLobbyController(this, connectedServerSessionInterface);
 		} catch (RemoteException e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -48,4 +50,12 @@ public class SnowWarsClient implements SnowWarsClientInterface {
 			logger.error(e.getMessage(), e);
 		}
 	}
+	
+    /**
+     * ONLY FOR TESTING!
+     * @return the clientViewMain
+     */
+    public ClientViewMain getClientViewMain() {
+        return clientLobbyController.getClientViewMain();
+    }
 }
