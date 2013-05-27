@@ -45,6 +45,7 @@ public class SnowWarsClient implements SnowWarsClientInterface {
 		try {
 			ViewGameController viewGameController = new ViewGameController(this, new GameClient(gameServerSessionInterface));
 			gameServerSessionInterface.setGameClientSessionInterface(viewGameController);
+			
 			viewGameController.showGui();
 		} catch (RemoteException e) {
 			logger.error(e.getMessage(), e);
