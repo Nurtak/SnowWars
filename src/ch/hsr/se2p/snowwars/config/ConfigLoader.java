@@ -33,9 +33,9 @@ public class ConfigLoader {
 
 			XMLConfiguration xmlConfig = new XMLConfiguration("config.xml");
 
-			snowWarsConfig = new Config("152.96.236.2", "snowwars", 1099, 1098);
-
+//			snowWarsConfig = new Config("152.96.236.2", "snowwars", 1099, 1098);
 			snowWarsConfig = new Config(xmlConfig.getString("hostname"), xmlConfig.getString("lookupname"), xmlConfig.getInt("port.rmi_registry"), xmlConfig.getInt("port.rmi_remote"));
+			
 			logger.info("XML config: OK");
 			return snowWarsConfig;
 		} catch (org.apache.commons.configuration.ConfigurationException e) {
