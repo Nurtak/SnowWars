@@ -62,7 +62,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 
 		lblUsernameDescription = new JLabel("Your Username: ");
 		lblUsernameDescription.setForeground(new Color(255, 255, 255));
-		lblUsernameDescription.setFont(FontLoader.getInstance().getGameFont(17));
+		lblUsernameDescription.setFont(FontLoader.getInstance().getGameFont(18));
 		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
 		gbc_lblUsername.anchor = GridBagConstraints.WEST;
 		gbc_lblUsername.insets = new Insets(0, 40, 5, 0);
@@ -81,7 +81,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 		}
 
 		lblUsername = new JLabel(clientLobbyModel.getUser().getName());
-		lblUsername.setFont(new Font("Verdana", Font.PLAIN, 15));
+		lblUsername.setFont(FontLoader.getInstance().getGameFont(18));
 		lblUsername.setForeground(new Color(255, 255, 255));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.gridwidth = 2;
@@ -92,7 +92,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
 		add(lblUsername, gbc_lblNewLabel);
 
 		lblLobbyDescription = new JLabel("Available users:");
-		lblLobbyDescription.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblLobbyDescription.setFont(FontLoader.getInstance().getGameFont(12));
 		lblLobbyDescription.setForeground(new Color(255, 255, 255));
 		GridBagConstraints gbc_lblUsersDieSich = new GridBagConstraints();
 		gbc_lblUsersDieSich.anchor = GridBagConstraints.WEST;
