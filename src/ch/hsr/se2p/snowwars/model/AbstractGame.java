@@ -21,7 +21,7 @@ public abstract class AbstractGame extends Observable implements ActionListener 
 
 	protected final static int FORCE_REDUCE_FACTOR = 10;
 	public final static int FORCE_REDUCE_FACTOR_STRENGTH = 3;
-	protected final static double GRAVITATION = 9.81 / 80;
+	protected final static double GRAVITATION = 9.81/80;
 
 	private ArrayList<Shot> shots = new ArrayList<Shot>();
 	private ArrayList<Knoll> knolls = new ArrayList<Knoll>();
