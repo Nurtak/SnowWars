@@ -27,6 +27,7 @@ public class Lobby {
     }
 
     public synchronized boolean addSession(LobbyServerSession lobbyServerSession) throws UsernameAlreadyTakenException {
+    	logger.info("User " + lobbyServerSession.getUser().getName() + " joined the lobby...");
         if (users.add(lobbyServerSession)) {
             notifyUsersForLobbyUpdate(lobbyServerSession);
             return true;
@@ -106,6 +107,7 @@ public class Lobby {
     }
 
     public synchronized void leave(LobbyServerSession lobbyServerSession) {
+    	logger.info("User " + lobbyServerSession.getUser().getName() + " left the lobby...");
         users.remove(lobbyServerSession);
         notifyUsersForLobbyUpdate(lobbyServerSession);
     }
