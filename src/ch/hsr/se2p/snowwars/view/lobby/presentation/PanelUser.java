@@ -118,7 +118,11 @@ public class PanelUser extends JPanel implements Observer, PanelInterface {
                 JOptionPane.showMessageDialog(this, "Please enter an username!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if (viewLobbyController.isNameAvailable(txtUsername.getText())) {
+            else if (txtUsername.getText().length() > 25) {
+                JOptionPane.showMessageDialog(this, "Username is too long! (>25 characters)", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            else if (viewLobbyController.isNameAvailable(txtUsername.getText())) {
                 User user = new User(txtUsername.getText());
                 viewLobbyController.registerAtLobby(user);
                 cvm.addPanel(new PanelLobby(cvm, viewLobbyModel, viewLobbyController), "lobbyPanel");
