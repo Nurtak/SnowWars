@@ -22,8 +22,9 @@ import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 
 public class ClientLobbyControllerTest {
 
-    private User testUser;
-    
+    private String name = "Donald Duck";
+    private User testUser = new User(name);
+
     private class ConnectedServerSessionFake implements ConnectedServerSessionInterface {
 
         @Override
@@ -37,26 +38,26 @@ public class ClientLobbyControllerTest {
             assertTrue(lobbyClientSessionInterface instanceof ClientLobbyController);
             assertEquals(testUser, user);
             return new LobbyServerSessionInterface() {
-                
+
                 @Override
                 public ConnectedServerSessionInterface leaveLobby() throws RemoteException, SnowWarsRMIException {
                     return null;
                 }
-                
+
                 @Override
                 public void inviteUser(User selectedUser) throws RemoteException, UserIsNotInLobbyException {
                 }
-                
+
                 @Override
                 public Set<User> getUsers() throws RemoteException {
                     return null;
                 }
-                
+
                 @Override
                 public User getUser() throws RemoteException {
                     return null;
                 }
-                
+
                 @Override
                 public void answerInvitation(User invitingUser, InvitationAnswer answer) throws RemoteException, UserIsNotInLobbyException {
                 }
@@ -84,6 +85,6 @@ public class ClientLobbyControllerTest {
     @Test
     public void testRegisterAtLobby() throws RemoteException {
         ClientLobbyController clc = new ClientLobbyController(new SnowWarsClientFake(), new ConnectedServerSessionFake());
-        clc.registerAtLobby("Donald Duck");
+        clc.registerAtLobby(name);
     }
 }
