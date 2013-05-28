@@ -14,7 +14,7 @@ public class ConfigLoader {
 	private final static Logger logger = Logger.getLogger(ConfigLoader.class.getPackage().getName());
 
 	public static Config getConfig() {
-		Config snowWarsConfig;
+		Config config;
 		try {
 			logger.info("Load XML config...");
 
@@ -32,12 +32,11 @@ public class ConfigLoader {
 			}
 
 			XMLConfiguration xmlConfig = new XMLConfiguration("config.xml");
-
-//			snowWarsConfig = new Config("152.96.236.2", "snowwars", 1099, 1098);
-			snowWarsConfig = new Config(xmlConfig.getString("hostname"), xmlConfig.getString("lookupname"), xmlConfig.getInt("port.rmi_registry"), xmlConfig.getInt("port.rmi_remote"));
-            logger.info("Config is: " + snowWarsConfig.getHostname());			
+			config = new Config(xmlConfig.getString("hostname"), xmlConfig.getString("lookupname"), xmlConfig.getInt("port.rmi_registry"), xmlConfig.getInt("port.rmi_remote"));
+            
+			logger.info("Config is: " + config.getHostname());			
 			logger.info("XML config: OK");
-			return snowWarsConfig;
+			return config;
 		} catch (org.apache.commons.configuration.ConfigurationException e) {
 			logger.error(e.getMessage(), e);
 			return null;

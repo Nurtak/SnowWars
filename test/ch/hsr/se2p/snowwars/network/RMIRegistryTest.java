@@ -3,6 +3,7 @@ package ch.hsr.se2p.snowwars.network;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,11 +14,17 @@ import ch.hsr.se2p.snowwars.network.server.StartRMIServer;
 
 public class RMIRegistryTest {
 
+    private StartRMIServer startRMIServer;
     private static Config config;
 
     @Before
-    public void setUp() {
+    public void setUp() {   
         config = ConfigLoader.getConfig();
+    }
+    
+    @After
+    public void tearDown() throws Exception {
+        startRMIServer = null;
     }
 
     @Test(expected = IOException.class)

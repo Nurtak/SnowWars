@@ -84,7 +84,6 @@ public class ClientLobbyControllerTest {
     @Test
     public void testRegisterAtLobby() throws RemoteException {
         ClientLobbyController clc = new ClientLobbyController(new SnowWarsClientFake(), new ConnectedServerSessionFake());
-        testUser = new User("Donald Duck");
-        clc.registerAtLobby(testUser);
+        clc.registerAtLobby("Donald Duck");
     }
 }

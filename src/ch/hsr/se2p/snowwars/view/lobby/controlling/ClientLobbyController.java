@@ -45,8 +45,9 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 		return connectedServerSessionInterface.isNameAvailable(name);
 	}
 
-	public void registerAtLobby(User user) {
+	public void registerAtLobby(String name) {
 		try {
+		    User user = new User(name);
 			lobbyServerSessionInterface = connectedServerSessionInterface.registerAtLobby(this, user);
 			clientLobbyModel.setUser(user);
 			clientLobbyModel.setUsers(lobbyServerSessionInterface.getUsers());

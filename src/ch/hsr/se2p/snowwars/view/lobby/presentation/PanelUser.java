@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
 
-import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.view.FontLoader;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
 import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyModel;
@@ -117,14 +116,11 @@ public class PanelUser extends JPanel implements Observer, PanelInterface {
             if (txtUsername.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Please enter an username!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
-            }
-            else if (txtUsername.getText().length() > 25) {
+            } else if (txtUsername.getText().length() > 25) {
                 JOptionPane.showMessageDialog(this, "Username is too long! (>25 characters)", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
-            }
-            else if (viewLobbyController.isNameAvailable(txtUsername.getText())) {
-                User user = new User(txtUsername.getText());
-                viewLobbyController.registerAtLobby(user);
+            } else if (viewLobbyController.isNameAvailable(txtUsername.getText())) {
+                viewLobbyController.registerAtLobby(txtUsername.getText());
                 cvm.addPanel(new PanelLobby(cvm, viewLobbyModel, viewLobbyController), "lobbyPanel");
                 cvm.nextCard();
             } else {
