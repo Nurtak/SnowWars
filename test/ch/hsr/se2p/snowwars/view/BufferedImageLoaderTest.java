@@ -9,6 +9,8 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.hsr.se2p.snowwars.client.viewutils.BufferedImageLoader;
+
 public class BufferedImageLoaderTest {
 
     private BufferedImageLoader bufferedImageLoader;

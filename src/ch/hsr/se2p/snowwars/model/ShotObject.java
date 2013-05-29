@@ -3,7 +3,7 @@ package ch.hsr.se2p.snowwars.model;
 import java.awt.Rectangle;
 import java.io.Serializable;
 
-import ch.hsr.se2p.snowwars.view.game.controlling.ViewGameModel;
+import ch.hsr.se2p.snowwars.client.game.viewmodel.ViewGameModel;
 
 public abstract class ShotObject implements Serializable {
 

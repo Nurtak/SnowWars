@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.hsr.se2p.snowwars.model.User;
+
 public class UserTest {
 
     private String name;

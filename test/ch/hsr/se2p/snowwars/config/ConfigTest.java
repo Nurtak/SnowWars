@@ -5,6 +5,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.hsr.se2p.snowwars.util.config.Config;
+import ch.hsr.se2p.snowwars.util.config.ConfigLoader;
+
 public class ConfigTest {
 
     private static Config config;

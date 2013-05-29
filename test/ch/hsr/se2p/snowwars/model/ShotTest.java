@@ -5,6 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.model.ShotObject;
+import ch.hsr.se2p.snowwars.model.Snowball;
+
 public class ShotTest {
 
     private Shot shot;

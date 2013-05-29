@@ -8,17 +8,17 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import ch.hsr.se2p.snowwars.application.SnowWarsClientInterface;
-import ch.hsr.se2p.snowwars.exceptions.SnowWarsRMIException;
-import ch.hsr.se2p.snowwars.exceptions.UserIsNotInLobbyException;
-import ch.hsr.se2p.snowwars.exceptions.UsernameAlreadyTakenException;
-import ch.hsr.se2p.snowwars.model.Invitation.InvitationAnswer;
+import ch.hsr.se2p.snowwars.client.application.SnowWarsClientInterface;
+import ch.hsr.se2p.snowwars.client.lobby.applicationcontrolling.ClientLobbyController;
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.network.client.session.LobbyClientSessionInterface;
-import ch.hsr.se2p.snowwars.network.server.session.ConnectedServerSessionInterface;
-import ch.hsr.se2p.snowwars.network.server.session.GameServerSessionInterface;
-import ch.hsr.se2p.snowwars.network.server.session.LobbyServerSessionInterface;
-import ch.hsr.se2p.snowwars.view.lobby.controlling.ClientLobbyController;
+import ch.hsr.se2p.snowwars.network.clientsession.LobbyClientSessionInterface;
+import ch.hsr.se2p.snowwars.network.serversession.ConnectedServerSessionInterface;
+import ch.hsr.se2p.snowwars.network.serversession.GameServerSessionInterface;
+import ch.hsr.se2p.snowwars.network.serversession.LobbyServerSessionInterface;
+import ch.hsr.se2p.snowwars.util.InvitationAnswer;
+import ch.hsr.se2p.snowwars.util.exception.SnowWarsRMIException;
+import ch.hsr.se2p.snowwars.util.exception.UserIsNotInLobbyException;
+import ch.hsr.se2p.snowwars.util.exception.UsernameAlreadyTakenException;
 
 public class ClientLobbyControllerTest {
 
@@ -69,15 +69,11 @@ public class ClientLobbyControllerTest {
     private class SnowWarsClientFake implements SnowWarsClientInterface {
 
         @Override
-        public void enterLobby(ConnectedServerSessionInterface connectedServerSessionInterface) {
+        public void enterLobby() {
         }
 
         @Override
         public void enterGame(GameServerSessionInterface gameServerSessionInterface) {
-        }
-
-        @Override
-        public void startProgram() {
         }
 
     }

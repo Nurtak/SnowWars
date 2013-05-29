@@ -8,9 +8,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.hsr.se2p.snowwars.client.application.SnowWarsClient;
+
 public class SnowWarsClientTest {
 
-    private SnowWarsServer snowWarsServer;
     private FrameFixture frameFixture;
 
     @Before
@@ -19,7 +20,6 @@ public class SnowWarsClientTest {
         PatternLayout layout = new PatternLayout("|%-32.32F|%-6p| %m%n");
         root.addAppender(new ConsoleAppender(layout));
 
-        snowWarsServer = new SnowWarsServer();
         frameFixture = new FrameFixture(new SnowWarsClient().getClientViewMain());
         frameFixture.show();
     }
@@ -27,7 +27,6 @@ public class SnowWarsClientTest {
     @After
     public void tearDown() throws Exception {
         frameFixture.cleanUp();
-        snowWarsServer.shutdown();
     }
 
     @Test

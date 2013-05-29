@@ -20,8 +20,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="ch.hsr.se2p.snowwars.application.SnowWarsServer" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/application/SnowWarsServer.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="ch.hsr.se2p.snowwars.server.application.SnowWarsServer" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/server/application/SnowWarsServer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="580" y="420"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -29,8 +30,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="ch.hsr.se2p.snowwars.application.SnowWarsClient" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/application/SnowWarsClient.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="ch.hsr.se2p.snowwars.client.application.SnowWarsClient" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/client/application/SnowWarsClient.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="324" y="457"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

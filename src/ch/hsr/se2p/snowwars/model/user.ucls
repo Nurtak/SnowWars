@@ -46,8 +46,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="ch.hsr.se2p.snowwars.network.server.session.LobbyServerSession" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/network/server/session/LobbyServerSession.java" binary="false" 
+  <class id="6" language="java" name="ch.hsr.se2p.snowwars.network.serversession.LobbyServerSession" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/network/serversession/LobbyServerSession.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="853" y="508"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
