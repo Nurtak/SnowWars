@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.config;
+package ch.hsr.se2p.snowwars.util.config;
 
 import static org.junit.Assert.assertEquals;
 

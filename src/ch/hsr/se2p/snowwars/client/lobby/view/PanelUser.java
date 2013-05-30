@@ -73,7 +73,6 @@ public class PanelUser extends JPanel implements Observer, PanelInterface {
         JButton backButton = new JButton();
         backButton.setName("backButton");
         backButton.setBackground(new Color(25, 145, 210));
-
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {

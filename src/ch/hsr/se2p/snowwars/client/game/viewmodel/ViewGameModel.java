@@ -26,7 +26,8 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 
 	public final static int GAME_WIDTH = 1000;
 	public final static int GAME_HEIGHT = 600;
-	protected final static String GAME_TITLE = "Snow Wars";
+    private final static String GAME_VIEW_TITLE = "SnowWars";
+    private final static String GAME_VIEW_NAME = "SnowWarsGame";
 
 	private Set<GraphicalSnowball> graphicalSnowballs = new HashSet<GraphicalSnowball>();
 	private GraphicalPlayer leftPlayer;
@@ -64,9 +65,13 @@ public class ViewGameModel extends Observable implements Observer, Serializable 
 		return GAME_HEIGHT;
 	}
 
-	public String getGameTitle() {
-		return GAME_TITLE;
-	}
+    public String getViewTitle() {
+        return GAME_VIEW_TITLE;
+    }
+    
+    public String getViewName() {
+        return GAME_VIEW_NAME;
+    }
 
 	public void startBuildTimer(PlayerPosition playerPosition) {
 		logger.info(playerPosition + " player is now building a snowball...");

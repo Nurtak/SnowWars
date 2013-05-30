@@ -9,6 +9,8 @@ import ch.hsr.se2p.snowwars.model.User;
 public class ClientLobbyModel extends Observable implements Serializable {
 
 	private static final long serialVersionUID = -7674483417217484822L;
+    private final static String LOBBY_VIEW_TITLE = "SnowWars";
+    private final static String LOBBY_VIEW_NAME = "SnowWarsLobby";
 
 	private User user;
 	private Set<User> users;
@@ -35,4 +37,12 @@ public class ClientLobbyModel extends Observable implements Serializable {
 		setChanged();
 		notifyObservers();
 	}
+
+    public String getViewTitle() {
+        return LOBBY_VIEW_TITLE;
+    }
+    
+    public String getViewName() {
+        return LOBBY_VIEW_NAME;
+    }
 }

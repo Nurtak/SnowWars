@@ -156,11 +156,4 @@ public class ClientLobbyController extends UnicastRemoteObject implements LobbyC
 		}
 	}
 	
-    /**
-     * ONLY FOR TESTING!
-     * @return the clientViewMain
-     */
-    public ClientViewMain getClientViewMain() {
-        return clientViewMain;
-    }
 }

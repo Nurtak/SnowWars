@@ -81,6 +81,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
         }
 
         lblUsername = new JLabel(clientLobbyModel.getUser().getName());
+        lblUsername.setName("lblUsername");
         lblUsername.setFont(FontLoader.getInstance().getGameFont(18));
         lblUsername.setForeground(new Color(255, 255, 255));
         GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -111,11 +112,13 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
         gbc_scrollPane.gridy = 3;
         add(scrollPane, gbc_scrollPane);
         lstUsers = new JList<User>();
+        lstUsers.setName("lstUsers");
         scrollPane.setViewportView(lstUsers);
         lstUsers.setBorder(null);
         lstUsers.setModel(testModel);
 
         JButton backButton = new JButton();
+        backButton.setName("backButton");
         backButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/backButton.gif")));
         backButton.setBorder(null);
         backButton.setBackground(new Color(25, 145, 210));

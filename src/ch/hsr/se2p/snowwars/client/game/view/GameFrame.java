@@ -17,24 +17,24 @@ public class GameFrame extends JFrame implements Observer, WindowListener, GameF
 	private final static Logger logger = Logger.getLogger(GameFrame.class.getPackage().getName());
 	private static final long serialVersionUID = -7803629994015778818L;
 
-	private Board board;
-
 	private final ViewGameController viewGameController;
 	private final ViewGameModel viewGameModel;
-
-	public GameFrame(ViewGameController vgc, ViewGameModel vgm) {
-		this.viewGameController = vgc;
-		this.viewGameModel = vgm;
+	private Board board;
+	
+	public GameFrame(ViewGameController viewGameController, ViewGameModel viewGameModel) {
+		this.viewGameController = viewGameController;
+		this.viewGameModel = viewGameModel;
 		initializeGui();
-		vgm.addObserver(this);
+		viewGameModel.addObserver(this);
 	}
 
 	private void initializeGui() {
+        setTitle(viewGameModel.getViewTitle());
+        setName(viewGameModel.getViewName());
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(this);
-		setMinimumSize(new Dimension(getViewGameModel().getGameWidth(), getViewGameModel().getGameHeight()));
+		setMinimumSize(new Dimension(viewGameModel.getGameWidth(), viewGameModel.getGameHeight()));
 		setLocationRelativeTo(null);
-		setTitle(getViewGameModel().getGameTitle());
 		setResizable(false);
 
 		try {

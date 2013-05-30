@@ -58,6 +58,7 @@ public class PanelMain extends JPanel implements Observer, PanelInterface {
         add(playButton, gbc_playButton);
 
         JButton exitButton = new JButton();
+        exitButton.setName("exitButton");
         exitButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/exitButton.gif")));
         exitButton.setBorder(null);
         exitButton.setBackground(new Color(25, 145, 210));

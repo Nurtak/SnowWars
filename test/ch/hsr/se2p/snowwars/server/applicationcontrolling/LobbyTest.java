@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.model;
+package ch.hsr.se2p.snowwars.server.applicationcontrolling;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
