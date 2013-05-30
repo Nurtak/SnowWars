@@ -63,7 +63,7 @@ public class ClientViewMain extends JFrame implements Observer, WindowListener, 
         getContentPane().setBackground(new Color(32, 145, 210));
         addWindowListener(this);
         createKeyBindings();
-
+        
         // try {
         // UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         // } catch (Exception e) {
