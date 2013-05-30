@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" language="java" name="ch.hsr.se2p.snowwars.application.SnowWarsMain" project="SnowWars" 
-    file="/SnowWars/src/ch/hsr/se2p/snowwars/application/SnowWarsMain.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="304" y="194"/>    
+  <class id="1" language="java" name="ch.hsr.se2p.snowwars.client.lobby.viewmodel.ClientLobbyModel" project="SnowWars" 
+    file="/SnowWars/src/ch/hsr/se2p/snowwars/client/lobby/viewmodel/ClientLobbyModel.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="202" width="199" x="65" y="124"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
+      <operations public="true" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
-    <attributes public="true" package="true" protected="true" private="true"/>    
-    <operations public="true" package="true" protected="true" private="true"/>  
+    <attributes public="false" package="false" protected="false" private="false"/>    
+    <operations public="true" package="false" protected="false" private="false"/>  
   </classifier-display>  
-  <association-display labels="true" multiplicity="true"/>
+  <association-display labels="false" multiplicity="false"/>
 </class-diagram>
