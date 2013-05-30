@@ -34,6 +34,7 @@ public class StartRMIClient extends Observable {
             setConnectedServerSessionInterface();
         } catch (SnowWarsRMIException e) {
             JOptionPane.showMessageDialog(null, "No connection to server! (server was " + config.getHostname() + ")", ":(", JOptionPane.ERROR_MESSAGE);
+            logger.error(e.getMessage(), e);           
             System.exit(0);
         }
     }
@@ -52,10 +53,9 @@ public class StartRMIClient extends Observable {
 
     private void setServer() throws SnowWarsRMIException {
         try {
-            Registry serverRegistry = LocateRegistry.getRegistry(config.getHostname(), config.getRmiRegistryPort());
-            rmiServerInterface = (RMIServerInterface) serverRegistry.lookup(config.getServerRMILookupName());
+            Registry serverRegistry = LocateRegistry.getRegistry(config.getHostname(), config.getPort());
+            rmiServerInterface = (RMIServerInterface) serverRegistry.lookup(config.getLookupname());
         } catch (RemoteException | NotBoundException e) {
-            logger.error(e.getMessage(), e);
             throw new SnowWarsRMIException(e.getMessage());
         }
     }
@@ -65,7 +65,6 @@ public class StartRMIClient extends Observable {
             connectedServerSessionInterface = rmiServerInterface.connect();
             logger.info("Successfully Connected to " + config.getHostname());
         } catch (RemoteException e) {
-            logger.error(e.getMessage(), e);
             throw new SnowWarsRMIException(e.getMessage());
         }
     }

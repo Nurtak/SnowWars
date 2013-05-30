@@ -5,9 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.hsr.se2p.snowwars.util.config.Config;
-import ch.hsr.se2p.snowwars.util.config.ConfigLoader;
-
 public class ConfigTest {
 
     private static Config config;
@@ -19,12 +16,12 @@ public class ConfigTest {
 
     @Test
     public void testGetRmiRegistryPort() {
-        assertEquals(1099, config.getRmiRegistryPort());
+        assertEquals(1099, config.getPort());
     }
 
     @Test
     public void testGetServerRMILookupName() {
-        assertEquals("snowwars", config.getServerRMILookupName());
+        assertEquals("snowwars", config.getLookupname());
     }
 
 }

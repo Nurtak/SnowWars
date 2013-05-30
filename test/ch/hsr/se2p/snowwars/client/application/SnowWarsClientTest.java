@@ -7,7 +7,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.hsr.se2p.snowwars.client.application.SnowWarsClient;
 import ch.hsr.se2p.snowwars.util.logging.Logging;
 
 public class SnowWarsClientTest {

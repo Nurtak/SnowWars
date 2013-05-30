@@ -14,8 +14,6 @@ import ch.hsr.se2p.snowwars.model.InvitationAnswer;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.clientsession.LobbyClientSessionInterface;
 import ch.hsr.se2p.snowwars.network.serversession.GameServerSessionInterface;
-import ch.hsr.se2p.snowwars.server.applicationcontrolling.Lobby;
-import ch.hsr.se2p.snowwars.server.applicationcontrolling.LobbyServerSession;
 import ch.hsr.se2p.snowwars.util.exception.UsernameAlreadyTakenException;
 
 public class LobbyTest {

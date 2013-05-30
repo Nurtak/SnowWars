@@ -51,11 +51,11 @@ public class StartRMIServer {
 
             // Registry
             logger.info("Creating Registry...");
-            LocateRegistry.createRegistry(config.getRmiRegistryPort());
+            LocateRegistry.createRegistry(config.getPort());
             Registry registry = LocateRegistry.getRegistry();
 
             // Bind Stub
-            registry.rebind(config.getServerRMILookupName(), stub);
+            registry.rebind(config.getLookupname(), stub);
             logger.info("SnowWars Server is working...");
         } catch (RemoteException e) {
             logger.error("Could not start a RMI proxy!");
@@ -67,7 +67,7 @@ public class StartRMIServer {
     public void shutdown() {
         if (rmiServer != null) {
             try {
-                Naming.unbind(config.getServerRMILookupName());
+                Naming.unbind(config.getLookupname());
                 UnicastRemoteObject.unexportObject(rmiServer, true);
             } catch (RemoteException | MalformedURLException | NotBoundException e) {
                 logger.info(e);
