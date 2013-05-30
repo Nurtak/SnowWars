@@ -11,8 +11,8 @@ import ch.hsr.se2p.snowwars.client.application.SnowWarsClientInterface;
 import ch.hsr.se2p.snowwars.client.game.view.GameFrame;
 import ch.hsr.se2p.snowwars.client.game.viewmodel.SoundPlayer;
 import ch.hsr.se2p.snowwars.client.game.viewmodel.ViewGameModel;
-import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
+import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.network.clientsession.GameClientSessionInterface;
 
 public class ViewGameController extends UnicastRemoteObject implements GameClientSessionInterface {

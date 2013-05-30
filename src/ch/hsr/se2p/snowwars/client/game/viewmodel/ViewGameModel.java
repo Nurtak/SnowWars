@@ -11,10 +11,10 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.client.game.applicationcontrolling.GameClient;
 import ch.hsr.se2p.snowwars.model.Player;
-import ch.hsr.se2p.snowwars.model.Shot;
-import ch.hsr.se2p.snowwars.model.Snowball;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Player.PlayerState;
+import ch.hsr.se2p.snowwars.model.Shot;
+import ch.hsr.se2p.snowwars.model.Snowball;
 
 public class ViewGameModel extends Observable implements Observer, Serializable {
 

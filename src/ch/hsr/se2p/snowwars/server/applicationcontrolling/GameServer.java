@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.model.AbstractGame;
 import ch.hsr.se2p.snowwars.model.Player;
-import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
+import ch.hsr.se2p.snowwars.model.Shot;
 
 public class GameServer extends AbstractGame {
 	private final static Logger logger = Logger.getLogger(GameServer.class.getPackage().getName());

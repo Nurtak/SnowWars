@@ -6,9 +6,9 @@ import java.rmi.server.UnicastRemoteObject;
 import org.apache.log4j.Logger;
 
 import ch.hsr.se2p.snowwars.model.Player;
+import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.model.Shot;
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.model.Player.PlayerPosition;
 import ch.hsr.se2p.snowwars.network.clientsession.GameClientSessionInterface;
 import ch.hsr.se2p.snowwars.network.serversession.GameServerSessionInterface;
 
