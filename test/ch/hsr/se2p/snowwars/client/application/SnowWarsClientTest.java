@@ -17,7 +17,6 @@ public class SnowWarsClientTest {
     public void setUp() throws Exception {
         Logging.installLogger();
         BasicRobot robotf = (BasicRobot) BasicRobot.robotWithCurrentAwtHierarchy();
-        // mainFrame is the name of a frame component.
         new SnowWarsClient();
         frame = WindowFinder.findFrame("SnowWarsLobby").withTimeout(1000).using(robotf);
     }
@@ -34,12 +33,16 @@ public class SnowWarsClientTest {
         frame.button("playButton").click();
         frame.list("lstUsers").selectItem("Gustav Gans");
 
-        // frame.button("inviteButton").click();
-
+        // Invite
+        //frame.button("inviteButton").click();
+        
         frame.button("backButton").click();
         frame.button("backButton").click();
+        
         // Can not exit via GUI!
         // frame.button("exitButton").click();
+        
+        
         
     }
 }

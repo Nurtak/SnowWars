@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.network;
+package ch.hsr.se2p.snowwars.server.network;
 
 import java.io.IOException;
 import java.net.ServerSocket;
