@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.log4j.Logger;
 
@@ -39,7 +40,7 @@ public class ConfigLoader {
             logger.info("XML config: OK");
 
             return config;
-        } catch (org.apache.commons.configuration.ConfigurationException e) {
+        } catch (ConfigurationException e) {
             logger.error(e.getMessage(), e);
             return null;
         }
