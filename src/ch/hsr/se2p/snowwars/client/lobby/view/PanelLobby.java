@@ -168,6 +168,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
                     }
                 }
                 lstUsers.setModel(lobbyModel);
+                lblUsername.setText(clientLobbyModel.getUser().getName());
             }
         });
     }
