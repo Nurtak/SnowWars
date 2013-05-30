@@ -10,12 +10,12 @@ import org.junit.Test;
 
 import ch.hsr.se2p.snowwars.client.application.SnowWarsClientInterface;
 import ch.hsr.se2p.snowwars.client.lobby.applicationcontrolling.ClientLobbyController;
+import ch.hsr.se2p.snowwars.model.InvitationAnswer;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.clientsession.LobbyClientSessionInterface;
 import ch.hsr.se2p.snowwars.network.serversession.ConnectedServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.serversession.GameServerSessionInterface;
 import ch.hsr.se2p.snowwars.network.serversession.LobbyServerSessionInterface;
-import ch.hsr.se2p.snowwars.util.InvitationAnswer;
 import ch.hsr.se2p.snowwars.util.exception.SnowWarsRMIException;
 import ch.hsr.se2p.snowwars.util.exception.UserIsNotInLobbyException;
 import ch.hsr.se2p.snowwars.util.exception.UsernameAlreadyTakenException;

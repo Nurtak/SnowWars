@@ -7,8 +7,8 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import ch.hsr.se2p.snowwars.model.InvitationAnswer;
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.util.InvitationAnswer;
 import ch.hsr.se2p.snowwars.util.exception.UsernameAlreadyTakenException;
 
 public class Lobby {

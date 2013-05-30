@@ -4,8 +4,8 @@ import java.rmi.RemoteException;
 
 import org.apache.log4j.Logger;
 
+import ch.hsr.se2p.snowwars.model.InvitationAnswer;
 import ch.hsr.se2p.snowwars.model.User;
-import ch.hsr.se2p.snowwars.util.InvitationAnswer;
 
 public class Invitation {
 	private final static Logger logger = Logger.getLogger(Invitation.class.getPackage().getName());
