@@ -35,8 +35,9 @@ public class ConfigLoader {
 
             XMLConfiguration xmlConfig = new XMLConfiguration("config.xml");
             config = new Config(xmlConfig.getString("hostname"), xmlConfig.getInt("port"), xmlConfig.getString("lookupname"));
-
-            logger.info("Config is: " + config.getHostname());
+            logger.info("Hostname: " + config.getHostname());
+            logger.info("Port is: " + config.getPort());
+            logger.info("Lookupname is: " + config.getLookupname());
             logger.info("XML config: OK");
 
             return config;
