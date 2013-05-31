@@ -136,6 +136,7 @@ public class PanelLobby extends JPanel implements Observer, PanelInterface {
         add(backButton, gbc_backButton);
 
         JButton inviteButton = new JButton();
+        inviteButton.setName("inviteButton");
         inviteButton.setIcon(new ImageIcon(PanelLobby.class.getResource("/img/inviteButton.gif")));
         inviteButton.setBorder(null);
         inviteButton.setBackground(new Color(25, 145, 210));
