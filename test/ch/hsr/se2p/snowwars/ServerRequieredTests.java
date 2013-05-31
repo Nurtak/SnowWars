@@ -15,13 +15,13 @@ import ch.hsr.se2p.snowwars.server.application.SnowWarsServer;
 import ch.hsr.se2p.snowwars.server.network.RMIRegistryTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({SnowWarsClientTest.class, RMIRegistryTest.class })
+@SuiteClasses({ SnowWarsClientTest.class, RMIRegistryTest.class })
 public class ServerRequieredTests {
 
     @BeforeClass
     public static void setUp() {
         new SnowWarsServer();
-        
+
         Robot robot = BasicRobot.robotWithCurrentAwtHierarchy();
         new SnowWarsClient();
         FrameFixture frame = WindowFinder.findFrame("SnowWarsLobby").using(robot);
@@ -30,5 +30,5 @@ public class ServerRequieredTests {
         frame.button("playButton").click();
         frame.cleanUp();
     }
-    
+
 }
