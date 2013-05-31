@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.viewcontrolling.lobby;
+package ch.hsr.se2p.snowwars.client.lobby.applicationcontrolling;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -6,10 +6,12 @@ import static org.junit.Assert.assertTrue;
 import java.rmi.RemoteException;
 import java.util.Set;
 
+import org.fest.swing.core.BasicRobot;
+import org.fest.swing.finder.WindowFinder;
+import org.fest.swing.fixture.FrameFixture;
 import org.junit.Test;
 
 import ch.hsr.se2p.snowwars.client.application.SnowWarsClientInterface;
-import ch.hsr.se2p.snowwars.client.lobby.applicationcontrolling.ClientLobbyController;
 import ch.hsr.se2p.snowwars.model.InvitationAnswer;
 import ch.hsr.se2p.snowwars.model.User;
 import ch.hsr.se2p.snowwars.network.clientsession.LobbyClientSessionInterface;
@@ -62,6 +64,7 @@ public class ClientLobbyControllerTest {
                 public void answerInvitation(User invitingUser, InvitationAnswer answer) throws RemoteException, UserIsNotInLobbyException {
                 }
             };
+
         }
 
     }
@@ -80,7 +83,12 @@ public class ClientLobbyControllerTest {
 
     @Test
     public void testRegisterAtLobby() throws RemoteException {
-        ClientLobbyController clc = new ClientLobbyController(new SnowWarsClientFake(), new ConnectedServerSessionFake());
-        clc.registerAtLobby(name);
+        ClientLobbyController clientLobbyController = new ClientLobbyController(new SnowWarsClientFake(), new ConnectedServerSessionFake());
+        clientLobbyController.registerAtLobby(name);
+        BasicRobot robotf = (BasicRobot) BasicRobot.robotWithCurrentAwtHierarchy();
+        FrameFixture frame = WindowFinder.findFrame("SnowWarsLobby").withTimeout(1000).using(robotf);
+        frame.cleanUp();
+
     }
+    
 }

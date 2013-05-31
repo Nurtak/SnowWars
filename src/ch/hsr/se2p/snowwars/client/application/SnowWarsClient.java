@@ -51,4 +51,5 @@ public class SnowWarsClient implements SnowWarsClientInterface {
         Logging.installLogger();
         new SnowWarsClient();
     }
+    
 }

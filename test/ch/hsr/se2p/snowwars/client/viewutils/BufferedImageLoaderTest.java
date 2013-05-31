@@ -1,4 +1,4 @@
-package ch.hsr.se2p.snowwars.view;
+package ch.hsr.se2p.snowwars.client.viewutils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
