@@ -9,7 +9,6 @@ import ch.hsr.se2p.snowwars.model.ShotObject.ShotObjectState;
 public class Shot implements Serializable {
 	private static final long serialVersionUID = 1528366581031974029L;
 
-	protected final static int FORCE_REDUCE_FACTOR = 15;
 	private final int angle;
 	private final int strength;
 	private PlayerPosition shotOrigin;
@@ -23,8 +22,8 @@ public class Shot implements Serializable {
 		double vySin = Math.sin(Math.toRadians(angle));
 		double vxCos = Math.cos(Math.toRadians(angle));
 
-		double dy = -(vySin * strength) / FORCE_REDUCE_FACTOR;
-		double dx = (vxCos * strength) / FORCE_REDUCE_FACTOR;
+		double dy = -(vySin * strength) / AbstractGame.FORCE_REDUCE_FACTOR;
+		double dx = (vxCos * strength) / AbstractGame.FORCE_REDUCE_FACTOR;
 
 		shotObject.setDy(dy);
 		shotObject.setDx(dx);
